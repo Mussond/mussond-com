@@ -1,0 +1,296 @@
+@import "tailwindcss";
+
+/* ============================================
+   DESIGN TOKENS
+   Brand extracted from mussond.com Super.so CSS
+   ============================================ */
+
+:root {
+  /* Colour */
+  --color-text-primary: #1B1B18;
+  --color-text-secondary: #946800;
+  --color-bg-base: #FDFDFC;
+  --color-bg-decorative: #FDFDF9;
+  --color-bg-card: #FFFFFF;
+  --color-border-default: #1B1B18;
+  --color-action-bg: #F7CE00;
+  --color-action-bg-hover: #FDFDF9;
+  --color-action-border: #1B1B18;
+  --color-action-text: #1B1B18;
+
+  /* Background gradient */
+  --gradient-brand: linear-gradient(
+    146.49deg,
+    rgba(247, 206, 0, 0.16) 4.17%,
+    rgba(239, 211, 108, 0.14) 14.06%,
+    rgba(253, 253, 252, 0.2) 28.36%
+  );
+
+  /* Typography */
+  --font-primary: 'Quicksand', system-ui, sans-serif;
+  --text-base: 1rem;
+  --text-lg: 1.3125rem;    /* 21px — leading text */
+  --text-xl: 2.1875rem;    /* 35px — H2 */
+  --text-2xl: 3.0625rem;   /* 49px — H1 */
+
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3.5rem;
+  --space-2xl: 7rem;
+
+  /* Layout */
+  --content-width: 768px;
+  --radius-card: 16px;
+  --radius-pill: 999px;
+
+  /* Motion */
+  --transition-base: all 0.3s cubic-bezier(0.8, 0.04, 0.4, 1);
+  --transition-underline: text-underline-offset 400ms, text-decoration-color 400ms;
+}
+
+/* Dark mode tokens — placeholder for Phase 1,
+   values will be refined once dark mode is designed */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text-primary: #E8E8E4;
+    --color-text-secondary: #EDAB00;
+    --color-bg-base: #1A1A17;
+    --color-bg-decorative: #1E1E1B;
+    --color-bg-card: #242420;
+    --color-border-default: #3A3A36;
+    --color-action-bg: #F7CE00;
+    --color-action-text: #1B1B18;
+  }
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-padding-top: 100px;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-base);
+  background-image: var(--gradient-brand);
+  background-attachment: fixed;
+  line-height: 1.6;
+  /* Respect reduced motion for page animations */
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body {
+    animation: fadeIn 0.8s ease-out;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+
+h1, h2, h3, h4 {
+  font-family: var(--font-primary);
+  line-height: 1.25;
+  color: var(--color-text-primary);
+}
+
+h1 { font-size: var(--text-2xl); font-weight: 400; }
+h2 { font-size: var(--text-xl);  font-weight: 500; letter-spacing: 0.25px; }
+h3 { font-size: 1.5625rem; font-weight: 500; } /* 25px */
+
+@media (max-width: 800px) {
+  h1 { font-size: var(--text-xl); font-weight: 500; }
+  h2 { font-size: 1.5625rem; font-weight: 400; }
+  h3 { font-size: var(--text-lg); font-weight: 400; }
+}
+
+p { max-width: 68ch; }
+
+/* Leading text */
+.text-leading {
+  font-size: var(--text-lg);
+  line-height: 1.619;
+  letter-spacing: 0.15px;
+}
+
+/* ============================================
+   LINKS
+   ============================================ */
+
+a {
+  color: inherit;
+  text-decoration: underline 0.15em;
+  text-underline-position: under;
+  transition: var(--transition-underline);
+}
+
+a:hover,
+a:focus-visible {
+  text-underline-offset: 0.4em;
+  text-decoration-thickness: 0.25em;
+  outline: none;
+}
+
+a:focus-visible {
+  outline: 3px solid var(--color-action-bg);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ============================================
+   LAYOUT
+   ============================================ */
+
+.container {
+  max-width: var(--content-width);
+  width: 90%;
+  margin-inline: auto;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1.5rem;
+  border: 2px solid var(--color-action-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-action-bg);
+  color: var(--color-action-text);
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  background: var(--color-action-bg-hover);
+  text-decoration: underline 0.15em;
+  outline: none;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+/* ============================================
+   CARDS
+   ============================================ */
+
+.card {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: var(--space-lg);
+  border: 2px solid var(--color-border-default);
+  border-radius: var(--radius-card);
+  background: var(--color-bg-card);
+  overflow: hidden;
+  transition: var(--transition-base);
+  text-decoration: none;
+  color: inherit;
+  margin-bottom: var(--space-sm);
+}
+
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: 8px 8px 0px #000000;
+}
+
+/* Dim siblings on hover — applied via JS or group-hover */
+.card-list:has(.card:hover) .card:not(:hover) {
+  opacity: 0.6;
+}
+
+.card__image {
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: calc(var(--radius-card) - 2px) 0 0 calc(var(--radius-card) - 2px);
+  width: 160px;
+  height: 100%;
+}
+
+.card__content {
+  padding: var(--space-md) var(--space-sm) var(--space-md) 0;
+}
+
+.card__title {
+  font-size: 1.5625rem;
+  font-weight: 500;
+  text-decoration: underline 0.08em;
+  text-underline-position: under;
+  margin-bottom: var(--space-xs);
+}
+
+.card:hover .card__title {
+  text-decoration-thickness: 0.15em;
+}
+
+.card__description {
+  font-size: var(--text-base);
+  margin-bottom: var(--space-sm);
+}
+
+@media (max-width: 800px) {
+  .card {
+    grid-template-columns: 1fr;
+  }
+
+  .card__image {
+    width: 100%;
+    height: 200px;
+    border-radius: calc(var(--radius-card) - 2px) calc(var(--radius-card) - 2px) 0 0;
+  }
+
+  .card__content {
+    padding: var(--space-sm);
+  }
+}
+
+/* ============================================
+   TAGS / PILLS
+   ============================================ */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2em 0.75em;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border-default);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s ease;
+}
+
+.tag:hover,
+.tag[aria-pressed="true"] {
+  background: var(--color-action-bg);
+  border-color: var(--color-action-border);
+}

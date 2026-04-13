@@ -1,0 +1,153 @@
+---
+const navLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'Case studies', href: '/case-studies' },
+  { label: 'Writing', href: '/writing' },
+  { label: 'Logs', href: '/logs' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <nav class="container nav" aria-label="Main">
+    <a href="/" class="nav__logo" aria-label="Dave Musson — home">
+      <span aria-hidden="true">DM</span>
+    </a>
+    <ul class="nav__list" role="list">
+      {navLinks.map((link) => (
+  <li>
+    <a
+      href={link.href}
+      class="nav__link"
+      aria-current={currentPath === link.href ? 'page' : undefined}
+    >{link.label}</a>
+  </li>
+))}
+    </ul>
+    <button class="nav__menu-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Open menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="4" x2="20" y1="6" y2="6"/>
+        <line x1="4" x2="20" y1="12" y2="12"/>
+        <line x1="4" x2="20" y1="18" y2="18"/>
+      </svg>
+    </button>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: transparent;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid transparent;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    height: 80px;
+  }
+
+  .nav__logo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--color-text-primary);
+    flex-shrink: 0;
+    letter-spacing: -0.5px;
+  }
+
+  .nav__logo:hover {
+    text-decoration: none;
+  }
+
+  .nav__list {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-left: auto;
+  }
+
+  .nav__link {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--color-text-primary);
+    text-decoration: underline 0.15em;
+    text-underline-offset: 0;
+    text-decoration-color: transparent;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    transition: text-underline-offset 600ms, text-decoration-color 400ms;
+  }
+
+  .nav__link:hover,
+  .nav__link:focus-visible {
+    text-decoration-color: var(--color-text-primary);
+    text-underline-offset: 0.4em;
+    outline: none;
+  }
+
+  .nav__link[aria-current="page"] {
+    text-decoration-color: var(--color-action-bg);
+    text-underline-offset: 0.4em;
+    text-decoration-thickness: 0.25em;
+  }
+
+  .nav__menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-left: auto;
+  }
+
+  @media (max-width: 800px) {
+    .nav__list {
+      display: none;
+      position: absolute;
+      top: 80px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      padding: 1rem;
+      background: var(--color-bg-base);
+      border-bottom: 1px solid var(--color-border-default);
+    }
+
+    .nav__list.is-open {
+      display: flex;
+    }
+
+    .nav__menu-toggle {
+      display: flex;
+    }
+
+    .nav__link {
+      padding: 0.75rem;
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector('.nav__menu-toggle') as HTMLButtonElement;
+  const list = document.querySelector('.nav__list') as HTMLUListElement;
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = list.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+  });
+</script>
