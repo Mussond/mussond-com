@@ -1,0 +1,53 @@
+---
+title: "Aviva: Global Atomic Design System"
+description: "Leading the evolution of Aviva's WCAG AA Atomic Design System for all Aviva product teams globally."
+tags: ["Leadership", "Components design", "UX", "DesignOps", "Design Systems"]
+date: "2019"
+coverImage: "/images/case-studies/aviva_case_study_hero.svg"
+---
+
+## Summary
+
+Scaled the design system to include a federated operating model and ~£4 million in development cost savings (UK).
+
+Grew adoption by product teams in 9 countries and enabled 100+ designers at Aviva to contribute to the system.
+
+## My role and team
+
+UX Lead managing two mid/senior UX designers and the day-to-day work for three visual designers, later co-leading with one of the visual designers.
+
+The full scrum team included three developers, a part-time scrum master, and a product owner.
+
+## Goals
+
+- Help early adopters and close their pattern gaps
+- Grow system adoption around the world
+- Enable global pattern contribution from anyone at Aviva
+- Bring design thinking and research practices to the forefront of day-to-day work
+- Have patterns that would uplift usability and user experience
+
+## Challenges
+
+- The team were losing insight from each country about their unique products, cultural nuances, and contextual user feedback
+- No strategy for growing the system — the team was pressured into focusing on delivery over the usefulness of a pattern
+- Relationships weren't being built with consuming teams to learn their use cases and pattern needs
+- Design activities happened late in a user story lifecycle, with no inherent early involvement or research insight guiding priorities
+
+## Outcomes
+
+- Fostered cross-discipline collaboration, leading to a >50% increase in sprint velocity
+- ~£4 million development cost savings (UK)
+- Introduced design sprints that provided stronger design ownership belief in team members
+- Became research and design led with tri-track agile streams
+- Grew adoption by product teams around the world — used by ~120 designers in 9 countries
+- Enabled anyone at Aviva to contribute to the system
+- 60% component growth in 18 months
+- 6 research studies to guide direction
+
+## Visit
+
+[View Aviva ION (formally Framework)](https://standards.aviva.com/ion/)
+
+## Want to know more?
+
+Further detail on approach and learnings is available on the [Aviva approach and learnings](/case-studies/aviva/approach-and-learnings) page.

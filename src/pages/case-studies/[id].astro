@@ -1,0 +1,65 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const caseStudies = await getCollection('case-studies');
+  return caseStudies.map((study) => ({
+    params: { id: study.id },
+    props: { study },
+  }));
+}
+
+interface Props {
+  study: Awaited<ReturnType<typeof getCollection<'case-studies'>>>[number];
+}
+
+const { study } = Astro.props;
+const { Content } = await render(study);
+---
+
+<Layout title={`${study.data.title} — Dave Musson`} description={study.data.description}>
+  <main class="container" style="padding-block: 4rem;">
+
+    <a href="/case-studies" class="back-link">← Case studies</a>
+
+    {study.data.coverImage && (
+      <img
+        src={study.data.coverImage}
+        alt=""
+        class="hero-image"
+        loading="eager"
+        decoding="async"
+      />
+    )}
+
+    <div class="case-study-header">
+      <h1>{study.data.title}</h1>
+      <p class="text-leading">{study.data.description}</p>
+      <div class="tags">
+        {study.data.tags.map((tag: string) => (
+          <span class="tag">{tag}</span>
+        ))}
+      </div>
+    </div>
+
+    <div class="case-study-body">
+      <Content />
+    </div>
+
+  </main>
+</Layout>
+
+<style>
+  .back-link {
+    display: inline-block;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    text-decoration: underline 0.15em;
+    text-underline-position: under;
+  }
+
+  .hero-image {
+    width: 100%;
+    border-radius: 16px;
+    margin-bottom: 2r
