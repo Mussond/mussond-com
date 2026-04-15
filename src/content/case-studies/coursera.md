@@ -4,6 +4,7 @@ description: "Co-leading the creation of Coursera's first design system to uplif
 tags: ["Components design", "Bi-directional & RTL", "Accessibility", "DesignOps", "Design Systems"]
 date: "2020–2021"
 coverImage: "/images/case-studies/coursera_case_study_hero.svg"
+cardImage: "/images/case-studies/coursera_cover.svg"
 ---
 
 ## Summary
@@ -22,6 +23,6 @@ Took the lead on embedding accessibility, setting up operating practices, and ma
 
 The full agile team included three React front-end engineers, two component designers (mid-level), and in part-time roles: an engineering manager, product manager, and design director.
 
-## Documentation
+## Documentation examples
 
 [Coursera — Component documentation examples (Figma)](https://www.figma.com/proto/I4j0PSm4Ulhr34whS4ofEB/Coursera-component-documentation-examples?page-id=2%3A24196&node-id=14%3A14004&viewport=706%2C278%2C0.12&scaling=scale-down&starting-point-node-id=14%3A14004)

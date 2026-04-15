@@ -19,7 +19,7 @@ const sorted = caseStudies.sort((a, b) => b.data.date.localeCompare(a.data.date)
         <a href={`/case-studies/${study.id}`} class="card">
           {study.data.coverImage && (
             <img
-              src={study.data.coverImage}
+              src={study.data.cardImage || study.data.coverImage}
               alt=""
               class="card__image"
               loading="lazy"

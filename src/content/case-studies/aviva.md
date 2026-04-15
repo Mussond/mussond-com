@@ -4,6 +4,7 @@ description: "Leading the evolution of Aviva's WCAG AA Atomic Design System for 
 tags: ["Leadership", "Components design", "UX", "DesignOps", "Design Systems"]
 date: "2019"
 coverImage: "/images/case-studies/aviva_case_study_hero.svg"
+cardImage: "/images/case-studies/aviva_cover.svg"
 ---
 
 ## Summary

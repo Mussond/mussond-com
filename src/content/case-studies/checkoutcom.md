@@ -4,6 +4,7 @@ description: "Design system set up with design tokens to unify disparate compone
 tags: ["Design tokens", "Migration", "Accessibility", "Strategy"]
 date: "2022"
 coverImage: "/images/case-studies/cko-case_study_hero.svg"
+cardImage: "/images/case-studies/checkoutcom_cover.svg"
 ---
 
 ## Summary
@@ -24,6 +25,6 @@ The leadership group included 2 Principal Product Designers and a Lead Engineer.
 - Created a tiered component structure (Core, Common, Limited) to enhance visibility and promote seamless reuse, boosting project efficiency and productivity
 - Orchestrated a comprehensive training programme, equipping the team with advanced skills to navigate component design and accessibility challenges
 
-## Documentation
+## Documentation examples
 
 [Checkout.com — Component documentation example (Figma)](https://www.figma.com/proto/3VUKOZEWiiKE4eiBliGlbR/Checkout.com---Component-documentation-example?page-id=2%3A24196&node-id=14%3A41708&viewport=760%2C270%2C0.15&scaling=scale-down&starting-point-node-id=14%3A41708)
