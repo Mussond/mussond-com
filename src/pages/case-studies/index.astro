@@ -2,8 +2,9 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const caseStudies = await getCollection('case-studies');
-console.log('Case studies found:', caseStudies.length, caseStudies.map(s => s.id));
 const sorted = caseStudies.sort((a, b) => b.data.date.localeCompare(a.data.date));
 ---
 
@@ -14,34 +15,42 @@ const sorted = caseStudies.sort((a, b) => b.data.date.localeCompare(a.data.date)
       A selection of career case studies across design systems, accessibility, and DesignOps.
     </p>
 
-    <div class="card-list">
+    <ul class="card-list">
       {sorted.map((study) => (
-        <a href={`/case-studies/${study.id}`} class="card">
-          {study.data.coverImage && (
-            <img
-              src={study.data.cardImage || study.data.coverImage}
-              alt=""
-              class="card__image"
-              loading="lazy"
-              decoding="async"
-            />
-          )}
-          <div class="card__content">
-            <h2 class="card__title">{study.data.title}</h2>
-            <p class="card__description">{study.data.description}</p>
-            <div class="card__tags">
-              {study.data.tags.map((tag: string) => (
-                <span class="tag">{tag}</span>
-              ))}
+        <li>
+          <a href={`${base}/case-studies/${study.id}`} class="card">
+            {study.data.coverImage && (
+              <img
+                src={`${base}${study.data.cardImage || study.data.coverImage}`}
+                alt=""
+                class="card__image"
+                loading="lazy"
+                decoding="async"
+              />
+            )}
+            <div class="card__content">
+              <h2 class="card__title">{study.data.title}</h2>
+              <p class="card__description">{study.data.description}</p>
+              <div class="card__tags">
+                {study.data.tags.map((tag: string) => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
             </div>
-          </div>
-        </a>
+          </a>
+        </li>
       ))}
-    </div>
+    </ul>
   </main>
 </Layout>
 
 <style>
+  .card-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
   .card__tags {
     display: flex;
     flex-wrap: wrap;

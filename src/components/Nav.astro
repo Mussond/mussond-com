@@ -1,9 +1,11 @@
 ---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const navLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'Case studies', href: '/case-studies' },
-  { label: 'Writing', href: '/writing' },
-  { label: 'Logs', href: '/logs' },
+  { label: 'Home', href: `${base}/` },
+  { label: 'Case studies', href: `${base}/case-studies` },
+  { label: 'Writing', href: `${base}/writing` },
+  { label: 'Logs', href: `${base}/logs` },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -11,19 +13,19 @@ const currentPath = Astro.url.pathname;
 
 <header class="site-header">
   <nav class="container nav" aria-label="Main">
-    <a href="/" class="nav__logo" aria-label="Dave Musson — home">
+    <a href={`${base}/`} class="nav__logo" aria-label="Dave Musson — home">
       <span aria-hidden="true">DM</span>
     </a>
     <ul class="nav__list" role="list">
       {navLinks.map((link) => (
-  <li>
-    <a
-      href={link.href}
-      class="nav__link"
-      aria-current={currentPath === link.href ? 'page' : undefined}
-    >{link.label}</a>
-  </li>
-))}
+        <li>
+          <a
+            href={link.href}
+            class="nav__link"
+            aria-current={currentPath === link.href || (link.href !== `${base}/` && currentPath.startsWith(link.href)) ? 'page' : undefined}
+          >{link.label}</a>
+        </li>
+      ))}
     </ul>
     <button class="nav__menu-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Open menu">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

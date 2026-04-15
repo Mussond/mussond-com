@@ -1,7 +1,9 @@
 ---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const footerLinks = [
-  { label: 'About me', href: '/about' },
-  { label: 'About this site', href: '/about-this-site' },
+  { label: 'About me', href: `${base}/about` },
+  { label: 'About this site', href: `${base}/about-this-site` },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/davemusson/', external: true },
   { label: 'GitHub', href: 'https://github.com/Mussond', external: true },
 ];

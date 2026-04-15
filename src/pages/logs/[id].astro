@@ -2,6 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 export async function getStaticPaths() {
   const logs = await getCollection('logs');
   return logs.map((log) => ({
@@ -21,7 +23,7 @@ const { Content } = await render(log);
 <Layout title={`${log.data.title} — Dave Musson`} description={log.data.description}>
   <main class="container" style="padding-block: 4rem;">
 
-    <a href="/logs" class="back-link">← Logs</a>
+    <a href={`${base}/logs`} class="back-link">← Logs</a>
 
     <div class="log-header">
       <h1>{log.data.title}</h1>
@@ -49,13 +51,8 @@ const { Content } = await render(log);
     text-underline-position: under;
   }
 
-  .log-header {
-    margin-bottom: 3rem;
-  }
-
-  .log-header h1 {
-    margin-bottom: 1rem;
-  }
+  .log-header { margin-bottom: 3rem; }
+  .log-header h1 { margin-bottom: 1rem; }
 
   .tags {
     display: flex;
@@ -64,9 +61,7 @@ const { Content } = await render(log);
     margin-top: 1.5rem;
   }
 
-  .log-body {
-    max-width: 68ch;
-  }
+  .log-body { max-width: 68ch; }
 
   .log-body :global(h2) {
     font-size: 2.1875rem;
@@ -93,13 +88,8 @@ const { Content } = await render(log);
     margin-bottom: 1rem;
   }
 
-  .log-body :global(ul) {
-    list-style: disc;
-  }
-
-  .log-body :global(ol) {
-    list-style: decimal;
-  }
+  .log-body :global(ul) { list-style: disc; }
+  .log-body :global(ol) { list-style: decimal; }
 
   .log-body :global(li) {
     margin-bottom: 0.5rem;

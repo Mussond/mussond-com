@@ -2,6 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 export async function getStaticPaths() {
   const articles = await getCollection('writing');
   return articles.map((article) => ({
@@ -21,7 +23,7 @@ const { Content } = await render(article);
 <Layout title={`${article.data.title} — Dave Musson`} description={article.data.description}>
   <main class="container" style="padding-block: 4rem;">
 
-    <a href="/writing" class="back-link">← Writing</a>
+    <a href={`${base}/writing`} class="back-link">← Writing</a>
 
     <div class="article-header">
       <h1>{article.data.title}</h1>
@@ -49,13 +51,8 @@ const { Content } = await render(article);
     text-underline-position: under;
   }
 
-  .article-header {
-    margin-bottom: 3rem;
-  }
-
-  .article-header h1 {
-    margin-bottom: 1rem;
-  }
+  .article-header { margin-bottom: 3rem; }
+  .article-header h1 { margin-bottom: 1rem; }
 
   .tags {
     display: flex;
@@ -64,9 +61,7 @@ const { Content } = await render(article);
     margin-top: 1.5rem;
   }
 
-  .article-body {
-    max-width: 68ch;
-  }
+  .article-body { max-width: 68ch; }
 
   .article-body :global(h2) {
     font-size: 2.1875rem;
@@ -93,13 +88,8 @@ const { Content } = await render(article);
     margin-bottom: 1rem;
   }
 
-  .article-body :global(ul) {
-    list-style: disc;
-  }
-
-  .article-body :global(ol) {
-    list-style: decimal;
-  }
+  .article-body :global(ul) { list-style: disc; }
+  .article-body :global(ol) { list-style: decimal; }
 
   .article-body :global(li) {
     margin-bottom: 0.5rem;
@@ -113,7 +103,7 @@ const { Content } = await render(article);
   }
 
   .article-body :global(blockquote) {
-    border-left: 4px solid var(--color-accent);
+    border-left: 4px solid var(--color-text-secondary);
     padding-left: 1.25rem;
     margin-left: 0;
     margin-bottom: 1rem;
@@ -135,9 +125,7 @@ const { Content } = await render(article);
     border: 1px solid currentColor;
   }
 
-  .article-body :global(th) {
-    font-weight: 600;
-  }
+  .article-body :global(th) { font-weight: 600; }
 
   .article-body :global(img) {
     max-width: 100%;

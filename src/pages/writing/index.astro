@@ -2,9 +2,10 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const articles = await getCollection('writing');
 const sorted = articles.sort((a, b) => b.data.date.localeCompare(a.data.date));
-
 const allTags = [...new Set(sorted.flatMap((a) => a.data.tags))].sort();
 ---
 
@@ -25,7 +26,7 @@ const allTags = [...new Set(sorted.flatMap((a) => a.data.tags))].sort();
     <ul class="card-list" id="article-list" style="margin-top: 2.5rem;">
       {sorted.map((article) => (
         <li class="card-list__item" data-tags={article.data.tags.join(',')}>
-          <a href={`/writing/${article.id}`} class="card card--no-image">
+          <a href={`${base}/writing/${article.id}`} class="card card--no-image">
             <div class="card__content">
               <h2 class="card__title">{article.data.title}</h2>
               <p class="card__description">{article.data.description}</p>
@@ -43,13 +44,8 @@ const allTags = [...new Set(sorted.flatMap((a) => a.data.tags))].sort();
 </Layout>
 
 <style>
-  .card--no-image {
-    grid-template-columns: 1fr;
-  }
-
-  .card--no-image .card__content {
-    padding: var(--space-md);
-  }
+  .card--no-image { grid-template-columns: 1fr; }
+  .card--no-image .card__content { padding: var(--space-md); }
 
   .tag-filter {
     display: flex;
@@ -82,9 +78,7 @@ const allTags = [...new Set(sorted.flatMap((a) => a.data.tags))].sort();
     margin: 0;
   }
 
-  .card-list__item[hidden] {
-    display: none;
-  }
+  .card-list__item[hidden] { display: none; }
 
   .card__tags {
     display: flex;
@@ -103,8 +97,7 @@ const allTags = [...new Set(sorted.flatMap((a) => a.data.tags))].sort();
       buttons.forEach((b) => b.classList.toggle('tag--active', b === btn));
       items.forEach((item) => {
         const tags = (item.dataset.tags ?? '').split(',');
-        const visible = selected === 'all' || tags.includes(selected);
-        item.hidden = !visible;
+        item.hidden = selected !== 'all' && !tags.includes(selected);
       });
     });
   });
