@@ -43,7 +43,9 @@ const sortedLogs = logs
     <section class="preview container" aria-labelledby="cs-heading">
       <div class="preview__header">
         <h2 id="cs-heading">Case studies</h2>
-        <a href={`${base}/case-studies`} class="preview__link">View all</a>
+        <a href={`${base}/case-studies`} class="preview__link">
+          View all<span class="visually-hidden"> case studies</span>
+        </a>
       </div>
       <ul class="card-list">
         {sortedCaseStudies.map((study) => (
@@ -77,7 +79,9 @@ const sortedLogs = logs
     <section class="preview container" aria-labelledby="writing-heading">
       <div class="preview__header">
         <h2 id="writing-heading">Writing</h2>
-        <a href={`${base}/writing`} class="preview__link">View all</a>
+        <a href={`${base}/writing`} class="preview__link">
+          View all<span class="visually-hidden"> writing</span>
+        </a>
       </div>
       <ul class="card-list">
         {sortedWriting.map((article) => (
@@ -102,7 +106,9 @@ const sortedLogs = logs
     <section class="preview container" aria-labelledby="logs-heading">
       <div class="preview__header">
         <h2 id="logs-heading">Logs</h2>
-        <a href={`${base}/logs`} class="preview__link">View all</a>
+        <a href={`${base}/logs`} class="preview__link">
+          View all<span class="visually-hidden"> logs</span>
+        </a>
       </div>
       <ul class="card-list">
         {sortedLogs.map((log) => (
@@ -191,5 +197,17 @@ const sortedLogs = logs
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 </style>
