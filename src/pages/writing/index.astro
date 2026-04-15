@@ -1,0 +1,111 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const articles = await getCollection('writing');
+const sorted = articles.sort((a, b) => b.data.date.localeCompare(a.data.date));
+
+const allTags = [...new Set(sorted.flatMap((a) => a.data.tags))].sort();
+---
+
+<Layout title="Writing — Dave Musson" description="Articles on design systems and accessibility by Dave Musson.">
+  <main class="container" style="padding-block: 4rem;">
+    <h1>Writing</h1>
+    <p class="text-leading" style="margin-top: 1rem; margin-bottom: 2rem;">
+      Articles on design systems and accessibility.
+    </p>
+
+    <div class="tag-filter" role="group" aria-label="Filter by tag">
+      <button class="tag tag--filter tag--active" data-tag="all">All</button>
+      {allTags.map((tag) => (
+        <button class="tag tag--filter" data-tag={tag}>{tag}</button>
+      ))}
+    </div>
+
+    <ul class="card-list" id="article-list" style="margin-top: 2.5rem;">
+      {sorted.map((article) => (
+        <li class="card-list__item" data-tags={article.data.tags.join(',')}>
+          <a href={`/writing/${article.id}`} class="card card--no-image">
+            <div class="card__content">
+              <h2 class="card__title">{article.data.title}</h2>
+              <p class="card__description">{article.data.description}</p>
+              <div class="card__tags">
+                {article.data.tags.map((tag: string) => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </main>
+</Layout>
+
+<style>
+  .card--no-image {
+    grid-template-columns: 1fr;
+  }
+
+  .card--no-image .card__content {
+    padding: var(--space-md);
+  }
+
+  .tag-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag--filter {
+    cursor: pointer;
+    background: transparent;
+    border: 2px solid currentColor;
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  .tag--filter:hover {
+    background-color: var(--color-action-bg);
+    border-color: var(--color-border-default);
+  }
+
+  .tag--filter.tag--active {
+    background-color: var(--color-text-primary);
+    color: var(--color-bg-base);
+    border-color: var(--color-text-primary);
+  }
+
+  .card-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .card-list__item[hidden] {
+    display: none;
+  }
+
+  .card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+</style>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.tag--filter');
+  const items = document.querySelectorAll<HTMLLIElement>('.card-list__item');
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const selected = btn.dataset.tag ?? 'all';
+      buttons.forEach((b) => b.classList.toggle('tag--active', b === btn));
+      items.forEach((item) => {
+        const tags = (item.dataset.tags ?? '').split(',');
+        const visible = selected === 'all' || tags.includes(selected);
+        item.hidden = !visible;
+      });
+    });
+  });
+</script>

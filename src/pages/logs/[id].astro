@@ -1,0 +1,114 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const logs = await getCollection('logs');
+  return logs.map((log) => ({
+    params: { id: log.id },
+    props: { log },
+  }));
+}
+
+interface Props {
+  log: Awaited<ReturnType<typeof getCollection<'logs'>>>[number];
+}
+
+const { log } = Astro.props;
+const { Content } = await render(log);
+---
+
+<Layout title={`${log.data.title} — Dave Musson`} description={log.data.description}>
+  <main class="container" style="padding-block: 4rem;">
+
+    <a href="/logs" class="back-link">← Logs</a>
+
+    <div class="log-header">
+      <h1>{log.data.title}</h1>
+      <p class="text-leading">{log.data.description}</p>
+      <div class="tags">
+        {log.data.tags.map((tag: string) => (
+          <span class="tag">{tag}</span>
+        ))}
+      </div>
+    </div>
+
+    <div class="log-body">
+      <Content />
+    </div>
+
+  </main>
+</Layout>
+
+<style>
+  .back-link {
+    display: inline-block;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    text-decoration: underline 0.15em;
+    text-underline-position: under;
+  }
+
+  .log-header {
+    margin-bottom: 3rem;
+  }
+
+  .log-header h1 {
+    margin-bottom: 1rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .log-body {
+    max-width: 68ch;
+  }
+
+  .log-body :global(h2) {
+    font-size: 2.1875rem;
+    font-weight: 500;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .log-body :global(h3) {
+    font-size: 1.5625rem;
+    font-weight: 500;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .log-body :global(p) {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+  }
+
+  .log-body :global(ul),
+  .log-body :global(ol) {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .log-body :global(ul) {
+    list-style: disc;
+  }
+
+  .log-body :global(ol) {
+    list-style: decimal;
+  }
+
+  .log-body :global(li) {
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
+    display: list-item;
+  }
+
+  .log-body :global(a) {
+    color: var(--color-text-secondary);
+    font-weight: 600;
+  }
+</style>

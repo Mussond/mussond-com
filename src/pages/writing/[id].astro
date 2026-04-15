@@ -1,0 +1,148 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('writing');
+  return articles.map((article) => ({
+    params: { id: article.id },
+    props: { article },
+  }));
+}
+
+interface Props {
+  article: Awaited<ReturnType<typeof getCollection<'writing'>>>[number];
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+---
+
+<Layout title={`${article.data.title} — Dave Musson`} description={article.data.description}>
+  <main class="container" style="padding-block: 4rem;">
+
+    <a href="/writing" class="back-link">← Writing</a>
+
+    <div class="article-header">
+      <h1>{article.data.title}</h1>
+      <p class="text-leading">{article.data.description}</p>
+      <div class="tags">
+        {article.data.tags.map((tag: string) => (
+          <span class="tag">{tag}</span>
+        ))}
+      </div>
+    </div>
+
+    <div class="article-body">
+      <Content />
+    </div>
+
+  </main>
+</Layout>
+
+<style>
+  .back-link {
+    display: inline-block;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    text-decoration: underline 0.15em;
+    text-underline-position: under;
+  }
+
+  .article-header {
+    margin-bottom: 3rem;
+  }
+
+  .article-header h1 {
+    margin-bottom: 1rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .article-body {
+    max-width: 68ch;
+  }
+
+  .article-body :global(h2) {
+    font-size: 2.1875rem;
+    font-weight: 500;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .article-body :global(h3) {
+    font-size: 1.5625rem;
+    font-weight: 500;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .article-body :global(p) {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+  }
+
+  .article-body :global(ul),
+  .article-body :global(ol) {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .article-body :global(ul) {
+    list-style: disc;
+  }
+
+  .article-body :global(ol) {
+    list-style: decimal;
+  }
+
+  .article-body :global(li) {
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
+    display: list-item;
+  }
+
+  .article-body :global(a) {
+    color: var(--color-text-secondary);
+    font-weight: 600;
+  }
+
+  .article-body :global(blockquote) {
+    border-left: 4px solid var(--color-accent);
+    padding-left: 1.25rem;
+    margin-left: 0;
+    margin-bottom: 1rem;
+    font-style: italic;
+    color: var(--color-text-secondary);
+  }
+
+  .article-body :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .article-body :global(th),
+  .article-body :global(td) {
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid currentColor;
+  }
+
+  .article-body :global(th) {
+    font-weight: 600;
+  }
+
+  .article-body :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-block: 1.5rem;
+  }
+</style>
