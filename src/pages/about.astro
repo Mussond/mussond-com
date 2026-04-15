@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Users, Award, RefreshCw, Layers } from 'lucide-astro';
 ---
 
 <Layout title="About me — Dave Musson" description="Dave Musson is a Principal Design Systems Designer and accessibility specialist with 16 years of experience.">
@@ -12,26 +13,30 @@ import Layout from '../layouts/Layout.astro';
       <p>Starting out as a UX designer, I've become a design systems specialist and accessibility advocate. At home, I'm blessed with three children and enjoy reading and motorsport — F1, IndyCar and BTCC.</p>
     </div>
 
-    <section class="ethos" aria-labelledby="ethos-heading">
+    <section aria-labelledby="ethos-heading">
       <h2 id="ethos-heading">My ethos</h2>
 
       <ul class="ethos__list">
         <li class="ethos__item">
+          <Users size={40} aria-hidden="true" />
           <h3>Working together in the open</h3>
           <p>I believe in being honest and showing empathy for each other. I won't always agree with my teammates — I trust that our combined skills, hopes and weaknesses create a safe working environment to achieve more together.</p>
         </li>
 
         <li class="ethos__item">
+          <Award size={40} aria-hidden="true" />
           <h3>Principled in my decisions</h3>
           <p>Accessibility is a usability amplifier. I create inclusive experiences for everyone to access anywhere. My designs are cohesive and scalable.</p>
         </li>
 
         <li class="ethos__item">
+          <RefreshCw size={40} aria-hidden="true" />
           <h3>Iterative habits</h3>
           <p>Objectives, constraints, culture and goals vary. I seek sources of user insight to reinforce user-centred thinking and design practices through small iterations. Evolving as we go means the process works for all of us.</p>
         </li>
 
         <li class="ethos__item">
+          <Layers size={40} aria-hidden="true" />
           <h3>A layered approach to UI design</h3>
           <p>I follow a progressive enhancement approach to UI design and page layouts. It helps ensure user journeys are accessible to all, building through phases:</p>
           <ol>
@@ -59,7 +64,7 @@ import Layout from '../layouts/Layout.astro';
     gap: 1rem;
   }
 
-  .ethos h2 {
+  section h2 {
     margin-bottom: 2rem;
   }
 
@@ -69,19 +74,23 @@ import Layout from '../layouts/Layout.astro';
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 2.5rem;
     max-width: 68ch;
   }
 
   .ethos__item {
-    padding: var(--space-md);
-    border: 2px solid var(--color-border-default);
-    border-radius: var(--radius-card);
-    background: var(--color-bg-card);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .ethos__item :global(svg) {
+    color: var(--color-text-secondary);
+    flex-shrink: 0;
   }
 
   .ethos__item h3 {
-    margin-bottom: 0.75rem;
+    margin-top: 0.25rem;
   }
 
   .ethos__item p {

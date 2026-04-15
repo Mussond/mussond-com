@@ -1,0 +1,99 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="About this site — Dave Musson" description="How mussond.com is built, and its accessibility statement.">
+  <main class="container" style="padding-block: 4rem;">
+
+    <h1>About this site</h1>
+
+    <div class="intro">
+      <p>This site is my portfolio and a place to gather musings, learnings and case studies in one place. It's also a working experiment — I use it to learn in public and practice what I preach on accessibility and design quality.</p>
+    </div>
+
+    <section aria-labelledby="how-built-heading">
+      <h2 id="how-built-heading">How it's built</h2>
+      <p>The site is built with <a href="https://astro.build">Astro 6</a> and styled with <a href="https://tailwindcss.com">Tailwind CSS v4</a>. Content is written in Markdown. Source code is hosted on <a href="https://github.com/Mussond/mussond-com">GitHub</a> and deployed via GitHub Pages with a custom domain.</p>
+      <p>It was previously built in Notion and hosted via Super.so. The migration to Astro resolved all previously known accessibility issues on the old site.</p>
+    </section>
+
+    <section aria-labelledby="a11y-statement-heading">
+      <h2 id="a11y-statement-heading">Accessibility statement</h2>
+
+      <p>This accessibility statement applies to <strong>mussond.com</strong>.</p>
+
+      <h3>My commitment</h3>
+      <p>I want as many people as possible to be able to use this site. That means, among other things, you should be able to:</p>
+      <ul>
+        <li>Navigate all content using a keyboard alone</li>
+        <li>Navigate using a screen reader</li>
+        <li>Zoom in up to 400% without content breaking or losing information</li>
+        <li>Use the site in both light and dark mode</li>
+        <li>Use the site with motion reduced, respecting your OS preference</li>
+      </ul>
+
+      <h3>Compliance status</h3>
+      <p>This site aims to conform to <a href="https://www.w3.org/TR/WCAG22/">WCAG 2.2 Level AA</a>. I run automated checks with <a href="https://github.com/dequelabs/axe-core">axe-core</a> and supplement these with manual testing.</p>
+
+      <h3>Known issues</h3>
+      <p>I'm not aware of any current WCAG 2.2 Level AA failures. If you find one, please let me know.</p>
+
+      <h3>Reporting accessibility issues</h3>
+      <p>If you experience a barrier on this site, contact me on <a href="https://www.linkedin.com/in/davemusson/">LinkedIn</a>. I'll aim to respond within 5 working days.</p>
+
+      <h3>Technical information</h3>
+      <p>This site relies on the following technologies for conformance:</p>
+      <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript (used only for progressive enhancements — the site functions without it)</li>
+      </ul>
+
+      <h3>Statement preparation</h3>
+      <p>This statement was prepared in April 2026. It will be reviewed whenever significant changes are made to the site.</p>
+    </section>
+
+  </main>
+</Layout>
+
+<style>
+  .intro {
+    margin-top: 2rem;
+    margin-bottom: 3.5rem;
+    max-width: 68ch;
+  }
+
+  section {
+    max-width: 68ch;
+    margin-bottom: 3.5rem;
+  }
+
+  section h2 {
+    margin-bottom: 1.25rem;
+  }
+
+  section h3 {
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  section p {
+    margin-bottom: 1rem;
+    max-width: unset;
+  }
+
+  section ul,
+  section ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  section ul {
+    list-style: disc;
+  }
+
+  section li {
+    margin-bottom: 0.4rem;
+    line-height: 1.7;
+  }
+</style>
