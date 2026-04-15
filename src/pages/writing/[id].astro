@@ -2,8 +2,6 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-
 export async function getStaticPaths() {
   const articles = await getCollection('writing');
   return articles.map((article) => ({
@@ -23,7 +21,7 @@ const { Content } = await render(article);
 <Layout title={`${article.data.title} — Dave Musson`} description={article.data.description}>
   <main class="container" style="padding-block: 4rem;">
 
-    <a href={`${base}/writing`} class="back-link">← Writing</a>
+    <a href="/writing" class="back-link">← Writing</a>
 
     <div class="article-header">
       <h1>{article.data.title}</h1>

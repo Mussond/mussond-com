@@ -2,8 +2,6 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-
 const caseStudies = await getCollection('case-studies');
 const sorted = caseStudies.sort((a, b) => b.data.date.localeCompare(a.data.date));
 ---
@@ -14,14 +12,13 @@ const sorted = caseStudies.sort((a, b) => b.data.date.localeCompare(a.data.date)
     <p class="text-leading" style="margin-top: 1rem; margin-bottom: 3rem;">
       A selection of career case studies across design systems, accessibility, and DesignOps.
     </p>
-
     <ul class="card-list">
       {sorted.map((study) => (
         <li>
-          <a href={`${base}/case-studies/${study.id}`} class="card">
+          <a href={`/case-studies/${study.id}`} class="card">
             {study.data.coverImage && (
               <img
-                src={`${base}${study.data.cardImage || study.data.coverImage}`}
+                src={study.data.cardImage || study.data.coverImage}
                 alt=""
                 class="card__image"
                 loading="lazy"

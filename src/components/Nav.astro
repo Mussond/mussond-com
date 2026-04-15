@@ -1,11 +1,9 @@
 ---
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-
 const navLinks = [
-  { label: 'Home', href: `${base}/` },
-  { label: 'Case studies', href: `${base}/case-studies` },
-  { label: 'Writing', href: `${base}/writing` },
-  { label: 'Logs', href: `${base}/logs` },
+  { label: 'Home', href: '/' },
+  { label: 'Case studies', href: '/case-studies' },
+  { label: 'Writing', href: '/writing' },
+  { label: 'Logs', href: '/logs' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -13,7 +11,7 @@ const currentPath = Astro.url.pathname;
 
 <header class="site-header">
   <nav class="container nav" aria-label="Main">
-    <a href={`${base}/`} class="nav__logo" aria-label="Dave Musson — home">
+    <a href="/" class="nav__logo" aria-label="Dave Musson — home">
       <span aria-hidden="true">DM</span>
     </a>
     <ul class="nav__list" role="list">
@@ -22,7 +20,7 @@ const currentPath = Astro.url.pathname;
           <a
             href={link.href}
             class="nav__link"
-            aria-current={currentPath === link.href || (link.href !== `${base}/` && currentPath.startsWith(link.href)) ? 'page' : undefined}
+            aria-current={currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href)) ? 'page' : undefined}
           >{link.label}</a>
         </li>
       ))}
@@ -64,9 +62,7 @@ const currentPath = Astro.url.pathname;
     letter-spacing: -0.5px;
   }
 
-  .nav__logo:hover {
-    text-decoration: none;
-  }
+  .nav__logo:hover { text-decoration: none; }
 
   .nav__list {
     display: flex;
@@ -129,13 +125,9 @@ const currentPath = Astro.url.pathname;
       border-bottom: 1px solid var(--color-border-default);
     }
 
-    .nav__list.is-open {
-      display: flex;
-    }
+    .nav__list.is-open { display: flex; }
 
-    .nav__menu-toggle {
-      display: flex;
-    }
+    .nav__menu-toggle { display: flex; }
 
     .nav__link {
       padding: 0.75rem;
