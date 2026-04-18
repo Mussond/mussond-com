@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import BackLink from '../../components/BackLink.astro';
+import TagList from '../../components/TagList.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -21,16 +23,12 @@ const { Content } = await render(log);
 <Layout title={`${log.data.title} — Dave Musson`} description={log.data.description}>
   <main id="main-content" class="container" style="padding-block: 4rem;">
 
-    <a href="/logs" class="back-link">← Logs</a>
+    <BackLink href="/logs" label="Logs" />
 
     <div class="log-header">
       <h1>{log.data.title}</h1>
       <p class="text-leading">{log.data.description}</p>
-      <div class="tags">
-        {log.data.tags.map((tag: string) => (
-          <span class="tag">{tag}</span>
-        ))}
-      </div>
+      <TagList tags={log.data.tags} />
     </div>
 
     <div class="log-body">
@@ -41,21 +39,10 @@ const { Content } = await render(log);
 </Layout>
 
 <style>
-  .back-link {
-    display: inline-block;
-    margin-bottom: 2rem;
-    font-weight: 600;
-    text-decoration: underline 0.15em;
-    text-underline-position: under;
-  }
-
   .log-header { margin-bottom: 3rem; }
   .log-header h1 { margin-bottom: 1rem; }
 
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+  .log-header :global(.card__tags) {
     margin-top: 1.5rem;
   }
 
