@@ -246,6 +246,13 @@ a:focus-visible {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: grid;
+  grid-auto-rows: 1fr;
+  gap: var(--space-sm);
+}
+
+.card-list > li {
+  display: grid;
 }
 
 .card {
@@ -258,7 +265,6 @@ a:focus-visible {
   overflow: hidden;
   text-decoration: none;
   color: inherit;
-  margin-bottom: var(--space-sm);
 }
 
 .card--no-image {
