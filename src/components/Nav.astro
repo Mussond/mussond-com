@@ -144,8 +144,23 @@ const currentPath = Astro.url.pathname;
   const toggle = document.querySelector('.nav__menu-toggle') as HTMLButtonElement;
   const list = document.querySelector('.nav__list') as HTMLUListElement;
 
+  function updateMenuLabel(isOpen: boolean) {
+    toggle?.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+  }
+
   toggle?.addEventListener('click', () => {
     const isOpen = list.classList.toggle('is-open');
     toggle.setAttribute('aria-expanded', String(isOpen));
+    updateMenuLabel(isOpen);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    if (!list.classList.contains('is-open')) return;
+
+    list.classList.remove('is-open');
+    toggle?.setAttribute('aria-expanded', 'false');
+    updateMenuLabel(false);
+    toggle?.focus();
   });
 </script>
