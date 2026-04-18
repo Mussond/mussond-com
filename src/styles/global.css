@@ -150,7 +150,7 @@ a:focus-visible {
 }
 
 a:focus-visible {
-  outline: 3px solid var(--color-action-bg);
+  outline: 3px solid var(--color-text-primary);
   outline-offset: 3px;
   border-radius: 2px;
 }
