@@ -224,6 +224,10 @@ a:focus-visible {
     transform: scale(0.98);
   }
 
+  .card {
+    transition: var(--transition-base);
+  }
+
   .card:hover,
   .card:focus-visible {
     transform: scale(1.02);
@@ -246,7 +250,6 @@ a:focus-visible {
   border-radius: var(--radius-card);
   background: var(--color-bg-card);
   overflow: hidden;
-  transition: var(--transition-base);
   text-decoration: none;
   color: inherit;
   margin-bottom: var(--space-sm);
@@ -259,8 +262,6 @@ a:focus-visible {
 .card:focus-visible {
   box-shadow: 8px 8px 0px #000000;
 }
-
-/* Dim siblings on hover — applied via JS or group-hover */
 
 .card__image {
   aspect-ratio: 4/3;
