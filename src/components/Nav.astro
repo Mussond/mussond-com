@@ -14,7 +14,7 @@ const currentPath = Astro.url.pathname;
     <a href="/" class="nav__logo" aria-label="Dave Musson — home">
       <span aria-hidden="true">DM</span>
     </a>
-    <ul class="nav__list" role="list">
+    <ul id="nav-list" class="nav__list">
       {navLinks.map((link) => (
         <li>
           <a
