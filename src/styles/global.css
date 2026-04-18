@@ -139,7 +139,7 @@ a {
   color: inherit;
   text-decoration: underline 0.15em;
   text-underline-position: under;
-  transition: var(--transition-underline);
+  transition: none;
 }
 
 a:hover,
@@ -214,8 +214,24 @@ a:focus-visible {
   outline: none;
 }
 
-.btn:active {
-  transform: scale(0.98);
+@media (prefers-reduced-motion: no-preference) {
+  a,
+  .nav__link {
+    transition: var(--transition-underline);
+  }
+
+  .btn:active {
+    transform: scale(0.98);
+  }
+
+  .card:hover,
+  .card:focus-visible {
+    transform: scale(1.02);
+  }
+
+  .card-list:has(.card:hover) .card:not(:hover) {
+    opacity: 0.6;
+  }
 }
 
 /* ============================================
@@ -237,14 +253,14 @@ a:focus-visible {
 }
 
 .card:hover {
-  transform: scale(1.02);
+  box-shadow: 8px 8px 0px #000000;
+}
+
+.card:focus-visible {
   box-shadow: 8px 8px 0px #000000;
 }
 
 /* Dim siblings on hover — applied via JS or group-hover */
-.card-list:has(.card:hover) .card:not(:hover) {
-  opacity: 0.6;
-}
 
 .card__image {
   aspect-ratio: 4/3;
@@ -266,7 +282,8 @@ a:focus-visible {
   margin-bottom: var(--space-xs);
 }
 
-.card:hover .card__title {
+.card:hover .card__title,
+.card:focus-visible .card__title {
   text-decoration-thickness: 0.15em;
 }
 
