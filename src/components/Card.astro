@@ -41,3 +41,8 @@ const hasImage = Boolean(image);
     <TagList tags={tags} />
   </div>
 </a>
+
+<style>
+  .card--no-image { grid-template-columns: 1fr; }
+  .card--no-image .card__content { padding: var(--space-md); }
+</style>

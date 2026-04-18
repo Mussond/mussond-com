@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
 import { getCollection } from 'astro:content';
 
 const caseStudies = await getCollection('case-studies');
@@ -44,26 +45,13 @@ const sortedLogs = logs
       <ul class="card-list">
         {sortedCaseStudies.map((study) => (
           <li>
-            <a href={`/case-studies/${study.id}`} class="card">
-              {(study.data.cardImage || study.data.coverImage) && (
-                <img
-                  src={study.data.cardImage || study.data.coverImage}
-                  alt=""
-                  class="card__image"
-                  loading="lazy"
-                  decoding="async"
-                />
-              )}
-              <div class="card__content">
-                <h3 class="card__title">{study.data.title}</h3>
-                <p class="card__description">{study.data.description}</p>
-                <div class="card__tags">
-                  {study.data.tags.map((tag: string) => (
-                    <span class="tag">{tag}</span>
-                  ))}
-                </div>
-              </div>
-            </a>
+            <Card
+              href={`/case-studies/${study.id}`}
+              title={study.data.title}
+              description={study.data.description}
+              tags={study.data.tags}
+              image={study.data.cardImage || study.data.coverImage}
+            />
           </li>
         ))}
       </ul>
@@ -77,17 +65,12 @@ const sortedLogs = logs
       <ul class="card-list">
         {sortedWriting.map((article) => (
           <li>
-            <a href={`/writing/${article.id}`} class="card card--no-image">
-              <div class="card__content">
-                <h3 class="card__title">{article.data.title}</h3>
-                <p class="card__description">{article.data.description}</p>
-                <div class="card__tags">
-                  {article.data.tags.map((tag: string) => (
-                    <span class="tag">{tag}</span>
-                  ))}
-                </div>
-              </div>
-            </a>
+            <Card
+              href={`/writing/${article.id}`}
+              title={article.data.title}
+              description={article.data.description}
+              tags={article.data.tags}
+            />
           </li>
         ))}
       </ul>
@@ -101,17 +84,12 @@ const sortedLogs = logs
       <ul class="card-list">
         {sortedLogs.map((log) => (
           <li>
-            <a href={`/logs/${log.id}`} class="card card--no-image">
-              <div class="card__content">
-                <h3 class="card__title">{log.data.title}</h3>
-                <p class="card__description">{log.data.description}</p>
-                <div class="card__tags">
-                  {log.data.tags.map((tag: string) => (
-                    <span class="tag">{tag}</span>
-                  ))}
-                </div>
-              </div>
-            </a>
+            <Card
+              href={`/logs/${log.id}`}
+              title={log.data.title}
+              description={log.data.description}
+              tags={log.data.tags}
+            />
           </li>
         ))}
       </ul>
@@ -174,15 +152,6 @@ const sortedLogs = logs
     list-style: none;
     padding: 0;
     margin: 0;
-  }
-
-  .card--no-image { grid-template-columns: 1fr; }
-  .card--no-image .card__content { padding: var(--space-md); }
-
-  .card__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
   }
 
   .visually-hidden {
