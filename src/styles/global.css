@@ -150,9 +150,30 @@ a:focus-visible {
 }
 
 a:focus-visible {
-  outline: 3px solid var(--color-action-bg);
+  outline: 3px solid var(--color-text-primary);
   outline-offset: 3px;
   border-radius: 2px;
+}
+
+/* ============================================
+   SKIP LINK
+   ============================================ */
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-text-primary);
+  color: var(--color-bg-base);
+  font-weight: 600;
+  border-radius: 0 0 4px 0;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 0;
 }
 
 /* ============================================
