@@ -1,8 +1,10 @@
 ---
-title: "Accessibility principles introduction"
+title: "The Four Accessibility principles (simplified))"
 description: "Accessibility principles starter version used to frame initial accessibility conversations"
 tags: ["Accessibility", "POUR", "Principles"]
 date: 2022-09-14
+updatedAt: 2023-09-17
+
 ---
 
 ## Web accessibility principles

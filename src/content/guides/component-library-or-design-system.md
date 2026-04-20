@@ -3,6 +3,7 @@ title: "Component library or design system: what's the difference?"
 description: "The terms 'component library' and 'design system' are used interchangeably but have very different aims"
 tags: ["Design systems", "Component library"]
 date: 2023-01-26
+updatedAt: 2024-08-16
 ---
 
 ## A component library
