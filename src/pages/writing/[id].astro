@@ -29,6 +29,12 @@ const { Content } = await render(article);
       <h1>{article.data.title}</h1>
       <p class="text-leading">{article.data.description}</p>
       <TagList tags={article.data.tags} />
+      <p class="content-meta">
+        Published {article.data.date}
+        {article.data.updatedAt && (
+          <> · Last updated {article.data.updatedAt.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</>
+        )}
+      </p>
     </div>
 
     <div class="article-body">
@@ -41,6 +47,12 @@ const { Content } = await render(article);
 <style>
   .article-header { margin-bottom: 3rem; }
   .article-header h1 { margin-bottom: 1rem; }
+
+  .content-meta {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
 
   .article-header :global(.card__tags) {
     margin-top: 1.5rem;

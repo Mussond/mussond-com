@@ -29,6 +29,12 @@ const { Content } = await render(log);
       <h1>{log.data.title}</h1>
       <p class="text-leading">{log.data.description}</p>
       <TagList tags={log.data.tags} />
+      <p class="content-meta">
+        Published {log.data.date}
+        {log.data.updatedAt && (
+          <> · Last updated {log.data.updatedAt.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</>
+        )}
+      </p>
     </div>
 
     <div class="log-body">
@@ -41,6 +47,12 @@ const { Content } = await render(log);
 <style>
   .log-header { margin-bottom: 3rem; }
   .log-header h1 { margin-bottom: 1rem; }
+
+  .content-meta {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
 
   .log-header :global(.card__tags) {
     margin-top: 1.5rem;

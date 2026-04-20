@@ -8,6 +8,7 @@ const caseStudies = defineCollection({
     description: z.string(),
     tags: z.array(z.string()),
     date: z.string(),
+    updatedAt: z.coerce.date().optional(),
     coverImage: z.string().optional(),
     cardImage: z.string().optional(),
   }),
@@ -20,6 +21,7 @@ const writing = defineCollection({
     description: z.string(),
     tags: z.array(z.string()),
     date: z.string(),
+    updatedAt: z.coerce.date().optional(),
     coverImage: z.string().optional(),
   }),
 });
@@ -31,6 +33,7 @@ const logs = defineCollection({
     description: z.string(),
     tags: z.array(z.string()),
     date: z.string(),
+    updatedAt: z.coerce.date().optional(),
   }),
 });
 

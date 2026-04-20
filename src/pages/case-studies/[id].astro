@@ -29,6 +29,12 @@ const { Content } = await render(study);
       <h1>{study.data.title}</h1>
       <p class="text-leading">{study.data.description}</p>
       <TagList tags={study.data.tags} />
+      <p class="content-meta">
+        Published {study.data.date}
+        {study.data.updatedAt && (
+          <> · Last updated {study.data.updatedAt.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</>
+        )}
+      </p>
     </div>
 
     {study.data.coverImage && (
@@ -57,6 +63,12 @@ const { Content } = await render(study);
 
   .case-study-header { margin-bottom: 2rem; }
   .case-study-header h1 { margin-bottom: 1rem; }
+
+  .content-meta {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
 
   .case-study-header :global(.card__tags) {
     margin-top: 1.5rem;

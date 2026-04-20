@@ -3,6 +3,7 @@ title: "List of accessibility resources"
 description: "Accessibility resources I've gathered over time"
 tags: ["Accessibility"]
 date: "2022"
+updatedAt: 2024-08-11
 ---
 
 ## Beginner courses
