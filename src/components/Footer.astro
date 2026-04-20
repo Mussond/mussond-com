@@ -26,7 +26,10 @@ const currentYear = new Date().getFullYear();
         ))}
       </ul>
     </nav>
-    <p class="footer__copyright">© {currentYear} Dave Musson</p>
+    <div class="footer__meta">
+      <p class="footer__strapline">Built in Astro, with Claude. Accessibility tested per commit (<a href="/about-this-site#a11y-statement-heading">WCAG 2.2 AA</a> + custom skills).</p>
+      <p class="footer__copyright">© {currentYear} Dave Musson</p>
+    </div>
   </div>
 </footer>
 
@@ -73,11 +76,23 @@ const currentYear = new Date().getFullYear();
     outline: none;
   }
 
+  .footer__strapline {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    opacity: 0.6;
+    max-width: unset;
+    margin-bottom: 0.5rem;
+    padding-left: 12px;
+  }
+
   .footer__copyright {
     font-size: 0.875rem;
     color: var(--color-text-primary);
     opacity: 0.6;
     max-width: unset;
+    margin-bottom: 0.5rem;
+    padding-left: 12px;
   }
 
   .visually-hidden {
