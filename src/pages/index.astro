@@ -27,11 +27,13 @@ const sortedLogs = logs
   <main id="main-content">
 
     <section class="hero container" aria-labelledby="hero-heading">
-      <h1 id="hero-heading">Dave Musson</h1>
-      <p class="text-leading hero__intro">
-        I'm an accessibility advocate and design systems specialist.
-        I foster cross-discipline environments for collaboration, trust, and compassion.
-      </p>
+<h1 id="hero-heading">Dave Musson</h1>
+<p class="text-leading hero__intro">
+  Design systems and accessibility specialist. 16 years helping product teams build things that work regardless of how you access them.
+</p>
+<p class="hero__stance">
+  Accessibility isn't a feature. It's a usability amplifier.
+</p>
       <div class="hero__actions">
         <a href="/case-studies" class="btn">View case studies</a>
         <a href="/about" class="btn btn--secondary">About me</a>
@@ -109,7 +111,12 @@ const sortedLogs = logs
 
   .hero h1 { margin: 0; }
   .hero__intro { max-width: 52ch; }
-
+.hero__stance {
+  font-size: var(--text-base);
+  font-weight: 500;
+  margin-top: -0.5rem;
+  max-width: 48ch;
+}
   .hero__actions {
     display: flex;
     flex-wrap: wrap;
