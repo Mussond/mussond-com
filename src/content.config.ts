@@ -15,7 +15,7 @@ const caseStudies = defineCollection({
 });
 
 const writing = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/writing' }),
+  loader: glob({ pattern: '**/*.md', base: './src/content/guides' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
