@@ -7,11 +7,11 @@ const logs = await getCollection('logs');
 const sorted = logs.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
-<Layout title="Logs — Dave Musson" description="A running log of resources, notes and references gathered over time.">
+<Layout title="Logs — Dave Musson" description="Reference lists I keep returning to. Curated, not comprehensive. Last reviewed per list.">
   <main id="main-content" class="container" style="padding-block: 4rem;">
     <h1>Logs</h1>
     <p class="text-leading" style="margin-top: 1rem; margin-bottom: 3rem;">
-      A running log of resources, notes and references gathered over time.
+      Reference lists I keep returning to. Curated, not comprehensive. Last reviewed per list.
     </p>
     <ul class="card-list">
       {sorted.map((log) => (
