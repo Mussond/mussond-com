@@ -365,8 +365,7 @@ a:focus-visible {
   transition: background 0.15s ease;
 }
 
-.tag:hover,
-.tag[aria-pressed="true"] {
+.tag:hover {
   background: var(--color-action-bg);
   border-color: var(--color-action-border);
 }

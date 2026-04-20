@@ -16,11 +16,12 @@ const allTags = [...new Set(sorted.flatMap((a) => a.data.tags))].sort();
     </p>
 
     <div class="tag-filter" role="group" aria-label="Filter by tag">
-      <button class="tag tag--filter tag--active" data-tag="all">All</button>
+      <button class="tag tag--filter" data-tag="all" aria-pressed="true">All</button>
       {allTags.map((tag) => (
-        <button class="tag tag--filter" data-tag={tag}>{tag}</button>
+        <button class="tag tag--filter" data-tag={tag} aria-pressed="false">{tag}</button>
       ))}
     </div>
+    <p class="visually-hidden" id="filter-status" aria-live="polite" aria-atomic="true"></p>
 
     <ul class="card-list" id="article-list" style="margin-top: 2.5rem;">
       {sorted.map((article) => (
@@ -58,10 +59,22 @@ const allTags = [...new Set(sorted.flatMap((a) => a.data.tags))].sort();
     border-color: var(--color-border-default);
   }
 
-  .tag--filter.tag--active {
+  .tag--filter[aria-pressed="true"] {
     background-color: var(--color-text-primary);
     color: var(--color-bg-base);
     border-color: var(--color-text-primary);
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 
   .card-list__item[hidden] { display: none; }
@@ -70,15 +83,29 @@ const allTags = [...new Set(sorted.flatMap((a) => a.data.tags))].sort();
 <script>
   const buttons = document.querySelectorAll<HTMLButtonElement>('.tag--filter');
   const items = document.querySelectorAll<HTMLLIElement>('.card-list__item');
+  const status = document.getElementById('filter-status');
 
   buttons.forEach((btn) => {
     btn.addEventListener('click', () => {
       const selected = btn.dataset.tag ?? 'all';
-      buttons.forEach((b) => b.classList.toggle('tag--active', b === btn));
+      let visibleCount = 0;
+
+      buttons.forEach((b) => {
+        b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+      });
+
       items.forEach((item) => {
         const tags = (item.dataset.tags ?? '').split(',');
-        item.hidden = selected !== 'all' && !tags.includes(selected);
+        const hide = selected !== 'all' && !tags.includes(selected);
+        item.hidden = hide;
+        if (!hide) visibleCount++;
       });
+
+      if (status) {
+        status.textContent = selected === 'all'
+          ? `Showing all ${items.length} guides`
+          : `Showing ${visibleCount} guides`;
+      }
     });
   });
 </script>
