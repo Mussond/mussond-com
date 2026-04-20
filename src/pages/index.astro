@@ -5,17 +5,17 @@ import { getCollection } from 'astro:content';
 
 const caseStudies = await getCollection('case-studies');
 const sortedCaseStudies = caseStudies
-  .sort((a, b) => b.data.date.localeCompare(a.data.date))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
 const writing = await getCollection('writing');
 const sortedWriting = writing
-  .sort((a, b) => b.data.date.localeCompare(a.data.date))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
 const logs = await getCollection('logs');
 const sortedLogs = logs
-  .sort((a, b) => b.data.date.localeCompare(a.data.date))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 2);
 ---
 

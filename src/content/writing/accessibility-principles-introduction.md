@@ -2,7 +2,7 @@
 title: "Accessibility principles introduction"
 description: "Accessibility principles starter version used to frame initial accessibility conversations"
 tags: ["Accessibility", "POUR", "Principles"]
-date: "2022"
+date: 2022-09-14
 ---
 
 ## Web accessibility principles

@@ -4,7 +4,7 @@ import Card from '../../components/Card.astro';
 import { getCollection } from 'astro:content';
 
 const articles = await getCollection('writing');
-const sorted = articles.sort((a, b) => b.data.date.localeCompare(a.data.date));
+const sorted = articles.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 const allTags = [...new Set(sorted.flatMap((a) => a.data.tags))].sort();
 ---
 

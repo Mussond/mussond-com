@@ -4,7 +4,7 @@ import Card from '../../components/Card.astro';
 import { getCollection } from 'astro:content';
 
 const logs = await getCollection('logs');
-const sorted = logs.sort((a, b) => b.data.date.localeCompare(a.data.date));
+const sorted = logs.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
 <Layout title="Logs — Dave Musson" description="A running log of resources, notes and references gathered over time.">

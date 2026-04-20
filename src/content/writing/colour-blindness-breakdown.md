@@ -2,7 +2,7 @@
 title: "Colour blindness breakdown"
 description: "What \"8% of men are colourblind\" means"
 tags: ["Accessibility", "Guide"]
-date: "2022"
+date: 2022-09-14
 ---
 
 ## Overview

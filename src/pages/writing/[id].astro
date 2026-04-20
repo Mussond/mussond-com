@@ -30,7 +30,7 @@ const { Content } = await render(article);
       <p class="text-leading">{article.data.description}</p>
       <TagList tags={article.data.tags} />
       <p class="content-meta">
-        Published {article.data.date}
+        Published {article.data.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
         {article.data.updatedAt && (
           <> · Last updated {article.data.updatedAt.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</>
         )}

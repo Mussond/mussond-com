@@ -2,7 +2,7 @@
 title: "Aviva: Global Atomic Design System"
 description: "Leading the evolution of Aviva's WCAG AA Atomic Design System for all Aviva product teams globally."
 tags: ["Leadership", "Components design", "UX", "DesignOps", "Design Systems"]
-date: "2019"
+date: 2019-01-01
 coverImage: "/images/case-studies/aviva_case_study_hero.svg"
 cardImage: "/images/case-studies/aviva_cover.svg"
 ---

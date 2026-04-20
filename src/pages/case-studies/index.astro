@@ -4,7 +4,7 @@ import Card from '../../components/Card.astro';
 import { getCollection } from 'astro:content';
 
 const caseStudies = await getCollection('case-studies');
-const sorted = caseStudies.sort((a, b) => b.data.date.localeCompare(a.data.date));
+const sorted = caseStudies.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
 <Layout title="Case studies — Dave Musson" description="Career case studies from Dave Musson, Design Systems and Accessibility specialist.">
