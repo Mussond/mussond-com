@@ -8,7 +8,7 @@ const sortedCaseStudies = caseStudies
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
-const writing = await getCollection('writing');
+const writing = await getCollection('guides');
 const sortedWriting = writing
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
@@ -57,16 +57,16 @@ const sortedLogs = logs
       </ul>
     </section>
 
-    <section class="preview container" aria-labelledby="writing-heading">
+    <section class="preview container" aria-labelledby="guides-heading">
       <div class="preview__header">
-        <h2 id="writing-heading">Writing</h2>
-        <a href="/writing" class="preview__link">View all<span class="visually-hidden"> writing</span></a>
+        <h2 id="guides-heading">Guides</h2>
+        <a href="/guides" class="preview__link">View all<span class="visually-hidden"> guides</span></a>
       </div>
       <ul class="card-list">
         {sortedWriting.map((article) => (
           <li>
             <Card
-              href={`/writing/${article.id}`}
+              href={`/guides/${article.id}`}
               title={article.data.title}
               description={article.data.description}
               tags={article.data.tags}

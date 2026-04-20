@@ -3,14 +3,14 @@ import Layout from '../../layouts/Layout.astro';
 import Card from '../../components/Card.astro';
 import { getCollection } from 'astro:content';
 
-const articles = await getCollection('writing');
+const articles = await getCollection('guides');
 const sorted = articles.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 const allTags = [...new Set(sorted.flatMap((a) => a.data.tags))].sort();
 ---
 
-<Layout title="Writing — Dave Musson" description="Articles on design systems and accessibility by Dave Musson.">
+<Layout title="Guides — Dave Musson" description="Guides on design systems and accessibility by Dave Musson.">
   <main id="main-content" class="container" style="padding-block: 4rem;">
-    <h1>Writing</h1>
+    <h1>Guides</h1>
     <p class="text-leading" style="margin-top: 1rem; margin-bottom: 2rem;">
       Articles on design systems and accessibility.
     </p>
@@ -26,7 +26,7 @@ const allTags = [...new Set(sorted.flatMap((a) => a.data.tags))].sort();
       {sorted.map((article) => (
         <li class="card-list__item" data-tags={article.data.tags.join(',')}>
           <Card
-            href={`/writing/${article.id}`}
+            href={`/guides/${article.id}`}
             title={article.data.title}
             description={article.data.description}
             tags={article.data.tags}

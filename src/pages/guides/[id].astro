@@ -5,7 +5,7 @@ import TagList from '../../components/TagList.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-  const articles = await getCollection('writing');
+  const articles = await getCollection('guides');
   return articles.map((article) => ({
     params: { id: article.id },
     props: { article },
@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 }
 
 interface Props {
-  article: Awaited<ReturnType<typeof getCollection<'writing'>>>[number];
+  article: Awaited<ReturnType<typeof getCollection<'guides'>>>[number];
 }
 
 const { article } = Astro.props;
@@ -23,7 +23,7 @@ const { Content } = await render(article);
 <Layout title={`${article.data.title} — Dave Musson`} description={article.data.description}>
   <main id="main-content" class="container" style="padding-block: 4rem;">
 
-    <BackLink href="/writing" label="Writing" />
+    <BackLink href="/guides" label="Guides" />
 
     <div class="article-header">
       <h1>{article.data.title}</h1>

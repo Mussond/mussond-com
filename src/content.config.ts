@@ -14,7 +14,7 @@ const caseStudies = defineCollection({
   }),
 });
 
-const writing = defineCollection({
+const guides = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/guides' }),
   schema: z.object({
     title: z.string(),
@@ -39,6 +39,6 @@ const logs = defineCollection({
 
 export const collections = {
   'case-studies': caseStudies,
-  'writing': writing,
+  'guides': guides,
   'logs': logs,
 };
