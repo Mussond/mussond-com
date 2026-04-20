@@ -2,7 +2,7 @@
 title: "Coursera Design System"
 description: "Co-leading the creation of Coursera's first design system to uplift design quality across the whole company."
 tags: ["Components design", "Bi-directional & RTL", "Accessibility", "DesignOps", "Design Systems"]
-date: "2020–2021"
+date: 2021-01-01
 coverImage: "/images/case-studies/coursera_case_study_hero.svg"
 cardImage: "/images/case-studies/coursera_cover.svg"
 ---

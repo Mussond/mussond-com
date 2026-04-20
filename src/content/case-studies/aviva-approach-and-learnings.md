@@ -2,7 +2,7 @@
 title: "Aviva: Approach and Learnings"
 description: "Detail on the processes, workflow changes and learnings from building Aviva's Global Atomic Design System."
 tags: ["Leadership", "DesignOps", "Design Systems", "Agile"]
-date: "2019"
+date: 2019-01-01
 ---
 
 After a few sprints of understanding motivations and working with the inherited workflow, I started using sprint retrospectives to highlight impediments to achieving our goals and generate discussion around proposed actions.

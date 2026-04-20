@@ -1,9 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import BackLink from '../../components/BackLink.astro';
+import TagList from '../../components/TagList.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-  const articles = await getCollection('writing');
+  const articles = await getCollection('guides');
   return articles.map((article) => ({
     params: { id: article.id },
     props: { article },
@@ -11,7 +13,7 @@ export async function getStaticPaths() {
 }
 
 interface Props {
-  article: Awaited<ReturnType<typeof getCollection<'writing'>>>[number];
+  article: Awaited<ReturnType<typeof getCollection<'guides'>>>[number];
 }
 
 const { article } = Astro.props;
@@ -21,16 +23,18 @@ const { Content } = await render(article);
 <Layout title={`${article.data.title} — Dave Musson`} description={article.data.description}>
   <main id="main-content" class="container" style="padding-block: 4rem;">
 
-    <a href="/writing" class="back-link">← Writing</a>
+    <BackLink href="/guides" label="Guides" />
 
     <div class="article-header">
       <h1>{article.data.title}</h1>
       <p class="text-leading">{article.data.description}</p>
-      <div class="tags">
-        {article.data.tags.map((tag: string) => (
-          <span class="tag">{tag}</span>
-        ))}
-      </div>
+      <TagList tags={article.data.tags} />
+      <p class="content-meta">
+        Published {article.data.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+        {article.data.updatedAt && (
+          <> · Last updated {article.data.updatedAt.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</>
+        )}
+      </p>
     </div>
 
     <div class="article-body">
@@ -41,21 +45,16 @@ const { Content } = await render(article);
 </Layout>
 
 <style>
-  .back-link {
-    display: inline-block;
-    margin-bottom: 2rem;
-    font-weight: 600;
-    text-decoration: underline 0.15em;
-    text-underline-position: under;
-  }
-
   .article-header { margin-bottom: 3rem; }
   .article-header h1 { margin-bottom: 1rem; }
 
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+  .content-meta {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+
+  .article-header :global(.card__tags) {
     margin-top: 1.5rem;
   }
 

@@ -1,0 +1,43 @@
+---
+import TagList from './TagList.astro';
+
+interface Props {
+  href: string;
+  title: string;
+  description?: string;
+  tags?: string[];
+  image?: string;
+  imageAlt?: string;
+  headingLevel?: 2 | 3;
+}
+
+const {
+  href,
+  title,
+  description,
+  tags = [],
+  image,
+  imageAlt = '',
+  headingLevel = 3,
+} = Astro.props;
+
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
+const hasImage = Boolean(image);
+---
+
+<a href={href} class={`card${hasImage ? '' : ' card--no-image'}`}>
+  {hasImage && (
+    <img
+      src={image}
+      alt={imageAlt}
+      class="card__image"
+      loading="lazy"
+      decoding="async"
+    />
+  )}
+  <div class="card__content">
+    <Heading class="card__title">{title}</Heading>
+    {description && <p class="card__description">{description}</p>}
+    <TagList tags={tags} />
+  </div>
+</a>

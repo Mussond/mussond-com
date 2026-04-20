@@ -1,15 +1,16 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Card from '../../components/Card.astro';
 import { getCollection } from 'astro:content';
 
-const articles = await getCollection('writing');
-const sorted = articles.sort((a, b) => b.data.date.localeCompare(a.data.date));
+const articles = await getCollection('guides');
+const sorted = articles.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 const allTags = [...new Set(sorted.flatMap((a) => a.data.tags))].sort();
 ---
 
-<Layout title="Writing — Dave Musson" description="Articles on design systems and accessibility by Dave Musson.">
+<Layout title="Guides — Dave Musson" description="Guides on design systems and accessibility by Dave Musson.">
   <main id="main-content" class="container" style="padding-block: 4rem;">
-    <h1>Writing</h1>
+    <h1>Guides</h1>
     <p class="text-leading" style="margin-top: 1rem; margin-bottom: 2rem;">
       Articles on design systems and accessibility.
     </p>
@@ -24,17 +25,13 @@ const allTags = [...new Set(sorted.flatMap((a) => a.data.tags))].sort();
     <ul class="card-list" id="article-list" style="margin-top: 2.5rem;">
       {sorted.map((article) => (
         <li class="card-list__item" data-tags={article.data.tags.join(',')}>
-          <a href={`/writing/${article.id}`} class="card card--no-image">
-            <div class="card__content">
-              <h2 class="card__title">{article.data.title}</h2>
-              <p class="card__description">{article.data.description}</p>
-              <div class="card__tags">
-                {article.data.tags.map((tag: string) => (
-                  <span class="tag">{tag}</span>
-                ))}
-              </div>
-            </div>
-          </a>
+          <Card
+            href={`/guides/${article.id}`}
+            title={article.data.title}
+            description={article.data.description}
+            tags={article.data.tags}
+            headingLevel={2}
+          />
         </li>
       ))}
     </ul>
@@ -42,9 +39,6 @@ const allTags = [...new Set(sorted.flatMap((a) => a.data.tags))].sort();
 </Layout>
 
 <style>
-  .card--no-image { grid-template-columns: 1fr; }
-  .card--no-image .card__content { padding: var(--space-md); }
-
   .tag-filter {
     display: flex;
     flex-wrap: wrap;
@@ -70,19 +64,7 @@ const allTags = [...new Set(sorted.flatMap((a) => a.data.tags))].sort();
     border-color: var(--color-text-primary);
   }
 
-  .card-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
   .card-list__item[hidden] { display: none; }
-
-  .card__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
 </style>
 
 <script>

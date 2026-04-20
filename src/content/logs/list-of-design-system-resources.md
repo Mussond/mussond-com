@@ -2,7 +2,8 @@
 title: "List of design system resources"
 description: "Design system resources I've gathered over time"
 tags: ["Design systems"]
-date: "2023"
+date: 2023-02-12
+updatedAt: 2024-08-11
 ---
 
 This list has moved to GitHub where it's easier to maintain and contribute to.

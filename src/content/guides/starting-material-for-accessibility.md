@@ -2,7 +2,7 @@
 title: "Starting material for accessibility"
 description: "Links and references if you are just starting to learn about accessibility"
 tags: ["Accessibility", "Guide"]
-date: "2022"
+date: 2022-09-14
 ---
 
 ## Accessibility as a usability amplifier

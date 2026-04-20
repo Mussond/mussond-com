@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import BackLink from '../../components/BackLink.astro';
+import TagList from '../../components/TagList.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -21,16 +23,18 @@ const { Content } = await render(study);
 <Layout title={`${study.data.title} — Dave Musson`} description={study.data.description}>
   <main id="main-content" class="container" style="padding-block: 4rem;">
 
-    <a href="/case-studies" class="back-link">← Case studies</a>
+    <BackLink href="/case-studies" label="Case studies" />
 
     <div class="case-study-header">
       <h1>{study.data.title}</h1>
       <p class="text-leading">{study.data.description}</p>
-      <div class="tags">
-        {study.data.tags.map((tag: string) => (
-          <span class="tag">{tag}</span>
-        ))}
-      </div>
+      <TagList tags={study.data.tags} />
+      <p class="content-meta">
+        Published {study.data.date.getFullYear()}
+        {study.data.updatedAt && (
+          <> · Last updated {study.data.updatedAt.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</>
+        )}
+      </p>
     </div>
 
     {study.data.coverImage && (
@@ -51,14 +55,6 @@ const { Content } = await render(study);
 </Layout>
 
 <style>
-  .back-link {
-    display: inline-block;
-    margin-bottom: 2rem;
-    font-weight: 600;
-    text-decoration: underline 0.15em;
-    text-underline-position: under;
-  }
-
   .hero-image {
     width: 100%;
     border-radius: 16px;
@@ -68,10 +64,13 @@ const { Content } = await render(study);
   .case-study-header { margin-bottom: 2rem; }
   .case-study-header h1 { margin-bottom: 1rem; }
 
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+  .content-meta {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+
+  .case-study-header :global(.card__tags) {
     margin-top: 1.5rem;
   }
 

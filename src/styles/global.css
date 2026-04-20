@@ -242,6 +242,19 @@ a:focus-visible {
    CARDS
    ============================================ */
 
+.card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-auto-rows: 1fr;
+  gap: var(--space-sm);
+}
+
+.card-list > li {
+  display: grid;
+}
+
 .card {
   display: grid;
   grid-template-columns: 160px 1fr;
@@ -252,7 +265,14 @@ a:focus-visible {
   overflow: hidden;
   text-decoration: none;
   color: inherit;
-  margin-bottom: var(--space-sm);
+}
+
+.card--no-image {
+  grid-template-columns: 1fr;
+}
+
+.card--no-image .card__content {
+  padding: var(--space-md);
 }
 
 .card:hover {
@@ -293,6 +313,12 @@ a:focus-visible {
   margin-bottom: var(--space-sm);
 }
 
+.card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
 @media (max-width: 800px) {
   .card {
     grid-template-columns: 1fr;
@@ -307,6 +333,18 @@ a:focus-visible {
   .card__content {
     padding: var(--space-sm);
   }
+}
+
+/* ============================================
+   BACK LINK
+   ============================================ */
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 2rem;
+  font-weight: 600;
+  text-decoration: underline 0.15em;
+  text-underline-position: under;
 }
 
 /* ============================================

@@ -1,50 +1,30 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Card from '../../components/Card.astro';
 import { getCollection } from 'astro:content';
 
 const logs = await getCollection('logs');
-const sorted = logs.sort((a, b) => b.data.date.localeCompare(a.data.date));
+const sorted = logs.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
-<Layout title="Logs — Dave Musson" description="A running log of resources, notes and references gathered over time.">
+<Layout title="Logs — Dave Musson" description="Reference lists I keep returning to. Curated, not comprehensive. Last reviewed per list.">
   <main id="main-content" class="container" style="padding-block: 4rem;">
     <h1>Logs</h1>
     <p class="text-leading" style="margin-top: 1rem; margin-bottom: 3rem;">
-      A running log of resources, notes and references gathered over time.
+      Reference lists I keep returning to. Curated, not comprehensive. Last reviewed per list.
     </p>
     <ul class="card-list">
       {sorted.map((log) => (
         <li>
-          <a href={`/logs/${log.id}`} class="card card--no-image">
-            <div class="card__content">
-              <h2 class="card__title">{log.data.title}</h2>
-              <p class="card__description">{log.data.description}</p>
-              <div class="card__tags">
-                {log.data.tags.map((tag: string) => (
-                  <span class="tag">{tag}</span>
-                ))}
-              </div>
-            </div>
-          </a>
+          <Card
+            href={`/logs/${log.id}`}
+            title={log.data.title}
+            description={log.data.description}
+            tags={log.data.tags}
+            headingLevel={2}
+          />
         </li>
       ))}
     </ul>
   </main>
 </Layout>
-
-<style>
-  .card--no-image { grid-template-columns: 1fr; }
-  .card--no-image .card__content { padding: var(--space-md); }
-
-  .card-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .card__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-</style>
