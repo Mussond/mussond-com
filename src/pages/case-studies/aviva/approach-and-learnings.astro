@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import TagList from '../../../components/TagList.astro';
 import { getEntry, render } from 'astro:content';
 
 const study = await getEntry('case-studies', 'aviva-approach-and-learnings');
@@ -13,93 +14,15 @@ const { Content } = await render(study);
 
     <a href="/case-studies/aviva" class="back-link">← Aviva case study</a>
 
-    <div class="case-study-header">
-      <h1>{study.data.title}</h1>
-      <p class="text-leading">{study.data.description}</p>
-      <div class="tags">
-        {study.data.tags.map((tag: string) => (
-          <span class="tag">{tag}</span>
-        ))}
-      </div>
-    </div>
+<div class="content-header">
+  <h1>{study.data.title}</h1>
+  <p class="text-leading">{study.data.description}</p>
+  <TagList tags={study.data.tags} />
+</div>
 
-    <div class="case-study-body">
+    <div class="prose">
       <Content />
     </div>
 
   </main>
 </Layout>
-
-<style>
-  .back-link {
-    display: inline-block;
-    margin-bottom: 2rem;
-    font-weight: 600;
-    text-decoration: underline 0.15em;
-    text-underline-position: under;
-  }
-
-  .case-study-header { margin-bottom: 2rem; }
-  .case-study-header h1 { margin-bottom: 1rem; }
-
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1.5rem;
-  }
-
-  .case-study-body { max-width: 68ch; }
-
-  .case-study-body :global(h2) {
-    font-size: 2.1875rem;
-    font-weight: 500;
-    margin-top: 3rem;
-    margin-bottom: 1rem;
-  }
-
-  .case-study-body :global(h3) {
-    font-size: 1.5625rem;
-    font-weight: 500;
-    margin-top: 2rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .case-study-body :global(p) {
-    margin-bottom: 1rem;
-    line-height: 1.7;
-  }
-
-  .case-study-body :global(ul),
-  .case-study-body :global(ol) {
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .case-study-body :global(ul) { list-style: disc; }
-  .case-study-body :global(ol) { list-style: decimal; }
-
-  .case-study-body :global(li) {
-    margin-bottom: 0.5rem;
-    line-height: 1.7;
-    display: list-item;
-  }
-
-  .case-study-body :global(a) {
-    color: var(--color-text-secondary);
-    font-weight: 600;
-  }
-
-  .case-study-body :global(blockquote) {
-    border-left: 3px solid var(--color-text-secondary);
-    margin: 2rem 0;
-    padding-left: 1.25rem;
-    font-style: italic;
-  }
-
-  .case-study-body :global(img) {
-    width: 100%;
-    border-radius: 8px;
-    margin-block: 1.5rem;
-  }
-</style>
