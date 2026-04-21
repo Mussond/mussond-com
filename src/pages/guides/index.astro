@@ -55,9 +55,10 @@ const allTags = [...new Set(sorted.flatMap((a) => a.data.tags))].sort();
   }
 
   .tag--filter:hover {
-    background-color: var(--color-action-bg);
-    border-color: var(--color-border-default);
-  }
+  background-color: var(--color-action-bg);
+  border-color: var(--color-action-border);
+  color: var(--color-action-text);
+}
 
   .tag--filter[aria-pressed="true"] {
     background-color: var(--color-text-primary);
