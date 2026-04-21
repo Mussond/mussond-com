@@ -9,7 +9,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "axe": "axe $(cat .axe/urls.txt) --load-delay 1000 --exit"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",
@@ -18,5 +19,8 @@
     "astro": "^6.1.6",
     "lucide-astro": "^0.556.0",
     "tailwindcss": "^4.2.2"
+  },
+  "devDependencies": {
+    "@axe-core/cli": "^4.11.2"
   }
 }

@@ -26,7 +26,9 @@ npm run preview    # preview the build locally
 
 This site targets WCAG 2.2 AA conformance. Known issues and the accessibility statement are at [mussond.com/about-this-site](https://mussond.com/about-this-site).
 
-Automated checks run via `npx @axe-core/cli` on each sprint branch before merge.
+Automated checks run on each sprint branch before merge. URLs are listed in .axe/urls.txt; a 1000ms load-delay avoids false positives where axe runs before CSS has painted. With the dev server running, run npm run axe and redirect the output, e.g.:
+
+`npm run axe > .axe/sprint-3.7-2026-04-21.log 2>&1`
 
 ## Licence
 
