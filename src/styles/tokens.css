@@ -1,0 +1,109 @@
+@import "@radix-ui/colors/sand.css";
+@import "@radix-ui/colors/sand-dark.css";
+@import "@radix-ui/colors/amber.css";
+@import "@radix-ui/colors/amber-dark.css";
+@import "@radix-ui/colors/amber-alpha.css";
+@import "@radix-ui/colors/amber-dark-alpha.css";
+@import "@radix-ui/colors/indigo.css";
+@import "@radix-ui/colors/indigo-dark.css";
+
+/* ============================================
+   DESIGN TOKENS
+   Brand extracted from mussond.com Super.so CSS
+   ============================================ */
+
+:root {
+  /* Typography */
+  --font-primary: 'Quicksand', system-ui, sans-serif;
+  --text-base: 1rem;
+  --text-lg: 1.3125rem;
+  --text-xl: 2.1875rem;
+  --text-2xl: 3.0625rem;
+
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3.5rem;
+  --space-2xl: 7rem;
+
+  /* Layout */
+  --content-width: 768px;
+  --radius-card: 16px;
+  --radius-pill: 999px;
+
+  /* Motion */
+  --transition-base: all 0.3s cubic-bezier(0.8, 0.04, 0.4, 1);
+  --transition-underline: text-underline-offset 400ms, text-decoration-color 400ms;
+}
+
+/* Semantic colour tokens — Low contrast baseline.
+   Layer 1: Radix primitives imported above. Layer 2: semantic tokens alias Radix steps.
+   The :root selector is a safety fallback — if the no-flash script fails to set
+   data-contrast, the page still renders readably in Low. Contrast-mode overrides
+   below remap steps without touching token names. */
+:root,
+[data-contrast="low"] {
+  --color-text-primary:    var(--sand-12);
+  --color-text-secondary:  var(--sand-11);
+  --color-bg-base:         var(--sand-1);
+  --color-bg-card:         var(--sand-1);
+  --color-bg-decorative:   var(--amber-2);
+  --color-border-subtle:   var(--sand-6);
+  --color-border-default:  var(--sand-7);
+  --color-action-bg:       var(--amber-9);
+  --color-action-bg-hover: var(--amber-10);
+  --color-action-border:   var(--sand-12);
+  --color-action-text:     var(--sand-12);
+  --color-text-on-brand:   var(--sand-12);
+  --color-focus-ring:      var(--sand-12);
+
+  /* Background gradient — Radix amber alpha stops over transparent.
+     Alpha tokens auto-flip per theme; the transparent tail lets
+     --color-bg-base show through, so dark mode flips cleanly too.
+     Decorative mode bumps the alpha steps for a warmer overlay. */
+  --gradient-brand: linear-gradient(
+    146.49deg,
+    var(--amber-a4) 4.17%,
+    var(--amber-a3) 14.06%,
+    transparent 28.36%
+  );
+}
+
+/* High contrast overrides — darker borders, secondary text merges with primary.
+   Body text already at sand-12 and focus ring/action border unchanged — both
+   already at the ceiling. Card bg stays at sand-1: the sand-12 border carries
+   the edge distinction against bg-base without a surface-tone bump. */
+[data-contrast="high"] {
+  --color-text-secondary:  var(--sand-12);   /* 11 → 12: merge with primary */
+  --color-border-subtle:   var(--sand-8);    /* 6 → 8 */
+  --color-border-default:  var(--sand-12);   /* 7 → 12 */
+  --gradient-brand:        none;            /* suppress decorative wash for max clarity */
+
+}
+
+/* Decorative: lower-contrast opt-in mode. Some token pairs will fail WCAG AA
+   by design. Softer text, lighter borders, more visible warm tint. Users opt
+   in via the drawer (sprint 3.7); the drawer carries a warning that this mode
+   may fail AA. Never the default. */
+[data-contrast="decorative"] {
+  --color-text-primary:    var(--sand-11);   /* 12 → 11: softer body text */
+  --color-text-secondary:  var(--sand-10);   /* 11 → 10 */
+  --color-border-default:  var(--sand-6);    /* 7 → 6 */
+  --color-border-subtle:   var(--sand-4);    /* 6 → 4 */
+  --color-bg-decorative:   var(--amber-3);   /* 2 → 3: warmer tint */
+    --gradient-brand: linear-gradient(
+    146.49deg,
+    var(--amber-a3) 4.17%,
+    var(--amber-a2) 14.06%,
+    transparent 28.36%
+  );
+}
+
+/* Amber-9 is always bright — action text must stay dark in both themes */
+.dark {
+  --color-action-text:   var(--amber-1);
+  --color-text-on-brand: var(--amber-1);
+  --color-action-border:   var(--sand-11);
+}

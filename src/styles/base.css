@@ -1,0 +1,107 @@
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-padding-top: 100px;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-base);
+  background-image: var(--gradient-brand);
+  background-attachment: fixed;
+  line-height: 1.6;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body {
+    animation: fadeIn 0.8s ease-out;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+
+h1, h2, h3, h4 {
+  font-family: var(--font-primary);
+  line-height: 1.25;
+  color: var(--color-text-primary);
+}
+
+h1 { font-size: 3.0625rem; font-weight: 400; }   /* 49px */
+h2 { font-size: 2.1875rem; font-weight: 500; letter-spacing: 0.25px; } /* 35px */
+h3 { font-size: 1.5625rem; font-weight: 500; }   /* 25px */
+
+@media (max-width: 800px) {
+  h1 { font-size: 2.1875rem; font-weight: 500; }
+  h2 { font-size: 1.5625rem; font-weight: 400; }
+  h3 { font-size: 1.3125rem; font-weight: 400; }
+}
+
+p { max-width: 68ch; }
+
+/* ============================================
+   LINKS
+   ============================================ */
+
+a {
+  color: inherit;
+  text-decoration: underline 0.15em;
+  text-underline-position: under;
+  transition: none;
+}
+
+a:hover,
+a:focus-visible {
+  text-underline-offset: 0.4em;
+  text-decoration-thickness: 0.25em;
+  outline: none;
+}
+
+a:focus-visible {
+  outline: 3px solid var(--color-text-primary);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ============================================
+   FORCED COLOURS
+   Windows High Contrast and equivalent OS modes paint the UI using
+   system colours. Strip decorative effects; don't override colours —
+   let the OS win. The theme/contrast drawer (sprint 3.7) still
+   renders, but its settings have no visual effect — system colours
+   paint through regardless.
+   ============================================ */
+
+@media (forced-colors: active) {
+  /* Remove decorative body gradient — system Canvas paints through. */
+  body {
+    background-image: none;
+  }
+
+  /* Use system CanvasText for focus outlines so the ring reads reliably
+     regardless of user's high-contrast palette. Overrides the base
+     a:focus-visible rule and restores an outline on .btn (base sets
+     outline: none on buttons). */
+  a:focus-visible,
+  .btn:focus-visible {
+    outline: 3px solid CanvasText;
+    outline-offset: 3px;
+  }
+}

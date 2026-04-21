@@ -1,0 +1,52 @@
+/* ============================================
+   LAYOUT
+   ============================================ */
+
+.container {
+  max-width: var(--content-width);
+  width: 90%;
+  margin-inline: auto;
+}
+
+/* Leading text */
+.text-leading {
+  font-size: var(--text-lg);
+  line-height: 1.619;
+  letter-spacing: 0.15px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a,
+  .nav__link {
+    transition: var(--transition-underline);
+  }
+
+  .btn:active {
+    transform: scale(0.98);
+  }
+
+  .card {
+    transition: var(--transition-base);
+  }
+
+  .card:hover,
+  .card:focus-visible {
+    transform: scale(1.02);
+  }
+
+  .card-list:has(.card:hover) .card:not(:hover) {
+    opacity: 0.6;
+  }
+}

@@ -1,0 +1,27 @@
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1.5rem;
+  border: 2px solid var(--color-action-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-action-bg);
+  color: var(--color-action-text);
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  background: var(--color-action-bg-hover);
+  text-decoration: underline 0.15em;
+  outline: none;
+}

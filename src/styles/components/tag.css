@@ -1,0 +1,46 @@
+/* ============================================
+   TAGS / PILLS
+   ============================================ */
+
+/* Decorative label — card tags, detail page tags.
+   Soft border; no interactive behaviour. */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2em 0.75em;
+  border-radius: var(--radius-xl);
+  background-color: var(--sand-2);
+  border: 1px solid var(--sand-6);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Interactive filter button — Guides page toggles.
+   Strong border and hover/pressed states. */
+.tag--filter {
+  border-color: var(--color-action-border);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.tag--filter:hover {
+  background: var(--color-action-bg);
+  border-color: var(--color-action-border);
+  color: var(--color-action-text);
+}
+
+/* Amber-9 is always bright — action text must stay dark in both themes */
+.dark.tag--filter:hover {
+  --color-action-text:   var(--amber-1);
+  --color-text-on-brand: var(--amber-1);
+  --color-action-border:   var(--sand-11);
+}
+
+.tag--filter[aria-pressed="true"] {
+  background: var(--color-action-bg);
+  border-color: var(--color-action-border);
+  color: var(--color-action-text);
+}
