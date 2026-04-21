@@ -1,0 +1,75 @@
+---
+// ThemeDrawer — display settings panel for theme and contrast.
+// Opened from the nav icon button; wired up in sprints 3.7c–3.7f.
+---
+
+<dialog id="theme-drawer" class="theme-drawer" aria-labelledby="theme-drawer-title">
+  <header class="theme-drawer__header">
+    <h2 id="theme-drawer-title" class="theme-drawer__title">Display settings</h2>
+    <button
+      type="button"
+      class="theme-drawer__close"
+      data-theme-drawer-close
+      aria-label="Close settings"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    </button>
+  </header>
+
+  <p class="theme-drawer__forced-colors-note" data-forced-colors-note>
+    System high-contrast is active. These settings will have no visual effect.
+  </p>
+
+  <fieldset class="theme-drawer__group" role="radiogroup" aria-labelledby="theme-legend">
+    <legend id="theme-legend" class="theme-drawer__legend">Theme</legend>
+
+    <label class="theme-drawer__option">
+      <input type="radio" name="theme" value="light" />
+      <span class="theme-drawer__option-label">Light</span>
+    </label>
+
+    <label class="theme-drawer__option">
+      <input type="radio" name="theme" value="dark" />
+      <span class="theme-drawer__option-label">Dark</span>
+    </label>
+
+    <label class="theme-drawer__option">
+      <input type="radio" name="theme" value="system" />
+      <span class="theme-drawer__option-label">System</span>
+      <span class="theme-drawer__meta" data-theme-meta>(currently light)</span>
+    </label>
+  </fieldset>
+
+  <fieldset class="theme-drawer__group" role="radiogroup" aria-labelledby="contrast-legend">
+    <legend id="contrast-legend" class="theme-drawer__legend">Contrast</legend>
+
+    <label class="theme-drawer__option">
+      <input type="radio" name="contrast" value="low" />
+      <span class="theme-drawer__option-label">Low</span>
+    </label>
+
+    <label class="theme-drawer__option">
+      <input type="radio" name="contrast" value="high" />
+      <span class="theme-drawer__option-label">High</span>
+    </label>
+
+    <label class="theme-drawer__option">
+      <input type="radio" name="contrast" value="decorative" />
+      <span class="theme-drawer__option-label">Decorative</span>
+      <span class="theme-drawer__warn">may fail WCAG AA</span>
+    </label>
+
+    <label class="theme-drawer__option">
+      <input type="radio" name="contrast" value="system" />
+      <span class="theme-drawer__option-label">System</span>
+      <span class="theme-drawer__meta" data-contrast-meta>(currently low)</span>
+    </label>
+  </fieldset>
+
+  <p class="theme-drawer__explainer">
+    Decorative is a lower-contrast mode for visual enjoyment. Some text and UI may not meet WCAG AA. Choose Low or High if readability matters to you.
+  </p>
+</dialog>
