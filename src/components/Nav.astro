@@ -1,4 +1,6 @@
 ---
+import { Sun, Moon } from 'lucide-astro';
+
 const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'Case studies', href: '/case-studies' },
@@ -25,6 +27,16 @@ const currentPath = Astro.url.pathname;
         </li>
       ))}
     </ul>
+    <button
+      type="button"
+      class="nav__theme-toggle"
+      aria-label="Theme and contrast settings"
+      aria-haspopup="dialog"
+      aria-controls="theme-drawer"
+    >
+      <Sun class="nav__theme-toggle-icon nav__theme-toggle-icon--sun" aria-hidden="true" width="20" height="20" />
+      <Moon class="nav__theme-toggle-icon nav__theme-toggle-icon--moon" aria-hidden="true" width="20" height="20" />
+    </button>
     <button class="nav__menu-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Open menu">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <line x1="4" x2="20" y1="6" y2="6"/>
