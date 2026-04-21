@@ -67,6 +67,16 @@
   );
 }
 
+/* High contrast overrides — darker borders, secondary text merges with primary.
+   Body text already at sand-12 and focus ring/action border unchanged — both
+   already at the ceiling. Card bg stays at sand-1: the sand-12 border carries
+   the edge distinction against bg-base without a surface-tone bump. */
+[data-contrast="high"] {
+  --color-text-secondary:  var(--sand-12);   /* 11 → 12: merge with primary */
+  --color-border-subtle:   var(--sand-8);    /* 6 → 8 */
+  --color-border-default:  var(--sand-12);   /* 7 → 12 */
+}
+
 /* Amber-9 is always bright — action text must stay dark in both themes */
 .dark {
   --color-action-text:   var(--amber-1);
