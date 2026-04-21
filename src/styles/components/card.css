@@ -1,0 +1,104 @@
+/* ============================================
+   CARDS
+   ============================================ */
+
+.card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-auto-rows: 1fr;
+  gap: var(--space-sm);
+}
+
+.card-list > li {
+  display: grid;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: var(--space-lg);
+  border: 2px solid var(--color-border-default);
+  border-radius: var(--radius-card);
+  background: var(--color-bg-card);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card--no-image {
+  grid-template-columns: 1fr;
+}
+
+.card--no-image .card__content {
+  padding: var(--space-md);
+}
+
+.card:hover {
+  box-shadow: 8px 8px 0px #000000;
+}
+
+.card:focus-visible {
+  box-shadow: 8px 8px 0px #000000;
+}
+
+.card__image {
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: calc(var(--radius-card) - 2px) 0 0 calc(var(--radius-card) - 2px);
+  width: 160px;
+  height: 100%;
+}
+
+.card__content {
+  padding: var(--space-md) var(--space-sm) var(--space-md) 0;
+}
+
+.card__title {
+  font-size: 1.5625rem;
+  font-weight: 500;
+  text-decoration: underline 0.08em;
+  text-underline-position: under;
+  margin-bottom: var(--space-xs);
+}
+
+.card:hover .card__title,
+.card:focus-visible .card__title {
+  text-decoration-thickness: 0.15em;
+}
+
+.card__description {
+  font-size: var(--text-base);
+  margin-bottom: var(--space-sm);
+}
+
+.card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 800px) {
+  .card {
+    grid-template-columns: 1fr;
+  }
+
+  .card__image {
+    width: 100%;
+    height: 200px;
+    border-radius: calc(var(--radius-card) - 2px) calc(var(--radius-card) - 2px) 0 0;
+  }
+
+  .card__content {
+    padding: var(--space-sm);
+  }
+}
+
+@media (forced-colors: active) {
+  /* Remove card hover/focus drop shadow — not a system-painted property. */
+  .card:hover,
+  .card:focus-visible {
+    box-shadow: none;
+  }
+}
