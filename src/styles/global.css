@@ -80,6 +80,8 @@
   --color-text-secondary:  var(--sand-12);   /* 11 → 12: merge with primary */
   --color-border-subtle:   var(--sand-8);    /* 6 → 8 */
   --color-border-default:  var(--sand-12);   /* 7 → 12 */
+  --gradient-brand:        none;            /* suppress decorative wash for max clarity */
+
 }
 
 /* Decorative: lower-contrast opt-in mode. Some token pairs will fail WCAG AA
@@ -94,8 +96,8 @@
   --color-bg-decorative:   var(--amber-3);   /* 2 → 3: warmer tint */
     --gradient-brand: linear-gradient(
     146.49deg,
-    var(--amber-a6) 4.17%,
-    var(--amber-a5) 14.06%,
+    var(--amber-a3) 4.17%,
+    var(--amber-a2) 14.06%,
     transparent 28.36%
   );
 }
@@ -433,4 +435,36 @@ a:focus-visible {
   background: var(--color-action-bg);
   border-color: var(--color-action-border);
   color: var(--color-action-text);
+}
+
+/* ============================================
+   FORCED COLOURS
+   Windows High Contrast and equivalent OS modes paint the UI using
+   system colours. Strip decorative effects; don't override colours —
+   let the OS win. The theme/contrast drawer (sprint 3.7) still
+   renders, but its settings have no visual effect — system colours
+   paint through regardless.
+   ============================================ */
+
+@media (forced-colors: active) {
+  /* Remove decorative body gradient — system Canvas paints through. */
+  body {
+    background-image: none;
+  }
+
+  /* Remove card hover/focus drop shadow — not a system-painted property. */
+  .card:hover,
+  .card:focus-visible {
+    box-shadow: none;
+  }
+
+  /* Use system CanvasText for focus outlines so the ring reads reliably
+     regardless of user's high-contrast palette. Overrides the base
+     a:focus-visible rule and restores an outline on .btn (base sets
+     outline: none on buttons). */
+  a:focus-visible,
+  .btn:focus-visible {
+    outline: 3px solid CanvasText;
+    outline-offset: 3px;
+  }
 }
