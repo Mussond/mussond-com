@@ -12,19 +12,24 @@
    ============================================ */
 
 :root {
-  /* Colour */
-  --color-text-primary: #1B1B18;
-  --color-text-secondary: #946800;
-  --color-bg-base: #FDFDFC;
-  --color-bg-decorative: #FDFDF9;
-  --color-bg-card: #FFFFFF;
-  --color-border-default: #1B1B18;
-  --color-action-bg: #F7CE00;
-  --color-action-bg-hover: #FDFDF9;
-  --color-action-border: #1B1B18;
-  --color-action-text: #1B1B18;
+  /* Colour — Layer 1: Radix primitives are imported above.
+     Layer 2: semantic tokens alias Radix steps.
+     Contrast-mode overrides (sprint 3.6) remap steps without touching names. */
+  --color-text-primary:    var(--sand-12);
+  --color-text-secondary:  var(--sand-11);
+  --color-bg-base:         var(--sand-1);
+  --color-bg-card:         var(--sand-2);
+  --color-bg-decorative:   var(--amber-2);
+  --color-border-subtle:   var(--sand-6);
+  --color-border-default:  var(--sand-7);
+  --color-action-bg:       var(--amber-9);
+  --color-action-bg-hover: var(--amber-10);
+  --color-action-border:   var(--sand-12);
+  --color-action-text:     var(--sand-12);
+  --color-text-on-brand:   var(--sand-12);
+  --color-focus-ring:      var(--sand-12);
 
-  /* Background gradient */
+  /* Background gradient — hardcoded rgba until sprint 3.6 */
   --gradient-brand: linear-gradient(
     146.49deg,
     rgba(247, 206, 0, 0.16) 4.17%,
@@ -35,9 +40,9 @@
   /* Typography */
   --font-primary: 'Quicksand', system-ui, sans-serif;
   --text-base: 1rem;
-  --text-lg: 1.3125rem;    /* 21px — leading text */
-  --text-xl: 2.1875rem;    /* 35px — H2 */
-  --text-2xl: 3.0625rem;   /* 49px — H1 */
+  --text-lg: 1.3125rem;
+  --text-xl: 2.1875rem;
+  --text-2xl: 3.0625rem;
 
   /* Spacing */
   --space-xs: 0.5rem;
