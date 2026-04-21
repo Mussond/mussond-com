@@ -54,6 +54,7 @@
   --color-border-default:  var(--sand-7);
   --color-action-bg:       var(--amber-9);
   --color-action-bg-hover: var(--amber-10);
+  --color-accent-selected: var(--amber-11);
   --color-action-border:   var(--sand-12);
   --color-action-text:     var(--sand-12);
   --color-text-on-brand:   var(--sand-12);
@@ -106,4 +107,5 @@
   --color-action-text:   var(--amber-1);
   --color-text-on-brand: var(--amber-1);
   --color-action-border:   var(--sand-11);
+  --color-accent-selected: var(--amber-9);
 }

@@ -109,9 +109,9 @@
 }
 
 .theme-drawer__option input[type="radio"] {
-  width: 1rem;
+  width: 1rem;  
   height: 1rem;
-  accent-color: var(--color-text-primary);
+  accent-color: var(--color-accent-selected);
   margin: 0;
   flex-shrink: 0;
 }

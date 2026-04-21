@@ -23,8 +23,8 @@
     System high-contrast is active. These settings will have no visual effect.
   </p>
 
-  <fieldset class="theme-drawer__group" role="radiogroup" aria-labelledby="theme-legend">
-    <legend id="theme-legend" class="theme-drawer__legend">Theme</legend>
+  <fieldset class="theme-drawer__group">
+    <legend class="theme-drawer__legend">Theme</legend>
 
     <label class="theme-drawer__option">
       <input type="radio" name="theme" value="light" />
@@ -43,8 +43,8 @@
     </label>
   </fieldset>
 
-  <fieldset class="theme-drawer__group" role="radiogroup" aria-labelledby="contrast-legend">
-    <legend id="contrast-legend" class="theme-drawer__legend">Contrast</legend>
+  <fieldset class="theme-drawer__group">
+    <legend class="theme-drawer__legend">Contrast</legend>
 
     <label class="theme-drawer__option">
       <input type="radio" name="contrast" value="low" />
@@ -84,42 +84,157 @@
     const contrastRadios = drawer.querySelectorAll<HTMLInputElement>('input[name="contrast"]');
     const themeMeta = drawer.querySelector('[data-theme-meta]');
     const contrastMeta = drawer.querySelector('[data-contrast-meta]');
+    const closeButton = drawer.querySelector('[data-theme-drawer-close]') as HTMLButtonElement | null;
 
-    // What the user chose explicitly — 'system' means no override stored.
-    function getStoredTheme() {
+    const html = document.documentElement;
+
+    type ThemeChoice = 'light' | 'dark' | 'system';
+    type ContrastChoice = 'low' | 'high' | 'decorative' | 'system';
+
+    function getStoredTheme(): ThemeChoice {
       const stored = localStorage.getItem('theme');
       return (stored === 'light' || stored === 'dark') ? stored : 'system';
     }
 
-    function getStoredContrast() {
+    function getStoredContrast(): ContrastChoice {
       const stored = localStorage.getItem('contrast');
       return (stored === 'low' || stored === 'high' || stored === 'decorative') ? stored : 'system';
     }
 
-    // What's actually painted right now — used for the "(currently X)"
-    // meta text on the System option.
-    function getEffectiveTheme() {
-      return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    function getEffectiveTheme(): 'light' | 'dark' {
+      return html.classList.contains('dark') ? 'dark' : 'light';
     }
 
-    function getEffectiveContrast() {
-      return document.documentElement.getAttribute('data-contrast') || 'low';
+    function getEffectiveContrast(): 'low' | 'high' | 'decorative' {
+      const c = html.getAttribute('data-contrast');
+      return (c === 'high' || c === 'decorative') ? c : 'low';
     }
 
-    function syncDrawerState() {
-      const theme = getStoredTheme();
-      const contrast = getStoredContrast();
+    function resolveSystemTheme(): 'light' | 'dark' {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
 
-      themeRadios.forEach((r) => { r.checked = r.value === theme; });
-      contrastRadios.forEach((r) => { r.checked = r.value === contrast; });
+    function resolveSystemContrast(): 'low' | 'high' {
+      return window.matchMedia('(prefers-contrast: more)').matches ? 'high' : 'low';
+    }
 
+    function applyTheme(value: ThemeChoice) {
+      if (value === 'system') {
+        localStorage.removeItem('theme');
+        html.className = resolveSystemTheme();
+      } else {
+        localStorage.setItem('theme', value);
+        html.className = value;
+      }
+    }
+
+    function applyContrast(value: ContrastChoice) {
+      if (value === 'system') {
+        localStorage.removeItem('contrast');
+        html.setAttribute('data-contrast', resolveSystemContrast());
+      } else {
+        localStorage.setItem('contrast', value);
+        html.setAttribute('data-contrast', value);
+      }
+    }
+
+    function updateMetaText() {
       if (themeMeta) themeMeta.textContent = `(currently ${getEffectiveTheme()})`;
       if (contrastMeta) contrastMeta.textContent = `(currently ${getEffectiveContrast()})`;
     }
 
+    function updateNavLabel() {
+      navButton!.setAttribute(
+        'aria-label',
+        `Theme and contrast settings, currently ${getEffectiveTheme()} and ${getEffectiveContrast()} contrast`
+      );
+    }
+
+    function syncDrawerRadios() {
+      const theme = getStoredTheme();
+      const contrast = getStoredContrast();
+      themeRadios.forEach((r) => { r.checked = r.value === theme; });
+      contrastRadios.forEach((r) => { r.checked = r.value === contrast; });
+    }
+
+    function syncDrawerState() {
+      syncDrawerRadios();
+      updateMetaText();
+    }
+
+    // Open: sync state, open modal, then focus the checked theme radio
+    // so the first tab stop is Theme, not the close button.
     navButton.addEventListener('click', () => {
       syncDrawerState();
       drawer.showModal();
+      const checkedTheme = drawer.querySelector<HTMLInputElement>('input[name="theme"]:checked');
+      checkedTheme?.focus();
     });
+
+    closeButton?.addEventListener('click', () => {
+      drawer.close();
+    });
+
+    // Backdrop click — only fires when the click target is the dialog itself
+    // (the padding area around content, or the ::backdrop pseudo-element).
+    // Bubbled clicks from children (including synthetic clicks from arrow-
+    // key radio selection, which carry clientX/Y = 0) are ignored.
+    drawer.addEventListener('click', (event) => {
+      if (event.target !== drawer) return;
+      const rect = drawer.getBoundingClientRect();
+      const inside =
+        event.clientX >= rect.left && event.clientX <= rect.right &&
+        event.clientY >= rect.top && event.clientY <= rect.bottom;
+      if (!inside) drawer.close();
+    });
+
+    // Focus trap — wrap Tab/Shift-Tab between first and last focusables.
+    // Tab stops: close button, checked theme radio, checked contrast radio.
+    // Only the checked radio in each group is in the native tab order, so
+    // we compute the last focusable fresh on every keydown.
+    drawer.addEventListener('keydown', (event) => {
+      if (event.key !== 'Tab') return;
+
+      const checkedTheme =
+        drawer.querySelector<HTMLInputElement>('input[name="theme"]:checked') ??
+        drawer.querySelector<HTMLInputElement>('input[name="theme"]');
+      const checkedContrast =
+        drawer.querySelector<HTMLInputElement>('input[name="contrast"]:checked') ??
+        drawer.querySelector<HTMLInputElement>('input[name="contrast"]');
+
+      const stops = [closeButton, checkedTheme, checkedContrast].filter(Boolean) as HTMLElement[];
+      if (stops.length === 0) return;
+
+      const first = stops[0];
+      const last = stops[stops.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+
+    themeRadios.forEach((radio) => {
+      radio.addEventListener('change', () => {
+        if (!radio.checked) return;
+        applyTheme(radio.value as ThemeChoice);
+        updateMetaText();
+        updateNavLabel();
+      });
+    });
+
+    contrastRadios.forEach((radio) => {
+      radio.addEventListener('change', () => {
+        if (!radio.checked) return;
+        applyContrast(radio.value as ContrastChoice);
+        updateMetaText();
+        updateNavLabel();
+      });
+    });
+
+    updateNavLabel();
   })();
 </script>
