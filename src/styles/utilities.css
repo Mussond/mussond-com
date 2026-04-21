@@ -8,6 +8,15 @@
   margin-inline: auto;
 }
 
+.page-content {
+  padding-block: 4rem;
+}
+
+.page-intro {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
 /* Leading text */
 .text-leading {
   font-size: var(--text-lg);

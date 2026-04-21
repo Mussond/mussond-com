@@ -9,9 +9,9 @@ const allTags = [...new Set(sorted.flatMap((a) => a.data.tags))].sort();
 ---
 
 <Layout title="Guides — Dave Musson" description="Guides on design systems and accessibility by Dave Musson.">
-  <main id="main-content" class="container" style="padding-block: 4rem;">
+  <main id="main-content" class="container page-content">
     <h1>Guides</h1>
-    <p class="text-leading" style="margin-top: 1rem; margin-bottom: 2rem;">
+    <p class="text-leading page-intro">
       Articles on design systems and accessibility.
     </p>
 
@@ -52,30 +52,6 @@ const allTags = [...new Set(sorted.flatMap((a) => a.data.tags))].sort();
     border: 2px solid currentColor;
     font-family: inherit;
     font-size: inherit;
-  }
-
-  .tag--filter:hover {
-  background-color: var(--color-action-bg);
-  border-color: var(--color-action-border);
-  color: var(--color-action-text);
-}
-
-  .tag--filter[aria-pressed="true"] {
-    background-color: var(--color-text-primary);
-    color: var(--color-bg-base);
-    border-color: var(--color-text-primary);
-  }
-
-  .visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
   }
 
   .card-list__item[hidden] { display: none; }
