@@ -73,3 +73,53 @@
     Decorative is a lower-contrast mode for visual enjoyment. Some text and UI may not meet WCAG AA. Choose Low or High if readability matters to you.
   </p>
 </dialog>
+
+<script>
+  (() => {
+    const drawer = document.getElementById('theme-drawer') as HTMLDialogElement | null;
+    const navButton = document.querySelector('[aria-controls="theme-drawer"]') as HTMLButtonElement | null;
+    if (!drawer || !navButton) return;
+
+    const themeRadios = drawer.querySelectorAll<HTMLInputElement>('input[name="theme"]');
+    const contrastRadios = drawer.querySelectorAll<HTMLInputElement>('input[name="contrast"]');
+    const themeMeta = drawer.querySelector('[data-theme-meta]');
+    const contrastMeta = drawer.querySelector('[data-contrast-meta]');
+
+    // What the user chose explicitly — 'system' means no override stored.
+    function getStoredTheme() {
+      const stored = localStorage.getItem('theme');
+      return (stored === 'light' || stored === 'dark') ? stored : 'system';
+    }
+
+    function getStoredContrast() {
+      const stored = localStorage.getItem('contrast');
+      return (stored === 'low' || stored === 'high' || stored === 'decorative') ? stored : 'system';
+    }
+
+    // What's actually painted right now — used for the "(currently X)"
+    // meta text on the System option.
+    function getEffectiveTheme() {
+      return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    }
+
+    function getEffectiveContrast() {
+      return document.documentElement.getAttribute('data-contrast') || 'low';
+    }
+
+    function syncDrawerState() {
+      const theme = getStoredTheme();
+      const contrast = getStoredContrast();
+
+      themeRadios.forEach((r) => { r.checked = r.value === theme; });
+      contrastRadios.forEach((r) => { r.checked = r.value === contrast; });
+
+      if (themeMeta) themeMeta.textContent = `(currently ${getEffectiveTheme()})`;
+      if (contrastMeta) contrastMeta.textContent = `(currently ${getEffectiveContrast()})`;
+    }
+
+    navButton.addEventListener('click', () => {
+      syncDrawerState();
+      drawer.showModal();
+    });
+  })();
+</script>
