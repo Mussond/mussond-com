@@ -100,3 +100,41 @@
     width: 100%;
   }
 }
+
+/* ============================================
+   THEME TOGGLE
+   Opens the ThemeDrawer (see theme-drawer.css). Icon swaps by
+   theme via the class on <html> — no JS needed for the swap.
+   ============================================ */
+
+.nav__theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.nav__theme-toggle:hover {
+  border-color: var(--color-border-default);
+  background: var(--color-bg-card);
+}
+
+.nav__theme-toggle:focus-visible {
+  outline: 3px solid var(--color-text-primary);
+  outline-offset: 2px;
+}
+
+/* Icon swap — show sun in light theme, moon in dark theme.
+   The no-flash script sets html.className to 'light' or 'dark'. */
+.nav__theme-toggle-icon { display: none; }
+
+html.light .nav__theme-toggle-icon--sun { display: block; }
+html.dark .nav__theme-toggle-icon--moon { display: block; }
