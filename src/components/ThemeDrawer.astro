@@ -235,6 +235,24 @@
       });
     });
 
+    // Live system-preference watching — when the user has 'system'
+    // selected on either axis, react to OS-level changes without a
+    // reload. An explicit choice (light/dark/high/etc) takes priority
+    // and we don't override it.
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      if (getStoredTheme() !== 'system') return;
+      html.className = resolveSystemTheme();
+      updateMetaText();
+      updateNavLabel();
+    });
+
+    window.matchMedia('(prefers-contrast: more)').addEventListener('change', () => {
+      if (getStoredContrast() !== 'system') return;
+      html.setAttribute('data-contrast', resolveSystemContrast());
+      updateMetaText();
+      updateNavLabel();
+    });
+
     updateNavLabel();
   })();
 </script>
