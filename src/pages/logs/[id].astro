@@ -25,7 +25,7 @@ const { Content } = await render(log);
 
     <BackLink href="/logs" label="Logs" />
 
-    <div class="log-header">
+    <div class="content-header">
       <h1>{log.data.title}</h1>
       <p class="text-leading">{log.data.description}</p>
       <TagList tags={log.data.tags} />
@@ -37,65 +37,9 @@ const { Content } = await render(log);
       </p>
     </div>
 
-    <div class="log-body">
+    <div class="prose">
       <Content />
     </div>
 
   </main>
 </Layout>
-
-<style>
-  .log-header { margin-bottom: 3rem; }
-  .log-header h1 { margin-bottom: 1rem; }
-
-  .content-meta {
-    margin-top: 1rem;
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-  }
-
-  .log-header :global(.card__tags) {
-    margin-top: 1.5rem;
-  }
-
-  .log-body { max-width: 68ch; }
-
-  .log-body :global(h2) {
-    font-size: 2.1875rem;
-    font-weight: 500;
-    margin-top: 3rem;
-    margin-bottom: 1rem;
-  }
-
-  .log-body :global(h3) {
-    font-size: 1.5625rem;
-    font-weight: 500;
-    margin-top: 2rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .log-body :global(p) {
-    margin-bottom: 1rem;
-    line-height: 1.7;
-  }
-
-  .log-body :global(ul),
-  .log-body :global(ol) {
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .log-body :global(ul) { list-style: disc; }
-  .log-body :global(ol) { list-style: decimal; }
-
-  .log-body :global(li) {
-    margin-bottom: 0.5rem;
-    line-height: 1.7;
-    display: list-item;
-  }
-
-  .log-body :global(a) {
-    color: var(--color-text-secondary);
-    font-weight: 600;
-  }
-</style>

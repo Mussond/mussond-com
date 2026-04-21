@@ -25,7 +25,7 @@ const { Content } = await render(study);
 
     <BackLink href="/case-studies" label="Case studies" />
 
-    <div class="case-study-header">
+    <div class="content-header">
       <h1>{study.data.title}</h1>
       <p class="text-leading">{study.data.description}</p>
       <TagList tags={study.data.tags} />
@@ -47,68 +47,9 @@ const { Content } = await render(study);
       />
     )}
 
-    <div class="case-study-body">
+    <div class="prose">
       <Content />
     </div>
 
   </main>
 </Layout>
-
-<style>
-  .hero-image {
-    width: 100%;
-    border-radius: 16px;
-    margin-bottom: 3rem;
-  }
-
-  .case-study-header { margin-bottom: 2rem; }
-  .case-study-header h1 { margin-bottom: 1rem; }
-
-  .content-meta {
-    margin-top: 1rem;
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-  }
-
-  .case-study-header :global(.card__tags) {
-    margin-top: 1.5rem;
-  }
-
-  .case-study-body { max-width: 68ch; }
-
-  .case-study-body :global(h2) {
-    font-size: 2.1875rem;
-    font-weight: 500;
-    margin-top: 3rem;
-    margin-bottom: 1rem;
-  }
-
-  .case-study-body :global(h3) {
-    font-size: 1.5625rem;
-    font-weight: 500;
-    margin-top: 2rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .case-study-body :global(p) {
-    margin-bottom: 1rem;
-    line-height: 1.7;
-  }
-
-  .case-study-body :global(ul) {
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
-    list-style: disc;
-  }
-
-  .case-study-body :global(li) {
-    margin-bottom: 0.5rem;
-    line-height: 1.7;
-    display: list-item;
-  }
-
-  .case-study-body :global(a) {
-    color: var(--color-text-secondary);
-    font-weight: 600;
-  }
-</style>
