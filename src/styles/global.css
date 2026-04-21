@@ -12,31 +12,6 @@
    ============================================ */
 
 :root {
-  /* Colour — Layer 1: Radix primitives are imported above.
-     Layer 2: semantic tokens alias Radix steps.
-     Contrast-mode overrides (sprint 3.6) remap steps without touching names. */
-  --color-text-primary:    var(--sand-12);
-  --color-text-secondary:  var(--sand-11);
-  --color-bg-base:         var(--sand-1);
-  --color-bg-card:         var(--sand-1);
-  --color-bg-decorative:   var(--amber-2);
-  --color-border-subtle:   var(--sand-6);
-  --color-border-default:  var(--sand-7);
-  --color-action-bg:       var(--amber-9);
-  --color-action-bg-hover: var(--amber-10);
-  --color-action-border:   var(--sand-12);
-  --color-action-text:     var(--sand-12);
-  --color-text-on-brand:   var(--sand-12);
-  --color-focus-ring:      var(--sand-12);
-
-  /* Background gradient — hardcoded rgba until sprint 3.6 */
-  --gradient-brand: linear-gradient(
-    146.49deg,
-    rgba(247, 206, 0, 0.16) 4.17%,
-    rgba(239, 211, 108, 0.14) 14.06%,
-    rgba(253, 253, 252, 0.2) 28.36%
-  );
-
   /* Typography */
   --font-primary: 'Quicksand', system-ui, sans-serif;
   --text-base: 1rem;
@@ -60,6 +35,36 @@
   /* Motion */
   --transition-base: all 0.3s cubic-bezier(0.8, 0.04, 0.4, 1);
   --transition-underline: text-underline-offset 400ms, text-decoration-color 400ms;
+}
+
+/* Semantic colour tokens — Low contrast baseline.
+   Layer 1: Radix primitives imported above. Layer 2: semantic tokens alias Radix steps.
+   The :root selector is a safety fallback — if the no-flash script fails to set
+   data-contrast, the page still renders readably in Low. Contrast-mode overrides
+   below remap steps without touching token names. */
+:root,
+[data-contrast="low"] {
+  --color-text-primary:    var(--sand-12);
+  --color-text-secondary:  var(--sand-11);
+  --color-bg-base:         var(--sand-1);
+  --color-bg-card:         var(--sand-1);
+  --color-bg-decorative:   var(--amber-2);
+  --color-border-subtle:   var(--sand-6);
+  --color-border-default:  var(--sand-7);
+  --color-action-bg:       var(--amber-9);
+  --color-action-bg-hover: var(--amber-10);
+  --color-action-border:   var(--sand-12);
+  --color-action-text:     var(--sand-12);
+  --color-text-on-brand:   var(--sand-12);
+  --color-focus-ring:      var(--sand-12);
+
+  /* Background gradient — hardcoded rgba until sprint 3.6d */
+  --gradient-brand: linear-gradient(
+    146.49deg,
+    rgba(247, 206, 0, 0.16) 4.17%,
+    rgba(239, 211, 108, 0.14) 14.06%,
+    rgba(253, 253, 252, 0.2) 28.36%
+  );
 }
 
 /* Amber-9 is always bright — action text must stay dark in both themes */
