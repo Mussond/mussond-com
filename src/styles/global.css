@@ -77,6 +77,18 @@
   --color-border-default:  var(--sand-12);   /* 7 → 12 */
 }
 
+/* Decorative: lower-contrast opt-in mode. Some token pairs will fail WCAG AA
+   by design. Softer text, lighter borders, more visible warm tint. Users opt
+   in via the drawer (sprint 3.7); the drawer carries a warning that this mode
+   may fail AA. Never the default. */
+[data-contrast="decorative"] {
+  --color-text-primary:    var(--sand-11);   /* 12 → 11: softer body text */
+  --color-text-secondary:  var(--sand-10);   /* 11 → 10 */
+  --color-border-default:  var(--sand-6);    /* 7 → 6 */
+  --color-border-subtle:   var(--sand-4);    /* 6 → 4 */
+  --color-bg-decorative:   var(--amber-3);   /* 2 → 3: warmer tint */
+}
+
 /* Amber-9 is always bright — action text must stay dark in both themes */
 .dark {
   --color-action-text:   var(--amber-1);
