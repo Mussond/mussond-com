@@ -3,6 +3,8 @@
 @import "@radix-ui/colors/sand-dark.css";
 @import "@radix-ui/colors/amber.css";
 @import "@radix-ui/colors/amber-dark.css";
+@import "@radix-ui/colors/amber-alpha.css";
+@import "@radix-ui/colors/amber-dark-alpha.css";
 @import "@radix-ui/colors/indigo.css";
 @import "@radix-ui/colors/indigo-dark.css";
 
@@ -58,12 +60,15 @@
   --color-text-on-brand:   var(--sand-12);
   --color-focus-ring:      var(--sand-12);
 
-  /* Background gradient — hardcoded rgba until sprint 3.6d */
+  /* Background gradient — Radix amber alpha stops over transparent.
+     Alpha tokens auto-flip per theme; the transparent tail lets
+     --color-bg-base show through, so dark mode flips cleanly too.
+     Decorative mode bumps the alpha steps for a warmer overlay. */
   --gradient-brand: linear-gradient(
     146.49deg,
-    rgba(247, 206, 0, 0.16) 4.17%,
-    rgba(239, 211, 108, 0.14) 14.06%,
-    rgba(253, 253, 252, 0.2) 28.36%
+    var(--amber-a4) 4.17%,
+    var(--amber-a3) 14.06%,
+    transparent 28.36%
   );
 }
 
@@ -87,6 +92,12 @@
   --color-border-default:  var(--sand-6);    /* 7 → 6 */
   --color-border-subtle:   var(--sand-4);    /* 6 → 4 */
   --color-bg-decorative:   var(--amber-3);   /* 2 → 3: warmer tint */
+    --gradient-brand: linear-gradient(
+    146.49deg,
+    var(--amber-a6) 4.17%,
+    var(--amber-a5) 14.06%,
+    transparent 28.36%
+  );
 }
 
 /* Amber-9 is always bright — action text must stay dark in both themes */
