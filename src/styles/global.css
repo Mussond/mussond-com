@@ -1,4 +1,10 @@
 @import "tailwindcss";
+@import "@radix-ui/colors/sand.css";
+@import "@radix-ui/colors/sand-dark.css";
+@import "@radix-ui/colors/amber.css";
+@import "@radix-ui/colors/amber-dark.css";
+@import "@radix-ui/colors/indigo.css";
+@import "@radix-ui/colors/indigo-dark.css";
 
 /* ============================================
    DESIGN TOKENS
@@ -6,19 +12,24 @@
    ============================================ */
 
 :root {
-  /* Colour */
-  --color-text-primary: #1B1B18;
-  --color-text-secondary: #946800;
-  --color-bg-base: #FDFDFC;
-  --color-bg-decorative: #FDFDF9;
-  --color-bg-card: #FFFFFF;
-  --color-border-default: #1B1B18;
-  --color-action-bg: #F7CE00;
-  --color-action-bg-hover: #FDFDF9;
-  --color-action-border: #1B1B18;
-  --color-action-text: #1B1B18;
+  /* Colour — Layer 1: Radix primitives are imported above.
+     Layer 2: semantic tokens alias Radix steps.
+     Contrast-mode overrides (sprint 3.6) remap steps without touching names. */
+  --color-text-primary:    var(--sand-12);
+  --color-text-secondary:  var(--sand-11);
+  --color-bg-base:         var(--sand-1);
+  --color-bg-card:         var(--sand-1);
+  --color-bg-decorative:   var(--amber-2);
+  --color-border-subtle:   var(--sand-6);
+  --color-border-default:  var(--sand-7);
+  --color-action-bg:       var(--amber-9);
+  --color-action-bg-hover: var(--amber-10);
+  --color-action-border:   var(--sand-12);
+  --color-action-text:     var(--sand-12);
+  --color-text-on-brand:   var(--sand-12);
+  --color-focus-ring:      var(--sand-12);
 
-  /* Background gradient */
+  /* Background gradient — hardcoded rgba until sprint 3.6 */
   --gradient-brand: linear-gradient(
     146.49deg,
     rgba(247, 206, 0, 0.16) 4.17%,
@@ -29,9 +40,9 @@
   /* Typography */
   --font-primary: 'Quicksand', system-ui, sans-serif;
   --text-base: 1rem;
-  --text-lg: 1.3125rem;    /* 21px — leading text */
-  --text-xl: 2.1875rem;    /* 35px — H2 */
-  --text-2xl: 3.0625rem;   /* 49px — H1 */
+  --text-lg: 1.3125rem;
+  --text-xl: 2.1875rem;
+  --text-2xl: 3.0625rem;
 
   /* Spacing */
   --space-xs: 0.5rem;
@@ -51,19 +62,11 @@
   --transition-underline: text-underline-offset 400ms, text-decoration-color 400ms;
 }
 
-/* Dark mode tokens — placeholder for Phase 1,
-   values will be refined once dark mode is designed */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-text-primary: #E8E8E4;
-    --color-text-secondary: #EDAB00;
-    --color-bg-base: #1A1A17;
-    --color-bg-decorative: #1E1E1B;
-    --color-bg-card: #242420;
-    --color-border-default: #3A3A36;
-    --color-action-bg: #F7CE00;
-    --color-action-text: #1B1B18;
-  }
+/* Amber-9 is always bright — action text must stay dark in both themes */
+.dark {
+  --color-action-text:   var(--amber-1);
+  --color-text-on-brand: var(--amber-1);
+  --color-action-border:   var(--sand-11);
 }
 
 /* ============================================
@@ -351,21 +354,45 @@ a:focus-visible {
    TAGS / PILLS
    ============================================ */
 
+/* Decorative label — card tags, detail page tags.
+   Soft border; no interactive behaviour. */
 .tag {
   display: inline-flex;
   align-items: center;
   padding: 0.2em 0.75em;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-xl);
+  background-color: var(--sand-2);
+  border: 1px solid var(--sand-6);
   font-size: 0.875rem;
   font-weight: 600;
   letter-spacing: 0.5px;
   text-decoration: none;
   color: inherit;
+}
+
+/* Interactive filter button — Guides page toggles.
+   Strong border and hover/pressed states. */
+.tag--filter {
+  border-color: var(--color-action-border);
+  cursor: pointer;
   transition: background 0.15s ease;
 }
 
-.tag:hover {
+.tag--filter:hover {
   background: var(--color-action-bg);
   border-color: var(--color-action-border);
+  color: var(--color-action-text);
+}
+
+/* Amber-9 is always bright — action text must stay dark in both themes */
+.dark.tag--filter:hover {
+  --color-action-text:   var(--amber-1);
+  --color-text-on-brand: var(--amber-1);
+  --color-action-border:   var(--sand-11);
+}
+
+.tag--filter[aria-pressed="true"] {
+  background: var(--color-action-bg);
+  border-color: var(--color-action-border);
+  color: var(--color-action-text);
 }

@@ -16,6 +16,18 @@ const { title, description = 'Dave Musson — Design Systems and Accessibility s
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      (function() {
+        var t = localStorage.getItem('theme');
+        var c = localStorage.getItem('contrast');
+        var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var systemHigh = window.matchMedia('(prefers-contrast: more)').matches;
+        var theme = (t === 'light' || t === 'dark') ? t : (systemDark ? 'dark' : 'light');
+        var contrast = (c === 'low' || c === 'high' || c === 'decorative') ? c : (systemHigh ? 'high' : 'low');
+        document.documentElement.className = theme;
+        document.documentElement.setAttribute('data-contrast', contrast);
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
