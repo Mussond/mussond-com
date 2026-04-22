@@ -28,3 +28,8 @@ pnpm-debug.log*
 
 # axe checks
 .axe/
+
+# contrast matrix test artefacts (generated on each run)
+tests/screenshots/
+test-results/
+playwright-report/
