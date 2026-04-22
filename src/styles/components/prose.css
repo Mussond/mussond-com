@@ -2,7 +2,7 @@
 
 .hero-image {
   width: 100%;
-  border-radius: 16px;
+  border-radius: var(--radius-card);
   margin-bottom: 3rem;
 }
 
