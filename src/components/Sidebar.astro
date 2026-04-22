@@ -1,5 +1,6 @@
 ---
 import { Sun, Moon, Linkedin } from 'lucide-astro';
+import Identity from './Identity.astro';
 
 const navLinks = [
   { label: 'Home', href: '/' },
@@ -9,7 +10,6 @@ const navLinks = [
 ];
 
 const currentPath = Astro.url.pathname;
-const isHomepage = currentPath === '/';
 ---
 
 <aside class="sidebar">
@@ -32,14 +32,7 @@ const isHomepage = currentPath === '/';
     </button>
   </div>
 
-  <div class="sidebar__identity">
-    {isHomepage ? (
-      <h1 class="sidebar__name">Dave Musson</h1>
-    ) : (
-      <p class="sidebar__name"><a href="/">Dave Musson</a></p>
-    )}
-    <p class="sidebar__tagline">Design systems and accessibility specialist</p>
-  </div>
+  <Identity variant="sidebar" />
 
   <div id="sidebar-body" class="sidebar__body">
     <nav class="sidebar__nav" aria-label="Main">
@@ -65,6 +58,7 @@ const isHomepage = currentPath === '/';
         aria-label="LinkedIn profile (opens in new tab)"
       >
         <Linkedin aria-hidden="true" width="18" height="18" />
+        <span class="icon-button__label">LinkedIn</span>
       </a>
       <button
         type="button"
@@ -73,8 +67,9 @@ const isHomepage = currentPath === '/';
         aria-haspopup="dialog"
         aria-controls="theme-drawer"
       >
-        <Sun class="icon-button__icon icon-button__icon--sun" aria-hidden="true" width="18" height="18" />
-        <Moon class="icon-button__icon icon-button__icon--moon" aria-hidden="true" width="18" height="18" />
+        <Sun class="icon-button__theme-icon icon-button__theme-icon--sun" aria-hidden="true" width="18" height="18" />
+        <Moon class="icon-button__theme-icon icon-button__theme-icon--moon" aria-hidden="true" width="18" height="18" />
+        <span class="icon-button__label">Settings</span>
       </button>
     </div>
 

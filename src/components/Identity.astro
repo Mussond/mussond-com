@@ -1,0 +1,25 @@
+---
+// Identity — renders the name + tagline block used in two places:
+// in the sidebar on desktop, and at the top of the main column on
+// mobile. Both instances are rendered in the DOM; CSS shows the
+// appropriate variant per breakpoint via display:none, which also
+// removes the hidden copy from the accessibility tree so screen
+// readers only see one h1 at a time.
+
+interface Props {
+  variant: 'sidebar' | 'mobile';
+}
+
+const { variant } = Astro.props;
+const currentPath = Astro.url.pathname;
+const isHomepage = currentPath === '/';
+---
+
+<div class={`identity identity--${variant}`}>
+  {isHomepage ? (
+    <h1 class="identity__name">Dave Musson</h1>
+  ) : (
+    <p class="identity__name"><a href="/">Dave Musson</a></p>
+  )}
+  <p class="identity__tagline">Design systems and accessibility specialist</p>
+</div>
