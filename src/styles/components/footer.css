@@ -43,8 +43,7 @@
 .footer__strapline {
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--color-text-primary);
-  opacity: 0.6;
+  color: var(--color-text-secondary);
   max-width: unset;
   margin-bottom: 0.5rem;
   padding-left: 12px;
@@ -52,8 +51,7 @@
 
 .footer__copyright {
   font-size: 0.875rem;
-  color: var(--color-text-primary);
-  opacity: 0.6;
+  color: var(--color-text-secondary);
   max-width: unset;
   margin-bottom: 0.5rem;
   padding-left: 12px;
