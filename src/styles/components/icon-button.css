@@ -1,11 +1,10 @@
 /* ============================================
    ICON BUTTON
-   Circular outlined control for socials (LinkedIn) and the
-   theme-drawer opener. Always-visible sand keyline; hover
-   swaps to amber (brand interaction). In high-contrast mode
-   the button reshapes into a text link with a visible label
-   and underline — icons alone stop carrying meaning once the
-   palette is cranked up, so the word takes over.
+   Circular outlined control for socials and the theme-drawer
+   opener. Amber interaction on hover/active. Pill focus ring
+   with offset — matches Button treatment exactly.
+   In high-contrast the button reshapes into a visible text
+   link; icons alone stop carrying meaning at high contrast.
    ============================================ */
 
 .icon-button {
@@ -23,6 +22,12 @@
   text-decoration: none;
   cursor: pointer;
   flex-shrink: 0;
+  transition: background 0.2s ease-out, border-color 0.2s ease-out;
+}
+
+.icon-button--small {
+  width: 1.75rem;
+  height: 1.75rem;
 }
 
 .icon-button:hover {
@@ -30,9 +35,21 @@
   border-color: var(--color-action-bg);
 }
 
+.icon-button:active {
+  background: var(--amber-a4);
+}
+
+/* Focus ring — pill shape with offset. Matches .btn treatment. */
 .icon-button:focus-visible {
-  outline: 3px solid var(--color-text-primary);
+  outline: 3px solid var(--color-focus-ring);
   outline-offset: 2px;
+}
+
+/* No underline on any interactive state */
+.icon-button:hover,
+.icon-button:focus-visible,
+.icon-button:active {
+  text-decoration: none;
 }
 
 /* Theme toggle — sun/moon swap by html.className. The no-flash
@@ -40,7 +57,7 @@
    frame one. Hidden by default; the per-theme rule reveals one. */
 .icon-button__theme-icon { display: none; }
 html.light .icon-button__theme-icon--sun { display: block; }
-html.dark .icon-button__theme-icon--moon { display: block; }
+html.dark  .icon-button__theme-icon--moon { display: block; }
 
 /* Label — visually hidden in low / decorative; revealed in
    high-contrast below. */
@@ -59,7 +76,7 @@ html.dark .icon-button__theme-icon--moon { display: block; }
 /* ============================================
    HIGH CONTRAST — icon-button becomes a text link
    Button element keeps its semantics (the theme-drawer JS
-   looks up aria-controls="theme-drawer" on a <button>), only
+   looks up aria-controls="theme-drawer" on a <button>); only
    the visual form changes. Label replaces icon.
    ============================================ */
 
@@ -67,6 +84,7 @@ html.dark .icon-button__theme-icon--moon { display: block; }
   width: auto;
   height: auto;
   padding: 0.375rem 0.75rem;
+  border-width: 2px;
   border-radius: 8px;
   font-size: var(--text-sm);
   font-weight: 600;
@@ -74,7 +92,12 @@ html.dark .icon-button__theme-icon--moon { display: block; }
   text-underline-offset: 0.25em;
 }
 
-[data-contrast="high"] .icon-button > svg { display: none; }
+[data-contrast="high"] .icon-button:focus-visible {
+  outline-offset: 3px;
+}
+
+[data-contrast="high"] .icon-button > svg,
+[data-contrast="high"] .icon-button > :global(svg) { display: none; }
 
 [data-contrast="high"] .icon-button__label {
   position: static;

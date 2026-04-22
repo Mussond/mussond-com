@@ -1,6 +1,7 @@
 ---
 import { Sun, Moon, Linkedin } from 'lucide-astro';
 import Identity from './Identity.astro';
+import IconButton from './IconButton.astro';
 
 const navLinks = [
   { label: 'Home', href: '/' },
@@ -53,27 +54,20 @@ const currentPath = Astro.url.pathname;
     </nav>
 
     <div class="sidebar__socials">
-      <a
+      <IconButton
         href="https://www.linkedin.com/in/davemusson/"
-        class="icon-button"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="LinkedIn profile (opens in new tab)"
+        label="LinkedIn profile (opens in new tab)"
       >
         <Linkedin aria-hidden="true" width="18" height="18" />
-        <span class="icon-button__label">LinkedIn</span>
-      </a>
-      <button
-        type="button"
-        class="icon-button"
-        aria-label="Theme and contrast settings"
+      </IconButton>
+      <IconButton
+        label="Theme and contrast settings"
         aria-haspopup="dialog"
         aria-controls="theme-drawer"
       >
         <Sun class="icon-button__theme-icon icon-button__theme-icon--sun" aria-hidden="true" width="18" height="18" />
         <Moon class="icon-button__theme-icon icon-button__theme-icon--moon" aria-hidden="true" width="18" height="18" />
-        <span class="icon-button__label">Settings</span>
-      </button>
+      </IconButton>
     </div>
 
     <div class="sidebar__status">
