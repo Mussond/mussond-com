@@ -39,7 +39,7 @@
 }
 
 .section-header__dash {
-  color: var(--color-action-bg);
+  color: var(--color-amber-500);
   font-weight: 400;
   flex-shrink: 0;
 }
