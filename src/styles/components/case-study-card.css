@@ -66,10 +66,11 @@
   text-decoration: none;
 }
 
-/* Hover + focus: amber border */
+/* Hover + focus: amber border + amber glow */
 .cs-card:hover,
 .cs-card:focus-visible {
   border-color: var(--color-action-bg);
+  box-shadow: 0 4px 20px var(--amber-a5);
 }
 
 /* Focus ring matches border colour */
@@ -212,6 +213,7 @@
 [data-contrast="high"] .cs-card:focus-visible {
   border-color: var(--color-focus-ring);
   outline-color: var(--color-focus-ring);
+  box-shadow: none;
 }
 
 /* ── Motion guard (VH1) ──────────────────────────────────────── */

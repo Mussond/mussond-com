@@ -168,11 +168,3 @@
   --cover-aviva-fg:       #F5EDD8;
 }
 
-[data-contrast="high"] {
-  --cover-checkoutcom-bg: var(--color-text-primary);
-  --cover-checkoutcom-fg: var(--color-bg-base);
-  --cover-coursera-bg:    var(--color-text-primary);
-  --cover-coursera-fg:    var(--color-bg-base);
-  --cover-aviva-bg:       var(--color-text-primary);
-  --cover-aviva-fg:       var(--color-bg-base);
-}
