@@ -233,6 +233,22 @@
   border-color: var(--color-action-bg);
 }
 
+/* Light high — swap the current-page keyline from amber to the text-
+   primary sand so the border reads firmly against the cream bg. The
+   amber keyline remains in dark high where it carries against sand-1
+   dark. */
+html.light[data-contrast="high"] .sidebar__nav-link[aria-current="page"] {
+  border-color: var(--color-text-primary);
+}
+
+/* Light decorative — decorative softens --color-text-primary to sand-11
+   page-wide, which makes the nav labels look washed out over the warm
+   wash. Force full-strength sand-12 on nav text in light only; dark
+   decorative keeps the softened tone. */
+html.light[data-contrast="decorative"] .sidebar__nav-link {
+  color: var(--sand-12);
+}
+
 /* ============================================
    MOBILE — slim top strip; body collapses; identity moves
    into the main column via the .identity--mobile variant.
