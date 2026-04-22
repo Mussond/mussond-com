@@ -34,16 +34,28 @@
   justify-content: space-between;
 }
 
+/* Monogram — SVG glyph derived from favicon.svg, currentColor-
+   driven so it tracks the theme via .sidebar__monogram's colour.
+   Light: sand-12 (near-black) on sand-1 bg — reads as dark-on-light.
+   Dark: amber-9 (brand yellow) on sand-1-dark bg — reads as
+   yellow-on-dark, carrying the brand mark at the top of the sidebar. */
 .sidebar__monogram {
-  font-size: 1.25rem;
-  font-weight: 700;
-  letter-spacing: -0.5px;
+  display: inline-flex;
+  align-items: center;
   color: var(--color-text-primary);
   text-decoration: none;
   line-height: 1;
 }
 
 .sidebar__monogram:hover { text-decoration: none; }
+
+.sidebar__monogram-mark {
+  display: block;
+  width: 36px;
+  height: 36px;
+}
+
+html.dark .sidebar__monogram { color: var(--color-action-bg); }
 
 .sidebar__menu-toggle {
   display: none;
