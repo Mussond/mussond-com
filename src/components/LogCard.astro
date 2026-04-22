@@ -1,0 +1,24 @@
+---
+import TagList from './TagList.astro';
+
+interface Props {
+  href: string;
+  title: string;
+  description?: string;
+  tags?: string[];
+  year?: number;
+  headingLevel?: 2 | 3;
+}
+
+const { href, title, description, tags = [], year, headingLevel = 3 } = Astro.props;
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
+---
+
+<a href={href} class="log-card">
+  <div class="log-card__body">
+    <Heading class="log-card__title">{title}</Heading>
+    {description && <p class="log-card__description">{description}</p>}
+    <TagList tags={tags} />
+  </div>
+  {year && <span class="log-card__year" aria-hidden="true">{year}</span>}
+</a>
