@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
 import Hero from '../components/Hero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
 import { getCollection } from 'astro:content';
 
 const caseStudies = await getCollection('case-studies');
@@ -30,10 +31,12 @@ const sortedLogs = logs
     <Hero />
 
     <section class="preview container" aria-labelledby="cs-heading">
-      <div class="preview__header">
-        <h2 id="cs-heading">Case studies</h2>
-        <a href="/case-studies" class="preview__link">View all<span class="visually-hidden"> case studies</span></a>
-      </div>
+      <SectionHeader
+        eyebrow="Case studies"
+        heading="Case studies"
+        headingId="cs-heading"
+        viewAllHref="/case-studies"
+      />
       <ul class="card-list">
         {sortedCaseStudies.map((study) => (
           <li>
@@ -50,10 +53,12 @@ const sortedLogs = logs
     </section>
 
     <section class="preview container" aria-labelledby="guides-heading">
-      <div class="preview__header">
-        <h2 id="guides-heading">Guides</h2>
-        <a href="/guides" class="preview__link">View all<span class="visually-hidden"> guides</span></a>
-      </div>
+      <SectionHeader
+        eyebrow="Guides"
+        heading="Guides"
+        headingId="guides-heading"
+        viewAllHref="/guides"
+      />
       <ul class="card-list">
         {sortedWriting.map((article) => (
           <li>
@@ -69,10 +74,12 @@ const sortedLogs = logs
     </section>
 
     <section class="preview container" aria-labelledby="logs-heading">
-      <div class="preview__header">
-        <h2 id="logs-heading">Logs</h2>
-        <a href="/logs" class="preview__link">View all<span class="visually-hidden"> logs</span></a>
-      </div>
+      <SectionHeader
+        eyebrow="Logs"
+        heading="Logs"
+        headingId="logs-heading"
+        viewAllHref="/logs"
+      />
       <ul class="card-list">
         {sortedLogs.map((log) => (
           <li>
@@ -95,22 +102,4 @@ const sortedLogs = logs
     padding-block: 3rem;
     border-top: 1px solid color-mix(in srgb, var(--color-border-default) 20%, transparent);
   }
-
-  .preview__header {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  .preview__header h2 { margin: 0; }
-
-  .preview__link {
-    font-size: 1rem;
-    font-weight: 600;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
 </style>

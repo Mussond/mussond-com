@@ -1,0 +1,62 @@
+/* ============================================
+   SECTION HEADER
+   Eyebrow label (Geist Mono, uppercase) + Instrument Serif heading
+   + optional "View all" CTA using <Button variant="secondary">.
+
+   Eyebrow dash treatment mirrors the nav amber dot:
+   — amber in low and decorative (action-bg)
+   — amber in dark-high (action-bg unchanged)
+   — text-primary (sand-12) in light-high (matches the sand keyline
+     on the current nav item in that mode)
+   ============================================ */
+
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.section-header__left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.section-header__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-secondary);
+  max-width: unset;
+  margin: 0;
+}
+
+.section-header__dash {
+  color: var(--color-action-bg);
+  font-weight: 400;
+  flex-shrink: 0;
+}
+
+.section-header__heading {
+  margin: 0;
+}
+
+/* Light-high: swap dash from amber to text-primary (matches the sand-12
+   keyline on the current nav item in light-high mode, not amber). */
+html.light[data-contrast="high"] .section-header__dash {
+  color: var(--color-text-primary);
+}
+
+@media (max-width: 640px) {
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
