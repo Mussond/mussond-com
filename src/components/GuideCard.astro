@@ -1,23 +1,27 @@
 ---
+import TagList from './TagList.astro';
+
 interface Props {
   href: string;
   title: string;
   description?: string;
   tags?: string[];
   readTime?: number;
+  showTags?: boolean;
   headingLevel?: 2 | 3;
 }
 
-const { href, title, description, tags = [], readTime, headingLevel = 3 } = Astro.props;
+const { href, title, description, tags = [], readTime, showTags = false, headingLevel = 3 } = Astro.props;
 const Heading = `h${headingLevel}` as 'h2' | 'h3';
 const primaryTag = tags[0];
 ---
 
 <a href={href} class="guide-card">
-  {primaryTag && (
-    <span class="guide-card__tag" aria-hidden="true">{primaryTag}</span>
+  {primaryTag && !showTags && (
+    <span class="tag guide-card__badge" aria-hidden="true">{primaryTag}</span>
   )}
   <Heading class="guide-card__title">{title}</Heading>
   {description && <p class="guide-card__description">{description}</p>}
+  {showTags && <TagList tags={tags} />}
   {readTime && <p class="guide-card__meta">{readTime} min read</p>}
 </a>

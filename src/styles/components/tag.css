@@ -7,24 +7,35 @@
 .tag {
   display: inline-flex;
   align-items: center;
-  padding: 0.2em 0.75em;
+  padding: 0.2em 0.65em;
   border-radius: var(--radius-pill);
-  background-color: var(--sand-2);
-  border: 1px solid var(--sand-6);
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  background-color: var(--sand-3);
+  border: 1px solid var(--color-border-default);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
   text-decoration: none;
-  color: inherit;
+  color: var(--color-text-secondary);
 }
 
 /* Interactive filter button — Guides page toggles.
+   Restores body-font appearance on top of the .tag mono base.
    Strong border and left-to-right sweep on hover via ::before.
    Label wrapped in .tag__label to sit above the sweep. */
 .tag--filter {
   position: relative;
   overflow: hidden;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0.5px;
+  background-color: var(--sand-2);
+  padding: 0.2em 0.75em;
   border-color: var(--color-action-border);
+  color: inherit;
   cursor: pointer;
 }
 

@@ -18,6 +18,11 @@
   margin: 0;
 }
 
+/* Cards fill their grid cell height so short cards match tall siblings */
+.guide-card-grid > li {
+  display: flex;
+}
+
 @media (min-width: 640px) {
   .guide-card-grid {
     grid-template-columns: 1fr 1fr;
@@ -27,6 +32,14 @@
 @media (min-width: 1024px) {
   .guide-card-grid {
     grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* 2-col variant — used on the /guides list page where tag lists
+   need more horizontal breathing room */
+@media (min-width: 1024px) {
+  .guide-card-grid--2col {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
@@ -86,21 +99,10 @@
   z-index: 1;
 }
 
-/* ── Tag badge ───────────────────────────────────────────────── */
+/* ── Tag badge (home) — layout only; visual from .tag ────────── */
 
-.guide-card__tag {
-  display: inline-block;
+.guide-card__badge {
   align-self: flex-start;
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 0.2em 0.65em;
-  background: var(--sand-3);
-  border: 1px solid var(--color-border-default);
-  border-radius: var(--radius-pill);
-  color: var(--color-text-secondary);
   margin-bottom: var(--space-xs);
 }
 
@@ -164,12 +166,6 @@
   text-decoration-thickness: 0.2em;
 }
 
-[data-contrast="high"] .guide-card__tag {
-  background: transparent;
-  border-color: var(--color-border-default);
-  color: var(--color-text-primary);
-}
-
 /* ── Motion guard (VH1) ──────────────────────────────────────── */
 
 @media (prefers-reduced-motion: no-preference) {
@@ -199,10 +195,4 @@
     transform: none;
   }
 
-  .guide-card__tag {
-    forced-color-adjust: none;
-    background: Canvas;
-    border-color: CanvasText;
-    color: CanvasText;
-  }
 }
