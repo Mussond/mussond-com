@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
 import CaseStudyCard from '../components/CaseStudyCard.astro';
+import GuideCard from '../components/GuideCard.astro';
 import Hero from '../components/Hero.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import { getCollection } from 'astro:content';
@@ -15,7 +16,11 @@ const sortedCaseStudies = caseStudies
 const writing = await getCollection('guides');
 const sortedWriting = writing
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 3);
+  .slice(0, 3)
+  .map((article) => {
+    const words = article.body?.split(/\s+/).length ?? 0;
+    return { ...article, readTime: Math.max(1, Math.round(words / 200)) };
+  });
 
 const logs = await getCollection('logs');
 const sortedLogs = logs
@@ -77,14 +82,15 @@ const sortedLogs = logs
         headingId="guides-heading"
         viewAllHref="/guides"
       />
-      <ul class="card-list">
+      <ul class="guide-card-grid">
         {sortedWriting.map((article) => (
           <li>
-            <Card
+            <GuideCard
               href={`/guides/${article.id}`}
               title={article.data.title}
               description={article.data.description}
               tags={article.data.tags}
+              readTime={article.readTime}
             />
           </li>
         ))}

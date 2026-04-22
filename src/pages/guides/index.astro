@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Card from '../../components/Card.astro';
+import GuideCard from '../../components/GuideCard.astro';
 import TagFilterList from '../../components/TagFilterList.astro';
 import { getCollection } from 'astro:content';
 
@@ -18,18 +18,23 @@ const allTags = [...new Set(sorted.flatMap((a) => a.data.tags))].sort();
 
     <TagFilterList tags={allTags} listId="article-list" />
 
-    <ul class="card-list" id="article-list">
-      {sorted.map((article) => (
-        <li class="card-list__item" data-tags={article.data.tags.join(',')}>
-          <Card
-            href={`/guides/${article.id}`}
-            title={article.data.title}
-            description={article.data.description}
-            tags={article.data.tags}
-            headingLevel={2}
-          />
-        </li>
-      ))}
+    <ul class="guide-card-grid" id="article-list">
+      {sorted.map((article) => {
+        const words = article.body?.split(/\s+/).length ?? 0;
+        const readTime = Math.max(1, Math.round(words / 200));
+        return (
+          <li data-tags={article.data.tags.join(',')}>
+            <GuideCard
+              href={`/guides/${article.id}`}
+              title={article.data.title}
+              description={article.data.description}
+              tags={article.data.tags}
+              readTime={readTime}
+              headingLevel={2}
+            />
+          </li>
+        );
+      })}
     </ul>
   </main>
 </Layout>
