@@ -1,13 +1,19 @@
 /* ============================================
-   BUTTONS
+   BUTTON
+   Primary + secondary variants. Left-to-right background
+   sweep on hover via ::before pseudo-element. Slot content
+   wrapped in .btn__label to sit above the sweep layer.
+   Pill focus ring with offset — matches icon-button treatment.
    ============================================ */
 
 .btn {
+  position: relative;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0.5rem 1.5rem;
-  border: 2px solid var(--color-action-border);
+  border: 1px solid var(--color-action-border);
   border-radius: var(--radius-pill);
   background: var(--color-action-bg);
   color: var(--color-action-text);
@@ -15,13 +21,85 @@
   font-size: var(--text-base);
   font-weight: 600;
   text-decoration: none;
-  transition: background 0.2s ease-in-out;
   cursor: pointer;
 }
 
-.btn:hover,
-.btn:focus-visible {
+/* Sweep layer — amber-10 slides in from the left */
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
   background: var(--color-action-bg-hover);
-  text-decoration: underline 0.15em;
-  outline: none;
+  border-radius: inherit;
+  transform: translateX(-100%);
+  transition: transform 0.25s ease-out;
+}
+
+/* Label sits above the sweep via stacking context */
+.btn__label {
+  position: relative;
+  z-index: 1;
+}
+
+.btn:hover::before,
+.btn:active::before {
+  transform: translateX(0);
+}
+
+/* No underline on any interactive state */
+.btn:hover,
+.btn:focus-visible,
+.btn:active {
+  text-decoration: none;
+}
+
+/* Focus ring — pill shape with offset. Matches .icon-button treatment. */
+.btn:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   SECONDARY VARIANT
+   Transparent base; amber-a3 sweep on hover.
+   ============================================ */
+
+.btn--secondary {
+  background: transparent;
+  color: var(--color-text-primary);
+  border-color: var(--color-border-default);
+}
+
+.btn--secondary::before {
+  background: var(--amber-a3);
+}
+
+/* ============================================
+   HIGH CONTRAST
+   2px borders on both variants; primary fill
+   distinguishes from secondary outline.
+   ============================================ */
+
+[data-contrast="high"] .btn {
+  border-width: 2px;
+}
+
+[data-contrast="high"] .btn:focus-visible {
+  outline-offset: 3px;
+}
+
+/* ============================================
+   MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: no-preference) {
+  .btn:active {
+    transform: scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn::before {
+    transition: none;
+  }
 }
