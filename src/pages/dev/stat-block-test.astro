@@ -1,0 +1,50 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import StatBlock from '../../components/StatBlock.astro';
+
+const avivaStats = [
+  { value: '~£4m', label: 'annual development cost savings' },
+  { value: '>50%', label: 'sprint velocity increase' },
+  { value: '60%',  label: 'component growth in 18 months' },
+  { value: '120',  label: 'designers across 9 countries' },
+];
+---
+
+<Layout title="Stat block test — Dave Musson">
+  <main id="main-content" class="container page-content">
+
+    <div class="content-header">
+      <h1>Stat block test</h1>
+      <p class="text-leading">
+        Temporary page for sprint 8 visual review. Remove before shipping.
+      </p>
+      <p>
+        Both variants render the same four Aviva stats so they can be compared
+        directly. Cycle through theme and contrast modes via the drawer at the
+        bottom right — particularly watch Decorative mode (expected lower contrast
+        on labels) and forced-colors (Windows High Contrast equivalent).
+      </p>
+    </div>
+
+    <section aria-labelledby="variant-a-heading">
+      <h2 id="variant-a-heading">Variant A — Grid</h2>
+      <p>Equal columns, value stacked above label, horizontal rule above the block.</p>
+      <StatBlock
+        variant="grid"
+        stats={avivaStats}
+        caption="Aviva, UK 2018"
+      />
+    </section>
+
+    <section aria-labelledby="variant-b-heading">
+      <h2 id="variant-b-heading">Variant B — Ribbon</h2>
+      <p>Single wrapping row, value on the left at a larger size, label flowing to the right.</p>
+      <StatBlock
+        variant="ribbon"
+        stats={avivaStats}
+        caption="Aviva, UK 2018"
+      />
+    </section>
+
+  </main>
+</Layout>
