@@ -22,13 +22,9 @@ const { tags, listId } = Astro.props;
     gap: 0.5rem;
   }
 
-  .tag--filter {
-    font-family: inherit;
-    font-size: inherit;
-  }
-
   /* Space between filter group and the card list that follows */
-  :global(.tag-filter + .card-list) {
+  :global(.tag-filter + .card-list),
+  :global(.tag-filter + .guide-card-grid) {
     margin-top: 2.5rem;
   }
 
