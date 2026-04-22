@@ -131,6 +131,8 @@ html.dark .sidebar__monogram { color: var(--color-action-bg); }
 }
 
 .sidebar__nav-link {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   gap: 0.625rem;
@@ -152,17 +154,48 @@ html.dark .sidebar__monogram { color: var(--color-action-bg); }
   border-radius: 50%;
   background: var(--color-border-default);
   flex-shrink: 0;
+  position: relative;
+  z-index: 1;
 }
 
-.sidebar__nav-link:hover {
-  background: var(--amber-a3);
+/* Sweep layer — amber slides in from the left, behind text and dot */
+.sidebar__nav-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-action-bg);
+  border-radius: inherit;
+  transform: translateX(-100%);
+  transition: transform 0.25s ease-out;
+}
+
+/* Nav link label — sits above the sweep */
+.nav-link__label {
+  position: relative;
+  z-index: 1;
+}
+
+.sidebar__nav-link:not([aria-current="page"]):hover {
+  color: var(--color-action-text);
+  border-color: var(--color-action-bg);
+  border-width: 2px;
+  padding: calc(0.5rem - 1px) calc(0.75rem - 1px);
   text-decoration: none;
+}
+
+.sidebar__nav-link:not([aria-current="page"]):hover::before {
+  background: var(--color-action-text);
+}
+
+.sidebar__nav-link:not([aria-current="page"]):hover::after {
+  transform: translateX(0);
 }
 
 .sidebar__nav-link:focus-visible {
   background: var(--amber-a3);
   outline: 3px solid var(--color-text-primary);
   outline-offset: 2px;
+  border-radius: 8px;
 }
 
 .sidebar__nav-link[aria-current="page"] {
@@ -218,6 +251,22 @@ html.dark .sidebar__monogram { color: var(--color-action-bg); }
   margin: 0;
 }
 
+@keyframes status-ping {
+  0%   { transform: scale(1); opacity: 0.75; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sidebar__status-dot::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--indigo-9);
+    animation: status-ping 2.5s ease-out infinite;
+  }
+}
+
 /* ============================================
    DECORATIVE — soften the current-page fill
    Low-contrast mode uses a solid dark fill. Decorative
@@ -243,6 +292,10 @@ html.dark .sidebar__monogram { color: var(--color-action-bg); }
   border-color: var(--color-border-subtle);
   text-decoration: underline 0.12em;
   text-underline-offset: 0.25em;
+}
+
+[data-contrast="high"] .sidebar__nav-link::after {
+  display: none;
 }
 
 [data-contrast="high"] .sidebar__nav-link[aria-current="page"] {
@@ -271,6 +324,12 @@ html.light[data-contrast="decorative"] .sidebar__nav-link {
    MOBILE — slim top strip; body collapses; identity moves
    into the main column via the .identity--mobile variant.
    ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar__nav-link::after {
+    transition: none;
+  }
+}
 
 @media (max-width: 1024px) {
   .sidebar {

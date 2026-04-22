@@ -46,32 +46,58 @@
   transform: translateX(0);
 }
 
-/* No underline on any interactive state */
+/* 2px border on hover — compensate padding to prevent layout shift */
 .btn:hover,
-.btn:focus-visible,
 .btn:active {
+  border-width: 2px;
+  padding: calc(0.5rem - 1px) calc(1.5rem - 1px);
   text-decoration: none;
 }
 
-/* Focus ring — pill shape with offset. Matches .icon-button treatment. */
+/* In high-contrast the border is already 2px at rest — no compensation */
+[data-contrast="high"] .btn:hover,
+[data-contrast="high"] .btn:active {
+  padding: 0.5rem 1.5rem;
+}
+
+.btn:focus-visible {
+  text-decoration: none;
+}
+
+/* Focus ring — pill shape with offset. Matches .icon-button treatment.
+   border-radius overrides a:focus-visible { border-radius: 2px } in base.css */
 .btn:focus-visible {
   outline: 3px solid var(--color-focus-ring);
   outline-offset: 2px;
+  border-radius: var(--radius-pill);
 }
 
 /* ============================================
    SECONDARY VARIANT
    Transparent base; amber-a3 sweep on hover.
+   Border matches primary (sand-12) in low + high;
+   stays soft in decorative.
    ============================================ */
 
 .btn--secondary {
   background: transparent;
   color: var(--color-text-primary);
-  border-color: var(--color-border-default);
+  border-color: var(--color-action-border);
 }
 
 .btn--secondary::before {
   background: var(--amber-a3);
+}
+
+/* Amber border on hover to match icon-button treatment */
+.btn--secondary:hover,
+.btn--secondary:active {
+  border-color: var(--color-action-bg);
+}
+
+/* Decorative: restore softer border */
+[data-contrast="decorative"] .btn--secondary {
+  border-color: var(--color-border-default);
 }
 
 /* ============================================

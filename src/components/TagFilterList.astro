@@ -8,9 +8,9 @@ const { tags, listId } = Astro.props;
 ---
 
 <div class="tag-filter" role="group" aria-label="Filter by tag">
-  <button class="tag tag--filter" data-tag="all" aria-pressed="true">All</button>
+  <button class="tag tag--filter" data-tag="all" aria-pressed="true"><span class="tag__label">All</span></button>
   {tags.map((tag) => (
-    <button class="tag tag--filter" data-tag={tag} aria-pressed="false">{tag}</button>
+    <button class="tag tag--filter" data-tag={tag} aria-pressed="false"><span class="tag__label">{tag}</span></button>
   ))}
 </div>
 <p class="visually-hidden" id="filter-status" aria-live="polite" aria-atomic="true"></p>
@@ -23,8 +23,6 @@ const { tags, listId } = Astro.props;
   }
 
   .tag--filter {
-    cursor: pointer;
-    border: 2px solid currentColor;
     font-family: inherit;
     font-size: inherit;
   }

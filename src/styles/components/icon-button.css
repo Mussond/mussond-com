@@ -1,13 +1,16 @@
 /* ============================================
    ICON BUTTON
    Circular outlined control for socials and the theme-drawer
-   opener. Amber interaction on hover/active. Pill focus ring
-   with offset — matches Button treatment exactly.
+   opener. Diagonal left-up → right-down sweep on hover via
+   ::before pseudo-element. Icon sits above the sweep via z-index.
+   Pill focus ring with offset — matches Button treatment exactly.
    In high-contrast the button reshapes into a visible text
    link; icons alone stop carrying meaning at high contrast.
    ============================================ */
 
 .icon-button {
+  position: relative;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -16,13 +19,29 @@
   height: 2.25rem;
   padding: 0;
   background: transparent;
-  border: 1px solid var(--color-border-default);
+  border: 1px solid var(--color-action-border);
   border-radius: var(--radius-pill);
   color: var(--color-text-primary);
   text-decoration: none;
   cursor: pointer;
   flex-shrink: 0;
-  transition: background 0.2s ease-out, border-color 0.2s ease-out;
+}
+
+/* Diagonal sweep — slides in from top-left on hover */
+.icon-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--amber-a3);
+  border-radius: inherit;
+  transform: translate(-100%, -100%);
+  transition: transform 0.25s ease-out;
+}
+
+/* Icon sits above the sweep layer */
+.icon-button > svg {
+  position: relative;
+  z-index: 1;
 }
 
 .icon-button--small {
@@ -30,26 +49,31 @@
   height: 1.75rem;
 }
 
-.icon-button:hover {
-  background: var(--amber-a3);
-  border-color: var(--color-action-bg);
+.icon-button:hover::before,
+.icon-button:active::before {
+  transform: translate(0, 0);
 }
 
+/* 2px border on hover — matches Button treatment */
+.icon-button:hover,
 .icon-button:active {
-  background: var(--amber-a4);
+  border-color: var(--color-action-bg);
+  border-width: 2px;
+  text-decoration: none;
 }
 
-/* Focus ring — pill shape with offset. Matches .btn treatment. */
+/* Focus ring — pill shape with offset. Matches .btn treatment.
+   border-radius overrides a:focus-visible { border-radius: 2px } in base.css */
 .icon-button:focus-visible {
   outline: 3px solid var(--color-focus-ring);
   outline-offset: 2px;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
 }
 
-/* No underline on any interactive state */
-.icon-button:hover,
-.icon-button:focus-visible,
-.icon-button:active {
-  text-decoration: none;
+/* Decorative — softer border at rest */
+[data-contrast="decorative"] .icon-button {
+  border-color: var(--color-border-default);
 }
 
 /* Theme toggle — sun/moon swap by html.className. The no-flash
@@ -78,6 +102,7 @@ html.dark  .icon-button__theme-icon--moon { display: block; }
    Button element keeps its semantics (the theme-drawer JS
    looks up aria-controls="theme-drawer" on a <button>); only
    the visual form changes. Label replaces icon.
+   Sweep is suppressed — text link clarity takes precedence.
    ============================================ */
 
 [data-contrast="high"] .icon-button {
@@ -90,6 +115,10 @@ html.dark  .icon-button__theme-icon--moon { display: block; }
   font-weight: 600;
   text-decoration: underline 0.12em;
   text-underline-offset: 0.25em;
+}
+
+[data-contrast="high"] .icon-button::before {
+  display: none;
 }
 
 [data-contrast="high"] .icon-button:focus-visible {
@@ -108,4 +137,14 @@ html.dark  .icon-button__theme-icon--moon { display: block; }
   overflow: visible;
   clip: auto;
   white-space: normal;
+}
+
+/* ============================================
+   MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .icon-button::before {
+    transition: none;
+  }
 }
