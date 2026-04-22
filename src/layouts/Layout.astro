@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Sidebar from '../components/Sidebar.astro';
+import Identity from '../components/Identity.astro';
 import Footer from '../components/Footer.astro';
 import SkipLink from '../components/SkipLink.astro';
 import ThemeDrawer from '../components/ThemeDrawer.astro';
@@ -42,6 +43,7 @@ const { title, description = 'Dave Musson — Design Systems and Accessibility s
   <body>
     <SkipLink />
     <Sidebar />
+    <Identity variant="mobile" />
     <slot />
     <Footer />
     <ThemeDrawer />
