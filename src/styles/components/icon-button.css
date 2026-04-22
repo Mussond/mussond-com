@@ -1,0 +1,43 @@
+/* ============================================
+   ICON BUTTON
+   Circular, outlined control used for socials and settings toggles
+   (LinkedIn, theme drawer opener). Default: always-visible 1px
+   border in --color-border-default so it reads as a button without
+   a hover. Hover: subtle fill via color-mix on primary text colour
+   — stays theme-aware without a dedicated hover token.
+   ============================================ */
+
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.icon-button:hover {
+  background: color-mix(in srgb, var(--color-text-primary) 8%, transparent);
+  border-color: var(--color-text-primary);
+}
+
+.icon-button:focus-visible {
+  outline: 3px solid var(--color-text-primary);
+  outline-offset: 2px;
+}
+
+/* Theme-toggle icon swap — matches the pattern used for the old
+   nav button. The no-flash script sets html.className to light /
+   dark before paint, so the correct icon is rendered from the
+   first frame. Icons are hidden by default; per-theme rules
+   below reveal the right one. */
+.icon-button__icon { display: none; }
+html.light .icon-button__icon--sun { display: block; }
+html.dark .icon-button__icon--moon { display: block; }
