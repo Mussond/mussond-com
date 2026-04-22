@@ -8,6 +8,56 @@
 @import "@radix-ui/colors/indigo-dark.css";
 
 /* ============================================
+   COLOR PRIMATIVES
+   Added to manage contrast issues with raidx steps
+   ============================================ */
+
+   .light-amberFix {
+      --amber-surface: #fefae4cc;
+      --amber-indicator: var(--amber-9);
+      --amber-track: var(--amber-9);
+      @supports (color: color(display-p3 1 1 1)) {
+         @media (color-gamut: p3) {
+            --amber-surface: color(display-p3 0.9922 0.9843 0.902 / 0.8);
+         }
+      }
+   }
+
+   .dark-amberFix {
+      --amber-surface: #271f1380;
+      --amber-indicator: var(--amber-9);
+      --amber-track: var(--amber-9);
+      @supports (color: color(display-p3 1 1 1)) {
+         @media (color-gamut: p3) {
+            --amber-surface: color(display-p3 0.1412 0.1176 0.0784 / 0.5);
+         }
+      }
+   }
+
+   .light-sandFix {
+      --sand-surface: #ffffffcc;
+      --sand-indicator: var(--sand-9);
+      --sand-track: var(--sand-9);
+      @supports (color: color(display-p3 1 1 1)) {
+         @media (color-gamut: p3) {
+            --sand-surface: color(display-p3 1 1 1 / 0.8);
+         }
+      }
+   }
+
+   .dark-sandFix {
+      --sand-surface: #21212080;
+      --sand-indicator: var(--sand-9);
+      --sand-track: var(--sand-9);
+      @supports (color: color(display-p3 1 1 1)) {
+         @media (color-gamut: p3) {
+            --sand-surface: color(display-p3 0.1255 0.1255 0.1255 / 0.5);
+         }
+      }
+   }
+
+
+/* ============================================
    DESIGN TOKENS
    Brand extracted from mussond.com Super.so CSS
    ============================================ */
