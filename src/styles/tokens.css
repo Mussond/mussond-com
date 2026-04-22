@@ -135,3 +135,44 @@
   --color-action-border:   var(--sand-11);
   --color-accent-selected: var(--amber-9);
 }
+
+/* ============================================
+   CASE STUDY COVER TOKENS
+   Per-slug token pairs consumed by <CaseStudyCard>.
+   6 modes × 3 studies × 2 values (bg/fg) = 36 tokens.
+
+   Light-low anchors live in :root below (under the semantic
+   token block). Dark-low overrides live in .dark. High
+   (both themes) collapses all three to text-primary/bg-base
+   via semantic tokens — brand falls away, hierarchy remains.
+   Decorative: same hex values as low (no token change);
+   the white flow is a CSS ::before overlay on the card block.
+   ============================================ */
+
+:root,
+[data-contrast="low"] {
+  --cover-checkoutcom-bg: #0D1142;
+  --cover-checkoutcom-fg: #FFFFC8;
+  --cover-coursera-bg:    #0056D2;
+  --cover-coursera-fg:    #FFFFFF;
+  --cover-aviva-bg:       #3B1F3A;
+  --cover-aviva-fg:       #F5EDD8;
+}
+
+.dark {
+  --cover-checkoutcom-bg: #0D1142;
+  --cover-checkoutcom-fg: #F5EDD8;
+  --cover-coursera-bg:    #0056D2;
+  --cover-coursera-fg:    #FFFFFF;
+  --cover-aviva-bg:       #3B1F3A;
+  --cover-aviva-fg:       #F5EDD8;
+}
+
+[data-contrast="high"] {
+  --cover-checkoutcom-bg: var(--color-text-primary);
+  --cover-checkoutcom-fg: var(--color-bg-base);
+  --cover-coursera-bg:    var(--color-text-primary);
+  --cover-coursera-fg:    var(--color-bg-base);
+  --cover-aviva-bg:       var(--color-text-primary);
+  --cover-aviva-fg:       var(--color-bg-base);
+}
