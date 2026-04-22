@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import BackLink from '../../../components/BackLink.astro';
 import TagList from '../../../components/TagList.astro';
 import { getEntry, render } from 'astro:content';
 
@@ -12,7 +13,7 @@ const { Content } = await render(study);
 <Layout title={`${study.data.title} — Dave Musson`} description={study.data.description}>
   <main id="main-content" class="container page-content">
 
-    <a href="/case-studies/aviva" class="back-link">← Aviva case study</a>
+    <BackLink href="/case-studies/aviva" label="Aviva case study" />
 
 <div class="content-header">
   <h1>{study.data.title}</h1>

@@ -2,6 +2,8 @@
 interface Props {
   label: string;
   href?: string;
+  target?: string;
+  rel?: string;
   size?: 'default' | 'small';
   type?: 'button' | 'submit' | 'reset';
   class?: string;
@@ -14,6 +16,8 @@ interface Props {
 const {
   label,
   href,
+  target,
+  rel,
   size = 'default',
   type = 'button',
   class: className,
@@ -34,6 +38,8 @@ const classes = [
     href={href}
     class={classes}
     aria-label={label}
+    target={target}
+    rel={rel}
   >
     <slot />
     <span class="icon-button__label">{label}</span>

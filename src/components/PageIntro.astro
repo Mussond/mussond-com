@@ -1,0 +1,19 @@
+---
+// Intro text block — appears at the top of about and about-this-site pages.
+// Accepts one or more paragraphs as slot content.
+---
+
+<div class="page-intro-block">
+  <slot />
+</div>
+
+<style>
+  .page-intro-block {
+    margin-top: 2rem;
+    margin-bottom: 3.5rem;
+    max-width: 68ch;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+</style>
