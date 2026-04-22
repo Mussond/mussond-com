@@ -21,6 +21,35 @@ body {
   background-image: var(--gradient-brand);
   background-attachment: fixed;
   line-height: 1.6;
+
+  /* Grid shell — sidebar in column 1 (full page height via
+     grid-row: 1/-1 in sidebar.css), main + footer stacked in
+     column 2. Collapses to single-column on mobile via the
+     <=1024px override in sidebar.css. */
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  grid-template-rows: 1fr auto;
+  min-height: 100vh;
+}
+
+body > main {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+}
+
+body > .site-footer {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+@media (max-width: 1024px) {
+  body {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+  }
+  body > main { grid-column: 1; grid-row: 2; }
+  body > .site-footer { grid-column: 1; grid-row: 3; }
 }
 
 @media (prefers-reduced-motion: no-preference) {
