@@ -1,0 +1,28 @@
+---
+import Button from './Button.astro';
+
+interface Props {
+  eyebrow: string;
+  heading: string;
+  headingId: string;
+  viewAllHref?: string;
+  viewAllLabel?: string;
+}
+
+const { eyebrow, heading, headingId, viewAllHref, viewAllLabel } = Astro.props;
+---
+
+<div class="section-header">
+  <div class="section-header__left">
+    <p class="section-header__eyebrow">
+      <span class="section-header__dash" aria-hidden="true">—</span>
+      {eyebrow}
+    </p>
+    <h2 id={headingId} class="section-header__heading">{heading}</h2>
+  </div>
+  {viewAllHref && (
+    <Button href={viewAllHref} variant="secondary" class="section-header__cta">
+      {viewAllLabel ?? 'View all'}<span class="visually-hidden"> {eyebrow.toLowerCase()}</span> →
+    </Button>
+  )}
+</div>
