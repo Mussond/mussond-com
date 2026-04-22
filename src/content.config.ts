@@ -11,6 +11,11 @@ const caseStudies = defineCollection({
     updatedAt: z.coerce.date().optional(),
     coverImage: z.string().optional(),
     cardImage: z.string().optional(),
+    cover: z.object({
+      slug: z.string(),
+      label: z.string(),
+      meta: z.string(),
+    }).optional(),
   }),
 });
 
