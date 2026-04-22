@@ -35,6 +35,27 @@ body {
 }
 
 /* ============================================
+   FONTS
+   ============================================ */
+
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/public-sans/PublicSans-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/public-sans/PublicSans-SemiBold.woff2') format('woff2');
+}
+
+
+/* ============================================
    TYPOGRAPHY
    ============================================ */
 
@@ -45,11 +66,11 @@ h1, h2, h3, h4 {
 }
 
 h1 { font-size: 3.0625rem; font-weight: 400; }   /* 49px */
-h2 { font-size: 2.1875rem; font-weight: 500; letter-spacing: 0.25px; } /* 35px */
-h3 { font-size: 1.5625rem; font-weight: 500; }   /* 25px */
+h2 { font-size: 2.1875rem; font-weight: 400; letter-spacing: 0.25px; } /* 35px */
+h3 { font-size: 1.5625rem; font-weight: 400; }   /* 25px */
 
 @media (max-width: 800px) {
-  h1 { font-size: 2.1875rem; font-weight: 500; }
+  h1 { font-size: 2.1875rem; font-weight: 400; }
   h2 { font-size: 1.5625rem; font-weight: 400; }
   h3 { font-size: 1.3125rem; font-weight: 400; }
 }

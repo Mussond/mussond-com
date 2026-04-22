@@ -14,7 +14,7 @@
 
 :root {
   /* Typography */
-  --font-primary: 'Quicksand', system-ui, sans-serif;
+  --font-primary: 'Public Sans', system-ui, sans-serif;
   --text-base: 1rem;
   --text-lg: 1.3125rem;
   --text-xl: 2.1875rem;

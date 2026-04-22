@@ -8,6 +8,8 @@ Personal portfolio and writing site for Dave Musson — design systems and acces
 
 - [Astro 6](https://astro.build) — static site generator
 - [Tailwind CSS v4](https://tailwindcss.com) — utility styles
+- Modes: Light | Dark | System
+- Contrast: Low | High | Decorative | System
 - Content collections — case studies, writing, logs
 - Deployed via GitHub Pages
 
