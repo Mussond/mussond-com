@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
 import CaseStudyCard from '../components/CaseStudyCard.astro';
 import GuideCard from '../components/GuideCard.astro';
+import LogCard from '../components/LogCard.astro';
 import Hero from '../components/Hero.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import { getCollection } from 'astro:content';
@@ -25,7 +26,8 @@ const sortedWriting = writing
 const logs = await getCollection('logs');
 const sortedLogs = logs
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 2);
+  .slice(0, 2)
+  .map((log) => ({ ...log, year: (log.data.updatedAt ?? log.data.date).getFullYear() }));
 ---
 
 <Layout
@@ -104,14 +106,15 @@ const sortedLogs = logs
         headingId="logs-heading"
         viewAllHref="/logs"
       />
-      <ul class="card-list">
+      <ul class="log-card-list">
         {sortedLogs.map((log) => (
           <li>
-            <Card
+            <LogCard
               href={`/logs/${log.id}`}
               title={log.data.title}
               description={log.data.description}
               tags={log.data.tags}
+              year={log.year}
             />
           </li>
         ))}

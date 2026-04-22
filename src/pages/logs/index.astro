@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Card from '../../components/Card.astro';
+import LogCard from '../../components/LogCard.astro';
 import { getCollection } from 'astro:content';
 
 const logs = await getCollection('logs');
@@ -13,18 +13,22 @@ const sorted = logs.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()
     <p class="text-leading page-intro">
       Reference lists I keep returning to. Curated, not comprehensive. Last reviewed per list.
     </p>
-    <ul class="card-list">
-      {sorted.map((log) => (
-        <li>
-          <Card
-            href={`/logs/${log.id}`}
-            title={log.data.title}
-            description={log.data.description}
-            tags={log.data.tags}
-            headingLevel={2}
-          />
-        </li>
-      ))}
+    <ul class="log-card-list">
+      {sorted.map((log) => {
+        const year = (log.data.updatedAt ?? log.data.date).getFullYear();
+        return (
+          <li>
+            <LogCard
+              href={`/logs/${log.id}`}
+              title={log.data.title}
+              description={log.data.description}
+              tags={log.data.tags}
+              year={year}
+              headingLevel={2}
+            />
+          </li>
+        );
+      })}
     </ul>
   </main>
 </Layout>
