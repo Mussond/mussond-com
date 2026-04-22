@@ -179,6 +179,22 @@
   font-size: var(--text-lg);
 }
 
+.cs-card:hover .cs-card__title,
+.cs-card:focus-visible .cs-card__title {
+  text-decoration: underline 0.08em;
+  text-underline-position: under;
+}
+
+[data-contrast="high"] .cs-card__title {
+  text-decoration: underline 0.08em;
+  text-underline-position: under;
+}
+
+[data-contrast="high"] .cs-card:hover .cs-card__title,
+[data-contrast="high"] .cs-card:focus-visible .cs-card__title {
+  text-decoration-thickness: 0.2em;
+}
+
 .cs-card__description {
   font-size: var(--text-base);
   color: var(--color-text-secondary);
