@@ -66,11 +66,12 @@
   text-decoration: none;
 }
 
-/* Hover + focus: amber border + amber glow */
+/* Hover + focus: amber border + bloom glow.
+   Same value in low and decorative so both feel equally warm. */
 .cs-card:hover,
 .cs-card:focus-visible {
   border-color: var(--color-action-bg);
-  box-shadow: 0 4px 20px var(--amber-a5);
+  box-shadow: 0 0 24px var(--amber-a6), 0 8px 28px var(--amber-a5);
 }
 
 /* Focus ring matches border colour */
