@@ -13,7 +13,7 @@ html {
 }
 
 body {
-  font-family: var(--font-primary);
+  font-family: var(--font-sans);
   font-size: 1.125rem;
   font-weight: 400;
   color: var(--color-text-primary);
@@ -37,25 +37,6 @@ body {
 /* ============================================
    FONTS
    ============================================ */
-
-/* Public Sans — retained until sprint 1 commit 3 swaps --font-primary to the
-   new Geist-based token. Remove this block and the /public-sans/ directory
-   in that commit. */
-@font-face {
-  font-family: 'Public Sans';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/fonts/public-sans/PublicSans-Regular.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Public Sans';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url('/fonts/public-sans/PublicSans-SemiBold.woff2') format('woff2');
-}
 
 /* ─── Instrument Serif ──────────────────────────────────────────────────────
    Display serif for hero statement and editorial breakpoints. Latin subset
@@ -138,7 +119,7 @@ body {
    ============================================ */
 
 h1, h2, h3, h4 {
-  font-family: var(--font-primary);
+  font-family: var(--font-sans);
   line-height: 1.25;
   color: var(--color-text-primary);
 }

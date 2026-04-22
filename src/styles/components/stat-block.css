@@ -35,7 +35,7 @@
 .stat-block__label,
 .stat-block__value {
   margin: 0;
-  font-family: var(--font-primary);
+  font-family: var(--font-sans);
 }
 
 .stat-block__value {

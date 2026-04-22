@@ -22,7 +22,7 @@
   border-left: 1px solid var(--color-border-default);
   background: var(--color-bg-base);
   color: var(--color-text-primary);
-  font-family: var(--font-primary);
+  font-family: var(--font-sans);
   overflow-y: auto;
 }
 

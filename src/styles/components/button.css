@@ -11,7 +11,7 @@
   border-radius: var(--radius-pill);
   background: var(--color-action-bg);
   color: var(--color-action-text);
-  font-family: var(--font-primary);
+  font-family: var(--font-sans);
   font-size: var(--text-base);
   font-weight: 600;
   text-decoration: none;
