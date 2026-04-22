@@ -6,21 +6,19 @@ interface Stat {
 
 interface Props {
   stats: Stat[];
-  variant?: 'grid' | 'ribbon';
   heading?: string;
   caption?: string;
 }
 
 const {
   stats,
-  variant = 'grid',
   heading = 'Outcomes',
   caption,
 } = Astro.props;
 ---
 
-<section class={`stat-block stat-block--${variant}`}>
-  <h3 class="stat-block__heading">{heading}</h3>
+<section class="stat-block">
+  <h2 class="stat-block__heading">{heading}</h2>
   <dl class="stat-block__list">
     {stats.map((stat) => (
       <div class="stat-block__item">

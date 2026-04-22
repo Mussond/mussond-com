@@ -1,8 +1,9 @@
 /* ============================================
    STAT BLOCK
    Surfaces case study outcome numbers as scannable proof.
-   Two variants — grid (equal columns) and ribbon (single row).
-   One wins after visual review in sprint 8; the other is removed.
+   Equal-column grid; auto-fit collapses to fewer columns on narrow widths.
+   Values anchor to the top of the row so they line up across varying
+   label wrap lengths.
    ============================================ */
 
 .stat-block {
@@ -18,6 +19,10 @@
 .stat-block__list {
   margin: 0;
   padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: var(--space-lg);
+  align-items: start;
 }
 
 .stat-block__item {
@@ -54,62 +59,11 @@
 }
 
 /* ============================================
-   GRID variant
-   Equal columns; auto-fit collapses to fewer columns on narrow widths.
-   ============================================ */
-
-.stat-block--grid .stat-block__list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-  gap: var(--space-lg);
-  align-items: start;
-}
-
-/* ============================================
-   RIBBON variant
-   Single wrapping row; value on the left at a larger size,
-   label stacked to its right at body size.
-   ============================================ */
-
-.stat-block--ribbon .stat-block__list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-xl);
-}
-
-.stat-block--ribbon .stat-block__item {
-  flex-direction: row-reverse;
-  align-items: baseline;
-  gap: var(--space-sm);
-}
-
-.stat-block--ribbon .stat-block__value {
-  font-size: 3.5rem;
-  line-height: 1;
-  flex: 0 0 auto;
-}
-
-.stat-block--ribbon .stat-block__label {
-  font-size: 0.9375rem;
-  line-height: 1.3;
-  max-width: 12ch;
-}
-
-/* ============================================
    MOBILE
    ============================================ */
 
 @media (max-width: 800px) {
   .stat-block__value {
     font-size: 2.25rem;
-  }
-
-  .stat-block--ribbon .stat-block__list {
-    flex-direction: column;
-    gap: var(--space-md);
-  }
-
-  .stat-block--ribbon .stat-block__value {
-    font-size: 2.75rem;
   }
 }
