@@ -1,22 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageIntro from '../components/PageIntro.astro';
 ---
 
 <Layout title="About this site — Dave Musson" description="How mussond.com is built, and its accessibility statement.">
   <main id="main-content" class="container page-content">
     <h1>About this site</h1>
 
-    <div class="intro">
+    <PageIntro>
       <p>This site is my portfolio and a place to gather musings, learnings and case studies in one place. It's also a working experiment — I use it to learn in public and practice what I preach on accessibility and design quality.</p>
-    </div>
+    </PageIntro>
 
-    <section aria-labelledby="how-built-heading">
+    <section class="prose-section" aria-labelledby="how-built-heading">
       <h2 id="how-built-heading">How it's built</h2>
       <p>The site is built with <a href="https://astro.build">Astro 6</a> and styled with <a href="https://tailwindcss.com">Tailwind CSS v4</a>. Content is written in Markdown. Source code is hosted on <a href="https://github.com/Mussond/mussond-com">GitHub</a> and deployed via GitHub Pages with a custom domain.</p>
       <p>It was previously built in Notion and hosted via Super.so. The migration to Astro resolved all previously known accessibility issues on the old site.</p>
     </section>
 
-    <section aria-labelledby="a11y-statement-heading">
+    <section class="prose-section" aria-labelledby="a11y-statement-heading">
       <h2 id="a11y-statement-heading">Accessibility statement</h2>
 
       <p>This accessibility statement applies to <strong>mussond.com</strong>.</p>
@@ -54,45 +55,3 @@ import Layout from '../layouts/Layout.astro';
 
   </main>
 </Layout>
-
-<style>
-  .intro {
-    margin-top: 2rem;
-    margin-bottom: 3.5rem;
-    max-width: 68ch;
-  }
-
-  section {
-    max-width: 68ch;
-    margin-bottom: 3.5rem;
-  }
-
-  section h2 {
-    margin-bottom: 1.25rem;
-  }
-
-  section h3 {
-    margin-top: 2rem;
-    margin-bottom: 0.75rem;
-  }
-
-  section p {
-    margin-bottom: 1rem;
-    max-width: unset;
-  }
-
-  section ul,
-  section ol {
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
-  }
-
-  section ul {
-    list-style: disc;
-  }
-
-  section li {
-    margin-bottom: 0.4rem;
-    line-height: 1.7;
-  }
-</style>

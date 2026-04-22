@@ -1,0 +1,71 @@
+---
+interface Props {
+  tags: string[];
+  listId: string;
+}
+
+const { tags, listId } = Astro.props;
+---
+
+<div class="tag-filter" role="group" aria-label="Filter by tag">
+  <button class="tag tag--filter" data-tag="all" aria-pressed="true">All</button>
+  {tags.map((tag) => (
+    <button class="tag tag--filter" data-tag={tag} aria-pressed="false">{tag}</button>
+  ))}
+</div>
+<p class="visually-hidden" id="filter-status" aria-live="polite" aria-atomic="true"></p>
+
+<style>
+  .tag-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag--filter {
+    cursor: pointer;
+    border: 2px solid currentColor;
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  /* Space between filter group and the card list that follows */
+  :global(.tag-filter + .card-list) {
+    margin-top: 2.5rem;
+  }
+
+  :global(.card-list__item[hidden]) {
+    display: none;
+  }
+</style>
+
+<script define:vars={{ listId }}>
+  const buttons = document.querySelectorAll('.tag--filter');
+  const list = document.getElementById(listId);
+  const items = list ? list.querySelectorAll('.card-list__item') : [];
+  const status = document.getElementById('filter-status');
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const selected = btn.dataset.tag ?? 'all';
+      let visibleCount = 0;
+
+      buttons.forEach((b) => {
+        b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+      });
+
+      items.forEach((item) => {
+        const tags = (item.dataset.tags ?? '').split(',');
+        const hide = selected !== 'all' && !tags.includes(selected);
+        item.hidden = hide;
+        if (!hide) visibleCount++;
+      });
+
+      if (status) {
+        status.textContent = selected === 'all'
+          ? `Showing all ${items.length} guides`
+          : `Showing ${visibleCount} guides`;
+      }
+    });
+  });
+</script>

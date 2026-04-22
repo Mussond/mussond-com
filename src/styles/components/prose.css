@@ -109,3 +109,43 @@
   border-radius: 8px;
   margin-block: 1.5rem;
 }
+
+/* ============================================
+   PROSE SECTION
+   Handwritten HTML sections (about-this-site).
+   Apply class="prose-section" to <section> elements.
+   ============================================ */
+
+.prose-section {
+  max-width: 68ch;
+  margin-bottom: 3.5rem;
+}
+
+.prose-section h2 {
+  margin-bottom: 1.25rem;
+}
+
+.prose-section h3 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose-section p {
+  margin-bottom: 1rem;
+  max-width: unset;
+}
+
+.prose-section ul,
+.prose-section ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.prose-section ul {
+  list-style: disc;
+}
+
+.prose-section li {
+  margin-bottom: 0.4rem;
+  line-height: 1.7;
+}

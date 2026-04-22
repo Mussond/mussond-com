@@ -1,0 +1,49 @@
+---
+import Button from './Button.astro';
+---
+
+<section class="hero container" aria-label="Introduction">
+  <p class="hero__stance">
+    Accessibility isn't a feature. It's a usability amplifier.
+  </p>
+  <p class="text-leading hero__intro">
+    Design systems and accessibility specialist. 16 years helping product
+    teams build things that work regardless of how you access them.
+  </p>
+  <div class="hero__actions">
+    <Button href="/case-studies">View case studies</Button>
+    <Button href="/about" variant="secondary">About me</Button>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .hero__intro { max-width: 78ch; }
+
+  .hero__stance {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: var(--text-3xl);
+    line-height: 1.1;
+    margin-top: 0.5rem;
+    max-width: 20ch;
+  }
+
+  @media (max-width: 800px) {
+    .hero__stance { font-size: 2.5rem; }
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+</style>
