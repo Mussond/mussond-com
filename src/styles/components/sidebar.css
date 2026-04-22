@@ -207,9 +207,14 @@ html.dark .sidebar__monogram { color: var(--color-action-bg); }
   background: var(--color-action-bg);
 }
 
-/* Socials — vertical stack of icon buttons. */
+/* Socials — horizontal row by default; stacks vertically in high
+   contrast where the row can overflow the narrow sidebar. */
 .sidebar__socials {
   display: flex;
+  gap: 0.5rem;
+}
+
+[data-contrast="high"] .sidebar__socials {
   flex-direction: column;
   align-items: flex-start;
   gap: 0.25rem;
