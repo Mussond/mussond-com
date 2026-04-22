@@ -1,0 +1,108 @@
+---
+import { Sun, Moon } from 'lucide-astro';
+
+const navLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'Case studies', href: '/case-studies' },
+  { label: 'Guides', href: '/guides' },
+  { label: 'Logs', href: '/logs' },
+];
+
+const currentPath = Astro.url.pathname;
+const isHomepage = currentPath === '/';
+---
+
+<aside class="sidebar">
+  <div class="sidebar__bar">
+    <a href="/" class="sidebar__monogram" aria-label="Dave Musson — home">
+      <span aria-hidden="true">DM</span>
+    </a>
+    <button
+      type="button"
+      class="sidebar__menu-toggle"
+      aria-expanded="false"
+      aria-controls="sidebar-body"
+      aria-label="Open menu"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="4" x2="20" y1="6" y2="6"/>
+        <line x1="4" x2="20" y1="12" y2="12"/>
+        <line x1="4" x2="20" y1="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <div id="sidebar-body" class="sidebar__body">
+    <div class="sidebar__identity">
+      {isHomepage ? (
+        <h1 class="sidebar__name">Dave Musson</h1>
+      ) : (
+        <p class="sidebar__name"><a href="/">Dave Musson</a></p>
+      )}
+      <p class="sidebar__tagline">Design systems and accessibility specialist</p>
+    </div>
+
+    <div class="sidebar__status">
+      <p class="sidebar__status-label">Status</p>
+      <p class="sidebar__status-body">Available for speaking, mentoring, and accessibility or design systems engagements.</p>
+    </div>
+
+    <nav class="sidebar__nav" aria-label="Main">
+      <ul id="nav-list" class="sidebar__nav-list">
+        {navLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="sidebar__nav-link"
+              aria-current={currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href)) ? 'page' : undefined}
+            >{link.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="sidebar__actions">
+      <a
+        href="https://www.linkedin.com/in/davemusson/"
+        class="sidebar__action-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >LinkedIn<span class="visually-hidden"> (opens in new tab)</span></a>
+      <button
+        type="button"
+        class="sidebar__theme-toggle"
+        aria-label="Theme and contrast settings"
+        aria-haspopup="dialog"
+        aria-controls="theme-drawer"
+      >
+        <Sun class="sidebar__theme-toggle-icon sidebar__theme-toggle-icon--sun" aria-hidden="true" width="20" height="20" />
+        <Moon class="sidebar__theme-toggle-icon sidebar__theme-toggle-icon--moon" aria-hidden="true" width="20" height="20" />
+      </button>
+    </div>
+  </div>
+</aside>
+
+<script>
+  const toggle = document.querySelector('.sidebar__menu-toggle') as HTMLButtonElement;
+  const body = document.getElementById('sidebar-body') as HTMLElement;
+
+  function updateMenuLabel(isOpen: boolean) {
+    toggle?.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+  }
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = body.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    updateMenuLabel(isOpen);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    if (!body.classList.contains('is-open')) return;
+
+    body.classList.remove('is-open');
+    toggle?.setAttribute('aria-expanded', 'false');
+    updateMenuLabel(false);
+    toggle?.focus();
+  });
+</script>
