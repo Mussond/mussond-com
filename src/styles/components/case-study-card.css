@@ -182,12 +182,12 @@
 .cs-card:hover .cs-card__title,
 .cs-card:focus-visible .cs-card__title {
   text-decoration: underline 0.08em;
-  text-underline-position: under;
+  text-underline-position: auto;
 }
 
 [data-contrast="high"] .cs-card__title {
   text-decoration: underline 0.08em;
-  text-underline-position: under;
+  text-underline-position: auto;
 }
 
 [data-contrast="high"] .cs-card:hover .cs-card__title,
