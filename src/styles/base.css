@@ -10,6 +10,7 @@
 
 html {
   scroll-padding-top: 100px;
+  background-color: var(--color-bg-base);
 }
 
 body {
@@ -30,6 +31,13 @@ body {
   grid-template-columns: 320px 1fr;
   grid-template-rows: 1fr auto;
   min-height: 100vh;
+
+  /* Wide-viewport cap — centres the shell once the viewport
+     exceeds 1280px. Sidebar stays 320px; main column gets up to
+     960px; content container (768px) sits with ~96px breathing
+     room on each side. html background-color fills the margins. */
+  max-width: 1280px;
+  margin-inline: auto;
 }
 
 body > main {
