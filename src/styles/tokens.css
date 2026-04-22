@@ -86,16 +86,11 @@
   --color-text-on-brand:   var(--sand-12);
   --color-focus-ring:      var(--sand-12);
 
-  /* Background gradient — Radix amber alpha stops over transparent.
-     Alpha tokens auto-flip per theme; the transparent tail lets
-     --color-bg-base show through, so dark mode flips cleanly too.
-     Decorative mode bumps the alpha steps for a warmer overlay. */
-  --gradient-brand: linear-gradient(
-    146.49deg,
-    var(--amber-a4) 4.17%,
-    var(--amber-a3) 14.06%,
-    transparent 28.36%
-  );
+  /* Background gradient — suppressed in low. The pre-redesign wash
+     read as a 2021 SaaS template (per redesign-audit.md §Gradient
+     washes). Low now ships bare; decorative reintroduces a stronger
+     version as its distinguishing warm-tint signal. */
+  --gradient-brand: none;
 }
 
 /* High contrast overrides — darker borders, secondary text merges with primary.
@@ -120,10 +115,15 @@
   --color-border-default:  var(--sand-6);    /* 7 → 6 */
   --color-border-subtle:   var(--sand-4);    /* 6 → 4 */
   --color-bg-decorative:   var(--amber-3);   /* 2 → 3: warmer tint */
-    --gradient-brand: linear-gradient(
+
+  /* Warm wash returns — and is stronger than the old low-mode value
+     so decorative visibly owns the warm-tint identity. Stops bumped
+     from a3 → a2 to a5 → a3 to carry real presence in the corner
+     without dominating the page. */
+  --gradient-brand: linear-gradient(
     146.49deg,
-    var(--amber-a3) 4.17%,
-    var(--amber-a2) 14.06%,
+    var(--amber-a5) 4.17%,
+    var(--amber-a3) 14.06%,
     transparent 28.36%
   );
 }
