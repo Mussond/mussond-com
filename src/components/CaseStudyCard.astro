@@ -1,0 +1,66 @@
+---
+import TagList from './TagList.astro';
+
+interface Cover {
+  slug: string;
+  label: string;
+  meta: string;
+}
+
+interface Props {
+  variant: 'featured' | 'secondary';
+  href: string;
+  title: string;
+  description?: string;
+  tags?: string[];
+  cover?: Cover;
+  image?: string;
+  imageAlt?: string;
+  headingLevel?: 2 | 3;
+}
+
+const {
+  variant,
+  href,
+  title,
+  description,
+  tags = [],
+  cover,
+  image,
+  imageAlt = '',
+  headingLevel = 3,
+} = Astro.props;
+
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
+const hasCover = Boolean(cover);
+const slug = cover?.slug ?? '';
+---
+
+<a
+  href={href}
+  class={`cs-card cs-card--${variant}${hasCover ? ' cs-card--cover' : ''}`}
+  style={hasCover ? `--card-bg: var(--cover-${slug}-bg); --card-fg: var(--cover-${slug}-fg)` : undefined}
+>
+  {hasCover ? (
+    <div class="cs-card__block">
+      <span class="cs-card__label" aria-hidden="true">{cover!.label}</span>
+    </div>
+  ) : image ? (
+    <img
+      src={image}
+      alt={imageAlt}
+      class="cs-card__image"
+      loading="lazy"
+      decoding="async"
+    />
+  ) : null}
+
+  <div class="cs-card__content">
+    {hasCover && cover!.meta && (
+      <p class="cs-card__meta">{cover!.meta}</p>
+    )}
+    <Heading class="cs-card__title">{title}</Heading>
+    {description && <p class="cs-card__description">{description}</p>}
+    <TagList tags={tags} />
+  </div>
+</a>

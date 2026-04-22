@@ -1,0 +1,231 @@
+/* ============================================
+   CASE STUDY CARD
+   Two variants: featured (large, horizontal colour block + content)
+   and secondary (compact, vertical, 2-up grid).
+
+   Cover tokens thread through --card-bg / --card-fg, set as
+   inline custom properties on the <a> element in CaseStudyCard.astro.
+   High contrast collapses all covers to text-primary/bg-base via
+   the cover token overrides in tokens.css.
+
+   Focus mirrors hover (phase 6 VF5). Transforms wrapped in
+   prefers-reduced-motion guard (phase 6 VH1).
+   ============================================ */
+
+/* ── Container helpers ──────────────────────────────────────── */
+
+.cs-card-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.cs-secondary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+/* ── Base card ──────────────────────────────────────────────── */
+
+.cs-card {
+  display: grid;
+  border: 2px solid transparent;
+  border-radius: var(--radius-card);
+  background: var(--color-bg-card);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Suppress the base <a> underline decoration */
+.cs-card:hover,
+.cs-card:focus-visible {
+  text-decoration: none;
+}
+
+/* Hover + focus: amber border, lift (motion guard below) */
+.cs-card:hover,
+.cs-card:focus-visible {
+  border-color: var(--color-action-bg);
+}
+
+/* Focus ring matches border colour */
+.cs-card:focus-visible {
+  outline: 3px solid var(--color-action-bg);
+  outline-offset: 2px;
+  border-radius: var(--radius-card);
+}
+
+/* ── Featured ────────────────────────────────────────────────── */
+
+.cs-card--featured {
+  grid-template-columns: 2fr 3fr;
+  min-height: 280px;
+}
+
+/* ── Secondary ───────────────────────────────────────────────── */
+
+.cs-card--secondary {
+  grid-template-rows: 160px 1fr;
+  grid-template-columns: 1fr;
+}
+
+/* ── Colour block ────────────────────────────────────────────── */
+
+.cs-card__block {
+  position: relative;
+  background-color: var(--card-bg, var(--color-bg-card));
+  color: var(--card-fg, var(--color-text-primary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* White flow overlay in decorative mode — radial bloom from
+   top-left, matching the ideation HTML reference */
+[data-contrast="decorative"] .cs-card__block::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 80% at 10% 10%, rgba(255, 255, 255, 0.18), transparent 55%);
+  pointer-events: none;
+}
+
+.cs-card__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: inherit;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Fallback image (no cover) ───────────────────────────────── */
+
+.cs-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cs-card--featured .cs-card__image {
+  border-radius: calc(var(--radius-card) - 2px) 0 0 calc(var(--radius-card) - 2px);
+}
+
+.cs-card--secondary .cs-card__image {
+  border-radius: calc(var(--radius-card) - 2px) calc(var(--radius-card) - 2px) 0 0;
+  height: 160px;
+}
+
+/* ── Content ─────────────────────────────────────────────────── */
+
+.cs-card__content {
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.cs-card__meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+  max-width: unset;
+  margin: 0;
+}
+
+.cs-card__title {
+  font-size: var(--text-xl);
+  font-weight: 400;
+  line-height: 1.15;
+  text-decoration: underline 0.08em;
+  text-underline-position: under;
+  margin: 0;
+}
+
+.cs-card--secondary .cs-card__title {
+  font-size: var(--text-lg);
+}
+
+.cs-card:hover .cs-card__title,
+.cs-card:focus-visible .cs-card__title {
+  text-decoration-thickness: 0.15em;
+}
+
+.cs-card__description {
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  max-width: 60ch;
+  margin: 0;
+}
+
+/* ── High contrast ───────────────────────────────────────────── */
+
+[data-contrast="high"] .cs-card {
+  border-color: var(--color-border-default);
+}
+
+[data-contrast="high"] .cs-card:hover,
+[data-contrast="high"] .cs-card:focus-visible {
+  border-color: var(--color-focus-ring);
+  outline-color: var(--color-focus-ring);
+}
+
+/* ── Motion guard (VH1) ──────────────────────────────────────── */
+
+@media (prefers-reduced-motion: no-preference) {
+  .cs-card {
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .cs-card:hover,
+  .cs-card:focus-visible {
+    transform: translateY(-2px);
+  }
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+
+@media (max-width: 800px) {
+  .cs-card--featured {
+    grid-template-columns: 1fr;
+    grid-template-rows: 200px 1fr;
+    min-height: unset;
+  }
+
+  .cs-card--featured .cs-card__block {
+    border-radius: 0;
+  }
+
+  .cs-card--featured .cs-card__image {
+    border-radius: calc(var(--radius-card) - 2px) calc(var(--radius-card) - 2px) 0 0;
+    height: 200px;
+  }
+
+  .cs-secondary-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Forced colours ──────────────────────────────────────────── */
+
+@media (forced-colors: active) {
+  .cs-card:hover,
+  .cs-card:focus-visible {
+    border-color: CanvasText;
+    outline-color: CanvasText;
+    transform: none;
+  }
+
+  .cs-card__block {
+    forced-color-adjust: none;
+  }
+}
