@@ -1,0 +1,69 @@
+/* ============================================
+   STAT BLOCK
+   Surfaces case study outcome numbers as scannable proof.
+   Equal-column grid; auto-fit collapses to fewer columns on narrow widths.
+   Values anchor to the top of the row so they line up across varying
+   label wrap lengths.
+   ============================================ */
+
+.stat-block {
+  margin-block: var(--space-xl);
+  padding-top: var(--space-md);
+  border-top: 2px solid var(--color-border-default);
+}
+
+.stat-block__heading {
+  margin-bottom: var(--space-md);
+}
+
+.stat-block__list {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: var(--space-lg);
+  align-items: start;
+}
+
+.stat-block__item {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--space-xs);
+  margin: 0;
+}
+
+.stat-block__label,
+.stat-block__value {
+  margin: 0;
+  font-family: var(--font-primary);
+}
+
+.stat-block__value {
+  font-size: 3rem;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--color-text-primary);
+}
+
+.stat-block__label {
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+  max-width: 22ch;
+}
+
+.stat-block__caption {
+  margin-top: var(--space-md);
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+}
+
+/* ============================================
+   MOBILE
+   ============================================ */
+
+@media (max-width: 800px) {
+  .stat-block__value {
+    font-size: 2.25rem;
+  }
+}
