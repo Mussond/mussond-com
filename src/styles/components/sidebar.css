@@ -97,10 +97,12 @@
   flex: 1;
 }
 
-/* Nav — keyline treatment (ideation + HTML mock). All rows
-   carry a sand keyline; current page swaps the keyline to
-   amber. Hover uses an amber-alpha wash — brand-colour
-   interaction, not sand. */
+/* Nav — dot + label rows. Each row leads with an 8px dot
+   (::before). Non-current rows use a sand dot; the current
+   row fills dark (text-primary bg / bg-base text) and swaps
+   the dot to amber. No keyline in low — contrast comes from
+   the fill and dot. Transparent border preserves layout so
+   modes that add a visible keyline don't shift things. */
 .sidebar__nav-list {
   list-style: none;
   margin: 0;
@@ -111,9 +113,11 @@
 }
 
 .sidebar__nav-link {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
   padding: 0.5rem 0.75rem;
-  border: 1px solid var(--color-border-subtle);
+  border: 1px solid transparent;
   border-radius: 8px;
   font-size: var(--text-base);
   font-weight: 500;
@@ -122,9 +126,18 @@
   background: transparent;
 }
 
+.sidebar__nav-link::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-border-default);
+  flex-shrink: 0;
+}
+
 .sidebar__nav-link:hover {
   background: var(--amber-a3);
-  border-color: var(--color-action-bg);
   text-decoration: none;
 }
 
@@ -135,7 +148,12 @@
 }
 
 .sidebar__nav-link[aria-current="page"] {
-  border-color: var(--color-action-bg);
+  background: var(--color-text-primary);
+  color: var(--color-bg-base);
+}
+
+.sidebar__nav-link[aria-current="page"]::before {
+  background: var(--color-action-bg);
 }
 
 /* Socials — horizontal row of icon buttons. Styles live in
@@ -183,15 +201,36 @@
 }
 
 /* ============================================
-   HIGH CONTRAST overrides
-   Nav rows gain an underline so current-page state doesn't
-   rely on keyline colour alone. Icon-button text-link
-   variant is handled in components/icon-button.css.
+   DECORATIVE — soften the current-page fill
+   Low-contrast mode uses a solid dark fill. Decorative
+   replaces that with an amber wash and restores dark text,
+   so the current row feels warmer and less graphic.
+   ============================================ */
+
+[data-contrast="decorative"] .sidebar__nav-link[aria-current="page"] {
+  background: var(--amber-a4);
+  color: var(--color-text-primary);
+}
+
+/* ============================================
+   HIGH CONTRAST — keyline + underline return
+   Drop the dark current-page fill; bring back the sand
+   keyline for all rows, amber for current, and add an
+   underline so the current state has three independent
+   indicators (dot colour + keyline colour + underline).
+   Icon-button text-link variant lives in icon-button.css.
    ============================================ */
 
 [data-contrast="high"] .sidebar__nav-link {
+  border-color: var(--color-border-subtle);
   text-decoration: underline 0.12em;
   text-underline-offset: 0.25em;
+}
+
+[data-contrast="high"] .sidebar__nav-link[aria-current="page"] {
+  background: transparent;
+  color: var(--color-text-primary);
+  border-color: var(--color-action-bg);
 }
 
 /* ============================================
