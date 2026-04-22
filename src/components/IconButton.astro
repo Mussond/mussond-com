@@ -1,0 +1,53 @@
+---
+interface Props {
+  label: string;
+  href?: string;
+  size?: 'default' | 'small';
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+  // Forwarded ARIA attributes for drawer wiring etc.
+  'aria-haspopup'?: string;
+  'aria-expanded'?: string;
+  'aria-controls'?: string;
+}
+
+const {
+  label,
+  href,
+  size = 'default',
+  type = 'button',
+  class: className,
+  'aria-haspopup': ariaHasPopup,
+  'aria-expanded': ariaExpanded,
+  'aria-controls': ariaControls,
+} = Astro.props;
+
+const classes = [
+  'icon-button',
+  size === 'small' ? 'icon-button--small' : '',
+  className,
+].filter(Boolean).join(' ');
+---
+
+{href ? (
+  <a
+    href={href}
+    class={classes}
+    aria-label={label}
+  >
+    <slot />
+    <span class="icon-button__label">{label}</span>
+  </a>
+) : (
+  <button
+    type={type}
+    class={classes}
+    aria-label={label}
+    aria-haspopup={ariaHasPopup}
+    aria-expanded={ariaExpanded}
+    aria-controls={ariaControls}
+  >
+    <slot />
+    <span class="icon-button__label">{label}</span>
+  </button>
+)}
