@@ -34,7 +34,7 @@
 }
 
 .stat-block__value {
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: 600;
   line-height: 1.1;
   color: var(--color-text-primary);
@@ -62,6 +62,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
   gap: var(--space-lg);
+  align-items: start;
 }
 
 /* ============================================
@@ -83,7 +84,7 @@
 }
 
 .stat-block--ribbon .stat-block__value {
-  font-size: 4.5rem;
+  font-size: 3.5rem;
   line-height: 1;
   flex: 0 0 auto;
 }
@@ -100,7 +101,7 @@
 
 @media (max-width: 800px) {
   .stat-block__value {
-    font-size: 2.75rem;
+    font-size: 2.25rem;
   }
 
   .stat-block--ribbon .stat-block__list {
@@ -109,6 +110,6 @@
   }
 
   .stat-block--ribbon .stat-block__value {
-    font-size: 3.25rem;
+    font-size: 2.75rem;
   }
 }
