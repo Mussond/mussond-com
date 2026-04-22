@@ -47,7 +47,7 @@ const currentPath = Astro.url.pathname;
               href={link.href}
               class="sidebar__nav-link"
               aria-current={currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href)) ? 'page' : undefined}
-            >{link.label}</a>
+><span class="nav-link__label">{link.label}</span></a>
           </li>
         ))}
       </ul>

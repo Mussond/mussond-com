@@ -73,7 +73,7 @@
 [data-contrast="low"] {
   --color-text-primary:    var(--sand-12);
   --color-text-secondary:  var(--sand-11);
-  --color-bg-base:         var(--sand-1);
+  --color-bg-base:         var(--sand-2);
   --color-bg-card:         var(--sand-1);
   --color-bg-decorative:   var(--amber-2);
   --color-border-subtle:   var(--sand-6);
