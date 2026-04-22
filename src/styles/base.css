@@ -38,6 +38,9 @@ body {
    FONTS
    ============================================ */
 
+/* Public Sans — retained until sprint 1 commit 3 swaps --font-primary to the
+   new Geist-based token. Remove this block and the /public-sans/ directory
+   in that commit. */
 @font-face {
   font-family: 'Public Sans';
   font-style: normal;
@@ -52,6 +55,81 @@ body {
   font-weight: 600;
   font-display: swap;
   src: url('/fonts/public-sans/PublicSans-SemiBold.woff2') format('woff2');
+}
+
+/* ─── Instrument Serif ──────────────────────────────────────────────────────
+   Display serif for hero statement and editorial breakpoints. Latin subset
+   only — matches the existing Public Sans install. Italic is the above-fold
+   face (hero); regular is available for later serif uses. */
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/instrument-serif/InstrumentSerif-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/instrument-serif/InstrumentSerif-Italic.woff2') format('woff2');
+}
+
+/* ─── Geist Sans (variable) ─────────────────────────────────────────────────
+   Body + UI sans. One variable file covers weights 100–900. */
+@font-face {
+  font-family: 'Geist Sans';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/geist-sans/Geist-Variable.woff2') format('woff2-variations');
+}
+
+/* ─── Geist Mono (variable) ─────────────────────────────────────────────────
+   Eyebrow labels, meta lines, code. Variable file, 100–900. */
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/geist-mono/GeistMono-Variable.woff2') format('woff2-variations');
+}
+
+/* ─── Size-adjust fallback stacks ──────────────────────────────────────────
+   Purpose: minimise CLS when a web font swaps in. Each fallback @font-face
+   points at a locally-available face (Georgia, Arial, Courier New) and uses
+   size-adjust + ascent/descent/line-gap overrides to match the web-font
+   metrics as closely as possible, so block heights don't shift on swap.
+
+   Values below are first-pass approximations. Sprint 4 commit 2 (Lighthouse
+   / CLS pass) measures real-world CLS and tunes these numbers. */
+@font-face {
+  font-family: 'Instrument Serif Fallback';
+  src: local('Georgia'), local('Times New Roman');
+  size-adjust: 107%;
+  ascent-override: 87%;
+  descent-override: 26%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Geist Sans Fallback';
+  src: local('Arial');
+  size-adjust: 100%;
+  ascent-override: 95%;
+  descent-override: 21%;
+  line-gap-override: 8%;
+}
+
+@font-face {
+  font-family: 'Geist Mono Fallback';
+  src: local('Menlo'), local('Courier New');
+  size-adjust: 95%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
 }
 
 
