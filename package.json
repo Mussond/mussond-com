@@ -10,7 +10,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "axe": "axe $(cat .axe/urls.txt) --load-delay 1000 --exit"
+    "axe": "axe $(cat .axe/urls.txt) --load-delay 1000 --exit",
+    "test:contrast": "playwright test tests/contrast-matrix.spec.ts",
+    "test:contrast:ui": "playwright test tests/contrast-matrix.spec.ts --ui"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",
@@ -21,6 +23,8 @@
     "tailwindcss": "^4.2.2"
   },
   "devDependencies": {
-    "@axe-core/cli": "^4.11.2"
+    "@axe-core/cli": "^4.11.2",
+    "@playwright/test": "^1.59.1",
+    "axe-playwright": "^2.2.2"
   }
 }
