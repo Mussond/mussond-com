@@ -151,9 +151,14 @@ body > .site-footer {
    TYPOGRAPHY
    ============================================ */
 
+/* Headings — Instrument Serif per plan §Typography.
+   "Italic-forward" means italic is the editorial register for
+   display moments (e.g. the hero stance); regular-weight serif
+   carries standard headings. Tighter line-height than body so the
+   display face sits comfortably. */
 h1, h2, h3, h4 {
-  font-family: var(--font-sans);
-  line-height: 1.25;
+  font-family: var(--font-serif);
+  line-height: 1.15;
   color: var(--color-text-primary);
 }
 
