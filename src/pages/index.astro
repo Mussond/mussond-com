@@ -109,12 +109,25 @@ const sortedLogs = logs
   }
 
   .hero__intro { max-width: 52ch; }
-.hero__stance {
-  font-size: var(--text-base);
-  font-weight: 500;
-  margin-top: -0.5rem;
-  max-width: 48ch;
-}
+  /* Hero stance — the display statement set in Instrument Serif
+     italic. This is the editorial anchor scoped into Sprint 1
+     (plan §Typography, line 68). Display size at --text-3xl (64px)
+     on desktop, dropped for mobile so it doesn't overflow. */
+  .hero__stance {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: var(--text-3xl);
+    line-height: 1.1;
+    margin-top: 0.5rem;
+    max-width: 20ch;
+  }
+
+  @media (max-width: 800px) {
+    .hero__stance {
+      font-size: 2.5rem;
+    }
+  }
   .hero__actions {
     display: flex;
     flex-wrap: wrap;
