@@ -12,14 +12,30 @@
    Brand extracted from mussond.com Super.so CSS
    ============================================ */
 
-:root {
-  /* Typography */
-  --font-primary: 'Public Sans', system-ui, sans-serif;
-  --text-base: 1rem;
-  --text-lg: 1.3125rem;
-  --text-xl: 2.1875rem;
-  --text-2xl: 3.0625rem;
+/* Type tokens — Tailwind v4 @theme. Generates utilities (font-sans,
+   font-serif, font-mono, text-xs … text-3xl) and exposes each value as
+   a CSS custom property for direct var() use. Each font stack pairs the
+   web font with its size-adjust fallback (defined in base.css) so metric
+   swap during loading stays CLS-quiet, then falls through to system and
+   generic families. */
+@theme {
+  --font-sans:  'Geist Sans',         'Geist Sans Fallback',         system-ui, sans-serif;
+  --font-serif: 'Instrument Serif',   'Instrument Serif Fallback',   Georgia, serif;
+  --font-mono:  'Geist Mono',         'Geist Mono Fallback',         ui-monospace, SFMono-Regular, monospace;
 
+  /* Scale — existing values preserved; xs / sm / 3xl added for the new
+     sidebar mono labels, tag/caption rows, and the serif hero statement
+     that lands in commit 5. */
+  --text-xs:    0.75rem;   /* 12px — STATUS label, eyebrow mono, meta */
+  --text-sm:    0.875rem;  /* 14px — tag, caption */
+  --text-base:  1rem;      /* 16px — body small / UI */
+  --text-lg:    1.3125rem; /* 21px — leading paragraph, drawer body */
+  --text-xl:    2.1875rem; /* 35px — h2 */
+  --text-2xl:   3.0625rem; /* 49px — h1 */
+  --text-3xl:   4rem;      /* 64px — Instrument Serif italic hero statement */
+}
+
+:root {
   /* Spacing */
   --space-xs: 0.5rem;
   --space-sm: 1rem;
