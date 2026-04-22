@@ -1,0 +1,33 @@
+---
+interface Stat {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  stats: Stat[];
+  variant?: 'grid' | 'ribbon';
+  heading?: string;
+  caption?: string;
+}
+
+const {
+  stats,
+  variant = 'grid',
+  heading = 'Outcomes',
+  caption,
+} = Astro.props;
+---
+
+<section class={`stat-block stat-block--${variant}`}>
+  <h3 class="stat-block__heading">{heading}</h3>
+  <dl class="stat-block__list">
+    {stats.map((stat) => (
+      <div class="stat-block__item">
+        <dt class="stat-block__label">{stat.label}</dt>
+        <dd class="stat-block__value">{stat.value}</dd>
+      </div>
+    ))}
+  </dl>
+  {caption && <p class="stat-block__caption">{caption}</p>}
+</section>
