@@ -100,6 +100,12 @@ html.dark .sidebar__monogram { color: var(--color-action-bg); }
 .identity--sidebar { display: block; }
 .identity--mobile  { display: none; }
 
+/* Site header — banner landmark that wraps the mobile identity.
+   Hidden on desktop (identity lives in the sidebar instead); shown
+   on mobile so the h1 + tagline sit inside a proper banner region
+   rather than floating at body level. */
+.site-header { display: none; }
+
 /* Body — nav / socials / status stack. Hidden on mobile
    until hamburger is toggled. */
 .sidebar__body {
@@ -286,19 +292,21 @@ html.light[data-contrast="decorative"] .sidebar__nav-link {
 
   .sidebar__menu-toggle { display: inline-flex; }
 
-  /* Swap identity visibility — mobile variant takes over and
-     slots into body grid row 2 (between sidebar strip and
-     main), centred to match the content container so it
-     reads as part of the page. */
+  /* Swap identity visibility — mobile variant takes over inside
+     the site-header banner (body grid row 2), centred to match
+     the content container so it reads as part of the page. */
   .identity--sidebar { display: none; }
   .identity--mobile {
     display: block;
-    grid-column: 1;
-    grid-row: 2;
     width: 90%;
     max-width: var(--content-width);
     margin-inline: auto;
     padding-block: 2rem 0;
+  }
+  .site-header {
+    display: block;
+    grid-column: 1;
+    grid-row: 2;
   }
 
   /* Collapsed by default; is-open reveals nav / socials /
