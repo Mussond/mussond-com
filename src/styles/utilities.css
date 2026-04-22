@@ -42,10 +42,6 @@
     transition: var(--transition-underline);
   }
 
-  .btn:active {
-    transform: scale(0.98);
-  }
-
   .card {
     transition: var(--transition-base);
   }
