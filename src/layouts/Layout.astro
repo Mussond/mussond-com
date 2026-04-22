@@ -43,7 +43,9 @@ const { title, description = 'Dave Musson — Design Systems and Accessibility s
   <body>
     <SkipLink />
     <Sidebar />
-    <Identity variant="mobile" />
+    <header class="site-header">
+      <Identity variant="mobile" />
+    </header>
     <slot />
     <Footer />
     <ThemeDrawer />
