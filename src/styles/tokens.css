@@ -46,6 +46,16 @@
 
   /* Layout */
   --content-width: 768px;
+
+  /* Radius — two scales only.
+     --radius-card  applies to card-like surfaces: cards, hero images,
+                    input fields if/when added. 16px.
+     --radius-pill  applies to tags, pill-shaped buttons, circular icon
+                    buttons. Effectively fully rounded. 999px.
+     Smaller hard-coded radii (4px on radio labels, 2px on focus
+     outlines, 0-0-4px-0 on the skip link's visible state) are
+     decorative polish rather than card/pill surfaces and deliberately
+     stay hard-coded — they do not belong in the token system. */
   --radius-card: 16px;
   --radius-pill: 999px;
 
