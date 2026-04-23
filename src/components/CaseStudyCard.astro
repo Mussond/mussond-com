@@ -3,6 +3,7 @@ import TagList from './TagList.astro';
 
 interface Cover {
   slug: string;
+  brand?: string;
   label: string;
   meta: string;
 }
@@ -43,6 +44,9 @@ const slug = cover?.slug ?? '';
 >
   {hasCover ? (
     <div class="cs-card__block">
+      {cover!.brand && (
+        <span class="cs-card__brand" aria-hidden="true">{cover!.brand}</span>
+      )}
       <span class="cs-card__label" aria-hidden="true">{cover!.label}</span>
     </div>
   ) : image ? (
@@ -61,6 +65,6 @@ const slug = cover?.slug ?? '';
     )}
     <Heading class="cs-card__title">{title}</Heading>
     {description && <p class="cs-card__description">{description}</p>}
-    <TagList tags={tags} />
+    <TagList tags={tags} size={variant === 'secondary' ? 'xs' : 'default'} />
   </div>
 </a>

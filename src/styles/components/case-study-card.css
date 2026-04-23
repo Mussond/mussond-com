@@ -91,10 +91,6 @@
   grid-template-rows: 320px 1fr;
 }
 
-.cs-card--featured .cs-card__title {
-  font-size: var(--text-2xl);
-}
-
 /* ── Secondary ───────────────────────────────────────────────── */
 
 .cs-card--secondary {
@@ -110,8 +106,10 @@
   background-color: var(--card-bg, var(--color-bg-card));
   color: var(--card-fg, var(--color-text-primary));
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: var(--space-md);
   overflow: hidden;
 }
 
@@ -125,15 +123,32 @@
   pointer-events: none;
 }
 
-.cs-card__label {
+.cs-card__brand {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.2em;
+  opacity: 0.7;
+  color: inherit;
+  margin-bottom: 0.375rem;
+  position: relative;
+  z-index: 1;
+}
+
+.cs-card__label {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.75rem;
+  line-height: 1;
+  letter-spacing: -0.01em;
   color: inherit;
   position: relative;
   z-index: 1;
+}
+
+.cs-card--secondary .cs-card__label {
+  font-size: 1.25rem;
 }
 
 /* ── Fallback image (no cover) ───────────────────────────────── */
