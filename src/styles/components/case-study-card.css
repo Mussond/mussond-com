@@ -83,9 +83,16 @@
 
 /* ── Featured ────────────────────────────────────────────────── */
 
+/* Vertical stack: cover block on top, content below. Matches the
+   ideation hero-card proportion and reads bigger than the secondaries
+   that sit beside it in the section grid. */
 .cs-card--featured {
-  grid-template-columns: 2fr 3fr;
-  min-height: 280px;
+  grid-template-columns: 1fr;
+  grid-template-rows: 320px 1fr;
+}
+
+.cs-card--featured .cs-card__title {
+  font-size: var(--text-2xl);
 }
 
 /* ── Secondary ───────────────────────────────────────────────── */
@@ -139,7 +146,8 @@
 }
 
 .cs-card--featured .cs-card__image {
-  border-radius: calc(var(--radius-card) - 2px) 0 0 calc(var(--radius-card) - 2px);
+  border-radius: calc(var(--radius-card) - 2px) calc(var(--radius-card) - 2px) 0 0;
+  height: 320px;
 }
 
 .cs-card--secondary .cs-card__image {
@@ -238,19 +246,27 @@
 
 /* ── Responsive ──────────────────────────────────────────────── */
 
-@media (max-width: 800px) {
-  .cs-card--featured {
-    grid-template-columns: 1fr;
-    grid-template-rows: 200px 1fr;
-    min-height: unset;
+/* Desktop section layout: featured on the left, secondaries stacked
+   on the right, matching the ideation's 1.4fr / 1fr rhythm. */
+@media (min-width: 900px) {
+  .cs-card-section {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: var(--space-sm);
+    align-items: start;
   }
 
-  .cs-card--featured .cs-card__block {
-    border-radius: 0;
+  .cs-secondary-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 800px) {
+  .cs-card--featured {
+    grid-template-rows: 200px 1fr;
   }
 
   .cs-card--featured .cs-card__image {
-    border-radius: calc(var(--radius-card) - 2px) calc(var(--radius-card) - 2px) 0 0;
     height: 200px;
   }
 
