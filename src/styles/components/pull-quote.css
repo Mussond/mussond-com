@@ -1,0 +1,34 @@
+/* ============================================
+   PULL QUOTE
+   Editorial pull-out for use inside MDX. Static — no hover, focus,
+   or animation. Distinct from the generic .prose blockquote (which
+   keeps its grey left rule for standard quoted text).
+   ============================================ */
+
+.pull-quote {
+  margin: 2.5rem 0;
+}
+
+.pull-quote__text {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.625rem;
+  line-height: 1.3;
+  color: var(--color-text-primary);
+}
+
+.pull-quote__text p {
+  margin: 0;
+}
+
+.pull-quote__cite {
+  margin-top: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-secondary);
+}

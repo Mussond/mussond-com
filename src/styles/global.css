@@ -16,5 +16,7 @@
 @import "./components/ethos.css";
 @import "./components/section-header.css";
 @import "./components/case-study-card.css";
+@import "./components/case-study-layout.css";
 @import "./components/guide-card.css";
 @import "./components/log-card.css";
+@import "./components/pull-quote.css";

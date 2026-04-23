@@ -1,7 +1,5 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import BackLink from '../../components/BackLink.astro';
-import TagList from '../../components/TagList.astro';
+import CaseStudyLayout from '../../components/CaseStudyLayout.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -20,36 +18,6 @@ const { study } = Astro.props;
 const { Content } = await render(study);
 ---
 
-<Layout title={`${study.data.title} — Dave Musson`} description={study.data.description}>
-  <main id="main-content" class="container page-content">
-
-    <BackLink href="/case-studies" label="Case studies" />
-
-    <div class="content-header">
-      <h1>{study.data.title}</h1>
-      <p class="text-leading">{study.data.description}</p>
-      <TagList tags={study.data.tags} />
-      <p class="content-meta">
-        Published {study.data.date.getFullYear()}
-        {study.data.updatedAt && (
-          <> · Last updated {study.data.updatedAt.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</>
-        )}
-      </p>
-    </div>
-
-    {study.data.coverImage && (
-      <img
-        src={study.data.coverImage}
-        alt=""
-        class="hero-image"
-        loading="eager"
-        decoding="async"
-      />
-    )}
-
-    <div class="prose">
-      <Content />
-    </div>
-
-  </main>
-</Layout>
+<CaseStudyLayout study={study}>
+  <Content />
+</CaseStudyLayout>
