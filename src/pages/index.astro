@@ -9,10 +9,13 @@ import SectionHeader from '../components/SectionHeader.astro';
 import { getCollection } from 'astro:content';
 
 const caseStudies = await getCollection('case-studies');
-const sortedCaseStudies = caseStudies
-  .filter((study) => study.data.coverImage !== undefined)
+const withCovers = caseStudies.filter((study) => study.data.coverImage !== undefined);
+const featuredStudy = withCovers.find((study) => study.data.featured);
+const secondaryStudies = withCovers
+  .filter((study) => !study.data.featured)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 3);
+  .slice(0, 2);
+const sortedCaseStudies = featuredStudy ? [featuredStudy, ...secondaryStudies] : secondaryStudies;
 
 const writing = await getCollection('guides');
 const sortedWriting = writing

@@ -4,9 +4,12 @@ import CaseStudyCard from '../../components/CaseStudyCard.astro';
 import { getCollection } from 'astro:content';
 
 const caseStudies = await getCollection('case-studies');
-const sorted = caseStudies
-  .filter((study) => study.data.coverImage !== undefined)
+const withCovers = caseStudies.filter((study) => study.data.coverImage !== undefined);
+const featuredStudy = withCovers.find((study) => study.data.featured);
+const nonFeatured = withCovers
+  .filter((study) => !study.data.featured)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const sorted = featuredStudy ? [featuredStudy, ...nonFeatured] : nonFeatured;
 ---
 
 <Layout title="Case studies — Dave Musson" description="Career case studies from Dave Musson, Design Systems and Accessibility specialist.">
