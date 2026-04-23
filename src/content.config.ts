@@ -13,6 +13,7 @@ const caseStudies = defineCollection({
     cardImage: z.string().optional(),
     cover: z.object({
       slug: z.string(),
+      brand: z.string().optional(),
       label: z.string(),
       meta: z.string(),
     }).optional(),

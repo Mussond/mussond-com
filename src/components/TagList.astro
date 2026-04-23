@@ -1,15 +1,18 @@
 ---
 interface Props {
   tags: string[];
+  size?: 'default' | 'xs';
 }
 
-const { tags } = Astro.props;
+const { tags, size = 'default' } = Astro.props;
+const wrapClass = size === 'xs' ? 'card__tags card__tags--xs' : 'card__tags';
+const tagClass = size === 'xs' ? 'tag tag--xs' : 'tag';
 ---
 
 {tags.length > 0 && (
-  <div class="card__tags">
+  <div class={wrapClass}>
     {tags.map((tag) => (
-      <span class="tag">{tag}</span>
+      <span class={tagClass}>{tag}</span>
     ))}
   </div>
 )}

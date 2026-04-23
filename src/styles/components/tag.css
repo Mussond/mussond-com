@@ -20,6 +20,28 @@
   color: var(--color-text-secondary);
 }
 
+/* Compact meta-row variant — secondary card tags.
+   Strips the pill (no background, no border, no padding) so the tags
+   read as an inline dotted row, same weight as the meta line above. */
+.tag--xs {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  color: var(--color-text-secondary);
+}
+
+.card__tags--xs {
+  display: block;
+}
+
+.card__tags--xs .tag--xs + .tag--xs::before {
+  content: "·";
+  margin: 0 0.4em;
+  opacity: 0.6;
+}
+
 /* Interactive filter button — Guides page toggles.
    Restores body-font appearance on top of the .tag mono base.
    Strong border and left-to-right sweep on hover via ::before.
