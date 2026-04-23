@@ -14,6 +14,7 @@ interface Props {
   title: string;
   description?: string;
   tags?: string[];
+  year?: string | number;
   cover?: Cover;
   image?: string;
   imageAlt?: string;
@@ -26,11 +27,14 @@ const {
   title,
   description,
   tags = [],
+  year,
   cover,
   image,
   imageAlt = '',
   headingLevel = 3,
 } = Astro.props;
+
+const metaTags = year ? [String(year), ...tags] : tags;
 
 const Heading = `h${headingLevel}` as 'h2' | 'h3';
 const hasCover = Boolean(cover);
@@ -60,11 +64,8 @@ const slug = cover?.slug ?? '';
   ) : null}
 
   <div class="cs-card__content">
-    {hasCover && cover!.meta && (
-      <p class="cs-card__meta">{cover!.meta}</p>
-    )}
     <Heading class="cs-card__title">{title}</Heading>
     {description && <p class="cs-card__description">{description}</p>}
-    <TagList tags={tags} size={variant === 'secondary' ? 'xs' : 'default'} />
+    <TagList tags={metaTags} size="xs" />
   </div>
 </a>

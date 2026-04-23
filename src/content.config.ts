@@ -7,6 +7,7 @@ const caseStudies = defineCollection({
     title: z.string(),
     description: z.string(),
     tags: z.array(z.string()),
+    cardTags: z.array(z.string()).optional(),
     date: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
     coverImage: z.string().optional(),
