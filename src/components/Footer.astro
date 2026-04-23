@@ -1,9 +1,23 @@
 ---
-const footerLinks = [
-  { label: 'About me', href: '/about' },
-  { label: 'About this site', href: '/about-this-site' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/davemusson/', external: true },
-  { label: 'GitHub', href: 'https://github.com/Mussond', external: true },
+import { Linkedin } from 'lucide-astro';
+import Monogram from './Monogram.astro';
+
+const columns = [
+  {
+    heading: 'Work',
+    links: [
+      { label: 'Case studies', href: '/case-studies' },
+      { label: 'Guides', href: '/guides' },
+      { label: 'Logs', href: '/logs' },
+    ],
+  },
+  {
+    heading: 'About',
+    links: [
+      { label: 'About me', href: '/about' },
+      { label: 'About this site', href: '/about-this-site' },
+    ],
+  },
 ];
 
 const currentYear = new Date().getFullYear();
@@ -11,21 +25,42 @@ const currentYear = new Date().getFullYear();
 
 <footer class="site-footer">
   <div class="container footer">
+    <a href="/" class="footer__monogram" aria-label="Dave Musson — home">
+      <Monogram class="footer__monogram-mark" size={40} />
+    </a>
+
     <nav class="footer__nav" aria-label="Secondary">
-      <ul class="footer__list" role="list">
-        {footerLinks.map((link) => (
+      {columns.map((col) => (
+        <div class="footer__column">
+          <h2 class="footer__heading">{col.heading}</h2>
+          <ul class="footer__list" role="list">
+            {col.links.map((link) => (
+              <li>
+                <a href={link.href} class="footer__link">{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+      <div class="footer__column">
+        <h2 class="footer__heading">Connect</h2>
+        <ul class="footer__list" role="list">
           <li>
             <a
-              href={link.href}
-              class="footer__link"
-              {...link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
+              href="https://www.linkedin.com/in/davemusson/"
+              class="footer__link footer__link--social"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              {link.label}{link.external && <span class="visually-hidden"> (opens in new tab)</span>}
+              <Linkedin aria-hidden="true" width="16" height="16" />
+              <span>LinkedIn</span>
+              <span class="visually-hidden"> (opens in new tab)</span>
             </a>
           </li>
-        ))}
-      </ul>
+        </ul>
+      </div>
     </nav>
+
     <div class="footer__meta">
       <p class="footer__strapline">Built in Astro, with Claude. Accessibility tested per commit (<a href="/about-this-site#a11y-statement-heading">WCAG 2.2 AA</a> + custom skills).</p>
       <p class="footer__copyright">© {currentYear} Dave Musson</p>
