@@ -13,6 +13,7 @@
    ============================================ */
 
    .light-amberFix {
+      --amber-contrast: var(--sand-12); /* light mode sand 12 */
       --amber-surface: #fefae4cc;
       --amber-indicator: var(--amber-9);
       --amber-track: var(--amber-9);
@@ -24,6 +25,7 @@
    }
 
    .dark-amberFix {
+      --amber-contrast: var(--sand-12); /* light mode sand 12 */
       --amber-surface: #271f1380;
       --amber-indicator: var(--amber-9);
       --amber-track: var(--amber-9);
@@ -35,6 +37,7 @@
    }
 
    .light-sandFix {
+      --sand-contrast: white;
       --sand-surface: #ffffffcc;
       --sand-indicator: var(--sand-9);
       --sand-track: var(--sand-9);
@@ -46,6 +49,7 @@
    }
 
    .dark-sandFix {
+      --sand-contrast: white;
       --sand-surface: #21212080;
       --sand-indicator: var(--sand-9);
       --sand-track: var(--sand-9);
