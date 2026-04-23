@@ -1,0 +1,43 @@
+/* ============================================
+   CASE STUDY LAYOUT
+   Detail-page chrome: header, hero image, and prose overrides that
+   widen the content column and soften the editorial rhythm against
+   the default prose rules used on guide and log detail pages.
+   ============================================ */
+
+.case-study__header {
+  margin-bottom: 3rem;
+}
+
+.case-study__header h1 {
+  margin-bottom: 1rem;
+}
+
+.case-study__lede {
+  margin-bottom: 0;
+}
+
+.case-study__header .card__tags {
+  margin-top: 1.5rem;
+}
+
+.case-study__meta {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.case-study__hero {
+  width: 100%;
+  border-radius: var(--radius-card);
+  margin-bottom: 3rem;
+}
+
+/* Wider column + more generous vertical rhythm for case studies. */
+.case-study .prose {
+  max-width: 76ch;
+}
+
+.case-study .prose h2 {
+  margin-top: 3.5rem;
+}

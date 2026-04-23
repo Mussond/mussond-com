@@ -1,0 +1,66 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BackLink from './BackLink.astro';
+import TagList from './TagList.astro';
+
+interface StudyData {
+  title: string;
+  description: string;
+  tags: string[];
+  date: Date;
+  updatedAt?: Date;
+  coverImage?: string;
+}
+
+interface Props {
+  study: { id: string; data: StudyData };
+  backHref?: string;
+  backLabel?: string;
+}
+
+const {
+  study,
+  backHref = '/case-studies',
+  backLabel = 'Case studies',
+} = Astro.props;
+
+const updatedLabel = study.data.updatedAt?.toLocaleDateString('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<Layout title={`${study.data.title} — Dave Musson`} description={study.data.description}>
+  <main id="main-content" class="container page-content case-study">
+
+    <BackLink href={backHref} label={backLabel} />
+
+    <header class="case-study__header">
+      <h1>{study.data.title}</h1>
+      <p class="text-leading case-study__lede">{study.data.description}</p>
+      <TagList tags={study.data.tags} />
+      <p class="case-study__meta">
+        Published {study.data.date.getFullYear()}
+        {updatedLabel && (
+          <> · Last updated {updatedLabel}</>
+        )}
+      </p>
+    </header>
+
+    {study.data.coverImage && (
+      <img
+        src={study.data.coverImage}
+        alt=""
+        class="case-study__hero"
+        loading="eager"
+        decoding="async"
+      />
+    )}
+
+    <div class="case-study__body prose">
+      <slot />
+    </div>
+
+  </main>
+</Layout>

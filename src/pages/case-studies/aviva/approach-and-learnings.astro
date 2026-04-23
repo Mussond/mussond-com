@@ -1,7 +1,5 @@
 ---
-import Layout from '../../../layouts/Layout.astro';
-import BackLink from '../../../components/BackLink.astro';
-import TagList from '../../../components/TagList.astro';
+import CaseStudyLayout from '../../../components/CaseStudyLayout.astro';
 import { getEntry, render } from 'astro:content';
 
 const study = await getEntry('case-studies', 'aviva-approach-and-learnings');
@@ -10,20 +8,10 @@ if (!study) return Astro.redirect('/case-studies/aviva');
 const { Content } = await render(study);
 ---
 
-<Layout title={`${study.data.title} — Dave Musson`} description={study.data.description}>
-  <main id="main-content" class="container page-content">
-
-    <BackLink href="/case-studies/aviva" label="Aviva case study" />
-
-<div class="content-header">
-  <h1>{study.data.title}</h1>
-  <p class="text-leading">{study.data.description}</p>
-  <TagList tags={study.data.tags} />
-</div>
-
-    <div class="prose">
-      <Content />
-    </div>
-
-  </main>
-</Layout>
+<CaseStudyLayout
+  study={study}
+  backHref="/case-studies/aviva"
+  backLabel="Aviva case study"
+>
+  <Content />
+</CaseStudyLayout>
