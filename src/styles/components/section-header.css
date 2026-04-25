@@ -41,19 +41,13 @@
 .section-header__eyebrow::before {
   content: "";
   width: 1.5rem;
-  height: 2px;
-  background: var(--color-amber-500);
+  height: var(--stroke-2);
+  background: var(--color-eyebrow-dash);
   flex-shrink: 0;
 }
 
 .section-header__heading {
   margin: 0;
-}
-
-/* Light-high: swap dash from amber to text-primary (matches the sand-12
-   keyline on the current nav item in light-high mode, not amber). */
-html.light[data-contrast="high"] .section-header__eyebrow::before {
-  background: var(--color-text-primary);
 }
 
 @media (max-width: 640px) {
