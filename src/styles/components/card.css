@@ -19,7 +19,7 @@
   display: grid;
   grid-template-columns: 160px 1fr;
   gap: var(--space-lg);
-  border: 2px solid var(--color-border-default);
+  border: 2px solid var(--color-border-base);
   border-radius: var(--radius-card);
   background: var(--color-bg-card);
   overflow: hidden;

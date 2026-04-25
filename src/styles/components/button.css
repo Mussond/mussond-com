@@ -97,7 +97,7 @@
 
 /* Decorative: restore softer border */
 [data-contrast="decorative"] .btn--secondary {
-  border-color: var(--color-border-default);
+  border-color: var(--color-border-base);
 }
 
 /* ============================================

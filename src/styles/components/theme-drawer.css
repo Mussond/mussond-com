@@ -19,7 +19,7 @@
   height: 100dvh;
   max-height: 100dvh;
   border: none;
-  border-left: 1px solid var(--color-border-default);
+  border-left: 1px solid var(--color-border-base);
   background: var(--color-bg-base);
   color: var(--color-text-primary);
   font-family: var(--font-sans);
@@ -61,7 +61,7 @@
 
 .theme-drawer__close:hover {
   background: var(--color-bg-card);
-  border-color: var(--color-border-default);
+  border-color: var(--color-border-base);
 }
 
 .theme-drawer__close:focus-visible {
@@ -149,7 +149,7 @@
   display: none;
   padding: 0.75rem;
   margin-bottom: var(--space-md);
-  border: 1px solid var(--color-border-default);
+  border: 1px solid var(--color-border-base);
   background: var(--color-bg-card);
   font-size: 0.9375rem;
   max-width: none;

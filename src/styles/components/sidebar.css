@@ -152,7 +152,7 @@ html.dark .sidebar__monogram { color: var(--color-action-bg); }
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--color-border-default);
+  background: var(--color-border-base);
   flex-shrink: 0;
   position: relative;
   z-index: 1;

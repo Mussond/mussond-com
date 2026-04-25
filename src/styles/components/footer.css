@@ -14,7 +14,7 @@
 }
 
 [data-contrast="high"] .site-footer {
-  border-top: 2px solid var(--color-border-default);
+  border-top: 2px solid var(--color-border-base);
 }
 
 .footer {
@@ -114,7 +114,7 @@ html.dark .footer__monogram { color: var(--color-action-bg); }
 }
 
 [data-contrast="high"] .footer__meta {
-  border-top-color: var(--color-border-default);
+  border-top-color: var(--color-border-base);
 }
 
 .footer__strapline,

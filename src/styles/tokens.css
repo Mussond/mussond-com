@@ -137,7 +137,7 @@
   --color-bg-card:         var(--sand-1);
   --color-bg-decorative:   var(--amber-2);
   --color-border-subtle:   var(--sand-6);
-  --color-border-default:  var(--sand-7);
+  --color-border-base:  var(--sand-7);
   --color-action-bg:       var(--amber-9);
   --color-action-bg-hover: var(--amber-10);
   --color-accent-selected: var(--amber-11);
@@ -165,7 +165,7 @@
 [data-contrast="high"] {
   --color-text-secondary:  var(--sand-12);   /* 11 → 12: merge with primary */
   --color-border-subtle:   var(--sand-8);    /* 6 → 8 */
-  --color-border-default:  var(--sand-12);   /* 7 → 12 */
+  --color-border-base:  var(--sand-12);   /* 7 → 12 */
   --gradient-brand:        none;            /* suppress decorative wash for max clarity */
   --color-action-text:   var(--sand-12);    /* high collapses warm text to sand-12 */
   --color-border-card:   var(--sand-12);    /* high collapses warm border to sand-12 */
@@ -179,7 +179,7 @@
 [data-contrast="decorative"] {
   --color-text-primary:    var(--sand-11);   /* 12 → 11: softer body text */
   --color-text-secondary:  var(--sand-10);   /* 11 → 10 */
-  --color-border-default:  var(--sand-6);    /* 7 → 6 */
+  --color-border-base:  var(--sand-6);    /* 7 → 6 */
   --color-border-subtle:   var(--sand-4);    /* 6 → 4 */
   --color-bg-decorative:   var(--amber-3);   /* 2 → 3: warmer tint */
   --color-action-text:   var(--amber-11);   /* decorative: softer warm text */
