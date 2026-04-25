@@ -82,6 +82,7 @@
      that lands in commit 5. */
   --text-xs:    0.75rem;   /* 12px — STATUS label, eyebrow mono, meta */
   --text-sm:    0.875rem;  /* 14px — tag, caption */
+  --text-md:    1.5625rem; /* 25px — heading/md (h3-scale serif) */
   --text-base:  1rem;      /* 16px — body small / UI */
   --text-lg:    1.3125rem; /* 21px — leading paragraph, drawer body */
   --text-xl:    2.1875rem; /* 35px — h2 */
@@ -116,6 +117,11 @@
   /* Motion */
   --transition-base: all 0.3s cubic-bezier(0.8, 0.04, 0.4, 1);
   --transition-underline: text-underline-offset 400ms, text-decoration-color 400ms;
+
+  /* Stroke widths — mirror Figma Thickness collection (t1, t2, focus-ring=t3) */
+  --stroke-1:          1px;
+  --stroke-2:          2px;
+  --focus-ring-width:  3px;
 }
 
 /* Semantic colour tokens — Low contrast baseline.
@@ -136,7 +142,7 @@
   --color-action-bg-hover: var(--amber-10);
   --color-accent-selected: var(--amber-11);
   --color-action-border:   var(--sand-12);
-  --color-action-text:     var(--sand-12);
+  --color-action-text:     var(--amber-12);  /* warm-on-warm per Figma color/text-action */
   --color-text-on-brand:   var(--sand-12);
   --color-focus-ring:      var(--sand-12);
 
@@ -145,6 +151,11 @@
      washes). Low now ships bare; decorative reintroduces a stronger
      version as its distinguishing warm-tint signal. */
   --gradient-brand: none;
+
+  /* Added sprint 1 — Figma Theme collection alignment */
+  --color-border-card:   var(--amber-12);   /* warm card emphasis border */
+  --color-eyebrow-dash:  var(--amber-9);    /* eyebrow ::before dash */
+  --color-bg-selected:   var(--amber-10);   /* selected state on filter tags */
 }
 
 /* High contrast overrides — darker borders, secondary text merges with primary.
@@ -156,7 +167,9 @@
   --color-border-subtle:   var(--sand-8);    /* 6 → 8 */
   --color-border-default:  var(--sand-12);   /* 7 → 12 */
   --gradient-brand:        none;            /* suppress decorative wash for max clarity */
-
+  --color-action-text:   var(--sand-12);    /* high collapses warm text to sand-12 */
+  --color-border-card:   var(--sand-12);    /* high collapses warm border to sand-12 */
+  --color-eyebrow-dash:  var(--amber-12);   /* high: warm-dark for firmer contrast */
 }
 
 /* Decorative: lower-contrast opt-in mode. Some token pairs will fail WCAG AA
@@ -169,6 +182,8 @@
   --color-border-default:  var(--sand-6);    /* 7 → 6 */
   --color-border-subtle:   var(--sand-4);    /* 6 → 4 */
   --color-bg-decorative:   var(--amber-3);   /* 2 → 3: warmer tint */
+  --color-action-text:   var(--amber-11);   /* decorative: softer warm text */
+  --color-border-card:   var(--amber-3);    /* decorative: lighter warm border */
 
   /* Warm wash returns — and is stronger than the old low-mode value
      so decorative visibly owns the warm-tint identity. Stops bumped
@@ -188,6 +203,7 @@
   --color-text-on-brand: var(--amber-1);
   --color-action-border:   var(--sand-11);
   --color-accent-selected: var(--amber-9);
+  --color-border-card:   var(--amber-9);    /* dark: step shifts 12→9 to read against sand-12 dark */
 }
 
 /* ============================================
