@@ -9,7 +9,7 @@
 .stat-block {
   margin-block: var(--space-xl);
   padding-top: var(--space-md);
-  border-top: 2px solid var(--color-border-default);
+  border-top: 2px solid var(--color-border-base);
 }
 
 .stat-block__heading {

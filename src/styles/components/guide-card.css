@@ -146,7 +146,7 @@
 /* ── High contrast ───────────────────────────────────────────── */
 
 [data-contrast="high"] .guide-card {
-  border-color: var(--color-border-default);
+  border-color: var(--color-border-base);
 }
 
 [data-contrast="high"] .guide-card:hover,
