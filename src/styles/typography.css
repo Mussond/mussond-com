@@ -1,0 +1,129 @@
+/* ============================================
+   TYPOGRAPHY UTILITIES
+   Composite text styles — atomic tokens (font-family/*, --text-*)
+   assembled into utility classes that mirror the named text styles
+   in the Figma Theme file. Apply by class on elements that need to
+   match a Figma text style; standard headings continue to use the
+   cascade in base.css.
+
+   Sizes track the existing codebase scale via --text-* tokens.
+
+   Note: Figma's atomic Typography variable scale (scale/md=20,
+   scale/lg=27, scale/xl=33, scale/2xl=39, scale/3xl=48, scale/4xl=64)
+   does NOT match this codebase scale — it's a separate in-flight scale
+   in Figma that hasn't been wired into the compound text styles yet.
+   Realignment is a future sprint, not this one.
+   ============================================ */
+
+/* ── Headings (Instrument Serif, regular) ─────────────── */
+
+.text-heading-xl {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-style: normal;
+  font-size: var(--text-2xl);     /* 49px — heading/xl */
+  line-height: 56px;
+  letter-spacing: 0;
+}
+
+.text-heading-lg {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-style: normal;
+  font-size: var(--text-xl);      /* 35px — heading/lg */
+  line-height: 40px;
+  letter-spacing: 0.25px;
+}
+
+.text-heading-md {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-style: normal;
+  font-size: var(--text-md);      /* 25px — heading/md */
+  line-height: 29px;
+  letter-spacing: 0;
+}
+
+/* ── Quotes / display (Instrument Serif, italic) ─────── */
+
+.text-quote-xl {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-style: italic;
+  font-size: var(--text-3xl);     /* 64px — quote/xl */
+  line-height: 64px;
+  letter-spacing: -1px;
+}
+
+.text-quote-md {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.625rem;            /* 26px — quote/md (one-off, no scale token) */
+  line-height: 34px;
+  letter-spacing: 0;
+}
+
+/* ── Body (Geist Sans) ───────────────────────────────── */
+
+.text-body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 1.125rem;            /* 18px — body/root (matches body base) */
+  line-height: 29px;
+  letter-spacing: 0;
+}
+
+.text-body-xs {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--text-sm);      /* 14px — body/xs */
+  line-height: 21px;
+  letter-spacing: 0;
+}
+
+/* ── Eyebrow / labels (Geist Mono) ───────────────────── */
+
+.text-eyebrow {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: var(--text-xs);      /* 12px — body/xs-CAPS */
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.text-eyebrow-lg {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: var(--text-base);    /* 16px — body/sm-CAPS */
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.text-label {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: var(--text-xs);      /* 12px — label/xs */
+  line-height: 18px;
+  letter-spacing: 0;
+}
+
+/* ── Actions (Geist Sans, semibold) ──────────────────── */
+
+.text-action {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--text-base);    /* 16px — action/default */
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.text-action-xs {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--text-sm);      /* 14px — action/xs */
+  line-height: 1;
+  letter-spacing: 0;
+}
