@@ -65,11 +65,11 @@ html.dark .display-controls__segment {
   cursor: pointer;
   border: var(--stroke-1) solid transparent;
   border-radius: var(--radius-pill);
-  padding: var(--space-p4);
+  padding: var(--space-p3);
   text-align: center;
   font-family: var(--font-sans);
   font-size: var(--text-base);
-  font-weight: 600;
+  font-weight: 400;
   color: var(--color-action-text);
   line-height: 1;
 }
@@ -82,6 +82,7 @@ html.dark .display-controls__segment {
 .display-controls__chip:has(input:checked) {
   background: var(--color-bg-selected);
   border-color: var(--color-action-border);
+  font-weight: 600;
 }
 
 /* Dark mode selected chip — saturated amber-9 fill with amber-9 border
