@@ -2,20 +2,362 @@
 import Layout from '../layouts/Layout.astro';
 import PageIntro from '../components/PageIntro.astro';
 
-import { Users, Award, RefreshCw, Layers } from 'lucide-astro';
+import BackLink from '../components/BackLink.astro';
+import Button from '../components/Button.astro';
+import Card from '../components/Card.astro';
+import CaseStudyCard from '../components/CaseStudyCard.astro';
+import DisplayControls from '../components/DisplayControls.astro';
+import EthosList from '../components/EthosList.astro';
+import GuideCard from '../components/GuideCard.astro';
+import Hero from '../components/Hero.astro';
+import IconButton from '../components/IconButton.astro';
+import Identity from '../components/Identity.astro';
+import LogCard from '../components/LogCard.astro';
+import Monogram from '../components/Monogram.astro';
+import PageIntroComponent from '../components/PageIntro.astro';
+import PullQuote from '../components/PullQuote.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import StatBlock from '../components/StatBlock.astro';
+import TagFilterList from '../components/TagFilterList.astro';
+import TagList from '../components/TagList.astro';
+
+import { Settings, Linkedin } from 'lucide-astro';
+
+const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
 ---
 
-<Layout title="Components — Dave Musson" description="Dave Musson is a Principal Design Systems Designer and accessibility specialist with 16 years of experience.">
+<Layout
+  title="Site components — Dave Musson"
+  description="Reference page showing each component used on this site."
+>
   <main id="main-content" class="container page-content">
 
-    <h1>Site Components</h1>
+    <h1>Site components</h1>
 
     <PageIntro>
-      <p>A page of components used on this site. Mostly created when I was doing QA of the site</p>
+      <p>A reference of the components used on this site, mostly built during phase 6 QA. Each entry links to its source on GitHub.</p>
+      <p>Page-chrome components (Sidebar, Footer, SkipLink, ThemeDrawer, DisplaySettings) are linked only — they're already rendered as part of this page.</p>
     </PageIntro>
 
-   <h2>Compoent</h2>
-   <p>Componet purpose + component</p>
+    <h2 id="backlink-heading">BackLink</h2>
+    <p class="component-meta">
+      Back-arrow link used at the top of detail pages to return to the parent index.
+      <a href={`${repo}/BackLink.astro`}>View source on GitHub →</a>
+    </p>
+    <div class="component-showcase">
+      <BackLink href="#" label="Case studies" />
+    </div>
+
+    <h2 id="button-heading">Button</h2>
+    <p class="component-meta">
+      Three variants: primary (filled), secondary (outlined), and utility (compact, used for inline controls).
+      <a href={`${repo}/Button.astro`}>View source on GitHub →</a>
+    </p>
+    <div class="component-showcase">
+      <div class="component-showcase__row">
+        <Button variant="primary">Primary</Button>
+        <Button variant="secondary">Secondary</Button>
+        <Button variant="utility">Utility</Button>
+      </div>
+    </div>
+
+    <h2 id="case-study-card-heading">CaseStudyCard</h2>
+    <p class="component-meta">
+      Case study card with featured and secondary variants. Supports per-slug cover blocks (brand-coloured) or a card image.
+      <a href={`${repo}/CaseStudyCard.astro`}>View source on GitHub →</a>
+    </p>
+    <div class="component-showcase">
+      <p class="component-showcase__caption">Featured + secondary, with cover blocks</p>
+      <div class="cs-card-section">
+        <CaseStudyCard
+          variant="featured"
+          href="#"
+          title="Sample featured case study"
+          description="A short summary that wraps onto two lines when the description is more than a sentence."
+          tags={['Design systems', 'Strategy']}
+          year={2024}
+          cover={{ slug: 'aviva', label: 'GLOBAL ATOMIC', meta: '2022–2024 · Design system' }}
+          headingLevel={3}
+        />
+        <div class="cs-secondary-grid">
+          <CaseStudyCard
+            variant="secondary"
+            href="#"
+            title="Sample secondary case study"
+            description="Short summary."
+            tags={['Accessibility']}
+            year={2023}
+            cover={{ slug: 'coursera', label: 'COURSERA', meta: '2020–2022 · Design system' }}
+            headingLevel={3}
+          />
+          <CaseStudyCard
+            variant="secondary"
+            href="#"
+            title="Another case study"
+            description="Short summary."
+            tags={['Tokens']}
+            year={2022}
+            cover={{ slug: 'checkoutcom', label: 'INFINITY', meta: '2018–2020 · Design system' }}
+            headingLevel={3}
+          />
+        </div>
+      </div>
+    </div>
+
+    <h2 id="display-controls-heading">DisplayControls</h2>
+    <p class="component-meta">
+      Two segmented radio groups (Contrast + Colour mode) shared between the homepage panel and the theme drawer.
+      <a href={`${repo}/DisplayControls.astro`}>View source on GitHub →</a>
+    </p>
+    <div class="component-showcase">
+      <DisplayControls variant="panel" idPrefix="components-page" />
+    </div>
+
+    <h2 id="display-settings-heading">DisplaySettings</h2>
+    <p class="component-meta">
+      Inline display-settings panel rendered on the homepage after the hero. Wraps DisplayControls with eyebrow + Hide/Show button. Visible on the <a href="/">homepage</a>.
+      <a href={`${repo}/DisplaySettings.astro`}>View source on GitHub →</a>
+    </p>
+
+    <h2 id="ethos-list-heading">EthosList</h2>
+    <p class="component-meta">
+      Section heading + list of icon/heading/body items. Used on the About page.
+      <a href={`${repo}/EthosList.astro`}>View source on GitHub →</a>
+    </p>
+    <div class="component-showcase">
+      <EthosList>
+        <li class="ethos__item">
+          <Settings size={40} aria-hidden="true" />
+          <h3>Sample principle one</h3>
+          <p>Short body for the principle, kept to a couple of sentences for the showcase.</p>
+        </li>
+        <li class="ethos__item">
+          <Linkedin size={40} aria-hidden="true" />
+          <h3>Sample principle two</h3>
+          <p>Another body paragraph.</p>
+        </li>
+      </EthosList>
+    </div>
+
+    <h2 id="footer-heading">Footer</h2>
+    <p class="component-meta">
+      Site-wide footer with secondary navigation, monogram link, strapline, and copyright. Visible at the bottom of every page.
+      <a href={`${repo}/Footer.astro`}>View source on GitHub →</a>
+    </p>
+
+    <h2 id="guide-card-heading">GuideCard</h2>
+    <p class="component-meta">
+      Guide card with a primary tag badge by default. Optional <code>showTags</code> exposes the full tag list.
+      <a href={`${repo}/GuideCard.astro`}>View source on GitHub →</a>
+    </p>
+    <div class="component-showcase">
+      <p class="component-showcase__caption">Default — primary tag as badge</p>
+      <GuideCard
+        href="#"
+        title="Sample guide title"
+        description="A short description that wraps onto two lines when there's more to say."
+        tags={['Accessibility', 'Forms']}
+        readTime={5}
+      />
+      <p class="component-showcase__caption">With showTags</p>
+      <GuideCard
+        href="#"
+        title="Sample guide title"
+        description="Same card, full tag list shown."
+        tags={['Accessibility', 'Forms', 'Patterns']}
+        readTime={5}
+        showTags
+      />
+    </div>
+
+    <h2 id="hero-heading">Hero</h2>
+    <p class="component-meta">
+      Homepage stance line. Italic Instrument Serif at large size.
+      <a href={`${repo}/Hero.astro`}>View source on GitHub →</a>
+    </p>
+    <div class="component-showcase">
+      <Hero />
+    </div>
+
+    <h2 id="icon-button-heading">IconButton</h2>
+    <p class="component-meta">
+      Icon-with-label button. Default and small sizes. Renders as a <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code> depending on whether <code>href</code> is supplied.
+      <a href={`${repo}/IconButton.astro`}>View source on GitHub →</a>
+    </p>
+    <div class="component-showcase">
+      <div class="component-showcase__row">
+        <IconButton label="Settings">
+          <Settings aria-hidden="true" width="20" height="20" />
+        </IconButton>
+        <IconButton label="Settings" size="small">
+          <Settings aria-hidden="true" width="16" height="16" />
+        </IconButton>
+      </div>
+    </div>
+
+    <h2 id="identity-heading">Identity</h2>
+    <p class="component-meta">
+      Name + tagline block. Renders as h1 on the homepage and as a paragraph + link elsewhere. Sidebar variant shown.
+      <a href={`${repo}/Identity.astro`}>View source on GitHub →</a>
+    </p>
+    <div class="component-showcase">
+      <Identity variant="sidebar" />
+    </div>
+
+    <h2 id="log-card-heading">LogCard</h2>
+    <p class="component-meta">
+      Log card with title, description, tags, and year.
+      <a href={`${repo}/LogCard.astro`}>View source on GitHub →</a>
+    </p>
+    <div class="component-showcase">
+      <LogCard
+        href="#"
+        title="Sample log entry"
+        description="Curated resources or notes — shorter form than guides."
+        tags={['Resources']}
+        year={2025}
+      />
+    </div>
+
+    <h2 id="monogram-heading">Monogram</h2>
+    <p class="component-meta">
+      DM monogram SVG. Sizable via the <code>size</code> prop. <code>currentColor</code> fill so it inherits theme colour.
+      <a href={`${repo}/Monogram.astro`}>View source on GitHub →</a>
+    </p>
+    <div class="component-showcase">
+      <div class="component-showcase__row">
+        <Monogram />
+        <Monogram size={56} />
+      </div>
+    </div>
+
+    <h2 id="page-intro-heading">PageIntro</h2>
+    <p class="component-meta">
+      Intro text block for the top of pages. Accepts paragraph slot content.
+      <a href={`${repo}/PageIntro.astro`}>View source on GitHub →</a>
+    </p>
+    <div class="component-showcase">
+      <PageIntroComponent>
+        <p>Example intro paragraph for the showcase. Used on About and About this site pages.</p>
+      </PageIntroComponent>
+    </div>
+
+    <h2 id="pull-quote-heading">PullQuote</h2>
+    <p class="component-meta">
+      Block-quote with optional citation. Used inside long-form prose.
+      <a href={`${repo}/PullQuote.astro`}>View source on GitHub →</a>
+    </p>
+    <div class="component-showcase">
+      <PullQuote
+        quote="Accessibility isn't a feature. It's a usability amplifier."
+        cite="Dave Musson"
+      />
+    </div>
+
+    <h2 id="section-header-heading">SectionHeader</h2>
+    <p class="component-meta">
+      Eyebrow + heading + optional 'View all' link. Used to introduce homepage preview sections.
+      <a href={`${repo}/SectionHeader.astro`}>View source on GitHub →</a>
+    </p>
+    <div class="component-showcase">
+      <p class="component-showcase__caption">With 'View all' link</p>
+      <SectionHeader
+        eyebrow="Selected work"
+        heading="Case studies"
+        headingId="showcase-section-header-with"
+        viewAllHref="#"
+      />
+      <p class="component-showcase__caption">Without 'View all' link</p>
+      <SectionHeader
+        eyebrow="Recent"
+        heading="Logs"
+        headingId="showcase-section-header-without"
+      />
+    </div>
+
+    <h2 id="sidebar-heading">Sidebar</h2>
+    <p class="component-meta">
+      Left-column site chrome on desktop: monogram, nav, identity, theme toggle, LinkedIn. Visible as the left column of every page on desktop.
+      <a href={`${repo}/Sidebar.astro`}>View source on GitHub →</a>
+    </p>
+
+    <h2 id="skip-link-heading">SkipLink</h2>
+    <p class="component-meta">
+      First focusable element on every page. Skips to <code>#main-content</code>. Tab from the URL bar to reveal.
+      <a href={`${repo}/SkipLink.astro`}>View source on GitHub →</a>
+    </p>
+
+    <h2 id="stat-block-heading">StatBlock</h2>
+    <p class="component-meta">
+      Heading + description-list of stats. Used in case studies for outcomes.
+      <a href={`${repo}/StatBlock.astro`}>View source on GitHub →</a>
+    </p>
+    <div class="component-showcase">
+      <StatBlock
+        heading="Outcomes"
+        stats={[
+          { value: '40%', label: 'Faster time to market' },
+          { value: '12', label: 'Teams adopted' },
+          { value: '3×', label: 'Component reuse' },
+        ]}
+      />
+    </div>
+
+    <h2 id="tag-filter-list-heading">TagFilterList</h2>
+    <p class="component-meta">
+      Filterable tag pills with an aria-live status region. Filters a sibling list by <code>data-tags</code>.
+      <a href={`${repo}/TagFilterList.astro`}>View source on GitHub →</a>
+    </p>
+    <div class="component-showcase">
+      <TagFilterList tags={['accessibility', 'design-systems', 'tooling']} listId="components-tag-demo" />
+      <ul class="card-list" id="components-tag-demo">
+        <li class="card-list__item" data-tags="accessibility">Sample item 1 — accessibility</li>
+        <li class="card-list__item" data-tags="design-systems">Sample item 2 — design-systems</li>
+        <li class="card-list__item" data-tags="accessibility,tooling">Sample item 3 — accessibility, tooling</li>
+      </ul>
+    </div>
+
+    <h2 id="tag-list-heading">TagList</h2>
+    <p class="component-meta">
+      Inline list of tags. Default and <code>xs</code> sizes.
+      <a href={`${repo}/TagList.astro`}>View source on GitHub →</a>
+    </p>
+    <div class="component-showcase">
+      <p class="component-showcase__caption">Default</p>
+      <TagList tags={['Accessibility', 'Design systems', 'Tokens']} />
+      <p class="component-showcase__caption">Extra small</p>
+      <TagList tags={['Accessibility', 'Design systems', 'Tokens']} size="xs" />
+    </div>
+
+    <h2 id="theme-drawer-heading">ThemeDrawer</h2>
+    <p class="component-meta">
+      Modal dialog with full theme + contrast controls. Open via the theme toggle in the sidebar.
+      <a href={`${repo}/ThemeDrawer.astro`}>View source on GitHub →</a>
+    </p>
+
+    <h2 id="legacy-heading">Legacy</h2>
+    <p>Components that have been superseded but remain in the repo for reference.</p>
+
+    <h3 id="card-heading">Card</h3>
+    <p class="component-meta">
+      Generic content card. Used pre-Phase-7 for guides, logs, and case studies. <strong>Being retired</strong> in favour of GuideCard, LogCard, and CaseStudyCard.
+      <a href={`${repo}/Card.astro`}>View source on GitHub →</a>
+    </p>
+    <div class="component-showcase">
+      <Card
+        href="#"
+        title="Sample card"
+        description="Generic card body, replaced by purpose-specific cards."
+        tags={['Legacy']}
+        headingLevel={3}
+      />
+    </div>
+
+    <h2 id="internal-heading">Internal</h2>
+    <p class="component-meta">
+      Components used as page wrappers rather than embedded surfaces:
+      <a href={`${repo}/CaseStudyLayout.astro`}>CaseStudyLayout</a> wraps every case study page with header, lede, tags, hero image, and prose body.
+    </p>
 
   </main>
 </Layout>
