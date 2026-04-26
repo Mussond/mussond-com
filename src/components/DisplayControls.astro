@@ -1,0 +1,71 @@
+---
+// DisplayControls — segmented radio groups for theme + contrast.
+// Used by the inline DisplaySettings panel and the ThemeDrawer.
+// `variant` controls layout: 'panel' (horizontal segmented chips) or
+// 'drawer' (vertical stacked rows). idPrefix scopes input names so
+// the two surfaces don't share radio groups in the browser.
+
+interface Props {
+  variant: 'panel' | 'drawer';
+  idPrefix: string;
+}
+
+const { variant, idPrefix } = Astro.props;
+
+const contrastOptions = [
+  { value: 'low', label: 'Low' },
+  { value: 'high', label: 'High' },
+  { value: 'decorative', label: 'Decorative' },
+  { value: 'system', label: 'System' },
+];
+
+const themeOptions = [
+  { value: 'system', label: 'System' },
+  { value: 'light', label: 'Light' },
+  { value: 'dark', label: 'Dark' },
+];
+---
+
+<div class={`display-controls display-controls--${variant}`}>
+  <fieldset class="display-controls__group">
+    <legend class="display-controls__legend">Contrast</legend>
+    <div class="display-controls__segment">
+      {contrastOptions.map((option) => (
+        <label class="display-controls__chip">
+          <input
+            type="radio"
+            name={`${idPrefix}-contrast`}
+            data-control="contrast"
+            value={option.value}
+            class="visually-hidden"
+          />
+          <span class="display-controls__chip-label">{option.label}</span>
+        </label>
+      ))}
+    </div>
+    <p class="display-controls__live" aria-live="polite" aria-atomic="true">
+      Currently: <em data-contrast-live>low</em>
+    </p>
+  </fieldset>
+
+  <fieldset class="display-controls__group">
+    <legend class="display-controls__legend">Colour mode</legend>
+    <div class="display-controls__segment">
+      {themeOptions.map((option) => (
+        <label class="display-controls__chip">
+          <input
+            type="radio"
+            name={`${idPrefix}-theme`}
+            data-control="theme"
+            value={option.value}
+            class="visually-hidden"
+          />
+          <span class="display-controls__chip-label">{option.label}</span>
+        </label>
+      ))}
+    </div>
+    <p class="display-controls__live" aria-live="polite" aria-atomic="true">
+      Currently: <em data-theme-live>system</em>
+    </p>
+  </fieldset>
+</div>

@@ -129,3 +129,45 @@
     transition: none;
   }
 }
+
+/* ============================================
+   UTILITY VARIANT
+   Smaller pill control for tertiary actions like the
+   panel Hide/Show. Default state is a mono eyebrow chip
+   on a subtle border; hover/active/focus follow the
+   secondary variant exactly (amber-a3 sweep, amber border,
+   2px border on hover with padding compensation).
+   ============================================ */
+
+.btn--utility {
+  padding: 0.375rem 0.875rem;
+  background: transparent;
+  border-style: dashed;
+  border-color: var(--color-border-base);
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.btn--utility::before {
+  background: var(--amber-a3);
+}
+
+.btn--utility:hover,
+.btn--utility:active {
+  border-style: solid;
+  border-color: var(--color-action-bg);
+  padding: calc(0.375rem - 1px) calc(0.875rem - 1px);
+}
+
+[data-contrast="decorative"] .btn--utility {
+  border-color: var(--color-border-base);
+}
+
+[data-contrast="high"] .btn--utility:hover,
+[data-contrast="high"] .btn--utility:active {
+  padding: 0.375rem 0.875rem;
+}

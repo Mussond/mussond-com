@@ -13,6 +13,8 @@
 @import "./components/footer.css";
 @import "./components/prose.css";
 @import "./components/theme-drawer.css";
+@import "./components/display-controls.css";
+@import "./components/display-settings.css";
 @import "./components/stat-block.css";
 @import "./components/ethos.css";
 @import "./components/section-header.css";

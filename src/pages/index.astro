@@ -5,6 +5,7 @@ import CaseStudyCard from '../components/CaseStudyCard.astro';
 import GuideCard from '../components/GuideCard.astro';
 import LogCard from '../components/LogCard.astro';
 import Hero from '../components/Hero.astro';
+import DisplaySettings from '../components/DisplaySettings.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import { getCollection } from 'astro:content';
 
@@ -40,6 +41,8 @@ const sortedLogs = logs
   <main id="main-content">
 
     <Hero />
+
+    <DisplaySettings />
 
     <section class="preview container" aria-labelledby="cs-heading">
       <SectionHeader

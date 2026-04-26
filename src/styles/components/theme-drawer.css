@@ -1,9 +1,12 @@
 /* ============================================
    THEME DRAWER
    Native <dialog> positioned as a right-side panel.
-   Opens via .showModal() — wired up in sprint 3.7c onwards.
-   Semantic tokens only; works across both themes and all three
-   contrast modes without per-mode overrides.
+   Opened from the sidebar icon button on every page,
+   and from Cmd/Ctrl+Shift+K on non-homepage routes
+   (homepage routes the shortcut to the inline panel).
+   Radio control markup is owned by DisplayControls
+   (drawer variant — stacked rows). This file owns
+   dialog chrome only.
    ============================================ */
 
 .theme-drawer {
@@ -69,77 +72,14 @@
   outline-offset: 2px;
 }
 
-/* Radio groups */
-.theme-drawer__group {
-  border: none;
-  padding: 0;
-  margin: 0 0 var(--space-md) 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.theme-drawer__legend {
-  font-size: var(--text-base);
-  font-weight: 600;
-  margin-bottom: var(--space-xs);
-  padding: 0;
-}
-
-.theme-drawer__option {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  border-radius: 4px;
-  cursor: pointer;
-  line-height: 1.4;
-}
-
-.theme-drawer__option:hover {
-  background: var(--color-bg-card);
-}
-
-/* Outline the whole label when its radio has focus — easier to spot
-   than the native radio's focus ring alone. */
-.theme-drawer__option:has(input:focus-visible) {
-  outline: 3px solid var(--color-text-primary);
-  outline-offset: 2px;
-}
-
-.theme-drawer__option input[type="radio"] {
-  width: 1rem;  
-  height: 1rem;
-  accent-color: var(--color-accent-selected);
-  margin: 0;
-  flex-shrink: 0;
-}
-
-.theme-drawer__option-label {
-  font-weight: 500;
-}
-
-.theme-drawer__meta {
-  color: var(--color-text-secondary);
-  font-size: 0.875rem;
-  margin-left: auto;
-}
-
-.theme-drawer__warn {
-  color: var(--color-text-secondary);
-  font-size: 0.875rem;
-  font-style: italic;
-}
-
-/* Longer Decorative explainer beneath the contrast group. Override
+/* Decorative warning explainer beneath the controls. Override
    the global p max-width — the drawer is narrow enough already. */
 .theme-drawer__explainer {
   font-size: 0.9375rem;
   color: var(--color-text-secondary);
   border-top: 1px solid var(--color-border-subtle);
   padding-top: var(--space-sm);
-  margin-top: var(--space-xs);
+  margin-top: var(--space-md);
   max-width: none;
 }
 
