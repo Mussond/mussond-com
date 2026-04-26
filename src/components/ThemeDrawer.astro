@@ -1,10 +1,6 @@
 ---
-// ThemeDrawer — display settings dialog opened from the sidebar
-// theme-toggle icon button on every page, and from Cmd/Ctrl+Shift+K
-// on non-homepage routes. Renders DisplayControls in stacked-drawer
-// variant. Wiring lives in src/scripts/display-controls.ts (loaded
-// once from Layout.astro).
-import DisplayControls from './DisplayControls.astro';
+// ThemeDrawer — display settings panel for theme and contrast.
+// Opened from the nav icon button; wired up in sprints 3.7c–3.7f.
 ---
 
 <dialog id="theme-drawer" class="theme-drawer" aria-labelledby="theme-drawer-title">
@@ -23,13 +19,226 @@ import DisplayControls from './DisplayControls.astro';
     </button>
   </header>
 
-  <p class="theme-drawer__forced-colors-note">
+  <p class="theme-drawer__forced-colors-note" data-forced-colors-note>
     System high-contrast is active. These settings will have no visual effect.
   </p>
 
-  <DisplayControls variant="drawer" idPrefix="drawer" />
+  <fieldset class="theme-drawer__group">
+    <legend class="theme-drawer__legend">Theme</legend>
+
+    <label class="theme-drawer__option">
+      <input type="radio" name="theme" value="light" />
+      <span class="theme-drawer__option-label">Light</span>
+    </label>
+
+    <label class="theme-drawer__option">
+      <input type="radio" name="theme" value="dark" />
+      <span class="theme-drawer__option-label">Dark</span>
+    </label>
+
+    <label class="theme-drawer__option">
+      <input type="radio" name="theme" value="system" />
+      <span class="theme-drawer__option-label">System</span>
+      <span class="theme-drawer__meta" data-theme-meta>(currently light)</span>
+    </label>
+  </fieldset>
+
+  <fieldset class="theme-drawer__group">
+    <legend class="theme-drawer__legend">Contrast</legend>
+
+    <label class="theme-drawer__option">
+      <input type="radio" name="contrast" value="low" />
+      <span class="theme-drawer__option-label">Low</span>
+    </label>
+
+    <label class="theme-drawer__option">
+      <input type="radio" name="contrast" value="high" />
+      <span class="theme-drawer__option-label">High</span>
+    </label>
+
+    <label class="theme-drawer__option">
+      <input type="radio" name="contrast" value="decorative" />
+      <span class="theme-drawer__option-label">Decorative</span>
+      <span class="theme-drawer__warn">may fail WCAG AA</span>
+    </label>
+
+    <label class="theme-drawer__option">
+      <input type="radio" name="contrast" value="system" />
+      <span class="theme-drawer__option-label">System</span>
+      <span class="theme-drawer__meta" data-contrast-meta>(currently low)</span>
+    </label>
+  </fieldset>
 
   <p class="theme-drawer__explainer">
     Decorative is a lower-contrast mode for visual enjoyment. Some text and UI may not meet WCAG AA. Choose Low or High if readability matters to you.
   </p>
 </dialog>
+
+<script>
+  (() => {
+    const drawer = document.getElementById('theme-drawer') as HTMLDialogElement | null;
+    const navButton = document.querySelector('[aria-controls="theme-drawer"]') as HTMLButtonElement | null;
+    if (!drawer || !navButton) return;
+
+    const themeRadios = drawer.querySelectorAll<HTMLInputElement>('input[name="theme"]');
+    const contrastRadios = drawer.querySelectorAll<HTMLInputElement>('input[name="contrast"]');
+    const themeMeta = drawer.querySelector('[data-theme-meta]');
+    const contrastMeta = drawer.querySelector('[data-contrast-meta]');
+    const closeButton = drawer.querySelector('[data-theme-drawer-close]') as HTMLButtonElement | null;
+
+    const html = document.documentElement;
+
+    type ThemeChoice = 'light' | 'dark' | 'system';
+    type ContrastChoice = 'low' | 'high' | 'decorative' | 'system';
+
+    function getStoredTheme(): ThemeChoice {
+      const stored = localStorage.getItem('theme');
+      return (stored === 'light' || stored === 'dark') ? stored : 'system';
+    }
+
+    function getStoredContrast(): ContrastChoice {
+      const stored = localStorage.getItem('contrast');
+      return (stored === 'low' || stored === 'high' || stored === 'decorative') ? stored : 'system';
+    }
+
+    function getEffectiveTheme(): 'light' | 'dark' {
+      return html.classList.contains('dark') ? 'dark' : 'light';
+    }
+
+    function getEffectiveContrast(): 'low' | 'high' | 'decorative' {
+      const c = html.getAttribute('data-contrast');
+      return (c === 'high' || c === 'decorative') ? c : 'low';
+    }
+
+    function resolveSystemTheme(): 'light' | 'dark' {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    function resolveSystemContrast(): 'low' | 'high' {
+      return window.matchMedia('(prefers-contrast: more)').matches ? 'high' : 'low';
+    }
+
+    function applyTheme(value: ThemeChoice) {
+      if (value === 'system') {
+        localStorage.removeItem('theme');
+        html.className = resolveSystemTheme();
+      } else {
+        localStorage.setItem('theme', value);
+        html.className = value;
+      }
+    }
+
+    function applyContrast(value: ContrastChoice) {
+      if (value === 'system') {
+        localStorage.removeItem('contrast');
+        html.setAttribute('data-contrast', resolveSystemContrast());
+      } else {
+        localStorage.setItem('contrast', value);
+        html.setAttribute('data-contrast', value);
+      }
+    }
+
+    function updateMetaText() {
+      if (themeMeta) themeMeta.textContent = `(currently ${getEffectiveTheme()})`;
+      if (contrastMeta) contrastMeta.textContent = `(currently ${getEffectiveContrast()})`;
+    }
+
+    function updateNavLabel() {
+      navButton!.setAttribute(
+        'aria-label',
+        `Theme and contrast settings, currently ${getEffectiveTheme()} and ${getEffectiveContrast()} contrast`
+      );
+    }
+
+    function syncDrawerRadios() {
+      const theme = getStoredTheme();
+      const contrast = getStoredContrast();
+      themeRadios.forEach((r) => { r.checked = r.value === theme; });
+      contrastRadios.forEach((r) => { r.checked = r.value === contrast; });
+    }
+
+    function syncDrawerState() {
+      syncDrawerRadios();
+      updateMetaText();
+    }
+
+    navButton.addEventListener('click', () => {
+      syncDrawerState();
+      drawer.showModal();
+      const checkedTheme = drawer.querySelector<HTMLInputElement>('input[name="theme"]:checked');
+      checkedTheme?.focus();
+    });
+
+    closeButton?.addEventListener('click', () => {
+      drawer.close();
+    });
+
+    drawer.addEventListener('click', (event) => {
+      if (event.target !== drawer) return;
+      const rect = drawer.getBoundingClientRect();
+      const inside =
+        event.clientX >= rect.left && event.clientX <= rect.right &&
+        event.clientY >= rect.top && event.clientY <= rect.bottom;
+      if (!inside) drawer.close();
+    });
+
+    drawer.addEventListener('keydown', (event) => {
+      if (event.key !== 'Tab') return;
+
+      const checkedTheme =
+        drawer.querySelector<HTMLInputElement>('input[name="theme"]:checked') ??
+        drawer.querySelector<HTMLInputElement>('input[name="theme"]');
+      const checkedContrast =
+        drawer.querySelector<HTMLInputElement>('input[name="contrast"]:checked') ??
+        drawer.querySelector<HTMLInputElement>('input[name="contrast"]');
+
+      const stops = [closeButton, checkedTheme, checkedContrast].filter(Boolean) as HTMLElement[];
+      if (stops.length === 0) return;
+
+      const first = stops[0];
+      const last = stops[stops.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+
+    themeRadios.forEach((radio) => {
+      radio.addEventListener('change', () => {
+        if (!radio.checked) return;
+        applyTheme(radio.value as ThemeChoice);
+        updateMetaText();
+        updateNavLabel();
+      });
+    });
+
+    contrastRadios.forEach((radio) => {
+      radio.addEventListener('change', () => {
+        if (!radio.checked) return;
+        applyContrast(radio.value as ContrastChoice);
+        updateMetaText();
+        updateNavLabel();
+      });
+    });
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      if (getStoredTheme() !== 'system') return;
+      html.className = resolveSystemTheme();
+      updateMetaText();
+      updateNavLabel();
+    });
+
+    window.matchMedia('(prefers-contrast: more)').addEventListener('change', () => {
+      if (getStoredContrast() !== 'system') return;
+      html.setAttribute('data-contrast', resolveSystemContrast());
+      updateMetaText();
+      updateNavLabel();
+    });
+
+    updateNavLabel();
+  })();
+</script>

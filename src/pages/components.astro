@@ -335,6 +335,35 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
       <a href={`${repo}/ThemeDrawer.astro`}>View source on GitHub →</a>
     </p>
 
+    <h2 id="radio-group-heading">Radio group <span class="component-tag component-tag--experiment">Experiment</span></h2>
+        <TagList tags={['Experiment']} />
+
+    <p class="component-meta">
+      Native radio inputs with custom indicator styling. Used in the ThemeDrawer for theme and contrast selection. Rendered with <code>accent-color</code> for system-painted state.
+    </p>
+    <div class="component-showcase">
+      <fieldset class="theme-drawer__group">
+        <legend class="theme-drawer__legend">Contrast</legend>
+        <label class="theme-drawer__option">
+          <input type="radio" name="showcase-contrast" value="low" checked />
+          <span class="theme-drawer__option-label">Low</span>
+        </label>
+        <label class="theme-drawer__option">
+          <input type="radio" name="showcase-contrast" value="high" />
+          <span class="theme-drawer__option-label">High</span>
+        </label>
+        <label class="theme-drawer__option">
+          <input type="radio" name="showcase-contrast" value="decorative" />
+          <span class="theme-drawer__option-label">Decorative</span>
+          <span class="theme-drawer__warn">may fail WCAG AA</span>
+        </label>
+        <label class="theme-drawer__option">
+          <input type="radio" name="showcase-contrast" value="system" />
+          <span class="theme-drawer__option-label">System</span>
+        </label>
+      </fieldset>
+    </div>
+
     <h2 id="legacy-heading">Legacy</h2>
     <p>Components that have been superseded but remain in the repo for reference.</p>
 
