@@ -49,7 +49,6 @@
   background: rgba(255, 255, 255, 0.8);  /* light sand-surface */
   border: var(--stroke-1) solid var(--color-action-border);
   border-radius: var(--radius-pill);
-  padding: 4px;
   gap: var(--space-p6);  /* 24px — matches Figma spacing/p6 */
 }
 
@@ -66,7 +65,7 @@ html.dark .display-controls__segment {
   cursor: pointer;
   border: var(--stroke-1) solid transparent;
   border-radius: var(--radius-pill);
-  padding: 0.5rem 1.5rem;
+  padding: var(--space-p4);
   text-align: center;
   font-family: var(--font-sans);
   font-size: var(--text-base);
