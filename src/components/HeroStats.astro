@@ -1,0 +1,90 @@
+---
+// HeroStats — 3-column profile stats band that sits between the
+// DisplaySettings panel and the Case Studies preview on the homepage.
+// Rendered as <dl> for description-list semantics. Wide orgs column +
+// two numeric columns. Top border picks up the same hairline rhythm
+// as the .preview sections that follow.
+---
+
+<section class="hero-stats container" aria-label="Profile stats">
+  <dl class="hero-stats__list">
+    <div class="hero-stats__item hero-stats__item--wide">
+      <dt class="hero-stats__label text-eyebrow">Orgs worked with</dt>
+      <dd class="hero-stats__value">Dojo, ustwo, LSEG, Checkout.com, Coursera, Aviva, LBG</dd>
+    </div>
+    <div class="hero-stats__item">
+      <dt class="hero-stats__label text-eyebrow">Years practising</dt>
+      <dd class="hero-stats__value hero-stats__value--numeric">16</dd>
+    </div>
+    <div class="hero-stats__item">
+      <dt class="hero-stats__label text-eyebrow">Design systems shipped</dt>
+      <dd class="hero-stats__value hero-stats__value--numeric">7</dd>
+    </div>
+  </dl>
+</section>
+
+<style>
+  .hero-stats {
+    padding-block: 3rem;
+    border-top: 1px solid color-mix(in srgb, var(--color-border-base) 20%, transparent);
+  }
+
+.hero-stats__list {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    column-gap: var(--space-lg);
+    row-gap: 0.5rem;
+    margin: 0;
+  }
+
+  .hero-stats__item {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 2;
+    margin: 0;
+  }
+
+  .hero-stats__label {
+    color: var(--color-text-secondary);
+    margin: 0;
+    max-width: none;
+  }
+
+  /* Default value — italic serif at heading/md scale (25px),
+     used by the wide orgs column */
+  .hero-stats__value {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: var(--text-md);
+    line-height: 1.2;
+    color: var(--color-text-primary);
+    margin: 0;
+    max-width: none;
+  }
+
+  /* Numeric values get the heading/2xl serif scale for impact */
+  .hero-stats__value--numeric {
+    font-size: var(--text-2xl);
+    line-height: 1;
+  }
+
+@media (max-width: 800px) {
+    .hero-stats__list {
+      grid-template-columns: 1fr;
+      row-gap: var(--space-md);
+    }
+
+    .hero-stats__item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      grid-row: auto;
+    }
+
+    .hero-stats__value--numeric {
+      font-size: var(--text-xl);
+    }
+  }
+</style>
