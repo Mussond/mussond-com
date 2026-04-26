@@ -1,12 +1,9 @@
 /* ============================================
    THEME DRAWER
    Native <dialog> positioned as a right-side panel.
-   Opened from the sidebar icon button on every page,
-   and from Cmd/Ctrl+Shift+K on non-homepage routes
-   (homepage routes the shortcut to the inline panel).
-   Radio control markup is owned by DisplayControls
-   (drawer variant — stacked rows). This file owns
-   dialog chrome only.
+   Opens via .showModal() — wired up in sprint 3.7c onwards.
+   Semantic tokens only; works across both themes and all three
+   contrast modes without per-mode overrides.
    ============================================ */
 
 .theme-drawer {
@@ -16,7 +13,7 @@
   bottom: 0;
   left: auto;
   margin: 0;
-  padding: var(--space-p8);
+  padding: var(--space-p6);
   width: min(360px, 100vw);
   max-width: 100%;
   height: 100dvh;
@@ -33,12 +30,11 @@
   background: rgba(0, 0, 0, 0.4);
 }
 
-/* Header — title + close button side-by-side */
 .theme-drawer__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-p4);
+  gap: var(--space-p3);
   margin-bottom: var(--space-p6);
 }
 
@@ -68,30 +64,86 @@
 }
 
 .theme-drawer__close:focus-visible {
-  outline: 3px solid var(--color-text-primary);
+  outline: 3px solid var(--color-focus-ring);
   outline-offset: 2px;
 }
 
-/* Decorative warning explainer beneath the controls. Override
-   the global p max-width — the drawer is narrow enough already. */
+.theme-drawer__group {
+  border: none;
+  padding: 0;
+  margin: 0 0 var(--space-p6) 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.theme-drawer__legend {
+  font-size: var(--text-base);
+  font-weight: 600;
+  margin-bottom: var(--space-p2);
+  padding: 0;
+}
+
+.theme-drawer__option {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-r1);
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+.theme-drawer__option:hover {
+  background: var(--color-bg-card);
+}
+
+.theme-drawer__option:has(input:focus-visible) {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.theme-drawer__option input[type="radio"] {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--color-accent-selected);
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.theme-drawer__option-label {
+  font-weight: 500;
+}
+
+.theme-drawer__meta {
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  margin-left: auto;
+}
+
+.theme-drawer__warn {
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  font-style: italic;
+}
+
 .theme-drawer__explainer {
-  font-size: 0.9375rem;
+  font-size: var(--text-base);
   color: var(--color-text-secondary);
   border-top: 1px solid var(--color-border-subtle);
-  padding-top: var(--space-p4);
-  margin-top: var(--space-p6);
+  padding-top: var(--space-p3);
+  margin-top: var(--space-p2);
   max-width: none;
 }
 
-/* Forced-colors note — hidden by default, shown only when the OS
-   high-contrast mode is active. CSS-only toggle, no JS. */
 .theme-drawer__forced-colors-note {
   display: none;
-  padding: 0.75rem;
+  padding: var(--space-p3);
   margin-bottom: var(--space-p6);
   border: 1px solid var(--color-border-base);
   background: var(--color-bg-card);
-  font-size: 0.9375rem;
+  font-size: var(--text-base);
   max-width: none;
 }
 

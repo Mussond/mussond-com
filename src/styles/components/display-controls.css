@@ -185,3 +185,137 @@ html.dark .display-controls--drawer .display-controls__segment {
   background: var(--color-action-bg);
   color: var(--color-text-primary);
 }
+
+/* ============================================
+   DRAWER CONTROLS
+   Native radios (visually hidden) + custom
+   ::before indicator on span. Box framing via
+   border/radius on label rows.
+   ============================================ */
+
+.drawer-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-p6);
+}
+
+.drawer-controls__group {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.drawer-controls__group:last-child {
+  margin-bottom: 0;
+}
+
+.drawer-controls__legend {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-p2) 0;
+  padding: 0;
+}
+
+.drawer-controls__option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-p3);
+  padding: 0.625rem 0.875rem;
+  border: 1px solid var(--color-border-subtle);
+  border-bottom: 0;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  color: var(--color-text-primary);
+  position: relative;
+}
+
+.drawer-controls__option:first-of-type {
+  border-radius: var(--radius-r2) var(--radius-r2) 0 0;
+}
+
+.drawer-controls__option:last-of-type {
+  border-bottom: 1px solid var(--color-border-subtle);
+  border-radius: 0 0 var(--radius-r2) var(--radius-r2);
+}
+
+.drawer-controls__option:has(input:checked) {
+  background: var(--color-bg-selected);
+}
+
+.drawer-controls__option:has(input:focus-visible) {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: -3px;
+}
+
+.drawer-controls__option input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.drawer-controls__option span {
+  display: flex;
+  align-items: center;
+  gap: var(--space-p3);
+}
+
+.drawer-controls__option span::before {
+  content: '';
+  display: block;
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: var(--stroke-1) solid var(--color-action-border);
+  background: transparent;
+  box-sizing: border-box;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.drawer-controls__option:has(input:checked) {
+  background: var(--color-bg-selected);
+  color: var(--color-action-text);
+}
+
+.drawer-controls__option:has(input:checked) span::before {
+  border-color: var(--amber-12);
+  border: var(--stroke-1);
+  background: var(--color-bg-selected);
+  box-shadow: inset 0 0 0 2px var(--amber-12);
+}
+
+html.dark .drawer-controls__option:has(input:checked) span::before {
+  border-color: var(--color-bg-selected);
+
+  background: var(--color-bg-selected);
+  box-shadow: inset 0 0 0 4px var(--color-bg-base);
+}
+
+.drawer-controls__live {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin: var(--space-p2) 0 0 0;
+  max-width: none;
+}
+
+.drawer-controls__live em {
+  font-style: italic;
+  color: var(--color-text-primary);
+}
