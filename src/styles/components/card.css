@@ -8,7 +8,7 @@
   margin: 0;
   display: grid;
   grid-auto-rows: 1fr;
-  gap: var(--space-sm);
+  gap: var(--space-p4);
 }
 
 .card-list > li {
@@ -18,7 +18,7 @@
 .card {
   display: grid;
   grid-template-columns: 160px 1fr;
-  gap: var(--space-lg);
+  gap: var(--space-p8);
   border: 2px solid var(--color-border-base);
   border-radius: var(--radius-card);
   background: var(--color-bg-card);
@@ -32,7 +32,7 @@
 }
 
 .card--no-image .card__content {
-  padding: var(--space-md);
+  padding: var(--space-p6);
 }
 
 .card:hover {
@@ -52,7 +52,7 @@
 }
 
 .card__content {
-  padding: var(--space-md) var(--space-sm) var(--space-md) 0;
+  padding: var(--space-p6) var(--space-p4) var(--space-p6) 0;
 }
 
 .card__title {
@@ -60,7 +60,7 @@
   font-weight: 500;
   text-decoration: underline 0.08em;
   text-underline-position: under;
-  margin-bottom: var(--space-xs);
+  margin-bottom: var(--space-p2);
 }
 
 .card:hover .card__title,
@@ -70,7 +70,7 @@
 
 .card__description {
   font-size: var(--text-base);
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-p4);
 }
 
 .card__tags {
@@ -91,7 +91,7 @@
   }
 
   .card__content {
-    padding: var(--space-sm);
+    padding: var(--space-p4);
   }
 }
 

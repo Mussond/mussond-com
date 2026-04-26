@@ -91,13 +91,20 @@
 }
 
 :root {
-  /* Spacing */
-  --space-xs: 0.5rem;
-  --space-sm: 1rem;
-  --space-md: 1.5rem;
-  --space-lg: 2rem;
-  --space-xl: 3.5rem;
-  --space-2xl: 7rem;
+  /* Spacing — mirrors Figma Spacing collection exactly.
+     Token names match spacing/pN in Figma; values in rem with px reference comments.
+     p05=2px  p1=4px  p2=8px  p3=12px  p4=16px  p6=24px
+     p8=32px  p14=56px  p20=80px  p28=112px */
+  --space-p05:  0.125rem; /*   2px */
+  --space-p1:   0.25rem;  /*   4px */
+  --space-p2:   0.5rem;   /*   8px */
+  --space-p3:   0.75rem;  /*  12px */
+  --space-p4:   1rem;     /*  16px */
+  --space-p6:   1.5rem;   /*  24px */
+  --space-p8:   2rem;     /*  32px */
+  --space-p14:  3.5rem;   /*  56px */
+  --space-p20:  5rem;     /*  80px */
+  --space-p28:  7rem;     /* 112px */
 
   /* Layout */
   --content-width: 768px;

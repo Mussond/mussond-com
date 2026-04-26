@@ -7,11 +7,11 @@
    ============================================ */
 
 .display-settings {
-  margin-block: var(--space-lg);
+  margin-block: var(--space-p8);
   margin-inline: auto;
   width: 90%;
   max-width: var(--content-width);
-  padding: var(--space-lg);
+  padding: var(--space-p8);
   border: 1px solid var(--color-border-base);
   border-radius: var(--radius-card);
   background: var(--color-bg-card);
@@ -21,8 +21,8 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: var(--space-sm);
-  margin-bottom: var(--space-xs);
+  gap: var(--space-p4);
+  margin-bottom: var(--space-p2);
 }
 
 .display-settings__eyebrow {
@@ -38,7 +38,7 @@
 .display-settings__intro {
   color: var(--color-text-secondary);
   font-size: var(--text-sm);
-  margin: 0 0 var(--space-md);
+  margin: 0 0 var(--space-p6);
   max-width: none;
 }
 
@@ -48,7 +48,7 @@
 .display-settings__show-row {
   width: 90%;
   max-width: var(--content-width);
-  margin: var(--space-md) auto;
+  margin: var(--space-p6) auto;
   display: flex;
   justify-content: flex-end;
 }

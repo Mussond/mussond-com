@@ -15,10 +15,10 @@
 .display-controls__group {
   border: 0;
   padding: 0;
-  margin: 0 0 var(--space-md);
+  margin: 0 0 var(--space-p6);
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: var(--space-p2);
 }
 
 .display-controls__group:last-child {
@@ -31,7 +31,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-text-secondary);
-  margin: 0 0 var(--space-xs) 0;
+  margin: 0 0 var(--space-p2) 0;
   padding: 0;
 }
 
@@ -50,7 +50,7 @@
   border: var(--stroke-1) solid var(--color-action-border);
   border-radius: var(--radius-pill);
   padding: 4px;
-  gap: var(--space-md);  /* 24px — matches Figma spacing/p6 */
+  gap: var(--space-p6);  /* 24px — matches Figma spacing/p6 */
 }
 
 html.dark .display-controls__segment {

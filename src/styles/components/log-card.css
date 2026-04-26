@@ -12,7 +12,7 @@
 
 .log-card-list {
   display: grid;
-  gap: var(--space-sm);
+  gap: var(--space-p4);
   list-style: none;
   padding: 0;
   margin: 0;
@@ -29,8 +29,8 @@
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-md);
+  gap: var(--space-p6);
+  padding: var(--space-p6);
   border: 2px solid transparent;
   border-radius: var(--radius-card);
   background: var(--color-bg-card);
@@ -85,7 +85,7 @@
 .log-card__body {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: var(--space-p2);
 }
 
 /* ── Title ───────────────────────────────────────────────────── */

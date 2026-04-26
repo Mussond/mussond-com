@@ -7,13 +7,13 @@
    ============================================ */
 
 .stat-block {
-  margin-block: var(--space-xl);
-  padding-top: var(--space-md);
+  margin-block: var(--space-p14);
+  padding-top: var(--space-p6);
   border-top: 2px solid var(--color-border-base);
 }
 
 .stat-block__heading {
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-p6);
 }
 
 .stat-block__list {
@@ -21,14 +21,14 @@
   padding: 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-  gap: var(--space-lg);
+  gap: var(--space-p8);
   align-items: start;
 }
 
 .stat-block__item {
   display: flex;
   flex-direction: column-reverse;
-  gap: var(--space-xs);
+  gap: var(--space-p2);
   margin: 0;
 }
 
@@ -56,7 +56,7 @@
 }
 
 .stat-block__caption {
-  margin-top: var(--space-md);
+  margin-top: var(--space-p6);
   font-size: var(--text-base);
   color: var(--color-text-secondary);
 }
