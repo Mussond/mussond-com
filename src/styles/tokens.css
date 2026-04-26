@@ -111,8 +111,13 @@
      outlines, 0-0-4px-0 on the skip link's visible state) are
      decorative polish rather than card/pill surfaces and deliberately
      stay hard-coded — they do not belong in the token system. */
-  --radius-card: 16px;
+  --radius-r1:    4px;
+  --radius-r2:    8px;
+  --radius-r3:   12px;
+  --radius-r4:   16px;
+  --radius-card: var(--radius-r4);
   --radius-pill: 999px;
+  --radius-focus: 0;
 
   /* Motion */
   --transition-base: all 0.3s cubic-bezier(0.8, 0.04, 0.4, 1);
@@ -137,10 +142,11 @@
   --color-bg-card:         var(--sand-1);
   --color-bg-decorative:   var(--amber-2);
   --color-border-subtle:   var(--sand-6);
-  --color-border-base:  var(--sand-7);
+  --color-border-base:     var(--sand-7);
   --color-action-bg:       var(--amber-9);
   --color-action-bg-hover: var(--amber-10);
   --color-accent-selected: var(--amber-11);
+  --color-accent-selected-inverse: var(--sand-12);  /* current-page nav surface — follows text-primary scale */
   --color-action-border:   var(--sand-12);
   --color-action-text:     var(--amber-12);  /* warm-on-warm per Figma color/text-action */
   --color-text-on-brand:   var(--sand-12);
