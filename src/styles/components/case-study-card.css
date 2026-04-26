@@ -1,15 +1,16 @@
 /* ============================================
    CASE STUDY CARD
-   Two variants: featured (large, horizontal colour block + content)
-   and secondary (compact, vertical, 2-up grid).
+   Featured: horizontal — plate left, content right (1px border).
+   Secondary: vertical — plate top, content bottom (1px border).
+
+   Plate slots: brand top-left, year bottom-right (flex space-between).
+   Stats: DOM order is <dt> then <dd> for semantics; column-reverse
+   on .cs-card__stat flips the visual axis so value sits above label.
 
    Cover tokens thread through --card-bg / --card-fg, set as
    inline custom properties on the <a> element in CaseStudyCard.astro.
    High contrast collapses all covers to text-primary/bg-base via
    the cover token overrides in tokens.css.
-
-   Focus mirrors hover (phase 6 VF5). Transforms wrapped in
-   prefers-reduced-motion guard (phase 6 VH1).
    ============================================ */
 
 /* ── Container helpers ──────────────────────────────────────── */
@@ -31,7 +32,7 @@
 .cs-card {
   position: relative;
   display: grid;
-  border: 2px solid transparent;
+  border: 1px solid var(--color-border-card);
   border-radius: var(--radius-card);
   background: var(--color-bg-card);
   overflow: hidden;
@@ -39,10 +40,7 @@
   color: inherit;
 }
 
-/* Sand sweep — slides in left-to-right on hover/focus, matching
-   the button sweep motion. Sits behind .cs-card__block and
-   .cs-card__content (both z-index: 1) so the cover block's brand
-   colour is unaffected. */
+/* Sand sweep — slides in left-to-right on hover/focus. */
 .cs-card::before {
   content: '';
   position: absolute;
@@ -60,42 +58,31 @@
   transform: translateX(0);
 }
 
-/* Suppress the base <a> underline decoration */
 .cs-card:hover,
 .cs-card:focus-visible {
   text-decoration: none;
-}
-
-/* Hover + focus: amber border + bloom glow.
-   Same value in low and decorative so both feel equally warm. */
-.cs-card:hover,
-.cs-card:focus-visible {
   border-color: var(--color-action-bg);
   box-shadow: 0 0 24px var(--amber-a6), 0 8px 28px var(--amber-a5);
 }
 
-/* Focus ring matches border colour */
 .cs-card:focus-visible {
   outline: 3px solid var(--color-action-bg);
   outline-offset: 2px;
   border-radius: var(--radius-card);
 }
 
-/* ── Featured ────────────────────────────────────────────────── */
+/* ── Featured — horizontal: plate left | content right ──────── */
 
-/* Vertical stack: cover block on top, content below. Matches the
-   ideation hero-card proportion and reads bigger than the secondaries
-   that sit beside it in the section grid. */
 .cs-card--featured {
-  grid-template-columns: 1fr;
-  grid-template-rows: 320px 1fr;
+  grid-template-columns: 280px 1fr;
+  grid-template-rows: 1fr;
 }
 
-/* ── Secondary ───────────────────────────────────────────────── */
+/* ── Secondary — vertical: plate top | content bottom ───────── */
 
 .cs-card--secondary {
-  grid-template-rows: 160px 1fr;
   grid-template-columns: 1fr;
+  grid-template-rows: 160px 1fr;
 }
 
 /* ── Colour block ────────────────────────────────────────────── */
@@ -107,21 +94,27 @@
   color: var(--card-fg, var(--color-text-primary));
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: stretch;
   padding: var(--space-p6);
   overflow: hidden;
 }
 
-/* White flow overlay in decorative mode — radial bloom from
-   top-left, matching the ideation HTML reference */
-[data-contrast="decorative"] .cs-card__block::before {
+/* Radial bloom from top-left — always-on. High contrast suppresses
+   it because the cover collapses to flat text-primary. */
+.cs-card__block::before {
   content: "";
   position: absolute;
   inset: 0;
   background: radial-gradient(120% 80% at 10% 10%, rgba(255, 255, 255, 0.18), transparent 55%);
   pointer-events: none;
 }
+
+[data-contrast="high"] .cs-card__block::before {
+  display: none;
+}
+
+/* ── Plate slots: brand top-left, year bottom-right ──────────── */
 
 .cs-card__brand {
   font-family: var(--font-mono);
@@ -131,24 +124,26 @@
   letter-spacing: 0.2em;
   opacity: 0.7;
   color: inherit;
-  margin-bottom: 0.375rem;
+  align-self: flex-start;
+  text-align: start;
+  margin: 0;
   position: relative;
   z-index: 1;
 }
 
-.cs-card__label {
+.cs-card__year {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 1.75rem;
+  font-weight: 400;
+  font-size: 4rem;
   line-height: 1;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   color: inherit;
+  align-self: flex-end;
+  text-align: end;
+  margin: 0;
   position: relative;
   z-index: 1;
-}
-
-.cs-card--secondary .cs-card__label {
-  font-size: 1.25rem;
 }
 
 /* ── Fallback image (no cover) ───────────────────────────────── */
@@ -161,12 +156,11 @@
 }
 
 .cs-card--featured .cs-card__image {
-  border-radius: calc(var(--radius-card) - 2px) calc(var(--radius-card) - 2px) 0 0;
-  height: 320px;
+  border-radius: calc(var(--radius-card) - 1px) 0 0 calc(var(--radius-card) - 1px);
 }
 
 .cs-card--secondary .cs-card__image {
-  border-radius: calc(var(--radius-card) - 2px) calc(var(--radius-card) - 2px) 0 0;
+  border-radius: calc(var(--radius-card) - 1px) calc(var(--radius-card) - 1px) 0 0;
   height: 160px;
 }
 
@@ -179,17 +173,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-p2);
-}
-
-.cs-card__meta {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--color-text-secondary);
-  max-width: unset;
-  margin: 0;
 }
 
 .cs-card__title {
@@ -227,6 +210,45 @@
   margin: 0;
 }
 
+/* ── Stats — horizontal pairs; value visually above label ────── */
+
+.cs-card__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-p2) var(--space-p8);
+  margin: var(--space-p2) 0 0;
+  padding: 0 0 var(--space-p2);
+  border-block-end: 1px solid var(--color-border-base);
+}
+
+/* DOM order is <dt> (label) then <dd> (value) for semantics.
+   column-reverse flips the visual order so value renders above label. */
+.cs-card__stat {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.5rem;
+}
+
+.cs-card__stat-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.cs-card__stat-value {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: var(--text-md);
+  line-height: 1.1;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
 /* ── High contrast ───────────────────────────────────────────── */
 
 [data-contrast="high"] .cs-card {
@@ -261,28 +283,19 @@
 
 /* ── Responsive ──────────────────────────────────────────────── */
 
-/* Desktop section layout: featured on the left, secondaries stacked
-   on the right, matching the ideation's 1.4fr / 1fr rhythm. */
-@media (min-width: 900px) {
-  .cs-card-section {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: var(--space-p4);
-    align-items: start;
-  }
-
-  .cs-secondary-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 @media (max-width: 800px) {
   .cs-card--featured {
+    grid-template-columns: 1fr;
     grid-template-rows: 200px 1fr;
   }
 
   .cs-card--featured .cs-card__image {
+    border-radius: calc(var(--radius-card) - 1px) calc(var(--radius-card) - 1px) 0 0;
     height: 200px;
+  }
+
+  .cs-card__year {
+    font-size: 3rem;
   }
 
   .cs-secondary-grid {

@@ -63,6 +63,7 @@ const sortedLogs = logs
             description={sortedCaseStudies[0].data.description}
             tags={sortedCaseStudies[0].data.cardTags ?? sortedCaseStudies[0].data.tags}
             year={sortedCaseStudies[0].data.date.getFullYear()}
+            stats={sortedCaseStudies[0].data.stats}
             cover={sortedCaseStudies[0].data.cover}
             image={sortedCaseStudies[0].data.cardImage || sortedCaseStudies[0].data.coverImage}
             headingLevel={3}
@@ -95,15 +96,16 @@ const sortedLogs = logs
         headingId="guides-heading"
         viewAllHref="/guides"
       />
-      <ul class="guide-card-grid">
-        {sortedWriting.map((article) => (
+      <ul class="guide-card-feed">
+        {sortedWriting.map((article, idx) => (
           <li>
             <GuideCard
               href={`/guides/${article.id}`}
               title={article.data.title}
               description={article.data.description}
-              tags={article.data.tags}
+              index={idx + 1}
               readTime={article.readTime}
+              date={article.data.date}
             />
           </li>
         ))}
@@ -118,13 +120,13 @@ const sortedLogs = logs
         viewAllHref="/logs"
       />
       <ul class="log-card-list">
-        {sortedLogs.map((log) => (
+        {sortedLogs.map((log, idx) => (
           <li>
             <LogCard
               href={`/logs/${log.id}`}
               title={log.data.title}
               description={log.data.description}
-              tags={log.data.tags}
+              index={idx + 1}
               year={log.year}
             />
           </li>

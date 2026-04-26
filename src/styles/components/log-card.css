@@ -1,18 +1,16 @@
 /* ============================================
-   LOG CARD
-   Horizontal 2-column layout: body (title + description + tags)
-   left, large Instrument Serif italic year right.
-   Stacked vertically as a list — no multi-column grid.
+   LOG CARD — feed
+   Single-column stacked feed: number / kind pill / title + description / meta.
+   Title in Instrument Serif Regular ~22px per Figma v2.
 
-   Hover/focus treatment mirrors CaseStudyCard: sand sweep + amber
-   bloom + title underline. No new interaction patterns.
+   Same pattern as guide-card; only the kind label differs.
    ============================================ */
 
-/* ── List wrapper ────────────────────────────────────────────── */
+/* ── Feed wrapper ───────────────────────────────────────────── */
 
 .log-card-list {
-  display: grid;
-  gap: var(--space-p4);
+  display: flex;
+  flex-direction: column;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -20,33 +18,34 @@
 
 .log-card-list > li {
   display: flex;
+  border-block-end: 1px solid var(--color-border-base);
 }
 
-/* ── Card shell ──────────────────────────────────────────────── */
+.log-card-list > li:last-child {
+  border-block-end: none;
+}
+
+/* ── Card shell ─────────────────────────────────────────────── */
 
 .log-card {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: var(--space-p6);
-  padding: var(--space-p6);
-  border: 2px solid transparent;
-  border-radius: var(--radius-card);
-  background: var(--color-bg-card);
+  grid-template-columns: auto auto 1fr auto;
+  align-items: start;
+  gap: var(--space-p4);
+  width: 100%;
+  padding: var(--space-p4) var(--space-p2);
   text-decoration: none;
   color: inherit;
   overflow: hidden;
-  width: 100%;
 }
 
-/* Sand sweep — same pattern as .cs-card::before */
+/* Sand sweep — same pattern as cs-card / guide-card */
 .log-card::before {
   content: '';
   position: absolute;
   inset: 0;
   background: var(--sand-3);
-  border-radius: inherit;
   transform: translateX(-100%);
   transition: transform 0.25s ease-out;
   z-index: 0;
@@ -61,50 +60,82 @@
 .log-card:hover,
 .log-card:focus-visible {
   text-decoration: none;
-  border-color: var(--color-action-bg);
-  box-shadow: 0 0 24px var(--amber-a6), 0 8px 28px var(--amber-a5);
 }
 
 .log-card:focus-visible {
   outline: 3px solid var(--color-action-bg);
   outline-offset: 2px;
+  border-radius: var(--radius-r2);
 }
 
 /* ── Inner elements (above sweep layer) ─────────────────────── */
 
+.log-card__number,
+.log-card__kind,
 .log-card__body,
-.log-card__title,
-.log-card__description,
-.log-card__year {
+.log-card__meta {
   position: relative;
   z-index: 1;
 }
 
-/* ── Body column ─────────────────────────────────────────────── */
+/* ── Number ─────────────────────────────────────────────────── */
+
+.log-card__number {
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.04em;
+  min-width: 2ch;
+  text-align: end;
+  padding-block-start: 0.125rem;
+}
+
+/* ── Kind pill ──────────────────────────────────────────────── */
+
+.log-card__kind {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0.25rem 0.625rem;
+  border: 1px solid var(--color-border-base);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  align-self: start;
+  margin-block-start: 0.125rem;
+}
+
+/* ── Body ───────────────────────────────────────────────────── */
 
 .log-card__body {
   display: flex;
   flex-direction: column;
-  gap: var(--space-p2);
+  gap: 0.25rem;
+  min-width: 0;
 }
 
-/* ── Title ───────────────────────────────────────────────────── */
+/* ── Title — Instrument Serif Regular ~22px ─────────────────── */
 
 .log-card__title {
-  font-size: var(--text-lg);
-  font-weight: 600;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 1.375rem;
   line-height: 1.2;
+  color: var(--color-text-primary);
   margin: 0;
   text-decoration: none;
 }
 
 .log-card:hover .log-card__title,
 .log-card:focus-visible .log-card__title {
-  text-decoration: underline 0.08em;
+  text-decoration: underline 0.06em;
   text-underline-position: auto;
 }
 
-/* ── Description ─────────────────────────────────────────────── */
+/* ── Description ────────────────────────────────────────────── */
 
 .log-card__description {
   font-size: var(--text-sm);
@@ -113,31 +144,20 @@
   margin: 0;
 }
 
-/* ── Year — large Instrument Serif italic ────────────────────── */
+/* ── Meta — year ────────────────────────────────────────────── */
 
-.log-card__year {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-  font-size: 3rem;
-  line-height: 1;
+.log-card__meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   color: var(--color-text-secondary);
   white-space: nowrap;
-  flex-shrink: 0;
+  align-self: start;
+  padding-block-start: 0.375rem;
 }
 
-/* ── High contrast ───────────────────────────────────────────── */
-
-[data-contrast="high"] .log-card {
-  border-color: var(--color-border-base);
-}
-
-[data-contrast="high"] .log-card:hover,
-[data-contrast="high"] .log-card:focus-visible {
-  border-color: var(--color-focus-ring);
-  outline-color: var(--color-focus-ring);
-  box-shadow: none;
-}
+/* ── High contrast ──────────────────────────────────────────── */
 
 [data-contrast="high"] .log-card__title {
   text-decoration: underline 0.08em;
@@ -149,18 +169,18 @@
   text-decoration-thickness: 0.2em;
 }
 
-/* ── Motion guard (VH1) ──────────────────────────────────────── */
-
-@media (prefers-reduced-motion: no-preference) {
-  .log-card {
-    transition: border-color 0.2s ease, transform 0.2s ease;
-  }
-
-  .log-card:hover,
-  .log-card:focus-visible {
-    transform: translateY(-2px);
-  }
+[data-contrast="high"] .log-card:focus-visible {
+  outline-color: var(--color-focus-ring);
 }
+
+/* ── Decorative — no underline ──────────────────────────────── */
+
+[data-contrast="decorative"] .log-card:hover .log-card__title,
+[data-contrast="decorative"] .log-card:focus-visible .log-card__title {
+  text-decoration: none;
+}
+
+/* ── Motion guard ───────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
   .log-card::before {
@@ -168,25 +188,34 @@
   }
 }
 
-/* ── Forced colours ──────────────────────────────────────────── */
+/* ── Forced colours ─────────────────────────────────────────── */
 
 @media (forced-colors: active) {
-  .log-card:hover,
   .log-card:focus-visible {
-    border-color: CanvasText;
     outline-color: CanvasText;
-    transform: none;
+  }
+
+  .log-card__kind {
+    border-color: CanvasText;
   }
 }
 
-/* ── Responsive ──────────────────────────────────────────────── */
+/* ── Responsive ─────────────────────────────────────────────── */
 
-@media (max-width: 480px) {
+@media (max-width: 720px) {
   .log-card {
-    grid-template-columns: 1fr;
+    grid-template-columns: auto auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: var(--space-p2);
+    row-gap: var(--space-p2);
   }
 
-  .log-card__year {
-    display: none;
+  .log-card__body {
+    grid-column: 1 / -1;
+  }
+
+  .log-card__meta {
+    grid-column: 1 / -1;
+    padding-block-start: 0;
   }
 }

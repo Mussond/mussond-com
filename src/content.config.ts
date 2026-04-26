@@ -19,6 +19,10 @@ const caseStudies = defineCollection({
       label: z.string(),
       meta: z.string(),
     }).optional(),
+    stats: z.array(z.object({
+      label: z.string(),
+      value: z.string(),
+    })).optional(),
   }),
 });
 

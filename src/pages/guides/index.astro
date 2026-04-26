@@ -18,8 +18,8 @@ const allTags = [...new Set(sorted.flatMap((a) => a.data.tags))].sort();
 
     <TagFilterList tags={allTags} listId="article-list" />
 
-    <ul class="guide-card-grid guide-card-grid--2col" id="article-list">
-      {sorted.map((article) => {
+    <ul class="guide-card-feed" id="article-list">
+      {sorted.map((article, idx) => {
         const words = article.body?.split(/\s+/).length ?? 0;
         const readTime = Math.max(1, Math.round(words / 200));
         return (
@@ -28,9 +28,9 @@ const allTags = [...new Set(sorted.flatMap((a) => a.data.tags))].sort();
               href={`/guides/${article.id}`}
               title={article.data.title}
               description={article.data.description}
-              tags={article.data.tags}
+              index={idx + 1}
               readTime={readTime}
-              showTags={true}
+              date={article.data.date}
               headingLevel={2}
             />
           </li>

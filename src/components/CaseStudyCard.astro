@@ -1,6 +1,11 @@
 ---
 import TagList from './TagList.astro';
 
+interface Stat {
+  label: string;
+  value: string;
+}
+
 interface Cover {
   slug: string;
   brand?: string;
@@ -15,6 +20,7 @@ interface Props {
   description?: string;
   tags?: string[];
   year?: string | number;
+  stats?: Stat[];
   cover?: Cover;
   image?: string;
   imageAlt?: string;
@@ -28,17 +34,20 @@ const {
   description,
   tags = [],
   year,
+  stats,
   cover,
   image,
   imageAlt = '',
   headingLevel = 3,
 } = Astro.props;
 
-const metaTags = year ? [String(year), ...tags] : tags;
-
 const Heading = `h${headingLevel}` as 'h2' | 'h3';
 const hasCover = Boolean(cover);
 const slug = cover?.slug ?? '';
+const isFeatured = variant === 'featured';
+const showStats = isFeatured && stats !== undefined && stats.length > 0;
+// Featured shows year in the plate; secondary prepends year to its tag list
+const metaTags = !isFeatured && year !== undefined ? [String(year), ...tags] : tags;
 ---
 
 <a
@@ -51,7 +60,9 @@ const slug = cover?.slug ?? '';
       {cover!.brand && (
         <span class="cs-card__brand" aria-hidden="true">{cover!.brand}</span>
       )}
-      <span class="cs-card__label" aria-hidden="true">{cover!.label}</span>
+      {year && (
+        <span class="cs-card__year" aria-hidden="true">{year}</span>
+      )}
     </div>
   ) : image ? (
     <img
@@ -66,6 +77,16 @@ const slug = cover?.slug ?? '';
   <div class="cs-card__content">
     <Heading class="cs-card__title">{title}</Heading>
     {description && <p class="cs-card__description">{description}</p>}
+    {showStats && (
+      <dl class="cs-card__stats">
+        {stats!.map((stat) => (
+          <div class="cs-card__stat">
+            <dt class="cs-card__stat-label">{stat.label}</dt>
+            <dd class="cs-card__stat-value">{stat.value}</dd>
+          </div>
+        ))}
+      </dl>
+    )}
     <TagList tags={metaTags} size="xs" />
   </div>
 </a>
