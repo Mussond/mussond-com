@@ -20,34 +20,20 @@ const sorted = featuredStudy ? [featuredStudy, ...nonFeatured] : nonFeatured;
     </p>
     {sorted.length > 0 && (
       <div class="cs-card-section">
-        <CaseStudyCard
-          variant="featured"
-          href={`/case-studies/${sorted[0].id}`}
-          title={sorted[0].data.title}
-          description={sorted[0].data.description}
-          tags={sorted[0].data.cardTags ?? sorted[0].data.tags}
-          year={sorted[0].data.date.getFullYear()}
-          cover={sorted[0].data.cover}
-          image={sorted[0].data.cardImage || sorted[0].data.coverImage}
-          headingLevel={2}
-        />
-        {sorted.length > 1 && (
-          <div class="cs-secondary-grid">
-            {sorted.slice(1).map((study) => (
-              <CaseStudyCard
-                variant="secondary"
-                href={`/case-studies/${study.id}`}
-                title={study.data.title}
-                description={study.data.description}
-                tags={study.data.cardTags ?? study.data.tags}
-                year={study.data.date.getFullYear()}
-                cover={study.data.cover}
-                image={study.data.cardImage || study.data.coverImage}
-                headingLevel={2}
-              />
-            ))}
-          </div>
-        )}
+        {sorted.map((study) => (
+          <CaseStudyCard
+            variant="featured"
+            href={`/case-studies/${study.id}`}
+            title={study.data.title}
+            description={study.data.description}
+            tags={study.data.tags}
+            year={study.data.date.getFullYear()}
+            stats={study.data.stats}
+            cover={study.data.cover}
+            image={study.data.cardImage || study.data.coverImage}
+            headingLevel={2}
+          />
+        ))}
       </div>
     )}
   </main>
