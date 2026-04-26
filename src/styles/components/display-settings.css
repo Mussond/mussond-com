@@ -22,7 +22,15 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: var(--space-p4);
-  margin-bottom: var(--space-p2);
+  margin-bottom: var(--space-p6);
+}
+
+/* Stack the eyebrow + intro tightly so the intro reads as a
+   subhead of the eyebrow rather than a separate paragraph. */
+.display-settings__header-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-p2);
 }
 
 .display-settings__eyebrow {
@@ -38,17 +46,17 @@
 .display-settings__intro {
   color: var(--color-text-secondary);
   font-size: var(--text-sm);
-  margin: 0 0 var(--space-p6);
+  margin: 0;
   max-width: none;
 }
 
-/* Show row — right-aligned wrapper that takes the panel's column width
-   and pushes the Show button to the right edge. Hidden when the panel
-   is visible; revealed via the [hidden] attribute when Hide is clicked. */
+/* Show row — left-aligned wrapper that takes the panel's column
+   width. Hidden when the panel is visible; revealed via the
+   [hidden] attribute when Hide is clicked. */
 .display-settings__show-row {
   width: 90%;
   max-width: var(--content-width);
   margin: var(--space-p6) auto;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }

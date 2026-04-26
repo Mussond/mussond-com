@@ -32,18 +32,27 @@
 
 <style>
   .hero {
-    padding-block: 4rem;
+    /* padding-block-start matches sidebar padding-block-start (2rem)
+       so the eyebrow row top aligns with the sidebar monogram top.
+       Bottom padding tightened — display-settings has its own
+       margin-block, so 4rem here doubled up. */
+    padding-block: 2rem 1.5rem;
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
+    /* Match sidebar gap (2rem) between bar and identity, so the
+       hero stance lands at the same y-position as the sidebar h1. */
+    gap: 2rem;
   }
 
   .hero__eyebrow-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: var(--space-md);
+    gap: var(--space-p4);
     flex-wrap: wrap;
+    /* Match sidebar monogram height (36px) so the row's vertical
+       centre aligns with the monogram's vertical centre. */
+    min-height: 36px;
   }
 
   .hero__role {
