@@ -1,0 +1,54 @@
+/* ============================================
+   DISPLAY SETTINGS — homepage inline panel
+   Hosted in main column after Hero. Card surface.
+   Hide/Show buttons use Button utility variant
+   (see button.css). Decorative warning copy lives
+   in the drawer only — this surface stays clean.
+   ============================================ */
+
+.display-settings {
+  margin-block: var(--space-lg);
+  margin-inline: auto;
+  width: 90%;
+  max-width: var(--content-width);
+  padding: var(--space-lg);
+  border: 1px solid var(--color-border-base);
+  border-radius: var(--radius-card);
+  background: var(--color-bg-card);
+}
+
+.display-settings__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xs);
+}
+
+.display-settings__eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  margin: 0;
+  max-width: none;
+}
+
+.display-settings__intro {
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  margin: 0 0 var(--space-md);
+  max-width: none;
+}
+
+/* Show row — right-aligned wrapper that takes the panel's column width
+   and pushes the Show button to the right edge. Hidden when the panel
+   is visible; revealed via the [hidden] attribute when Hide is clicked. */
+.display-settings__show-row {
+  width: 90%;
+  max-width: var(--content-width);
+  margin: var(--space-md) auto;
+  display: flex;
+  justify-content: flex-end;
+}

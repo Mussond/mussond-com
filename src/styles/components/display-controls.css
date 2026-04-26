@@ -1,0 +1,188 @@
+/* ============================================
+   DISPLAY CONTROLS
+   Segmented radio groups for theme + contrast.
+   Two layout variants share markup and a11y; CSS
+   switches between horizontal segmented chips
+   (panel) and stacked full-width rows (drawer).
+   Pattern: hidden native radios + visible chip
+   labels with :has(input:checked) and :has(input:
+   focus-visible). Translucent surface in panel
+   variant follows Figma's Radix-contrastFixes
+   sand-surface tokens, inlined per html.dark/light
+   for predictable cascade.
+   ============================================ */
+
+.display-controls__group {
+  border: 0;
+  padding: 0;
+  margin: 0 0 var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.display-controls__group:last-child {
+  margin-bottom: 0;
+}
+
+.display-controls__legend {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-xs) 0;
+  padding: 0;
+}
+
+/* ============================================
+   PANEL VARIANT — horizontal segmented bar
+   Translucent surface, sand-12 hairline border,
+   pill radius, 4px internal padding. Selected
+   chip rises with a pale-amber fill and its own
+   sand-12 border (transparent on unselected to
+   reserve space and prevent layout shift).
+   ============================================ */
+
+.display-controls__segment {
+  display: flex;
+  background: rgba(255, 255, 255, 0.8);  /* light sand-surface */
+  border: var(--stroke-1) solid var(--color-action-border);
+  border-radius: var(--radius-pill);
+  padding: 4px;
+  gap: var(--space-md);  /* 24px — matches Figma spacing/p6 */
+}
+
+html.dark .display-controls__segment {
+  background: rgba(33, 33, 32, 0.5);  /* dark sand-surface */
+}
+
+.display-controls__chip {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  border: var(--stroke-1) solid transparent;
+  border-radius: var(--radius-pill);
+  padding: 0.5rem 1.5rem;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-action-text);
+  line-height: 1;
+}
+
+.display-controls__chip:not(:has(input:checked)):hover {
+  background: var(--amber-a3);
+  border-color: var(--color-action-border);  /* sand-12 hairline appears on hover */
+}
+
+.display-controls__chip:has(input:checked) {
+  background: var(--color-bg-selected);
+  border-color: var(--color-action-border);
+}
+
+/* Dark mode selected chip — saturated amber-9 fill with amber-9 border
+   so the border merges into the fill (per Figma dark spec). Light mode
+   keeps the pale-amber + sand-12-border treatment from the rule above. */
+html.dark .display-controls__chip:has(input:checked) {
+  border-color: var(--color-bg-selected);
+}
+
+.display-controls__chip:has(input:focus-visible) {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.display-controls__chip-label {
+  position: relative;
+  z-index: 1;
+}
+
+/* Dark unselected chip text — text-primary (near-white in dark) so
+   labels read on the dark translucent surface. Selected chip retains
+   warm-dark action-text against pale-amber bg-selected. */
+html.dark .display-controls__chip:not(:has(input:checked)) {
+  color: var(--color-text-primary);
+}
+
+.display-controls__live {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+  max-width: none;
+}
+
+.display-controls__live em {
+  font-style: italic;
+  color: var(--color-text-primary);
+}
+
+/* ============================================
+   DRAWER VARIANT — stacked vertical rows
+   Container becomes a bordered list; each chip
+   is a full-width row with internal divider
+   borders. Selected row fills with bg-selected.
+   ============================================ */
+
+.display-controls--drawer .display-controls__segment {
+  flex-direction: column;
+  background: transparent;
+  border: 1px solid var(--color-border-base);
+  border-radius: var(--radius-r2);
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
+}
+
+html.dark .display-controls--drawer .display-controls__segment {
+  background: transparent;
+}
+
+.display-controls--drawer .display-controls__chip {
+  flex: 0 0 auto;
+  justify-content: flex-start;
+  padding: 0.625rem 0.875rem;
+  border: 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+  border-radius: 0;
+}
+
+.display-controls--drawer .display-controls__chip:last-child {
+  border-bottom: 0;
+}
+
+.display-controls--drawer .display-controls__chip:has(input:checked) {
+  background: var(--color-bg-selected);
+  border-bottom-color: var(--color-border-subtle);  /* preserve divider, override action-border */
+}
+
+.display-controls--drawer .display-controls__chip:has(input:focus-visible) {
+  outline-offset: -3px;
+}
+
+/* ============================================
+   HIGH CONTRAST
+   Suppress amber selection fill on panel chips;
+   use a strong outline + underline instead so the
+   chip remains a clear text label. Drawer keeps
+   the fill — full-width rows need the colour
+   change to register at row scale.
+   ============================================ */
+
+[data-contrast="high"] .display-controls__chip:has(input:checked) {
+  background: transparent;
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: -2px;
+  text-decoration: underline 0.12em;
+  text-underline-offset: 0.25em;
+}
+
+[data-contrast="high"] .display-controls--drawer .display-controls__chip:has(input:checked) {
+  outline: none;
+  background: var(--color-action-bg);
+  color: var(--color-text-primary);
+}

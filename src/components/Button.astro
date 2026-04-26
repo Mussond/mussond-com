@@ -1,9 +1,10 @@
 ---
 interface Props {
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'utility';
   href?: string;
   type?: 'button' | 'submit' | 'reset';
   class?: string;
+  id?: string;
 }
 
 const {
@@ -11,17 +12,18 @@ const {
   href,
   type = 'button',
   class: className,
+  id,
 } = Astro.props;
 
 const classes = ['btn', `btn--${variant}`, className].filter(Boolean).join(' ');
 ---
 
 {href ? (
-  <a href={href} class={classes}>
+  <a href={href} class={classes} id={id}>
     <span class="btn__label"><slot /></span>
   </a>
 ) : (
-  <button type={type} class={classes}>
+  <button type={type} class={classes} id={id}>
     <span class="btn__label"><slot /></span>
   </button>
 )}

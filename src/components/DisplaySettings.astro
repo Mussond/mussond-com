@@ -1,0 +1,27 @@
+---
+// DisplaySettings — inline display-settings panel rendered on the
+// homepage after the hero. Wraps DisplayControls with panel chrome
+// (eyebrow header + Hide button). Hide collapses to a right-aligned
+// Show row below; the keyboard shortcut Cmd/Ctrl+Shift+K (wired in
+// display-controls.ts) toggles visibility and focuses the first chip.
+// Decorative warning copy lives in the drawer only.
+import DisplayControls from './DisplayControls.astro';
+import Button from './Button.astro';
+---
+
+<aside
+  class="display-settings"
+  id="display-settings"
+  aria-labelledby="display-settings-title"
+>
+  <header class="display-settings__header">
+    <p class="display-settings__eyebrow" id="display-settings-title">Display settings</p>
+    <Button variant="utility" id="display-settings-hide">Hide</Button>
+  </header>
+  <p class="display-settings__intro">The site responds — every token below updates live.</p>
+  <DisplayControls variant="panel" idPrefix="panel" />
+</aside>
+
+<div class="display-settings__show-row" id="display-settings-show-row" hidden>
+  <Button variant="utility" id="display-settings-show">Show display settings</Button>
+</div>

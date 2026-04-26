@@ -19,6 +19,8 @@ const {
 } = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://mussond.com');
+const isHomepage = Astro.url.pathname === '/';
+const shortcutTarget = isHomepage ? 'panel' : 'drawer';
 ---
 
 <!doctype html>
@@ -55,7 +57,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://mussond.
     <link rel="preload" href="/fonts/instrument-serif/InstrumentSerif-Italic.woff2" as="font" type="font/woff2" crossorigin />
     <title>{title}</title>
   </head>
-  <body>
+  <body data-shortcut-target={shortcutTarget}>
     <SkipLink />
     <Sidebar />
     <header class="site-header">
@@ -66,3 +68,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://mussond.
     <ThemeDrawer />
   </body>
 </html>
+
+<script>
+  import '../scripts/display-controls';
+</script>
