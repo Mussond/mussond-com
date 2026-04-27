@@ -121,13 +121,12 @@ const sortedLogs = logs
         viewAllHref="/logs"
       />
       <ul class="log-card-list">
-        {sortedLogs.map((log, idx) => (
+        {sortedLogs.map((log) => (
           <li>
             <LogCard
               href={`/logs/${log.id}`}
               title={log.data.title}
               description={log.data.description}
-              index={idx + 1}
               year={log.year}
             />
           </li>
