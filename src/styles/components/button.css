@@ -2,7 +2,7 @@
    BUTTON
    Primary + secondary variants. Left-to-right background
    sweep on hover via ::before pseudo-element. Slot content
-   wrapped in .btn__label to sit above the sweep layer.
+   wrapped in .btn__label / .btn__icon to sit above the sweep.
    Pill focus ring with offset — matches icon-button treatment.
    ============================================ */
 
@@ -22,9 +22,10 @@
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
+  transition: transform var(--hover-grow-duration) var(--hover-grow-easing);
 }
 
-/* Sweep layer — amber-10 slides in from the left */
+/* Sweep layer — amber-10 slides in from the left on hover */
 .btn::before {
   content: '';
   position: absolute;
@@ -35,15 +36,40 @@
   transition: transform 0.25s ease-out;
 }
 
-/* Label sits above the sweep via stacking context */
+.btn:hover::before,
+.btn:active::before {
+  transform: translateX(0);
+}
+
+/* Label — sits above the sweep via stacking context */
 .btn__label {
+  display: inline-block;
   position: relative;
   z-index: 1;
 }
 
-.btn:hover::before,
-.btn:active::before {
-  transform: translateX(0);
+/* Icon slot — sits above the sweep, translates rightward on
+   hover (Hover.css 'icon-forward' pattern). The btn--has-icon
+   modifier increases right-padding so the icon doesn't crowd
+   the pill edge when it slides forward. */
+.btn--has-icon {
+  gap: var(--space-p2);
+  padding-right: 1.25rem;
+}
+
+.btn__icon {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  transition: transform var(--hover-grow-duration) var(--hover-grow-easing);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .btn:hover .btn__icon,
+  .btn:focus-visible .btn__icon {
+    transform: translateX(4px);
+  }
 }
 
 /* 2px border on hover — compensate padding to prevent layout shift */
@@ -86,13 +112,12 @@
 }
 
 .btn--secondary::before {
-  background: var(--amber-a3);
+  background: var(--color-action-bg-hover-secondary);
 }
 
-/* Amber border on hover to match icon-button treatment */
 .btn--secondary:hover,
 .btn--secondary:active {
-  border-color: var(--color-action-bg);
+  border-color: var(--color-action-border);
 }
 
 /* Decorative: restore softer border */
@@ -119,14 +144,26 @@
    ============================================ */
 
 @media (prefers-reduced-motion: no-preference) {
+  .btn:hover {
+    transform: scale(var(--hover-grow-scale));
+  }
+
   .btn:active {
     transform: scale(0.98);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* Sweep doesn't animate under reduced-motion */
   .btn::before {
     transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .btn:hover,
+  .btn:focus-visible {
+    transform: none;
   }
 }
 
