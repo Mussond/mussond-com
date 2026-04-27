@@ -1,6 +1,6 @@
 /* ============================================
    GUIDE CARD — feed
-   Single-column stacked feed: number / kind pill / title + description / meta.
+   Single-column stacked feed: body / kind pill / meta.
    Title in Instrument Serif Regular ~22px per Figma v2.
 
    Hover/focus: sand sweep + title underline. Same interaction
@@ -31,7 +31,7 @@
 .guide-card {
   position: relative;
   display: grid;
-  grid-template-columns: auto auto 1fr auto;
+  grid-template-columns: 1fr auto auto;
   align-items: start;
   gap: var(--space-p4);
   width: 100%;
@@ -40,7 +40,7 @@
   color: inherit;
 }
 
-.guide-card:hover{
+.guide-card:hover {
   text-decoration: none;
   border: 2px solid var(--color-border-card);
   box-shadow: var(--shadow-card-hover);
@@ -56,24 +56,10 @@
 
 /* ── Inner elements (above sweep layer) ─────────────────────── */
 
-.guide-card__number,
-.guide-card__kind,
 .guide-card__body,
+.guide-card__kind,
 .guide-card__meta {
   position: relative;
-}
-
-/* ── Number ─────────────────────────────────────────────────── */
-
-.guide-card__number {
-  font-family: var(--font-mono);
-  font-size: var(--text-base);
-  font-weight: 500;
-  color: var(--color-text-secondary);
-  letter-spacing: 0.04em;
-  min-width: 2ch;
-  text-align: end;
-  padding-block-start: 0.125rem;
 }
 
 /* ── Kind pill ──────────────────────────────────────────────── */
@@ -221,18 +207,8 @@
 
 @media (max-width: 720px) {
   .guide-card {
-    grid-template-columns: auto auto 1fr;
-    grid-template-rows: auto auto;
-    column-gap: var(--space-p2);
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
     row-gap: var(--space-p2);
-  }
-
-  .guide-card__body {
-    grid-column: 1 / -1;
-  }
-
-  .guide-card__meta {
-    grid-column: 1 / -1;
-    padding-block-start: 0;
   }
 }
