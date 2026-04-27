@@ -14,7 +14,7 @@ const sorted = logs.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()
       Reference lists I keep returning to. Curated, not comprehensive. Last reviewed per list.
     </p>
     <ul class="log-card-list">
-      {sorted.map((log, idx) => {
+      {sorted.map((log) => {
         const year = (log.data.updatedAt ?? log.data.date).getFullYear();
         return (
           <li>
@@ -22,7 +22,6 @@ const sorted = logs.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()
               href={`/logs/${log.id}`}
               title={log.data.title}
               description={log.data.description}
-              index={idx + 1}
               year={year}
               headingLevel={2}
             />

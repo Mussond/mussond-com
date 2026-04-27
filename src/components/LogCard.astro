@@ -3,19 +3,15 @@ interface Props {
   href: string;
   title: string;
   description?: string;
-  index: number;
   year?: number;
   headingLevel?: 2 | 3;
 }
 
-const { href, title, description, index, year, headingLevel = 3 } = Astro.props;
+const { href, title, description, year, headingLevel = 3 } = Astro.props;
 const Heading = `h${headingLevel}` as 'h2' | 'h3';
-const formattedIndex = String(index).padStart(2, '0');
 ---
 
 <a href={href} class="log-card">
-  <span class="log-card__number" aria-hidden="true">{formattedIndex}</span>
-  <span class="log-card__kind" aria-hidden="true">Log</span>
   <div class="log-card__body">
     <Heading class="log-card__title">{title}</Heading>
     {description && <p class="log-card__description">{description}</p>}
