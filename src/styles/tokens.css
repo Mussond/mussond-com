@@ -130,6 +130,37 @@
   --transition-base: all 0.3s cubic-bezier(0.8, 0.04, 0.4, 1);
   --transition-underline: text-underline-offset 400ms, text-decoration-color 400ms;
 
+  /* Hover grow — Hover.css 'grow' pattern, scaled per surface.
+     Card:   1.02 (subtle — feed cards in a list, big surface)
+     Pill:   1.08 (buttons, tags, sidebar nav links)
+     Icon:   1.10 (icon-only buttons, no layout consequences)
+     Chip:   1.20 (segmented control unchecked chips — isolated
+                   surface inside a bordered container, needs a
+                   bigger pop to read against the cream + 2px
+                   border + drop-shadow hover treatment) */
+  --hover-grow-scale-card: 1.02;
+  --hover-grow-scale:      1.08;
+  --hover-grow-scale-icon: 1.10;
+  --hover-grow-scale-chip: 1.20;
+  --hover-grow-duration:   200ms;
+  --hover-grow-easing:     cubic-bezier(0.2, 0, 0, 1);
+
+  /* Underline sweep — linear-gradient pseudo-underline that animates
+     from 0% to 100% width on hover/focus. Replaces the old left-to-right
+     full-surface sweeps. Composes with the grow scale: motion users get
+     scale + underline; reduced-motion users get the underline alone. */
+  --hover-underline-thickness: 2px;
+  --hover-underline-offset:    0.15em;
+  --hover-underline-duration:  200ms;
+  --hover-underline-easing:    ease;
+
+  /* Card hover shadow — Figma node 23:2655 (grow-hover effect).
+     Tight, low-offset drop shadow that pairs with the grow scale.
+     Reduced-motion fallback uses a broader shadow + title underline
+     (see card.css) so the lift remains perceptible without movement. */
+  --shadow-card-hover:           0 1px 2px 0 rgba(52, 21, 0, 0.4);
+  --shadow-card-hover-no-motion: 0 2px 8px 0 rgba(52, 21, 0, 0.4);
+
   /* Stroke widths — mirror Figma Thickness collection (t1, t2, focus-ring=t3) */
   --stroke-1:          1px;
   --stroke-2:          2px;
@@ -152,6 +183,7 @@
   --color-border-base:     var(--sand-7);
   --color-action-bg:       var(--amber-9);
   --color-action-bg-hover: var(--amber-10);
+  --color-action-bg-hover-secondary: var(--amber-4);
   --color-accent-selected: var(--amber-11);
   --color-accent-selected-inverse: var(--sand-12);  /* current-page nav surface — follows text-primary scale */
   --color-action-border:   var(--sand-12);
