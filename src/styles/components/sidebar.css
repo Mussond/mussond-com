@@ -140,6 +140,10 @@ html.dark .sidebar__monogram { color: var(--color-action-bg); }
   color: var(--color-text-primary);
   text-decoration: none;
   background: transparent;
+  transform-origin: left center;
+  transition: transform var(--hover-grow-duration) var(--hover-grow-easing),
+              border-color var(--hover-grow-duration) var(--hover-grow-easing),
+              color var(--hover-grow-duration) var(--hover-grow-easing);
 }
 
 .sidebar__nav-link::before {
@@ -153,28 +157,37 @@ html.dark .sidebar__monogram { color: var(--color-action-bg); }
   flex-shrink: 0;
   position: relative;
   z-index: 1;
+  transition: background-color var(--hover-grow-duration) var(--hover-grow-easing),
+              border-color var(--hover-grow-duration) var(--hover-grow-easing);
 }
 
-/* Sweep layer — amber slides in from the left, behind text and dot */
+/* Label — wrapper span. Sits above the sweep via stacking context. */
+.nav-link__label {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+}
+
+/* Sweep layer — bg-hover-secondary slides in from the left, behind text
+   and dot. Same pattern as the button. Bg colour is unchanged from the
+   pre-sweep static fill; only the application is now animated. */
 .sidebar__nav-link::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: var(--color-action-bg);
+  background: var(--color-action-bg-hover-secondary);
   border-radius: inherit;
   transform: translateX(-100%);
   transition: transform 0.25s ease-out;
 }
 
-/* Nav link label — sits above the sweep */
-.nav-link__label {
-  position: relative;
-  z-index: 1;
+.sidebar__nav-link:not([aria-current="page"]):hover::after {
+  transform: translateX(0);
 }
 
 .sidebar__nav-link:not([aria-current="page"]):hover {
   color: var(--color-action-text);
-  border-color: var(--color-action-bg);
+  border-color: var(--color-action-border);
   border-width: 2px;
   padding: calc(0.5rem - 1px) calc(0.75rem - 1px);
   text-decoration: none;
@@ -183,10 +196,6 @@ html.dark .sidebar__monogram { color: var(--color-action-bg); }
 .sidebar__nav-link:not([aria-current="page"]):hover::before {
   background: var(--color-action-text);
   border-color: transparent;
-}
-
-.sidebar__nav-link:not([aria-current="page"]):hover::after {
-  transform: translateX(0);
 }
 
 .sidebar__nav-link:focus-visible {
@@ -331,9 +340,29 @@ html.light[data-contrast="decorative"] .sidebar__nav-link {
    into the main column via the .identity--mobile variant.
    ============================================ */
 
+@media (prefers-reduced-motion: no-preference) {
+  /* Link grows on hover — origin left so it expands top/bottom/right,
+     leaving the left edge fixed in the scan path. */
+  .sidebar__nav-link:not([aria-current="page"]):hover {
+    transform: scale(var(--hover-grow-scale));
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  /* Sweep doesn't animate under reduced-motion */
   .sidebar__nav-link::after {
     transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .sidebar__nav-link:hover,
+  .sidebar__nav-link:focus-visible {
+    transform: none;
+  }
+
+  .sidebar__nav-link::after {
+    display: none;
   }
 }
 
