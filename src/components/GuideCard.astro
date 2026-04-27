@@ -3,15 +3,16 @@ interface Props {
   href: string;
   title: string;
   description?: string;
+  tags?: string[];
   index: number;
   readTime?: number;
   date?: Date;
   headingLevel?: 2 | 3;
 }
 
-const { href, title, description, index, readTime, date, headingLevel = 3 } = Astro.props;
+const { href, title, description, tags, index, readTime, date, headingLevel = 3 } = Astro.props;
+const kindLabel = tags?.[0] ?? 'Guide';
 const Heading = `h${headingLevel}` as 'h2' | 'h3';
-const formattedIndex = String(index).padStart(2, '0');
 const dateLabel = date
   ? date.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' })
   : null;
@@ -20,11 +21,10 @@ const metaLine = metaParts.join(' · ');
 ---
 
 <a href={href} class="guide-card">
-  <span class="guide-card__number" aria-hidden="true">{formattedIndex}</span>
-  <span class="guide-card__kind" aria-hidden="true">Guide</span>
   <div class="guide-card__body">
     <Heading class="guide-card__title">{title}</Heading>
     {description && <p class="guide-card__description">{description}</p>}
   </div>
+  <span class="guide-card__kind" aria-hidden="true">{kindLabel}</span>
   {metaLine && <span class="guide-card__meta">{metaLine}</span>}
 </a>
