@@ -50,6 +50,7 @@
   border: var(--stroke-1) solid var(--color-action-border);
   border-radius: var(--radius-pill);
   gap: var(--space-p6);  /* 24px — matches Figma spacing/p6 */
+  overflow: visible;  /* let chips grow past the bar's edge cleanly */
 }
 
 html.dark .display-controls__segment {
@@ -72,11 +73,23 @@ html.dark .display-controls__segment {
   font-weight: 400;
   color: var(--color-action-text);
   line-height: 1;
+  transition: transform var(--hover-grow-duration) var(--hover-grow-easing),
+              background-color var(--hover-grow-duration) var(--hover-grow-easing),
+              border-color var(--hover-grow-duration) var(--hover-grow-easing),
+              box-shadow var(--hover-grow-duration) var(--hover-grow-easing);
 }
 
+/* Hover state per Figma node 28:1545:
+   2px sand-12 border, cream decorative bg, tight drop shadow.
+   Padding compensates the +1px border so the label doesn't shift.
+   Font weight bumps to 600 to match the checked state visually. */
 .display-controls__chip:not(:has(input:checked)):hover {
-  background: var(--amber-a3);
-  border-color: var(--color-action-border);  /* sand-12 hairline appears on hover */
+  background: var(--color-action-bg-hover-secondary);
+  border-color: var(--color-action-border);
+  border-width: 2px;
+  padding: calc(var(--space-p3) - 1px);
+  font-weight: 600;
+  box-shadow: var(--shadow-card-hover);
 }
 
 .display-controls__chip:has(input:checked) {
@@ -107,6 +120,33 @@ html.dark .display-controls__chip:has(input:checked) {
    warm-dark action-text against pale-amber bg-selected. */
 html.dark .display-controls__chip:not(:has(input:checked)) {
   color: var(--color-text-primary);
+}
+
+/* ============================================
+   MOTION — grow on unchecked chip hover
+   Per Figma 28:1545: chip rises on hover, paired with
+   the drop shadow + 2px border + cream bg. Uses the pill
+   scale (1.08) since the chip is a pill-shaped control.
+   Drawer variant is a stacked full-width row — grow would
+   feel wrong, so panel-only.
+   ============================================ */
+
+@media (prefers-reduced-motion: no-preference) {
+  .display-controls__segment .display-controls__chip:not(:has(input:checked)):hover {
+    transform: scale(var(--hover-grow-scale-chip));
+  }
+
+  /* Drawer variant — no scale on stacked rows */
+  .display-controls--drawer .display-controls__chip:hover {
+    transform: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .display-controls__chip:hover,
+  .display-controls__chip:has(input:focus-visible) {
+    transform: none;
+  }
 }
 
 .display-controls__live {

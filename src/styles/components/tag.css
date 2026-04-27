@@ -44,11 +44,10 @@
 
 /* Interactive filter button — Guides page toggles.
    Restores body-font appearance on top of the .tag mono base.
-   Strong border and left-to-right sweep on hover via ::before.
-   Label wrapped in .tag__label to sit above the sweep. */
+   Strong border on hover; sweep-in underline on the label.
+   Pressed state fills directly. */
 .tag--filter {
   position: relative;
-  overflow: hidden;
   font-family: inherit;
   font-size: 0.875rem;
   font-weight: 600;
@@ -59,53 +58,33 @@
   border-color: var(--color-action-border);
   color: inherit;
   cursor: pointer;
+  transition: transform var(--hover-grow-duration) var(--hover-grow-easing),
+              background-color var(--hover-grow-duration) var(--hover-grow-easing);
 }
 
-/* Sweep layer — amber fills from the left on hover */
-.tag--filter::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--color-action-bg);
-  border-radius: inherit;
-  transform: translateX(-100%);
-  transition: transform 0.25s ease-out;
-}
-
-/* Label sits above the sweep via stacking context */
+/* Label — wrapper span. No underline treatment; the grow + bg
+   colour shift carry the hover signal alone. */
 .tag__label {
-  position: relative;
-  z-index: 1;
+  display: inline-block;
 }
 
-.tag--filter:hover::before {
-  transform: translateX(0);
+/* Hover bg — amber wash (replaces former sweep) */
+.tag--filter:not([aria-pressed="true"]):hover {
+  background-color: var(--amber-a3);
 }
 
 /* 2px border on hover — compensate padding to prevent layout shift */
 .tag--filter:hover {
-  border-color: var(--color-action-border);
-  color: var(--color-action-text);
+  border-color: var(--color-action-bg);
   border-width: 2px;
   padding: calc(0.2em - 1px) calc(0.75em - 1px);
 }
 
-/* Amber-9 is always bright — action text must stay dark in both themes */
-.dark.tag--filter:hover {
-  --color-action-text:   var(--amber-1);
-  --color-text-on-brand: var(--amber-1);
-  --color-action-border:   var(--sand-11);
-}
-
-/* Selected state — filled directly, no sweep needed */
+/* Selected state — filled directly */
 .tag--filter[aria-pressed="true"] {
   background: var(--color-action-bg);
   border-color: var(--color-action-border);
   color: var(--color-action-text);
-}
-
-.tag--filter[aria-pressed="true"]::before {
-  display: none;
 }
 
 /* Suppress 2px shift on pressed hover */
@@ -122,8 +101,15 @@
   border-radius: var(--radius-pill);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .tag--filter::before {
-    transition: none;
+@media (prefers-reduced-motion: no-preference) {
+  .tag--filter:not([aria-pressed="true"]):hover {
+    transform: scale(var(--hover-grow-scale));
+  }
+}
+
+@media (forced-colors: active) {
+  .tag--filter:hover,
+  .tag--filter:focus-visible {
+    transform: none;
   }
 }

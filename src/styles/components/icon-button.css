@@ -1,16 +1,14 @@
 /* ============================================
    ICON BUTTON
    Circular outlined control for socials and the theme-drawer
-   opener. Diagonal left-up → right-down sweep on hover via
-   ::before pseudo-element. Icon sits above the sweep via z-index.
-   Pill focus ring with offset — matches Button treatment exactly.
-   In high-contrast the button reshapes into a visible text
-   link; icons alone stop carrying meaning at high contrast.
+   opener. Pill focus ring with offset — matches Button
+   treatment exactly. In high-contrast the button reshapes into
+   a visible text link with a sweep-in underline; icons alone
+   stop carrying meaning at high contrast.
    ============================================ */
 
 .icon-button {
   position: relative;
-  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -25,23 +23,8 @@
   text-decoration: none;
   cursor: pointer;
   flex-shrink: 0;
-}
-
-/* Diagonal sweep — slides in from top-left on hover */
-.icon-button::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--amber-a3);
-  border-radius: inherit;
-  transform: translate(-100%, -100%);
-  transition: transform 0.25s ease-out;
-}
-
-/* Icon sits above the sweep layer */
-.icon-button > svg {
-  position: relative;
-  z-index: 1;
+  transition: transform var(--hover-grow-duration) var(--hover-grow-easing),
+              background-color var(--hover-grow-duration) var(--hover-grow-easing);
 }
 
 .icon-button--small {
@@ -49,14 +32,10 @@
   height: 1.75rem;
 }
 
-.icon-button:hover::before,
-.icon-button:active::before {
-  transform: translate(0, 0);
-}
-
-/* 2px border on hover — matches Button treatment */
+/* Hover bg — amber-a3 wash (replaces former diagonal sweep) */
 .icon-button:hover,
 .icon-button:active {
+  background: var(--amber-a3);
   border-color: var(--color-action-bg);
   border-width: 2px;
   text-decoration: none;
@@ -101,8 +80,8 @@ html.dark  .icon-button__theme-icon--moon { display: block; }
    HIGH CONTRAST — icon-button becomes a text link
    Button element keeps its semantics (the theme-drawer JS
    looks up aria-controls="theme-drawer" on a <button>); only
-   the visual form changes. Label replaces icon.
-   Sweep is suppressed — text link clarity takes precedence.
+   the visual form changes. Label replaces icon. Sweep-in
+   underline replaces the static underline.
    ============================================ */
 
 [data-contrast="high"] .icon-button {
@@ -113,12 +92,6 @@ html.dark  .icon-button__theme-icon--moon { display: block; }
   border-radius: 8px;
   font-size: var(--text-sm);
   font-weight: 600;
-  text-decoration: underline 0.12em;
-  text-underline-offset: 0.25em;
-}
-
-[data-contrast="high"] .icon-button::before {
-  display: none;
 }
 
 [data-contrast="high"] .icon-button:focus-visible {
@@ -137,14 +110,38 @@ html.dark  .icon-button__theme-icon--moon { display: block; }
   overflow: visible;
   clip: auto;
   white-space: normal;
+
+  display: inline-block;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% var(--hover-underline-thickness);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  padding-bottom: var(--hover-underline-offset);
+  transition: background-size var(--hover-underline-duration) var(--hover-underline-easing);
+}
+
+[data-contrast="high"] .icon-button:hover .icon-button__label,
+[data-contrast="high"] .icon-button:focus-visible .icon-button__label {
+  background-size: 100% var(--hover-underline-thickness);
 }
 
 /* ============================================
    MOTION
    ============================================ */
 
-@media (prefers-reduced-motion: reduce) {
-  .icon-button::before {
-    transition: none;
+@media (prefers-reduced-motion: no-preference) {
+  .icon-button:hover {
+    transform: scale(var(--hover-grow-scale-icon));
+  }
+}
+
+@media (forced-colors: active) {
+  .icon-button:hover,
+  .icon-button:focus-visible {
+    transform: none;
+  }
+
+  [data-contrast="high"] .icon-button__label {
+    background-image: none;
   }
 }
