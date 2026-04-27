@@ -1,7 +1,7 @@
 ---
 title: "Starting material for accessibility"
 description: "Links and references if you are just starting to learn about accessibility"
-tags: ["Accessibility", "Guide"]
+tags: ["Accessibility", "Starter"]
 date: 2022-09-14
 ---
 
