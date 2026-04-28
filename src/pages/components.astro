@@ -364,6 +364,56 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
       </fieldset>
     </div>
 
+    <!-- ============================================================
+         BUTTON ICON TIMING — permanent test space
+         Compares shipped icon-forward behaviour against a faster
+         alternative (100ms ease-out). Neither proposed variant
+         is in button.css — this is motion QA only.
+         ============================================================ -->
+    <h2 id="button-icon-test-heading">Button icon timing <span class="component-tag component-tag--experiment">Experiment</span></h2>
+    <p class="component-meta">
+      Icon-forward interaction on the secondary button. Shipped behaviour: sweep fill delayed 60ms, icon slides 6px and scales to 1.2× at 200ms <code>cubic-bezier(0.2, 0, 0, 1)</code>.
+      The third button shows an alternative at 100ms <code>ease-out</code> for comparison. Guarded by <code>prefers-reduced-motion</code>.
+    </p>
+    <div class="component-showcase">
+      <div class="component-showcase__row">
+
+        <!-- Baseline: no icon -->
+        <button class="btn btn--secondary">
+          <span class="btn__label">No icon</span>
+        </button>
+
+        <!-- Shipped: 200ms cubic-bezier(0.2,0,0,1) -->
+        <button class="btn btn--secondary btn--has-icon">
+          <span class="btn__label">Shipped</span>
+          <span class="btn__icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </button>
+
+        <!-- Alternative: 100ms ease-out -->
+        <button class="btn btn--secondary btn--has-icon">
+          <span class="btn__label">Alternative</span>
+          <span class="btn__icon btn__icon--fast" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </button>
+
+      </div>
+    </div>
+
+    <style>
+      @media (prefers-reduced-motion: no-preference) {
+        .btn__icon--fast {
+          transition: translate 100ms ease-out, scale 100ms ease-out;
+        }
+      }
+    </style>
+
     <h2 id="legacy-heading">Legacy</h2>
     <p>Components that have been superseded but remain in the repo for reference.</p>
 
