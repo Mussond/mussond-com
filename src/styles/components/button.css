@@ -25,7 +25,8 @@
   transition: transform var(--hover-grow-duration) var(--hover-grow-easing);
 }
 
-/* Sweep layer — amber-10 slides in from the left on hover */
+/* Sweep layer — amber-10 slides in from the left on hover.
+   60ms delay lets the icon start moving before the fill arrives. */
 .btn::before {
   content: '';
   position: absolute;
@@ -33,7 +34,7 @@
   background: var(--color-action-bg-hover);
   border-radius: inherit;
   transform: translateX(-100%);
-  transition: transform 0.25s ease-out;
+  transition: transform 0.25s ease-out 60ms;
 }
 
 .btn:hover::before,
@@ -62,13 +63,15 @@
   align-items: center;
   position: relative;
   z-index: 1;
-  transition: transform var(--hover-grow-duration) var(--hover-grow-easing);
+  transition: translate var(--hover-grow-duration) var(--hover-grow-easing),
+              scale var(--hover-grow-duration) var(--hover-grow-easing);
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .btn:hover .btn__icon,
   .btn:focus-visible .btn__icon {
-    transform: translateX(4px);
+    translate: 6px 0;
+    scale: 1.2;
   }
 }
 
