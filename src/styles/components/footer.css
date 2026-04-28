@@ -138,6 +138,31 @@ html.dark .footer__monogram { color: var(--color-action-bg); }
   max-width: unset;
 }
 
+.footer__strapline a {
+  color: inherit;
+  display: inline-block;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% var(--hover-underline-thickness);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  padding-bottom: var(--hover-underline-offset);
+  transition: background-size var(--hover-underline-duration) var(--hover-underline-easing);
+}
+
+.footer__strapline a:hover,
+.footer__strapline a:focus-visible {
+  background-size: 100% var(--hover-underline-thickness);
+  text-decoration: none;
+  outline: none;
+}
+
+.footer__strapline a:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
 /* ============================================
    MOBILE
    Stack monogram, columns wrap, meta trails.

@@ -11,6 +11,31 @@
   max-width: 68ch;
 }
 
+.component-meta a {
+  color: inherit;
+  display: inline-block;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% var(--hover-underline-thickness);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  padding-bottom: var(--hover-underline-offset);
+  transition: background-size var(--hover-underline-duration) var(--hover-underline-easing);
+}
+
+.component-meta a:hover,
+.component-meta a:focus-visible {
+  background-size: 100% var(--hover-underline-thickness);
+  text-decoration: none;
+  outline: none;
+}
+
+.component-meta a:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
 .component-showcase {
   margin-block: 0 var(--space-p8);
   padding: var(--space-p8);
