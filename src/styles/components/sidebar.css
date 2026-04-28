@@ -122,8 +122,6 @@ html.dark .sidebar__monogram { color: var(--color-action-bg); }
 }
 
 .sidebar__nav-link {
-  position: relative;
-  overflow: hidden;
   display: flex;
   align-items: center;
   gap: 0.625rem;
@@ -137,7 +135,6 @@ html.dark .sidebar__monogram { color: var(--color-action-bg); }
   background: transparent;
   transform-origin: left center;
   transition: transform var(--hover-grow-duration) var(--hover-grow-easing),
-              border-color var(--hover-grow-duration) var(--hover-grow-easing),
               color var(--hover-grow-duration) var(--hover-grow-easing);
 }
 
@@ -156,36 +153,26 @@ html.dark .sidebar__monogram { color: var(--color-action-bg); }
               border-color var(--hover-grow-duration) var(--hover-grow-easing);
 }
 
-/* Label — wrapper span. Sits above the sweep via stacking context. */
+/* Label — wrapper span. Carries the sweep-in underline on hover. */
 .nav-link__label {
   display: inline-block;
   position: relative;
   z-index: 1;
-}
-
-/* Sweep layer — bg-hover-secondary slides in from the left, behind text
-   and dot. Same pattern as the button. Bg colour is unchanged from the
-   pre-sweep static fill; only the application is now animated. */
-.sidebar__nav-link::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--color-action-bg-hover-secondary);
-  border-radius: inherit;
-  transform: translateX(-100%);
-  transition: transform 0.25s ease-out;
-}
-
-.sidebar__nav-link:not([aria-current="page"]):hover::after {
-  transform: translateX(0);
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% var(--hover-underline-thickness);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  padding-bottom: var(--hover-underline-offset);
+  transition: background-size var(--hover-underline-duration) var(--hover-underline-easing);
 }
 
 .sidebar__nav-link:not([aria-current="page"]):hover {
   color: var(--color-action-text);
-  border-color: var(--color-action-border);
-  border-width: 2px;
-  padding: calc(0.5rem - 1px) calc(0.75rem - 1px);
   text-decoration: none;
+}
+
+.sidebar__nav-link:not([aria-current="page"]):hover .nav-link__label {
+  background-size: 100% var(--hover-underline-thickness);
 }
 
 .sidebar__nav-link:not([aria-current="page"]):hover::before {
