@@ -6,6 +6,24 @@
   display: inline-block;
   margin-bottom: 2rem;
   font-weight: 600;
-  text-decoration: underline 0.15em;
-  text-underline-position: under;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% var(--hover-underline-thickness);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  padding-bottom: var(--hover-underline-offset);
+  transition: background-size var(--hover-underline-duration) var(--hover-underline-easing);
+}
+
+.back-link:hover,
+.back-link:focus-visible {
+  background-size: 100% var(--hover-underline-thickness);
+  text-decoration: none;
+  outline: none;
+}
+
+.back-link:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 3px;
+  border-radius: 2px;
 }

@@ -73,13 +73,27 @@ html.dark .sidebar__monogram { color: var(--color-action-bg); }
 
 .identity__name a {
   color: inherit;
+  display: inline-block;
   text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% var(--hover-underline-thickness);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  padding-bottom: var(--hover-underline-offset);
+  transition: background-size var(--hover-underline-duration) var(--hover-underline-easing);
 }
 
 .identity__name a:hover,
 .identity__name a:focus-visible {
-  text-decoration: underline 0.15em;
-  text-underline-offset: 0.4em;
+  background-size: 100% var(--hover-underline-thickness);
+  text-decoration: none;
+  outline: none;
+}
+
+.identity__name a:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
 .identity__tagline {
