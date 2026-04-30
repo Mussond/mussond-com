@@ -76,8 +76,10 @@ function isCurrent(href: string): boolean {
       </IconButton>
       <IconButton
         label="Theme and contrast settings"
+        title="Display settings (Alt+T)"
         aria-haspopup="dialog"
         aria-controls="theme-drawer"
+        aria-keyshortcuts="Alt+T"
       >
         <Sun class="icon-button__theme-icon icon-button__theme-icon--sun" aria-hidden="true" width="18" height="18" />
         <Moon class="icon-button__theme-icon icon-button__theme-icon--moon" aria-hidden="true" width="18" height="18" />
@@ -99,6 +101,15 @@ function isCurrent(href: string): boolean {
     toggle.setAttribute('aria-expanded', String(isOpen));
     updateMenuLabel(isOpen);
   });
+
+  // Swap drawer-trigger tooltip glyph for macOS users. aria-keyshortcuts
+  // stays as the WAI-ARIA canonical "Alt+T" — screen readers handle the
+  // platform mapping themselves.
+  const isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform);
+  if (isMac) {
+    const trigger = document.querySelector<HTMLButtonElement>('button[aria-controls="theme-drawer"]');
+    if (trigger) trigger.title = 'Display settings (⌥T)';
+  }
 
   document.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape') return;
