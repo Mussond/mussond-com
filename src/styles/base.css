@@ -188,22 +188,44 @@ p { max-width: 68ch; }
 
 a {
   color: inherit;
-  text-decoration: underline 0.15em;
-  text-underline-position: under;
-  transition: none;
+  text-decoration: none;
 }
 
-a:hover,
-a:focus-visible {
-  text-underline-offset: 0.4em;
-  text-decoration-thickness: 0.25em;
-  outline: none;
+/* Naked anchors — inline body links in prose, MDX content, content
+   meta. Two-layer underline: a permanent 1px rest line, plus a 2px
+   sweep that animates 0% → 100% width on hover/focus. Both layers sit
+   at the bottom of the box; the sweep paints over the rest line as it
+   grows. Classed anchors (cards, nav, footer, back-link, icon-button,
+   etc.) carry their own scoped sweep on inner spans and are excluded
+   here via :not([class]) so this rule can't double-paint them. */
+a:not([class]) {
+  background-image:
+    linear-gradient(currentColor, currentColor),
+    linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%, 0 100%;
+  background-size:
+    0% var(--hover-underline-thickness),
+    100% var(--hover-underline-thickness-rest);
+}
+
+a:not([class]):hover,
+a:not([class]):focus-visible {
+  background-size:
+    100% var(--hover-underline-thickness),
+    100% var(--hover-underline-thickness-rest);
 }
 
 a:focus-visible {
   outline: 3px solid var(--color-text-primary);
   outline-offset: 3px;
   border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:not([class]) {
+    transition: background-size var(--hover-underline-duration) var(--hover-underline-easing);
+  }
 }
 
 /* ============================================
