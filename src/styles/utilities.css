@@ -37,11 +37,6 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  a,
-  .nav__link {
-    transition: var(--transition-underline);
-  }
-
   .card {
     transition: var(--transition-base);
   }

@@ -128,7 +128,6 @@
 
   /* Motion */
   --transition-base: all 0.3s cubic-bezier(0.8, 0.04, 0.4, 1);
-  --transition-underline: text-underline-offset 400ms, text-decoration-color 400ms;
 
   /* Hover grow — Hover.css 'grow' pattern, scaled per surface.
      Card:   1.02 (subtle — feed cards in a list, big surface)
@@ -149,8 +148,9 @@
      from 0% to 100% width on hover/focus. Replaces the old left-to-right
      full-surface sweeps. Composes with the grow scale: motion users get
      scale + underline; reduced-motion users get the underline alone. */
-  --hover-underline-thickness: 2px;
-  --hover-underline-offset:    0.15em;
+  --hover-underline-thickness:      2px;
+  --hover-underline-thickness-rest: 1px;
+  --hover-underline-offset:         0.15em;
   --hover-underline-duration:  200ms;
   --hover-underline-easing:    ease;
 

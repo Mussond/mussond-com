@@ -142,17 +142,22 @@ html.dark .footer__monogram { color: var(--color-action-bg); }
   color: inherit;
   display: inline-block;
   text-decoration: none;
-  background-image: linear-gradient(currentColor, currentColor);
-  background-size: 0% var(--hover-underline-thickness);
-  background-position: 0 100%;
+  background-image:
+    linear-gradient(currentColor, currentColor),
+    linear-gradient(currentColor, currentColor);
+  background-size:
+    0% var(--hover-underline-thickness),
+    100% var(--hover-underline-thickness-rest);
+  background-position: 0 100%, 0 100%;
   background-repeat: no-repeat;
-  padding-bottom: var(--hover-underline-offset);
   transition: background-size var(--hover-underline-duration) var(--hover-underline-easing);
 }
 
 .footer__strapline a:hover,
 .footer__strapline a:focus-visible {
-  background-size: 100% var(--hover-underline-thickness);
+  background-size:
+    100% var(--hover-underline-thickness),
+    100% var(--hover-underline-thickness-rest);
   text-decoration: none;
   outline: none;
 }
