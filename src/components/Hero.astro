@@ -11,7 +11,7 @@
       Principal designer · a11y &amp; design systems
     </p>
     <p class="hero__shortcut-hint text-eyebrow">
-      Press <kbd class="hero__kbd" id="hero-kbd-glyph">⌘ + ⇧ + K</kbd> to toggle display settings
+      Press <kbd class="hero__kbd" id="hero-kbd-glyph">⌥ + T</kbd> to toggle display settings
     </p>
   </div>
 
@@ -25,7 +25,7 @@
     var isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform);
     if (!isMac) {
       var glyph = document.getElementById('hero-kbd-glyph');
-      if (glyph) glyph.textContent = 'Ctrl + Shift + K';
+      if (glyph) glyph.textContent = 'Alt + T';
     }
   })();
 </script>

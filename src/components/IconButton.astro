@@ -7,10 +7,12 @@ interface Props {
   size?: 'default' | 'small';
   type?: 'button' | 'submit' | 'reset';
   class?: string;
+  title?: string;
   // Forwarded ARIA attributes for drawer wiring etc.
   'aria-haspopup'?: string;
   'aria-expanded'?: string;
   'aria-controls'?: string;
+  'aria-keyshortcuts'?: string;
 }
 
 const {
@@ -21,9 +23,11 @@ const {
   size = 'default',
   type = 'button',
   class: className,
+  title,
   'aria-haspopup': ariaHasPopup,
   'aria-expanded': ariaExpanded,
   'aria-controls': ariaControls,
+  'aria-keyshortcuts': ariaKeyshortcuts,
 } = Astro.props;
 
 const classes = [
@@ -49,9 +53,11 @@ const classes = [
     type={type}
     class={classes}
     aria-label={label}
+    title={title}
     aria-haspopup={ariaHasPopup}
     aria-expanded={ariaExpanded}
     aria-controls={ariaControls}
+    aria-keyshortcuts={ariaKeyshortcuts}
   >
     <slot />
     <span class="icon-button__label">{label}</span>

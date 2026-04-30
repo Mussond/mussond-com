@@ -1,7 +1,7 @@
 // display-controls — shared theme/contrast control logic plus
 // auto-wiring for the inline DisplaySettings panel (homepage),
-// the ThemeDrawer dialog (every page), and the global Cmd/Ctrl+
-// Shift+K keyboard shortcut.
+// the ThemeDrawer dialog (every page), and the global Option/Alt+T
+// keyboard shortcut.
 //
 // Side-effect import this from Layout.astro:
 //   <script>import '../scripts/display-controls';</script>
@@ -226,16 +226,32 @@ function wireDrawer() {
 
 function wireKeyboardShortcut() {
   document.addEventListener('keydown', (event) => {
+    // Bail out when the user is typing in a form field, so Option-key
+    // characters (†, ™, etc.) can still be entered. Radios, checkboxes,
+    // and buttons are <input> too but don't accept text — let the
+    // shortcut through when one of those has focus.
+    const target = event.target as HTMLElement | null;
+    const tag = target?.tagName;
+    const isTypingInput =
+      tag === 'INPUT' &&
+      !/^(radio|checkbox|button|submit|reset|range|color|file|hidden|image)$/i.test(
+        (target as HTMLInputElement).type,
+      );
+    if (isTypingInput || tag === 'TEXTAREA' || target?.isContentEditable) return;
+
+    // Match Option+T / Alt+T. event.code is the primary check — on macOS
+    // with a US layout, Option+T produces † for event.key.
     const isShortcut =
-      (event.metaKey || event.ctrlKey) &&
-      event.shiftKey &&
-      event.key.toLowerCase() === 'k';
+      event.altKey &&
+      !event.metaKey &&
+      !event.ctrlKey &&
+      (event.code === 'KeyT' || event.key === 't' || event.key === 'T');
     if (!isShortcut) return;
     event.preventDefault();
 
-    const target = document.body.dataset.shortcutTarget;
+    const shortcutTarget = document.body.dataset.shortcutTarget;
 
-    if (target === 'panel') {
+    if (shortcutTarget === 'panel') {
       const panel = document.getElementById('display-settings') as HTMLElement | null;
       const showRow = document.getElementById('display-settings-show-row');
       const showButton = document.getElementById('display-settings-show') as HTMLButtonElement | null;
