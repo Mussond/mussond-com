@@ -109,7 +109,12 @@ test.describe('WCAG 2.0/2.1/2.2 AA sweep — all routes × light/dark', () => {
 
       test(`${pageConfig.slug} | ${theme}`, async ({ page }) => {
 
-        // 1. Navigate
+        // 1. Navigate. Force reduced-motion so the body fadeIn (base.css)
+        //    is suppressed — otherwise axe samples mid-animation and reads
+        //    foreground colours composited over partial body opacity,
+        //    which produced phantom contrast failures (sand-11 over the
+        //    tag pill background read as #71716d instead of #63635e).
+        await page.emulateMedia({ reducedMotion: 'reduce' });
         await page.goto(pageConfig.route);
 
         // 2. Force the theme class — bypasses no-flash script timing issues
