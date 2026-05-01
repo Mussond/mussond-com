@@ -8,6 +8,66 @@
 @import "@radix-ui/colors/indigo-dark.css";
 
 /* ============================================
+   FORCE sRGB SCALE — OVERRIDE RADIX P3
+   Radix ships P3 overrides for every step inside
+   @supports + @media (color-gamut: p3). On P3
+   displays those values render perceptually lighter
+   than the sRGB siblings — sand-11 in P3 paints as
+   ~#74746f, not #63635e, dropping below 4.5:1 against
+   sand-2/3 and breaking AA on tags, sidebar, footer,
+   stat labels, display controls, and card descriptions.
+   Re-declaring every step here with the documented
+   sRGB hex wins the cascade (later rule, same
+   specificity, the @supports/@media wrappers don't
+   bump specificity). The site loses the wider-gamut
+   saturation on case-study covers, which is a small
+   cost for predictable, AA-conformant text everywhere.
+   ============================================ */
+:root, .light, .light-theme {
+  --sand-1:  #fdfdfc; --sand-2:  #f9f9f8; --sand-3:  #f1f0ef;
+  --sand-4:  #e9e8e6; --sand-5:  #e2e1de; --sand-6:  #dad9d6;
+  --sand-7:  #cfceca; --sand-8:  #bcbbb5; --sand-9:  #8d8d86;
+  --sand-10: #82827c; --sand-11: #63635e; --sand-12: #21201c;
+
+  --amber-1:  #fefdfb; --amber-2:  #fefbe9; --amber-3:  #fff7c2;
+  --amber-4:  #ffee9c; --amber-5:  #fbe577; --amber-6:  #f3d673;
+  --amber-7:  #e9c162; --amber-8:  #e2a336; --amber-9:  #ffc53d;
+  --amber-10: #ffba18; --amber-11: #ab6400; --amber-12: #4f3422;
+
+  --amber-a1:  #c0800004; --amber-a2:  #f4d10016; --amber-a3:  #ffde003d;
+  --amber-a4:  #ffd40063; --amber-a5:  #f8cf0088; --amber-a6:  #eab5008c;
+  --amber-a7:  #dc9b009d; --amber-a8:  #da8a00c9; --amber-a9:  #ffb300c2;
+  --amber-a10: #ffb300e7; --amber-a11: #ab6400;   --amber-a12: #341500dd;
+
+  --indigo-1:  #fdfdfe; --indigo-2:  #f7f9ff; --indigo-3:  #edf2fe;
+  --indigo-4:  #e1e9ff; --indigo-5:  #d2deff; --indigo-6:  #c1d0ff;
+  --indigo-7:  #abbdf9; --indigo-8:  #8da4ef; --indigo-9:  #3e63dd;
+  --indigo-10: #3358d4; --indigo-11: #3a5bc7; --indigo-12: #1f2d5c;
+}
+
+.dark, .dark-theme {
+  --sand-1:  #111110; --sand-2:  #191918; --sand-3:  #222221;
+  --sand-4:  #2a2a28; --sand-5:  #31312e; --sand-6:  #3b3a37;
+  --sand-7:  #494844; --sand-8:  #62605b; --sand-9:  #6f6d66;
+  --sand-10: #7c7b74; --sand-11: #b5b3ad; --sand-12: #eeeeec;
+
+  --amber-1:  #16120c; --amber-2:  #1d180f; --amber-3:  #302008;
+  --amber-4:  #3f2700; --amber-5:  #4d3000; --amber-6:  #5c3d05;
+  --amber-7:  #714f19; --amber-8:  #8f6424; --amber-9:  #ffc53d;
+  --amber-10: #ffd60a; --amber-11: #ffca16; --amber-12: #ffe7b3;
+
+  --amber-a1:  #e63c0006; --amber-a2:  #fd9b000d; --amber-a3:  #fa820022;
+  --amber-a4:  #fc820032; --amber-a5:  #fd8b0041; --amber-a6:  #fd9b0051;
+  --amber-a7:  #ffab2567; --amber-a8:  #ffae3587; --amber-a9:  #ffc53d;
+  --amber-a10: #ffd60a;   --amber-a11: #ffca16;   --amber-a12: #ffe7b3;
+
+  --indigo-1:  #11131f; --indigo-2:  #141726; --indigo-3:  #182449;
+  --indigo-4:  #1d2e62; --indigo-5:  #253974; --indigo-6:  #304384;
+  --indigo-7:  #3a4f97; --indigo-8:  #435db1; --indigo-9:  #3e63dd;
+  --indigo-10: #5472e4; --indigo-11: #9eb1ff; --indigo-12: #d6e1ff;
+}
+
+/* ============================================
    COLOR PRIMATIVES
    Added to manage contrast issues with raidx steps
    ============================================ */
