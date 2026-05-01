@@ -111,5 +111,13 @@
     .hero__stance {
       font-size: 2.5rem;
     }
+
+    /* Role moves above the name+strapline on mobile (rendered in
+       site-header by Layout.astro). Hide the in-hero copy here so
+       the page reads role → identity → stance, matching the
+       sidebar-driven hierarchy on desktop. */
+    .hero__role {
+      display: none;
+    }
   }
 </style>

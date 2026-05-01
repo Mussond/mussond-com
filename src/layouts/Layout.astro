@@ -61,6 +61,11 @@ const shortcutTarget = isHomepage ? 'panel' : 'drawer';
     <SkipLink />
     <Sidebar />
     <header class="site-header">
+      {isHomepage && (
+        <p class="site-header__role text-eyebrow">
+          Principal designer &middot; a11y &amp; design systems
+        </p>
+      )}
       <Identity variant="mobile" />
     </header>
     <slot />
