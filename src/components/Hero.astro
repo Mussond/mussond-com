@@ -120,4 +120,14 @@
       display: none;
     }
   }
+
+  /* Keyboard shortcut isn't reachable from a touch device — hide
+     the hint when the primary pointer is coarse so we don't tell
+     users to press a key they can't press. Display-settings is
+     still openable from the panel itself. */
+  @media (pointer: coarse) {
+    .hero__shortcut-hint {
+      display: none;
+    }
+  }
 </style>
