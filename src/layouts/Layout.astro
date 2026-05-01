@@ -62,9 +62,14 @@ const shortcutTarget = isHomepage ? 'panel' : 'drawer';
     <Sidebar />
     <header class="site-header">
       {isHomepage && (
-        <p class="site-header__role text-eyebrow">
-          Principal designer &middot; a11y &amp; design systems
-        </p>
+        <div class="site-header__eyebrow">
+          <p class="site-header__role text-eyebrow">
+            Principal designer &middot; a11y &amp; design systems
+          </p>
+          <p class="site-header__hint text-eyebrow">
+            Press <kbd class="site-header__kbd" data-kbd-glyph>⌥ + T</kbd> to toggle display settings
+          </p>
+        </div>
       )}
       <Identity variant="mobile" />
     </header>

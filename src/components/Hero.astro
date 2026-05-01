@@ -11,7 +11,7 @@
       Principal designer · a11y &amp; design systems
     </p>
     <p class="hero__shortcut-hint text-eyebrow">
-      Press <kbd class="hero__kbd" id="hero-kbd-glyph">⌥ + T</kbd> to toggle display settings
+      Press <kbd class="hero__kbd" data-kbd-glyph>⌥ + T</kbd> to toggle display settings
     </p>
   </div>
 
@@ -24,8 +24,9 @@
   (function () {
     var isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform);
     if (!isMac) {
-      var glyph = document.getElementById('hero-kbd-glyph');
-      if (glyph) glyph.textContent = 'Alt + T';
+      document.querySelectorAll('[data-kbd-glyph]').forEach(function (g) {
+        g.textContent = 'Alt + T';
+      });
     }
   })();
 </script>
@@ -113,23 +114,14 @@
     }
   }
 
-  /* Role moves above the name+strapline once the sidebar collapses
-     to its mobile bar (rendered in site-header by Layout.astro).
-     Match the sidebar's 1024px breakpoint exactly — hiding only at
-     ≤800px left the hero copy and the site-header copy both
-     visible across the 801–1024 band. */
+  /* Once the sidebar collapses, the site-header (rendered by
+     Layout.astro) takes over the eyebrow row — role on left,
+     hint on right — matching the desktop hero layout but
+     positioned above the identity at the top of the page. Hide
+     the in-hero copy entirely at this breakpoint to avoid the
+     duplicate. */
   @media (max-width: 1024px) {
-    .hero__role {
-      display: none;
-    }
-  }
-
-  /* Keyboard shortcut isn't reachable from a touch device — hide
-     the hint when the primary pointer is coarse so we don't tell
-     users to press a key they can't press. Display-settings is
-     still openable from the panel itself. */
-  @media (pointer: coarse) {
-    .hero__shortcut-hint {
+    .hero__eyebrow-row {
       display: none;
     }
   }
