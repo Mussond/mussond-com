@@ -111,11 +111,14 @@
     .hero__stance {
       font-size: 2.5rem;
     }
+  }
 
-    /* Role moves above the name+strapline on mobile (rendered in
-       site-header by Layout.astro). Hide the in-hero copy here so
-       the page reads role → identity → stance, matching the
-       sidebar-driven hierarchy on desktop. */
+  /* Role moves above the name+strapline once the sidebar collapses
+     to its mobile bar (rendered in site-header by Layout.astro).
+     Match the sidebar's 1024px breakpoint exactly — hiding only at
+     ≤800px left the hero copy and the site-header copy both
+     visible across the 801–1024 band. */
+  @media (max-width: 1024px) {
     .hero__role {
       display: none;
     }
