@@ -193,13 +193,13 @@
 }
 
 .btn--utility::before {
-  background: var(--amber-a3);
+  background: var(--color-action-bg-hover-secondary);
 }
 
 .btn--utility:hover,
 .btn--utility:active {
   border-style: solid;
-  border-color: var(--color-action-bg);
+  border-color: var(--color-action-border);
   padding: calc(0.375rem - 1px) calc(0.875rem - 1px);
 }
 
