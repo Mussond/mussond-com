@@ -11,7 +11,7 @@
       Principal designer · a11y &amp; design systems
     </p>
     <p class="hero__shortcut-hint text-eyebrow">
-      Press <kbd class="hero__kbd" id="hero-kbd-glyph">⌥ + T</kbd> to toggle display settings
+      Press <kbd class="hero__kbd" data-kbd-glyph>⌥ + T</kbd> to toggle display settings
     </p>
   </div>
 
@@ -24,8 +24,9 @@
   (function () {
     var isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform);
     if (!isMac) {
-      var glyph = document.getElementById('hero-kbd-glyph');
-      if (glyph) glyph.textContent = 'Alt + T';
+      document.querySelectorAll('[data-kbd-glyph]').forEach(function (g) {
+        g.textContent = 'Alt + T';
+      });
     }
   })();
 </script>
@@ -110,6 +111,18 @@
   @media (max-width: 800px) {
     .hero__stance {
       font-size: 2.5rem;
+    }
+  }
+
+  /* Once the sidebar collapses, the site-header (rendered by
+     Layout.astro) takes over the eyebrow row — role on left,
+     hint on right — matching the desktop hero layout but
+     positioned above the identity at the top of the page. Hide
+     the in-hero copy entirely at this breakpoint to avoid the
+     duplicate. */
+  @media (max-width: 1024px) {
+    .hero__eyebrow-row {
+      display: none;
     }
   }
 </style>

@@ -69,4 +69,16 @@
   .stat-block__value {
     font-size: 2.75rem;
   }
+
+  /* Single-column stack at narrow widths needs more breathing room than
+     the 32px desktop column-gap provides — items read packed otherwise.
+     Same for the value↔label pair within each item: 8px is fine alongside
+     a 64px serif numeral on desktop, snug under the 44px mobile size. */
+  .stat-block__list {
+    gap: var(--space-p14);
+  }
+
+  .stat-block__item {
+    gap: var(--space-p3);
+  }
 }

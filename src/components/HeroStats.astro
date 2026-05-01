@@ -33,8 +33,8 @@
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
     grid-template-rows: auto auto;
-    column-gap: var(--space-lg);
-    row-gap: 0.5rem;
+    column-gap: var(--space-p8);
+    row-gap: var(--space-p2);
     margin: 0;
   }
 
@@ -73,13 +73,13 @@
 @media (max-width: 800px) {
     .hero-stats__list {
       grid-template-columns: 1fr;
-      row-gap: var(--space-md);
+      row-gap: var(--space-p14);
     }
 
     .hero-stats__item {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: var(--space-p3);
       grid-row: auto;
     }
 
