@@ -228,6 +228,32 @@ html.dark .display-controls--drawer .display-controls__segment {
 }
 
 /* ============================================
+   PANEL VARIANT — tablet + mobile shape (M4)
+   Pill chips don't survive a stacked / wrapped
+   layout. At tablet and below, swap to a 2-column
+   grid with rounded-rectangle chips and a card-
+   radius container, matching the parent display-
+   settings panel. Contrast (4 chips) → 2×2.
+   Colour mode (3 chips) → 2+1, with the third chip
+   stretching the row to read as a deliberate full-
+   width option rather than a stretched pill.
+   Drawer variant shares markup but is excluded by
+   the :not() selector.
+   ============================================ */
+@media (max-width: 1024px) {
+  .display-controls__segment:not(.display-controls--drawer .display-controls__segment) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-p1);
+    border-radius: var(--radius-card);
+  }
+
+  .display-controls__segment .display-controls__chip {
+    border-radius: var(--radius-card);
+  }
+}
+
+/* ============================================
    DRAWER CONTROLS
    Native radios (visually hidden) + custom
    ::before indicator on span. Box framing via
