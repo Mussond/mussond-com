@@ -211,6 +211,7 @@
   --color-bg-hover-active: var(--amber-a4);  /* Active/selected UI element hover bg — alpha eq. of step 4 */
   --color-bg-tag:          var(--sand-3);    /* UI element background — step 3 */
   --color-indicator:       var(--amber-12);  /* radio/checkbox indicator ring */
+  --color-bg-segment:      rgba(255, 255, 255, 0.8);  /* translucent segment bar — light */
 }
 
 /* Amber-9 is always bright — action text must stay dark in both themes.

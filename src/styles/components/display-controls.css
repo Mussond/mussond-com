@@ -46,7 +46,7 @@
 
 .display-controls__segment {
   display: flex;
-  background: rgba(255, 255, 255, 0.8);  /* light sand-surface */
+  background: var(--color-bg-segment);  /* light sand-surface */
   border: var(--stroke-1) solid var(--color-action-border);
   border-radius: var(--radius-pill);
   gap: var(--space-p6);  /* 24px — matches Figma spacing/p6 */
