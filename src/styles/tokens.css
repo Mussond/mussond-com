@@ -185,7 +185,6 @@
   --color-text-secondary:  var(--sand-11);
   --color-bg-base:         var(--amber-1);
   --color-bg-card:         var(--sand-2);
-  --color-bg-decorative:   var(--amber-2);
   --color-border-subtle:   var(--sand-6);
   --color-border-base:     var(--sand-7);
   --color-action-bg:       var(--amber-9);
@@ -196,7 +195,6 @@
   --amber-contrast:        var(--sand-12);
   --color-action-border:   var(--sand-12);
   --color-action-text:     var(--amber-contrast);
-  --color-text-on-brand:   var(--sand-12);
   --color-focus-ring:      var(--sand-12);
 
   /* Background gradient — suppressed in low. The pre-redesign wash
@@ -215,7 +213,6 @@
    Declared before [data-contrast] blocks so high/decorative can override. */
 .dark {
   --color-action-text:   var(--amber-1);
-  --color-text-on-brand: var(--amber-1);
   --color-action-border:   var(--sand-11);
   --color-accent-selected: var(--amber-9);
   --color-border-card:   var(--sand-6);    /* dark: step shifts 12→9 to read against sand-12 dark */
@@ -247,7 +244,6 @@
   --color-text-secondary:  var(--sand-10);   /* 11 → 10 */
   --color-border-base:  var(--sand-6);    /* 7 → 6 */
   --color-border-subtle:   var(--sand-4);    /* 6 → 4 */
-  --color-bg-decorative:   var(--amber-3);   /* 2 → 3: warmer tint */
   --color-action-text:   var(--amber-11);   /* decorative: softer warm text */
   --color-border-card:   var(--amber-3);    /* decorative: lighter warm border */
 
