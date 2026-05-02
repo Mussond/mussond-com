@@ -67,59 +67,6 @@
   --indigo-10: #5472e4; --indigo-11: #9eb1ff; --indigo-12: #d6e1ff;
 }
 
-/* ============================================
-   COLOR PRIMATIVES
-   Added to manage contrast issues with raidx steps
-   ============================================ */
-
-   .light-amberFix {
-      --amber-contrast: var(--sand-12); /* light mode sand 12 */
-      --amber-surface: #fefae4cc;
-      --amber-indicator: var(--amber-9);
-      --amber-track: var(--amber-9);
-      @supports (color: color(display-p3 1 1 1)) {
-         @media (color-gamut: p3) {
-            --amber-surface: color(display-p3 0.9922 0.9843 0.902 / 0.8);
-         }
-      }
-   }
-
-   .dark-amberFix {
-      --amber-contrast: var(--sand-12); /* light mode sand 12 */
-      --amber-surface: #271f1380;
-      --amber-indicator: var(--amber-9);
-      --amber-track: var(--amber-9);
-      @supports (color: color(display-p3 1 1 1)) {
-         @media (color-gamut: p3) {
-            --amber-surface: color(display-p3 0.1412 0.1176 0.0784 / 0.5);
-         }
-      }
-   }
-
-   .light-sandFix {
-      --sand-contrast: white;
-      --sand-surface: #ffffffcc;
-      --sand-indicator: var(--sand-9);
-      --sand-track: var(--sand-9);
-      @supports (color: color(display-p3 1 1 1)) {
-         @media (color-gamut: p3) {
-            --sand-surface: color(display-p3 1 1 1 / 0.8);
-         }
-      }
-   }
-
-   .dark-sandFix {
-      --sand-contrast: white;
-      --sand-surface: #21212080;
-      --sand-indicator: var(--sand-9);
-      --sand-track: var(--sand-9);
-      @supports (color: color(display-p3 1 1 1)) {
-         @media (color-gamut: p3) {
-            --sand-surface: color(display-p3 0.1255 0.1255 0.1255 / 0.5);
-         }
-      }
-   }
-
 
 /* ============================================
    DESIGN TOKENS
@@ -238,17 +185,16 @@
   --color-text-secondary:  var(--sand-11);
   --color-bg-base:         var(--amber-1);
   --color-bg-card:         var(--sand-2);
-  --color-bg-decorative:   var(--amber-2);
   --color-border-subtle:   var(--sand-6);
   --color-border-base:     var(--sand-7);
   --color-action-bg:       var(--amber-9);
   --color-action-bg-hover: var(--amber-10);
   --color-action-bg-hover-secondary: var(--amber-4);
-  --color-accent-selected: var(--amber-11);
+  --color-accent-selected: var(--amber-9);
   --color-accent-selected-inverse: var(--sand-12);  /* current-page nav surface — follows text-primary scale */
+  --amber-contrast:        var(--sand-12);
   --color-action-border:   var(--sand-12);
-  --color-action-text:     var(--amber-12);  /* warm-on-warm per Figma color/text-action */
-  --color-text-on-brand:   var(--sand-12);
+  --color-action-text:     var(--amber-contrast);
   --color-focus-ring:      var(--sand-12);
 
   /* Background gradient — suppressed in low. The pre-redesign wash
@@ -267,7 +213,6 @@
    Declared before [data-contrast] blocks so high/decorative can override. */
 .dark {
   --color-action-text:   var(--amber-1);
-  --color-text-on-brand: var(--amber-1);
   --color-action-border:   var(--sand-11);
   --color-accent-selected: var(--amber-9);
   --color-border-card:   var(--sand-6);    /* dark: step shifts 12→9 to read against sand-12 dark */
@@ -299,7 +244,6 @@
   --color-text-secondary:  var(--sand-10);   /* 11 → 10 */
   --color-border-base:  var(--sand-6);    /* 7 → 6 */
   --color-border-subtle:   var(--sand-4);    /* 6 → 4 */
-  --color-bg-decorative:   var(--amber-3);   /* 2 → 3: warmer tint */
   --color-action-text:   var(--amber-11);   /* decorative: softer warm text */
   --color-border-card:   var(--amber-3);    /* decorative: lighter warm border */
 
