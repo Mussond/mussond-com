@@ -9,7 +9,7 @@
   align-items: center;
   padding: 0.2em 0.65em;
   border-radius: var(--radius-pill);
-  background-color: var(--sand-3);
+  background-color: var(--color-bg-tag);
   border: 1px solid var(--color-border-base);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
@@ -70,7 +70,7 @@
 
 /* Hover bg — amber wash (replaces former sweep) */
 .tag--filter:not([aria-pressed="true"]):hover {
-  background-color: var(--amber-a3);
+  background-color: var(--color-bg-hover);
 }
 
 /* 2px border on hover — compensate padding to prevent layout shift */
