@@ -191,7 +191,7 @@
   --color-action-bg:       var(--amber-9);
   --color-action-bg-hover: var(--amber-10);
   --color-action-bg-hover-secondary: var(--amber-4);
-  --color-accent-selected: var(--amber-11);
+  --color-accent-selected: var(--amber-9);
   --color-accent-selected-inverse: var(--sand-12);  /* current-page nav surface — follows text-primary scale */
   --amber-contrast:        var(--sand-12);
   --color-action-border:   var(--sand-12);
