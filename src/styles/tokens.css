@@ -263,6 +263,19 @@
   --color-bg-selected:   var(--amber-5);   /* selected fill — segmented chip + filter tag */
 }
 
+/* Amber-9 is always bright — action text must stay dark in both themes.
+   Declared before [data-contrast] blocks so high/decorative can override. */
+.dark {
+  --color-action-text:   var(--amber-1);
+  --color-text-on-brand: var(--amber-1);
+  --color-action-border:   var(--sand-11);
+  --color-accent-selected: var(--amber-9);
+  --color-border-card:   var(--sand-6);    /* dark: step shifts 12→9 to read against sand-12 dark */
+  /* Dark mode selected fill — matches Figma color/bg-selected dark mode override.
+     Light mode: pale amber-4 (#ffec77). Dark mode: saturated amber-9 (#ffc53d). */
+  --color-bg-selected:   var(--amber-9);
+}
+
 /* High contrast overrides — darker borders, secondary text merges with primary.
    Body text already at sand-12 and focus ring/action border unchanged — both
    already at the ceiling. Card bg stays at sand-1: the sand-12 border carries
@@ -302,18 +315,6 @@
   );
 }
 
-/* Amber-9 is always bright — action text must stay dark in both themes */
-.dark {
-  --color-action-text:   var(--amber-1);
-  --color-text-on-brand: var(--amber-1);
-  --color-action-border:   var(--sand-11);
-  --color-accent-selected: var(--amber-9);
-  --color-border-card:   var(--sand-6);    /* dark: step shifts 12→9 to read against sand-12 dark */
-  /* Dark mode selected fill — matches Figma color/bg-selected dark mode override.
-     Light mode: pale amber-4 (#ffec77). Dark mode: saturated amber-9 (#ffc53d). */
-  --color-bg-selected:   var(--amber-9);
-}
-
 /* ============================================
    CASE STUDY COVER TOKENS
    Per-slug token pairs consumed by <CaseStudyCard>.
@@ -324,7 +325,8 @@
    (both themes) collapses all three to text-primary/bg-base
    via semantic tokens — brand falls away, hierarchy remains.
    Decorative: same hex values as low (no token change);
-   the white flow is a CSS ::before overlay on the card block.
+   the radial bloom (cs-card__block::before) is always-on — present in
+   low and decorative, suppressed in high contrast only.
    ============================================ */
 
 :root,
@@ -344,5 +346,14 @@
   --cover-coursera-fg:    #FFFFFF;
   --cover-aviva-bg:       #3B1F3A;
   --cover-aviva-fg:       #F5EDD8;
+}
+
+[data-contrast="high"] {
+  --cover-checkoutcom-bg: var(--color-bg-base);
+  --cover-checkoutcom-fg: var(--color-text-primary);
+  --cover-coursera-bg:    var(--color-bg-base);
+  --cover-coursera-fg:    var(--color-text-primary);
+  --cover-aviva-bg:       var(--color-bg-base);
+  --cover-aviva-fg:       var(--color-text-primary);
 }
 
