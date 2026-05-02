@@ -181,7 +181,7 @@ html.dark .sidebar__monogram { color: var(--color-action-bg); }
 }
 
 .sidebar__nav-link:not([aria-current="page"]):hover {
-  color: var(--color-action-text);
+  /*color: var(--color-action-text);*/
   text-decoration: none;
 }
 
@@ -190,7 +190,7 @@ html.dark .sidebar__monogram { color: var(--color-action-bg); }
 }
 
 .sidebar__nav-link:not([aria-current="page"]):hover::before {
-  background: var(--color-action-text);
+  background: var(--color-action-bg-hover);
   border-color: transparent;
 }
 
