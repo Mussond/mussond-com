@@ -35,7 +35,7 @@
 /* Hover bg — amber-a3 wash (replaces former diagonal sweep) */
 .icon-button:hover,
 .icon-button:active {
-  background: var(--amber-a3);
+  background: var(--color-bg-hover);
   border-color: var(--color-action-bg);
   border-width: 2px;
   text-decoration: none;

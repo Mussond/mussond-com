@@ -195,7 +195,7 @@ html.dark .sidebar__monogram { color: var(--color-action-bg); }
 }
 
 .sidebar__nav-link:focus-visible {
-  background: var(--amber-a3);
+  background: var(--color-bg-hover);
   outline: 3px solid var(--color-text-primary);
   outline-offset: 2px;
   border-radius: var(--radius-r2);
@@ -286,7 +286,7 @@ html.dark .sidebar__monogram { color: var(--color-action-bg); }
    ============================================ */
 
 [data-contrast="decorative"] .sidebar__nav-link[aria-current="page"] {
-  background: var(--amber-a4);
+  background: var(--color-bg-hover-active);
   color: var(--color-text-primary);
 }
 

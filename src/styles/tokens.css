@@ -207,6 +207,8 @@
   --color-border-card:   var(--amber-12);   /* warm card emphasis border */
   --color-eyebrow-dash:  var(--amber-9);    /* eyebrow ::before dash */
   --color-bg-selected:   var(--amber-5);   /* selected fill — segmented chip + filter tag */
+  --color-bg-hover:        var(--amber-a3);  /* UI element hover bg — alpha eq. of step 3 */
+  --color-bg-hover-active: var(--amber-a4);  /* Active/selected UI element hover bg — alpha eq. of step 4 */
 }
 
 /* Amber-9 is always bright — action text must stay dark in both themes.
