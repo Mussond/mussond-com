@@ -12,8 +12,11 @@
     "astro": "astro",
     "axe": "playwright test tests/wcag-sweep.spec.ts",
     "axe:ui": "playwright test tests/wcag-sweep.spec.ts --ui",
-    "test:contrast": "playwright test tests/contrast-matrix.spec.ts",
-    "test:contrast:ui": "playwright test tests/contrast-matrix.spec.ts --ui"
+    "test:contrast": "playwright test tests/contrast-matrix.spec.ts tests/component-states.spec.ts",
+    "test:contrast:ui": "playwright test tests/contrast-matrix.spec.ts tests/component-states.spec.ts --ui",
+    "test:contrast:matrix": "playwright test tests/contrast-matrix.spec.ts",
+    "test:contrast:states": "playwright test tests/component-states.spec.ts",
+    "test:contrast:states:ui": "playwright test tests/component-states.spec.ts --ui"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.3",

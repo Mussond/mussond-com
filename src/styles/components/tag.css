@@ -113,3 +113,35 @@
     transform: none;
   }
 }
+
+/* ============================================
+   HIGH CONTRAST
+   Suppress amber fill on pressed filter tags;
+   replace with strong outline + underline so the
+   pressed state remains a clear text label.
+   Mirrors the DisplayControls panel chip pattern.
+   ============================================ */
+
+.dark[data-contrast="high"] .tag--filter[aria-pressed="true"] {
+  background-color:  var(--color-accent-selected);;
+  color: var(--sand-1);
+  outline: 2px solid var(--color-text-action);
+  outline-offset: -2px;
+  border-color: var(--color-accent-selected);
+}
+
+/* ============================================
+   HIGH CONTRAST
+   Suppress amber fill on pressed filter tags;
+   replace with strong outline + underline so the
+   pressed state remains a clear text label.
+   Mirrors the DisplayControls panel chip pattern.
+   ============================================ */
+
+[data-contrast="high"] .tag--filter[aria-pressed="true"] {
+  background-color:  var(--color-accent-selected);;
+  color: var(--color-text-action);
+  outline: 2px solid var(--color-action-border);
+  outline-offset: -2px;
+  border-color: var(--color-accent-selected);
+}
