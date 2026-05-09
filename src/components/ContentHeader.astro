@@ -1,0 +1,32 @@
+---
+// Detail-page header block — used on guide and log detail pages.
+// Renders: h1 title, leading description, tag list, published/updated meta line.
+// CSS lives in styles/components/prose.css (.content-header, .content-meta).
+
+import TagList from './TagList.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  tags: string[];
+  date: Date;
+  updatedAt?: Date;
+}
+
+const { title, description, tags, date, updatedAt } = Astro.props;
+
+const dateLabel = date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const updatedLabel = updatedAt?.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<div class="content-header">
+  <h1>{title}</h1>
+  <p class="text-leading">{description}</p>
+  <TagList tags={tags} />
+  <p class="content-meta">
+    Published {dateLabel}
+    {updatedLabel && (
+      <> · Last updated {updatedLabel}</>
+    )}
+  </p>
+</div>

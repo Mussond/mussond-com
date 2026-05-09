@@ -1,8 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import CaseStudyCard from '../components/CaseStudyCard.astro';
+import CaseStudyGrid from '../components/CaseStudyGrid.astro';
 import GuideCard from '../components/GuideCard.astro';
+import GuideCardFeed from '../components/GuideCardFeed.astro';
 import LogCard from '../components/LogCard.astro';
+import LogCardFeed from '../components/LogCardFeed.astro';
 import Hero from '../components/Hero.astro';
 import HeroStats from '../components/HeroStats.astro';
 import DisplaySettings from '../components/DisplaySettings.astro';
@@ -46,7 +49,7 @@ const sortedLogs = logs
 
     <HeroStats />
 
-    <section class="preview container" aria-labelledby="cs-heading">
+    <section class="section-preview container" aria-labelledby="cs-heading">
       <SectionHeader
         eyebrow="Selected Work"
         heading="Case studies"
@@ -54,7 +57,7 @@ const sortedLogs = logs
         viewAllHref="/case-studies"
       />
       {sortedCaseStudies.length > 0 && (
-        <div class="cs-card-section">
+        <CaseStudyGrid>
           <CaseStudyCard
             variant="featured"
             href={`/case-studies/${sortedCaseStudies[0].id}`}
@@ -68,7 +71,7 @@ const sortedLogs = logs
             headingLevel={3}
           />
           {sortedCaseStudies.length > 1 && (
-            <div class="cs-secondary-grid">
+            <Fragment slot="secondary">
               {sortedCaseStudies.slice(1).map((study) => (
                 <CaseStudyCard
                   variant="secondary"
@@ -82,20 +85,20 @@ const sortedLogs = logs
                   headingLevel={3}
                 />
               ))}
-            </div>
+            </Fragment>
           )}
-        </div>
+        </CaseStudyGrid>
       )}
     </section>
 
-    <section class="preview container" aria-labelledby="guides-heading">
+    <section class="section-preview container" aria-labelledby="guides-heading">
       <SectionHeader
         eyebrow="Long-form writing"
         heading="Guides"
         headingId="guides-heading"
         viewAllHref="/guides"
       />
-      <ul class="guide-card-feed">
+      <GuideCardFeed>
         {sortedWriting.map((article, idx) => (
           <li>
             <GuideCard
@@ -109,17 +112,17 @@ const sortedLogs = logs
             />
           </li>
         ))}
-      </ul>
+      </GuideCardFeed>
     </section>
 
-    <section class="preview container" aria-labelledby="logs-heading">
+    <section class="section-preview container" aria-labelledby="logs-heading">
       <SectionHeader
         eyebrow="Curated resources"
         heading="Logs"
         headingId="logs-heading"
         viewAllHref="/logs"
       />
-      <ul class="log-card-list">
+      <LogCardFeed>
         {sortedLogs.map((log) => (
           <li>
             <LogCard
@@ -130,15 +133,8 @@ const sortedLogs = logs
             />
           </li>
         ))}
-      </ul>
+      </LogCardFeed>
     </section>
 
   </main>
 </Layout>
-
-<style>
-  .preview {
-    padding-block: 3rem;
-    border-top: 1px solid color-mix(in srgb, var(--color-border-base) 20%, transparent);
-  }
-</style>

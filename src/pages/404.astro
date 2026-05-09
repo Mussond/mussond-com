@@ -1,15 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageIntro from '../components/PageIntro.astro';
 ---
 
 <Layout title="Page not found — Dave Musson" description="The page you were looking for doesn't exist or has moved.">
   <main id="main-content" class="container page-content">
     <h1>Page not found</h1>
-    <p class="text-leading page-intro"></p>
-=      Sorry — this page doesn't exist or has moved.
-    </p>
+    <PageIntro>
+      <p>Sorry — this page doesn't exist or has moved.</p>
+    </PageIntro>
     <nav aria-label="Main sections">
-      <ul class="nav-list">
+      <ul class="not-found-nav">
         <li><a href="/">Home</a></li>
         <li><a href="/case-studies">Case studies</a></li>
         <li><a href="/guides">Guides</a></li>
@@ -19,19 +20,3 @@ import Layout from '../layouts/Layout.astro';
     </nav>
   </main>
 </Layout>
-
-<style>
-  .nav-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .nav-list a {
-    font-weight: 600;
-    color: var(--color-text-secondary);
-  }
-</style>

@@ -1,0 +1,34 @@
+---
+// Layout wrapper for CaseStudyCard grids.
+// Owns .cs-card-section and the optional .cs-secondary-grid so pages
+// don't need to know the class names.
+//
+// Usage — featured only (case-studies/index):
+//   <CaseStudyGrid>
+//     <CaseStudyCard variant="featured" ... />
+//     <CaseStudyCard variant="featured" ... />
+//   </CaseStudyGrid>
+//
+// Usage — featured + secondary grid (index.astro):
+//   <CaseStudyGrid>
+//     <CaseStudyCard variant="featured" ... />
+//     <Fragment slot="secondary">
+//       <CaseStudyCard variant="secondary" ... />
+//       <CaseStudyCard variant="secondary" ... />
+//     </Fragment>
+//   </CaseStudyGrid>
+//
+// CSS lives in styles/components/case-study-card.css
+// (.cs-card-section, .cs-secondary-grid).
+
+const hasSecondary = Astro.slots.has('secondary');
+---
+
+<div class="cs-card-section">
+  <slot />
+  {hasSecondary && (
+    <div class="cs-secondary-grid">
+      <slot name="secondary" />
+    </div>
+  )}
+</div>

@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import BackLink from '../../components/BackLink.astro';
-import TagList from '../../components/TagList.astro';
+import ContentHeader from '../../components/ContentHeader.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -25,17 +25,13 @@ const { Content } = await render(log);
 
     <BackLink href="/logs" label="Logs" />
 
-    <div class="content-header">
-      <h1>{log.data.title}</h1>
-      <p class="text-leading">{log.data.description}</p>
-      <TagList tags={log.data.tags} />
-      <p class="content-meta">
-        Published {log.data.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
-        {log.data.updatedAt && (
-          <> · Last updated {log.data.updatedAt.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</>
-        )}
-      </p>
-    </div>
+    <ContentHeader
+      title={log.data.title}
+      description={log.data.description}
+      tags={log.data.tags}
+      date={log.data.date}
+      updatedAt={log.data.updatedAt}
+    />
 
     <div class="prose">
       <Content />

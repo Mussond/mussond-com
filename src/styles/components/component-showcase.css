@@ -80,3 +80,35 @@
 .component-showcase .hero {
   padding-block: 0;
 }
+
+/* ============================================
+   COMPONENT TAG
+   Inline badge used inside h2 headings to flag
+   status — e.g. "Experiment". Sits after the
+   heading text, visually subordinate.
+   ============================================ */
+
+.component-tag {
+  display: inline-flex;
+  align-items: center;
+  margin-inline-start: 0.5rem;
+  padding: 0.15em 0.55em;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border-base);
+  background: var(--color-bg-tag);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-secondary);
+  vertical-align: middle;
+  /* Prevent the badge from inheriting h2 serif */
+  font-style: normal;
+}
+
+.component-tag--experiment {
+  border-color: var(--color-action-border);
+  color: var(--color-action-bg);
+  background: transparent;
+}

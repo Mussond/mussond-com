@@ -1,6 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import GuideCard from '../../components/GuideCard.astro';
+import GuideCardFeed from '../../components/GuideCardFeed.astro';
+import PageIntro from '../../components/PageIntro.astro';
 import TagFilterList from '../../components/TagFilterList.astro';
 import { getCollection } from 'astro:content';
 
@@ -12,13 +14,13 @@ const allTags = [...new Set(sorted.flatMap((a) => a.data.tags))].sort();
 <Layout title="Guides — Dave Musson" description="Guides on design systems and accessibility by Dave Musson.">
   <main id="main-content" class="container page-content">
     <h1>Guides</h1>
-    <p class="text-leading page-intro">
-      Articles on design systems and accessibility.
-    </p>
+    <PageIntro>
+      <p>Articles on design systems and accessibility.</p>
+    </PageIntro>
 
     <TagFilterList tags={allTags} listId="article-list" />
 
-    <ul class="guide-card-feed" id="article-list">
+    <GuideCardFeed id="article-list">
       {sorted.map((article, idx) => {
         const words = article.body?.split(/\s+/).length ?? 0;
         const readTime = Math.max(1, Math.round(words / 200));
@@ -36,6 +38,6 @@ const allTags = [...new Set(sorted.flatMap((a) => a.data.tags))].sort();
           </li>
         );
       })}
-    </ul>
+    </GuideCardFeed>
   </main>
 </Layout>

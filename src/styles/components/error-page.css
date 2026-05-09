@@ -1,0 +1,18 @@
+/* ============================================
+   ERROR PAGE (404)
+   Navigation list shown on the not-found page.
+   ============================================ */
+
+.not-found-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.not-found-nav a {
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}

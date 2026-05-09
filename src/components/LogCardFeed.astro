@@ -1,0 +1,15 @@
+---
+// Feed wrapper for LogCard lists.
+// Owns the <ul class="log-card-list"> so pages don't need to know the class name.
+// CSS lives in styles/components/log-card.css (.log-card-list).
+
+interface Props {
+  id?: string;
+}
+
+const { id } = Astro.props;
+---
+
+<ul class="log-card-list" id={id}>
+  <slot />
+</ul>
