@@ -59,7 +59,7 @@ const allResults: PageResult[] = [];
 test.describe('WCAG 2.0/2.1/2.2 AA sweep — all routes × light/dark', () => {
 
   test.afterAll(() => {
-    const outDir  = 'test-results';
+    const outDir  = 'test-results/wcag-sweep';
     fs.mkdirSync(outDir, { recursive: true });
 
     // One JSON per theme — matches the axe-cli filename convention so existing

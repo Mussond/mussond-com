@@ -12,6 +12,9 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  devToolbar: {
+  enabled: false,
+},
   redirects: {
     '/aboutme':                                                        { status: 301, destination: '/about' },
     '/about-my-website':                                               { status: 301, destination: '/about-this-site' },

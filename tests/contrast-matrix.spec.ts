@@ -25,10 +25,24 @@ type Contrast = (typeof CONTRAST_MODES)[number];
 
 // ─── Result shape ─────────────────────────────────────────────────────────────
 
-interface ViolationSummary {
+interface NodeFailure {
+  selector: string;
+  html: string;
+  fgColor?: string;
+  bgColor?: string;
+  contrastRatio?: number;
+  expectedContrastRatio?: string;
+  fontSize?: string;
+  fontWeight?: string;
+}
+
+interface ViolationDetail {
   id: string;
   impact: string | null;
   description: string;
+  helpUrl: string;
+  nodeCount: number;
+  nodes: NodeFailure[];
 }
 
 interface StateResult {
@@ -37,7 +51,8 @@ interface StateResult {
   theme: Theme;
   contrast: Contrast;
   violationCount: number;
-  violations: ViolationSummary[];
+  violations: ViolationDetail[];
+  totalNodes: number;
   /**
    * clean       — no violations
    * expected    — violations in Decorative mode (by design; not a bug)
@@ -56,7 +71,7 @@ test.describe('Contrast matrix — 54 states', () => {
 
   // Runs after all 54 tests complete, regardless of individual pass/fail
   test.afterAll(() => {
-    const outDir  = 'test-results';
+    const outDir  = 'test-results/contrast-matrix';
     const outPath = path.join(outDir, 'contrast-matrix.json');
 
     fs.mkdirSync(outDir, { recursive: true });
@@ -99,10 +114,14 @@ test.describe('Contrast matrix — 54 states', () => {
 
         test(`${pageConfig.slug} | ${theme} / ${contrast}`, async ({ page }) => {
 
-          // 1. Navigate
+          // 1. Suppress body fadeIn animation (base.css) so screenshots
+          //    aren't washed out and axe doesn't sample mid-animation
+          await page.emulateMedia({ reducedMotion: 'reduce' });
+
+          // 2. Navigate
           await page.goto(pageConfig.route);
 
-          // 2. Override theme + contrast attributes directly.
+          // 3. Override theme + contrast attributes directly.
           //    This bypasses whatever the inline <head> script resolved from
           //    localStorage/OS preferences, giving us a known starting state.
           await page.evaluate(
@@ -113,26 +132,46 @@ test.describe('Contrast matrix — 54 states', () => {
             { t: theme, c: contrast }
           );
 
-          // 3. Wait for CSS custom properties to repaint before scanning
-          await page.waitForTimeout(200);
+          // 4. Settle: wait for layout, fonts, and one rAF after the class change
+          await page.waitForLoadState('networkidle');
+          await page.evaluate(() => document.fonts.ready);
+          await page.evaluate(() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))));
 
-          // 4. Screenshot
+          // 5. Screenshot
           const screenshotDir  = path.join('tests', 'screenshots', pageConfig.slug);
           const screenshotPath = path.join(screenshotDir, `${theme}-${contrast}.png`);
           fs.mkdirSync(screenshotDir, { recursive: true });
           await page.screenshot({ path: screenshotPath, fullPage: true });
 
-          // 5. Axe scan
+          // 6. Axe scan
           await injectAxe(page);
           const violations = await getViolations(page);
 
-          const violationSummary: ViolationSummary[] = violations.map(v => ({
+          // Capture full violation detail per node (selector, fg/bg, ratio, font)
+          const violationDetails: ViolationDetail[] = violations.map(v => ({
             id:          v.id,
             impact:      v.impact ?? null,
             description: v.description,
+            helpUrl:     v.helpUrl,
+            nodeCount:   v.nodes.length,
+            nodes:       v.nodes.map(n => {
+              const data = (n.any[0]?.data ?? {}) as Record<string, unknown>;
+              return {
+                selector:              Array.isArray(n.target) ? n.target.join(' ') : String(n.target),
+                html:                  n.html.slice(0, 200),
+                fgColor:               data.fgColor               as string | undefined,
+                bgColor:               data.bgColor               as string | undefined,
+                contrastRatio:         data.contrastRatio         as number | undefined,
+                expectedContrastRatio: data.expectedContrastRatio as string | undefined,
+                fontSize:              data.fontSize              as string | undefined,
+                fontWeight:            data.fontWeight            as string | undefined,
+              };
+            }),
           }));
 
-          // 6. Classify
+          const totalNodes = violationDetails.reduce((sum, v) => sum + v.nodeCount, 0);
+
+          // 7. Classify
           const classification: StateResult['classification'] =
             violations.length === 0   ? 'clean'
             : contrast === 'decorative' ? 'expected'
@@ -144,12 +183,13 @@ test.describe('Contrast matrix — 54 states', () => {
             theme,
             contrast,
             violationCount: violations.length,
-            violations:    violationSummary,
+            violations:    violationDetails,
+            totalNodes,
             classification,
             screenshotPath,
           });
 
-          // 7. Fail the test for unexpected violations so they appear red
+          // 8. Fail the test for unexpected violations so they appear red
           //    in Playwright UI. The afterAll summary still runs and the
           //    JSON is still written — nothing is lost.
           if (classification === 'unexpected') {

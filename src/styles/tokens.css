@@ -241,6 +241,22 @@
   --color-eyebrow-dash:  var(--amber-12);   /* high: warm-dark for firmer contrast */
 }
 
+/* Dark + decorative — re-pin warm-text token to a dark value, since the
+   shared decorative override sets --color-action-text to amber-11, which
+   in dark mode resolves to bright amber and disappears against the
+   amber-9 selected fill. Same pattern as the dark+high fix above. */
+.dark[data-contrast="decorative"] {
+  --color-action-text: var(--sand-1);   /* dark text on amber-9 in dark/decorative */
+}
+
+/* Dark + high — re-pin warm-text token to a dark value, since the
+   shared high override above sets --color-action-text to sand-12,
+   which inverts to near-white in dark and breaks contrast on the
+   bright amber action background. */
+.dark[data-contrast="high"] {
+  --color-action-text:   var(--amber-a8);    /* dark text on amber-9 in dark/high */
+}
+
 /* Decorative: lower-contrast opt-in mode. Some token pairs will fail WCAG AA
    by design. Softer text, lighter borders, more visible warm tint. Users opt
    in via the drawer (sprint 3.7); the drawer carries a warning that this mode
