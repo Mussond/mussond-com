@@ -1,0 +1,16 @@
+---
+// Feed wrapper for GuideCard lists.
+// Owns the <ul class="guide-card-feed"> so pages don't need to know the class name.
+// Pass `id` when a TagFilterList targets this feed (guides/index.astro uses "article-list").
+// CSS lives in styles/components/guide-card.css (.guide-card-feed).
+
+interface Props {
+  id?: string;
+}
+
+const { id } = Astro.props;
+---
+
+<ul class="guide-card-feed" id={id}>
+  <slot />
+</ul>

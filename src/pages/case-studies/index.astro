@@ -1,6 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import CaseStudyCard from '../../components/CaseStudyCard.astro';
+import CaseStudyGrid from '../../components/CaseStudyGrid.astro';
+import PageIntro from '../../components/PageIntro.astro';
 import { getCollection } from 'astro:content';
 
 const caseStudies = await getCollection('case-studies');
@@ -15,11 +17,11 @@ const sorted = featuredStudy ? [featuredStudy, ...nonFeatured] : nonFeatured;
 <Layout title="Case studies — Dave Musson" description="Career case studies from Dave Musson, Design Systems and Accessibility specialist.">
   <main id="main-content" class="container page-content">
     <h1>Case studies</h1>
-    <p class="text-leading page-intro">
-      A selection of career case studies across design systems, accessibility, and DesignOps.
-    </p>
+    <PageIntro>
+      <p>A selection of career case studies across design systems, accessibility, and DesignOps.</p>
+    </PageIntro>
     {sorted.length > 0 && (
-      <div class="cs-card-section">
+      <CaseStudyGrid>
         {sorted.map((study) => (
           <CaseStudyCard
             variant="featured"
@@ -34,7 +36,7 @@ const sorted = featuredStudy ? [featuredStudy, ...nonFeatured] : nonFeatured;
             headingLevel={2}
           />
         ))}
-      </div>
+      </CaseStudyGrid>
     )}
   </main>
 </Layout>

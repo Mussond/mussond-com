@@ -10,6 +10,7 @@
 @import "./components/tag.css";
 @import "./components/icon-button.css";
 @import "./components/sidebar.css";
+@import "./components/site-header.css";
 @import "./components/footer.css";
 @import "./components/prose.css";
 @import "./components/theme-drawer.css";
@@ -23,4 +24,5 @@
 @import "./components/guide-card.css";
 @import "./components/log-card.css";
 @import "./components/pull-quote.css";
+@import "./components/error-page.css";
 @import "./components/component-showcase.css";

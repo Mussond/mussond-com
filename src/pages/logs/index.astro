@@ -1,6 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import LogCard from '../../components/LogCard.astro';
+import LogCardFeed from '../../components/LogCardFeed.astro';
+import PageIntro from '../../components/PageIntro.astro';
 import { getCollection } from 'astro:content';
 
 const logs = await getCollection('logs');
@@ -10,10 +12,10 @@ const sorted = logs.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()
 <Layout title="Logs — Dave Musson" description="Reference lists I keep returning to. Curated, not comprehensive. Last reviewed per list.">
   <main id="main-content" class="container page-content">
     <h1>Logs</h1>
-    <p class="text-leading page-intro">
-      Reference lists I keep returning to. Curated, not comprehensive. Last reviewed per list.
-    </p>
-    <ul class="log-card-list">
+    <PageIntro>
+      <p>Reference lists I keep returning to. Curated, not comprehensive. Last reviewed per list.</p>
+    </PageIntro>
+    <LogCardFeed>
       {sorted.map((log) => {
         const year = (log.data.updatedAt ?? log.data.date).getFullYear();
         return (
@@ -28,6 +30,6 @@ const sorted = logs.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()
           </li>
         );
       })}
-    </ul>
+    </LogCardFeed>
   </main>
 </Layout>

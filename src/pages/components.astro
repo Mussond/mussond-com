@@ -6,6 +6,7 @@ import BackLink from '../components/BackLink.astro';
 import Button from '../components/Button.astro';
 import Card from '../components/Card.astro';
 import CaseStudyCard from '../components/CaseStudyCard.astro';
+import CaseStudyGrid from '../components/CaseStudyGrid.astro';
 import DisplayControls from '../components/DisplayControls.astro';
 import EthosList from '../components/EthosList.astro';
 import GuideCard from '../components/GuideCard.astro';
@@ -68,7 +69,7 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
     </p>
     <div class="component-showcase">
       <p class="component-showcase__caption">Featured + secondary, with cover blocks</p>
-      <div class="cs-card-section">
+      <CaseStudyGrid>
         <CaseStudyCard
           variant="featured"
           href="#"
@@ -79,7 +80,7 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
           cover={{ slug: 'aviva', label: 'GLOBAL ATOMIC', meta: '2022–2024 · Design system' }}
           headingLevel={3}
         />
-        <div class="cs-secondary-grid">
+        <Fragment slot="secondary">
           <CaseStudyCard
             variant="secondary"
             href="#"
@@ -100,8 +101,8 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
             cover={{ slug: 'checkoutcom', label: 'INFINITY', meta: '2018–2020 · Design system' }}
             headingLevel={3}
           />
-        </div>
-      </div>
+        </Fragment>
+      </CaseStudyGrid>
     </div>
 
     <h2 id="display-controls-heading">DisplayControls</h2>
