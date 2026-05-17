@@ -34,7 +34,7 @@ const logs = await getCollection('logs');
 const sortedLogs = logs
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 2)
-  .map((log) => ({ ...log, year: (log.data.updatedAt ?? log.data.date).getFullYear() }));
+.map((log) => ({ ...log, year: (log.data.updatedAt ?? log.data.date).getFullYear(), href: log.data.externalUrl ?? `/logs/${log.id}` }));
 ---
 
 <Layout
@@ -126,10 +126,11 @@ const sortedLogs = logs
         {sortedLogs.map((log) => (
           <li>
             <LogCard
-              href={`/logs/${log.id}`}
+              href={log.href}
               title={log.data.title}
               description={log.data.description}
               year={log.year}
+              external={!!log.data.externalUrl}
             />
           </li>
         ))}
