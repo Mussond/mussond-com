@@ -101,6 +101,20 @@
   margin: 0;
 }
 
+/* ── External icon ──────────────────────────────────────────── */
+
+.log-card__external-icon {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  margin-inline-start: 0.3em;
+  translate: 0 -0.1em;
+}
+
+.log-card__external-icon svg {
+  display: block;
+}
+
 /* ── Meta — year ────────────────────────────────────────────── */
 
 .log-card__meta {

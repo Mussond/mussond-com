@@ -21,11 +21,12 @@ const sorted = logs.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()
         return (
           <li>
             <LogCard
-              href={`/logs/${log.id}`}
+              href={log.data.externalUrl ?? `/logs/${log.id}`}
               title={log.data.title}
               description={log.data.description}
               year={year}
               headingLevel={2}
+              external={!!log.data.externalUrl}
             />
           </li>
         );

@@ -46,6 +46,7 @@ const logs = defineCollection({
     tags: z.array(z.string()),
     date: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
+    externalUrl: z.string().url().optional(),
   }),
 });
 
