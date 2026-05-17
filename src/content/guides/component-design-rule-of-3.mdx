@@ -1,0 +1,431 @@
+---
+title: "Component design: the Rule of 3"
+description: "A cheap QA method that stress-tests components for translation, zoom and unknown future use cases — before they ship."
+tags: ["Design Systems", "Component library", "Internationalisation", "Accessibility"]
+date: 2026-05-17
+---
+
+import CaseStudyCard from '../../components/CaseStudyCard.astro';
+import CaseStudyGrid from '../../components/CaseStudyGrid.astro';
+import DisplayControls from '../../components/DisplayControls.astro';
+
+export const tripleW = (s) =>
+  [...s].map((c) => (c === ' ' ? '   ' : 'WWW')).join('') + 'WW';
+
+export const baselineTitle = 'Sample featured case study';
+export const baselineDesc = 'A short summary that wraps onto two lines when the description is more than a sentence.';
+export const baselineTag1 = 'Design systems';
+export const baselineTag2 = 'Strategy';
+
+export const contrastBaseline = [
+  { value: 'low', label: 'Low' },
+  { value: 'high', label: 'High -beta' },
+  { value: 'decorative', label: 'Decorative - beta' },
+  { value: 'system', label: 'System' },
+];
+export const themeBaseline = [
+  { value: 'system', label: 'System' },
+  { value: 'light', label: 'Light' },
+  { value: 'dark', label: 'Dark' },
+];
+
+export const contrastTripled = contrastBaseline.map((o) => ({ ...o, label: tripleW(o.label) }));
+export const themeTripled = themeBaseline.map((o) => ({ ...o, label: tripleW(o.label) }));
+
+export const contrastFnTripled = [
+  ...contrastBaseline,
+  { value: 'inverted', label: 'Inverted' },
+  { value: 'forced', label: 'Forced colours' },
+  { value: 'sepia', label: 'Sepia' },
+  { value: 'monochrome', label: 'Monochrome' },
+  { value: 'grayscale', label: 'Greyscale' },
+  { value: 'ultra-high', label: 'Ultra-high' },
+  { value: 'reduced', label: 'Reduced' },
+  { value: 'paper', label: 'Paper' },
+];
+export const themeFnTripled = [
+  ...themeBaseline,
+  { value: 'sepia', label: 'Sepia' },
+  { value: 'auto-night', label: 'Auto night' },
+  { value: 'high-contrast-dark', label: 'High-contrast dark' },
+  { value: 'high-contrast-light', label: 'High-contrast light' },
+  { value: 'dim', label: 'Dim' },
+  { value: 'reading', label: 'Reading' },
+];
+
+export const ControlGroup = ({ legend, name, options, liveLabel }) => (
+  <fieldset class="display-controls__group">
+    <legend class="display-controls__legend">{legend}</legend>
+    <div class="display-controls__segment">
+      {options.map((o) => (
+        <label class="display-controls__chip">
+          <input
+            type="radio"
+            name={name}
+            value={o.value}
+            class="visually-hidden"
+            defaultChecked={o.value === options[0].value}
+          />
+          <span class="display-controls__chip-label">{o.label}</span>
+        </label>
+      ))}
+    </div>
+    <p class="display-controls__live" aria-live="polite" aria-atomic="true">
+      Currently: <em>{liveLabel}</em>
+    </p>
+  </fieldset>
+);
+
+## The problem
+
+When a component is created, the team rarely has clear sight of every use case it will be asked to cover. One feature triggers the need, the deadline is short, and translation, browser zoom and the next team's requirements are all "later" problems.
+
+Later arrives. The component needs an extra action, or a longer label, or a third image. The fix often involves a breaking API change. Every team consuming the first version has to react — on someone else's timeline. The cost lands outside the team that took the shortcut.
+
+## The Rule of 3
+
+The Rule of 3 is a cheap exercise that surfaces those problems before the component ships. Triple three things:
+
+1. **Three times the copy** — replace every text layer with capital W's, sized to triple the original character count plus two. W is the widest Latin glyph, so the result models the worst case for translation, accessibility text scaling and unforeseen long labels.
+2. **Three times the functions** — triple every action, button and link. Decide how the component absorbs the overflow.
+3. **Three times the content** — triple every content slot (image, tag, paragraph, icon). Decide what wraps, what caps, and what gets a "view more".
+
+What you get when you've done it:
+
+- Responsiveness across viewport sizes, devices and browser zoom
+- Headroom for translation, where copy lengths vary
+- Flexibility for additional use cases, supporting more functions and controls over time
+
+The rest of this guide runs the rule through two real components from this site, end-to-end.
+
+---
+
+## Worked example A — `CaseStudyCard`
+
+`CaseStudyCard` is the card used on the homepage and case-studies index. It has `featured` and `secondary` variants, a cover plate or image, title, description, tag list, year, and an optional stats row.
+
+<div class="component-showcase rule-of-3-showcase">
+  <p class="component-showcase__caption"><strong>Baseline</strong> — featured variant, English copy</p>
+  <CaseStudyGrid>
+    <CaseStudyCard
+      variant="featured"
+      href="#"
+      title={baselineTitle}
+      description={baselineDesc}
+      tags={[baselineTag1, baselineTag2]}
+      year={2024}
+      cover={{ slug: 'aviva', label: 'GLOBAL ATOMIC', meta: '2022–2024 · Design system' }}
+      headingLevel={3}
+    />
+  </CaseStudyGrid>
+</div>
+
+### Rule 1 — Three times the copy
+
+The steps:
+
+1. Count the characters in the original string, including spaces.
+2. Replace the string with capital W's: one per character.
+3. Triple the count.
+4. Add two more W's.
+5. Redesign anything that now breaks.
+
+| Step | Layer | Working |
+|------|-------|---------|
+| 1. Count | Title `"Sample featured case study"` | 26 characters incl. spaces |
+| 2. W's | Title | one W per character |
+| 3. Triple | Title | 78 W's |
+| 4. +2 | Title | `(3 × 26) + 2 = 80` W's |
+| 1. Count | Description | 86 characters incl. spaces |
+| 4. +2 | Description | `(3 × 86) + 2 = 260` W's |
+| 1. Count | Tag `"Design systems"` | 14 characters |
+| 4. +2 | Tag | `44` W's |
+| 1. Count | Tag `"Strategy"` | 8 characters |
+| 4. +2 | Tag | `26` W's |
+
+Step 5 — drop the W-strings back into the same component:
+
+<div class="component-showcase rule-of-3-showcase">
+  <p class="component-showcase__caption"><strong>Step 5.</strong> Same component, tripled copy</p>
+  <CaseStudyGrid>
+    <CaseStudyCard
+      variant="featured"
+      href="#"
+      title={tripleW(baselineTitle)}
+      description={tripleW(baselineDesc)}
+      tags={[tripleW(baselineTag1), tripleW(baselineTag2)]}
+      year={2024}
+      cover={{ slug: 'aviva', label: 'GLOBAL ATOMIC', meta: '2022–2024 · Design system' }}
+      headingLevel={3}
+    />
+  </CaseStudyGrid>
+</div>
+
+The redesign decisions surface immediately: does the title clamp at two lines with an ellipsis, or is the card allowed to grow vertically? The tag list wraps onto multiple rows — does it stop at a max row count and show `+N more`? The description height pushes the cover plate out of vertical rhythm — is that acceptable, or does the description need a clamp?
+
+### Rule 2 — Three times the functions
+
+The steps:
+
+1. Count every action, button and link inside the component.
+2. Triple the count.
+3. Decide how the component handles the overflow.
+
+The card is currently a single `<a>` wrapping the whole block.
+
+| Step | Action | Working |
+|------|--------|---------|
+| 1. Count | Whole-card link | 1 action |
+| 2. Triple | — | 3 actions |
+| 3. Redesign | "Open", "Save", "Share" | Adding a button inside `<a>` creates a nested interactive — invalid HTML and broken keyboard/AT semantics |
+
+Step 3 forces a structural decision before the third use case forces it in an emergency: the card is either a link, *or* it hosts inline actions — not both. A title-as-link with an action row below is the usual answer.
+
+### Rule 3 — Three times the content
+
+The steps:
+
+1. Count every content slot — images, tags, paragraphs, icons, stats, repeating children.
+2. Triple each count.
+3. Redesign with wrap rules, caps, or "view more" affordances. Some slots should triple gracefully; others should be capped.
+
+<div class="component-showcase rule-of-3-showcase">
+  <p class="component-showcase__caption"><strong>Step 1.</strong> Baseline — featured variant with one cover, one description, two tags, four stats</p>
+  <CaseStudyGrid>
+    <CaseStudyCard
+      variant="featured"
+      href="#"
+      title={baselineTitle}
+      description={baselineDesc}
+      tags={[baselineTag1, baselineTag2]}
+      year={2024}
+      cover={{ slug: 'aviva', label: 'GLOBAL ATOMIC', meta: '2022–2024 · Design system' }}
+      stats={[
+        { label: 'WCAG COMPLIANCE', value: 'AA' },
+        { label: 'THEMES SHIPPED', value: '2' },
+        { label: 'YEARS', value: '3' },
+        { label: 'TEAMS', value: '12' },
+      ]}
+      headingLevel={3}
+    />
+  </CaseStudyGrid>
+</div>
+
+| Step | Slot | Working |
+|------|------|---------|
+| 1. Count | Cover plate / image | 1 |
+| 2. Triple | Cover plate / image | 3 — but the card has one hero slot; cap at 1 |
+| 1. Count | Description | 1 |
+| 2. Triple | Description | 3 — clamp at 3 lines or accept the height |
+| 1. Count | Tags | 2 |
+| 2. Triple | Tags | 6 — wrap, or `+N more` chip |
+| 1. Count | Stats | 4 |
+| 2. Triple | Stats | 12 — wrap to multiple rows, or cap at 4 |
+
+Step 3 — push the multiplied content back into the same component:
+
+<div class="component-showcase rule-of-3-showcase">
+  <p class="component-showcase__caption"><strong>Step 3.</strong> Same component, 3× tags and 3× stats</p>
+  <CaseStudyGrid>
+    <CaseStudyCard
+      variant="featured"
+      href="#"
+      title={baselineTitle}
+      description={baselineDesc + ' ' + baselineDesc + ' ' + baselineDesc}
+      tags={[baselineTag1, baselineTag2, 'Tokens', 'Migration', 'Internationalisation', 'Accessibility']}
+      year={2024}
+      cover={{ slug: 'aviva', label: 'GLOBAL ATOMIC', meta: '2022–2024 · Design system' }}
+      stats={[
+        { label: 'WCAG COMPLIANCE', value: 'AA' },
+        { label: 'THEMES SHIPPED', value: '2' },
+        { label: 'YEARS', value: '3' },
+        { label: 'TEAMS', value: '12' },
+        { label: 'COMPONENTS', value: '94' },
+        { label: 'TOKENS', value: '312' },
+        { label: 'BREAKING CHANGES', value: '0' },
+        { label: 'CONSUMING APPS', value: '17' },
+        { label: 'CONTRIBUTORS', value: '28' },
+        { label: 'AXE PASS RATE', value: '99%' },
+        { label: 'A11Y BUGS CLOSED', value: '143' },
+        { label: 'STORIES PUBLISHED', value: '38' },
+      ]}
+      headingLevel={3}
+    />
+  </CaseStudyGrid>
+</div>
+
+The image slot proves the point about caps — adding a second hero would degrade scannability, so the design output is *"one image, that's the contract"* rather than a redesign. The tag list and stats grid each need an explicit overflow strategy. The description, tripled, breaks vertical rhythm.
+
+---
+
+## Worked example B — `DisplayControls`
+
+`DisplayControls` is the segmented control used in the homepage Display Settings panel and the theme drawer. Two fieldsets: **Contrast** (4 options) and **Colour mode** (3 options), plus an `aria-live` line reporting the active state.
+
+<div class="component-showcase rule-of-3-showcase">
+  <p class="component-showcase__caption"><strong>Baseline</strong> — `panel` variant</p>
+  <DisplayControls variant="panel" idPrefix="rule-of-3-dc-baseline" />
+</div>
+
+### Rule 1 — Three times the copy
+
+The component's options are hardcoded in source, so the demos below render the same markup with tripled labels rather than mutating the component. The CSS classes are unchanged — the layout breakage you see is real.
+
+| Step | Layer | Working |
+|------|-------|---------|
+| 1. Count | `"Low"` | 3 |
+| 4. +2 | `"Low"` | 11 W's |
+| 1. Count | `"High -beta"` | 10 |
+| 4. +2 | `"High -beta"` | 32 W's |
+| 1. Count | `"Decorative - beta"` | 17 |
+| 4. +2 | `"Decorative - beta"` | 53 W's |
+| 1. Count | `"System"` | 6 |
+| 4. +2 | `"System"` | 20 W's |
+| 1. Count | Live region `"Currently: low"` | 14 |
+| 4. +2 | Live region | 44 W's |
+
+Step 5 — push the W-strings into the markup:
+
+<div class="component-showcase rule-of-3-showcase">
+  <p class="component-showcase__caption"><strong>Step 5.</strong> Same markup, tripled labels</p>
+  <div class="display-controls display-controls--panel">
+    <ControlGroup
+      legend="Contrast"
+      name="rule-of-3-dc-copy-contrast"
+      options={contrastTripled}
+      liveLabel={tripleW('low')}
+    />
+    <ControlGroup
+      legend="Colour mode"
+      name="rule-of-3-dc-copy-theme"
+      options={themeTripled}
+      liveLabel={tripleW('system')}
+    />
+  </div>
+</div>
+
+The questions surface even before you touch source: does the chip row scroll, wrap, or push some options into a "More" menu? Does the live-region line clip, wrap, or sit inline next to the legend instead of beneath?
+
+### Rule 2 — Three times the functions
+
+Each option in a segmented group is one action. Contrast has 4, Colour mode has 3 — 7 actions in total.
+
+| Step | Group | Working |
+|------|-------|---------|
+| 1. Count | Contrast | 4 options |
+| 1. Count | Colour mode | 3 options |
+| 1. Count | Total | 7 options |
+| 2. Triple | Contrast | 12 options |
+| 2. Triple | Colour mode | 9 options |
+| 3. Redesign | Threshold | At what option count does the row stop being segmented and become a dropdown or a "More" menu? |
+
+Step 3 — render the same markup with tripled option counts and watch the segmented row break:
+
+<div class="component-showcase rule-of-3-showcase">
+  <p class="component-showcase__caption"><strong>Step 3.</strong> Same markup, tripled options (12 + 9)</p>
+  <div class="display-controls display-controls--panel">
+    <ControlGroup
+      legend="Contrast"
+      name="rule-of-3-dc-fn-contrast"
+      options={contrastFnTripled}
+      liveLabel="low"
+    />
+    <ControlGroup
+      legend="Colour mode"
+      name="rule-of-3-dc-fn-theme"
+      options={themeFnTripled}
+      liveLabel="system"
+    />
+  </div>
+</div>
+
+The decision: should the threshold be per-variant (`panel` collapses earlier than `drawer`), or a single rule the component enforces? Tripling forces an explicit answer, so the next time someone wants to add a fifth contrast mode the component already knows what to do.
+
+### Rule 3 — Three times the content
+
+The "content" for `DisplayControls` is the fieldset count. Two today; tripling implies six.
+
+| Step | Slot | Working |
+|------|------|---------|
+| 1. Count | Fieldsets | 2 (Contrast, Colour mode) |
+| 2. Triple | Fieldsets | 6 — plausible additions: Motion, Density, Text size, Language |
+| 3. Redesign | `panel` | Horizontal row has nowhere to put four more groups — cap at 2 + "More settings…" link, or stop being a panel above the threshold |
+| 3. Redesign | `drawer` | Add scroll, or section dividers with headings |
+
+Step 3 — render the same markup with six fieldsets:
+
+<div class="component-showcase rule-of-3-showcase">
+  <p class="component-showcase__caption"><strong>Step 3.</strong> Same markup, six fieldsets (`drawer` variant)</p>
+  <div class="display-controls display-controls--drawer">
+    <ControlGroup legend="Contrast" name="rule-of-3-dc-content-contrast" options={contrastBaseline} liveLabel="low" />
+    <ControlGroup legend="Colour mode" name="rule-of-3-dc-content-theme" options={themeBaseline} liveLabel="system" />
+    <ControlGroup
+      legend="Motion"
+      name="rule-of-3-dc-content-motion"
+      options={[
+        { value: 'reduced', label: 'Reduced' },
+        { value: 'system', label: 'System' },
+        { value: 'full', label: 'Full' },
+      ]}
+      liveLabel="system"
+    />
+    <ControlGroup
+      legend="Density"
+      name="rule-of-3-dc-content-density"
+      options={[
+        { value: 'compact', label: 'Compact' },
+        { value: 'regular', label: 'Regular' },
+        { value: 'comfortable', label: 'Comfortable' },
+      ]}
+      liveLabel="regular"
+    />
+    <ControlGroup
+      legend="Text size"
+      name="rule-of-3-dc-content-text"
+      options={[
+        { value: 'sm', label: 'Small' },
+        { value: 'md', label: 'Medium' },
+        { value: 'lg', label: 'Large' },
+        { value: 'xl', label: 'Extra large' },
+      ]}
+      liveLabel="medium"
+    />
+    <ControlGroup
+      legend="Language"
+      name="rule-of-3-dc-content-lang"
+      options={[
+        { value: 'en', label: 'English' },
+        { value: 'de', label: 'Deutsch' },
+        { value: 'fr', label: 'Français' },
+        { value: 'ja', label: '日本語' },
+      ]}
+      liveLabel="English"
+    />
+  </div>
+</div>
+
+In `drawer` the column simply gets longer — manageable with a scroll region or section headings. In `panel` (horizontal) six fieldsets is unworkable, so the redesign is structural: cap the panel and link out to a fuller settings surface.
+
+---
+
+## When to set limits
+
+Not every slot should triple gracefully. Some have a usability ceiling — a card with five hero images is harder to scan than one with one. The output of the content rule is sometimes a *cap*: an explicit "this slot accepts at most N" rule, written into the component's documentation. Setting a limit is a valid result, not a failure of the exercise.
+
+## What you get
+
+A component designed with the Rule of 3 supports:
+
+- Responsiveness across viewport sizes, devices and browser zoom
+- Multiple languages, where copy lengths vary
+- Flexibility for additional use cases, supporting more functions and controls over time
+
+The first system I introduced this on saw component lifespans increase noticeably between breaking revisions, and consuming teams stopped waiting on translated copy to find layout issues. The cost is one afternoon per component up-front. The payoff is months of avoided refactors and a system that defends its own cohesion as teams add use cases.
+
+## Get the skill
+
+The Rule of 3 is also packaged as a Claude skill that runs the exercise live in Figma — checks the connection, walks you through curating which variants to test, then builds three Sections in the file (Copy, Functions, Content) populated with stressed instances. It writes nothing outside those three Sections, so cleanup is a single selection-and-delete.
+
+**[Download `rule-of-3.zip`](/downloads/rule-of-3.zip)**
+
+To install: unzip into your local Claude skills directory (e.g. `~/.claude/skills/`). Open Figma, connect the `figma-console-local` plugin, and ask Claude to *"run rule of 3 on this component"*.

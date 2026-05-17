@@ -27,7 +27,7 @@ const caseStudies = defineCollection({
 });
 
 const guides = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/guides' }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/guides' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
