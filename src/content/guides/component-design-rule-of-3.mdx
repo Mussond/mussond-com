@@ -1,6 +1,6 @@
 ---
 title: "Component design: the Rule of 3"
-description: "A cheap QA method that stress-tests components for translation, zoom and unknown future use cases — before they ship."
+description: "A cheap stress test that surfaces translation, zoom and future use-case fragility before a component ships."
 tags: ["Design Systems", "Component library", "Internationalisation", "Accessibility"]
 date: 2026-05-17
 ---
@@ -78,15 +78,15 @@ export const ControlGroup = ({ legend, name, options, liveLabel }) => (
 
 ## The problem
 
-When a component is created, the team rarely has clear sight of every use case it will be asked to cover. One feature triggers the need, the deadline is short, and translation, browser zoom and the next team's requirements are all "later" problems.
+When a component is first built, the team rarely sees every use case it will eventually have to cover. One feature triggers the need, the deadline is short, and translation, browser zoom and the next team's requirements are all "later" problems.
 
-Later arrives. The component needs an extra action, or a longer label, or a third image. The fix often involves a breaking API change. Every team consuming the first version has to react — on someone else's timeline. The cost lands outside the team that took the shortcut.
+When later arrives. The component might need an extra action, a menu, DOM changes, a longer label or more images. The additions can be a breaking change to the code API or Figma composition. Every consuming team then has to react; in effect, the cost lands outside the team that took the shortcut.
 
 ## The Rule of 3
 
-The Rule of 3 is a cheap exercise that surfaces those problems before the component ships. Triple three things:
+The Rule of 3 is a cheap exercise that surfaces those breakages before the component ships. Triple three things:
 
-1. **Three times the copy** — replace every text layer with capital W's, sized to triple the original character count plus two. W is the widest Latin glyph, so the result models the worst case for translation, accessibility text scaling and unforeseen long labels.
+1. **Three times the copy** — replace every text layer with capital W's — three per original character, plus two. W is the widest Latin glyph, so the result models the worst case for translation, text scaling and unexpectedly long labels.
 2. **Three times the functions** — triple every action, button and link. Decide how the component absorbs the overflow.
 3. **Three times the content** — triple every content slot (image, tag, paragraph, icon). Decide what wraps, what caps, and what gets a "view more".
 
@@ -161,7 +161,7 @@ Step 5 — drop the W-strings back into the same component:
   </CaseStudyGrid>
 </div>
 
-The redesign decisions surface immediately: does the title clamp at two lines with an ellipsis, or is the card allowed to grow vertically? The tag list wraps onto multiple rows — does it stop at a max row count and show `+N more`? The description height pushes the cover plate out of vertical rhythm — is that acceptable, or does the description need a clamp?
+The decisions surface immediately. Does the title clamp at two lines with an ellipsis, or does the card grow vertically? The tag list wraps onto multiple rows — does it cap at a max row count and show `+N more`? The description pushes the cover plate out of vertical rhythm — is that acceptable, or does the description need a clamp?
 
 ### Rule 2 — Three times the functions
 
@@ -179,7 +179,7 @@ The card is currently a single `<a>` wrapping the whole block.
 | 2. Triple | — | 3 actions |
 | 3. Redesign | "Open", "Save", "Share" | Adding a button inside `<a>` creates a nested interactive — invalid HTML and broken keyboard/AT semantics |
 
-Step 3 forces a structural decision before the third use case forces it in an emergency: the card is either a link, *or* it hosts inline actions — not both. A title-as-link with an action row below is the usual answer.
+Step 3 forces a structural decision in calm conditions rather than under deadline pressure: the card is either a link, *or* it hosts inline actions — not both. A title-as-link with an action row below is the usual answer.
 
 ### Rule 3 — Three times the content
 
@@ -254,7 +254,7 @@ Step 3 — push the multiplied content back into the same component:
   </CaseStudyGrid>
 </div>
 
-The image slot proves the point about caps — adding a second hero would degrade scannability, so the design output is *"one image, that's the contract"* rather than a redesign. The tag list and stats grid each need an explicit overflow strategy. The description, tripled, breaks vertical rhythm.
+The image slot proves the point about caps: a second hero would hurt scannability, so the output is a contract — *one image, that's it* — not a redesign. The tag list and stats grid each need an explicit overflow strategy. The tripled description breaks vertical rhythm.
 
 ---
 
@@ -269,7 +269,7 @@ The image slot proves the point about caps — adding a second hero would degrad
 
 ### Rule 1 — Three times the copy
 
-The component's options are hardcoded in source, so the demos below render the same markup with tripled labels rather than mutating the component. The CSS classes are unchanged — the layout breakage you see is real.
+The component's options are hardcoded, so the demos below render the same markup with tripled labels rather than mutating the component itself. The CSS is unchanged — the layout breakage is real.
 
 | Step | Layer | Working |
 |------|-------|---------|
@@ -304,7 +304,7 @@ Step 5 — push the W-strings into the markup:
   </div>
 </div>
 
-The questions surface even before you touch source: does the chip row scroll, wrap, or push some options into a "More" menu? Does the live-region line clip, wrap, or sit inline next to the legend instead of beneath?
+The questions surface before you touch the code. Does the chip row scroll, wrap, or push overflow into a "More" menu? Does the live-region line clip, wrap, or sit inline next to the legend rather than beneath it?
 
 ### Rule 2 — Three times the functions
 
@@ -339,7 +339,7 @@ Step 3 — render the same markup with tripled option counts and watch the segme
   </div>
 </div>
 
-The decision: should the threshold be per-variant (`panel` collapses earlier than `drawer`), or a single rule the component enforces? Tripling forces an explicit answer, so the next time someone wants to add a fifth contrast mode the component already knows what to do.
+The decision: should the threshold be per-variant (`panel` collapses earlier than `drawer`), or a single rule the component enforces? Tripling forces an explicit answer up front, so when someone wants to add a fifth contrast mode the component already knows what to do.
 
 ### Rule 3 — Three times the content
 
@@ -410,7 +410,7 @@ In `drawer` the column simply gets longer — manageable with a scroll region or
 
 ## When to set limits
 
-Not every slot should triple gracefully. Some have a usability ceiling — a card with five hero images is harder to scan than one with one. The output of the content rule is sometimes a *cap*: an explicit "this slot accepts at most N" rule, written into the component's documentation. Setting a limit is a valid result, not a failure of the exercise.
+Not every slot should triple gracefully. Some have a usability ceiling — a card with five hero images scans worse than a card with one. The output of the content rule is sometimes a *cap*: an explicit "this slot accepts at most N" rule, written into the component's documentation. A cap is a valid result, not a failure of the exercise.
 
 ## What you get
 
@@ -420,11 +420,11 @@ A component designed with the Rule of 3 supports:
 - Multiple languages, where copy lengths vary
 - Flexibility for additional use cases, supporting more functions and controls over time
 
-The first system I introduced this on saw component lifespans increase noticeably between breaking revisions, and consuming teams stopped waiting on translated copy to find layout issues. The cost is one afternoon per component up-front. The payoff is months of avoided refactors and a system that defends its own cohesion as teams add use cases.
+On the first system I introduced this to, component lifespans between breaking revisions grew noticeably, and consuming teams stopped waiting on translated copy to find layout issues. The cost is one afternoon per component up-front. The payoff is months of avoided refactors and a system that holds its shape as teams add use cases.
 
 ## Get the skill
 
-The Rule of 3 is also packaged as a Claude skill that runs the exercise live in Figma — checks the connection, walks you through curating which variants to test, then builds three Sections in the file (Copy, Functions, Content) populated with stressed instances. It writes nothing outside those three Sections, so cleanup is a single selection-and-delete.
+The Rule of 3 is also packaged as a Claude skill that runs the exercise live in Figma. It checks the connection, walks you through which variants to test, then builds three Sections in the file (Copy, Functions, Content) populated with stressed instances. The skill writes nothing outside those three Sections, so cleanup is one selection and a delete.
 
 **[Download `rule-of-3.zip`](/downloads/rule-of-3.zip)**
 
