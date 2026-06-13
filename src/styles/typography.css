@@ -15,7 +15,7 @@
    Realignment is a future sprint, not this one.
    ============================================ */
 
-/* ── Headings (Instrument Serif, regular) ─────────────── */
+/* ── Headings (Fraunces, regular) ─────────────── */
 
 .text-heading-xl {
   font-family: var(--font-serif);
@@ -44,7 +44,7 @@
   letter-spacing: 0;
 }
 
-/* ── Quotes / display (Instrument Serif, italic) ─────── */
+/* ── Quotes / display (Fraunces, italic) ─────── */
 
 .text-quote-xl {
   font-family: var(--font-serif);
@@ -64,7 +64,7 @@
   letter-spacing: 0;
 }
 
-/* ── Body (Geist Sans) ───────────────────────────────── */
+/* ── Body (Source Sans 3) ──────────────────────────────── */
 
 .text-body {
   font-family: var(--font-sans);
@@ -82,7 +82,7 @@
   letter-spacing: 0;
 }
 
-/* ── Eyebrow / labels (Geist Mono) ───────────────────── */
+/* ── Eyebrow / labels (Source Sans 3 via --font-mono) ── */
 
 .text-eyebrow {
   font-family: var(--font-mono);
@@ -110,7 +110,7 @@
   letter-spacing: 0;
 }
 
-/* ── Actions (Geist Sans, semibold) ──────────────────── */
+/* ── Actions (Source Sans 3, semibold) ───────────────── */
 
 .text-action {
   font-family: var(--font-sans);

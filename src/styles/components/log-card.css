@@ -1,7 +1,7 @@
 /* ============================================
    LOG CARD — feed
    Horizontal flow: body / meta.
-   Title in Instrument Serif Regular ~22px per Figma v2.
+   Title in Fraunces Regular ~22px per Figma v2.
    ============================================ */
 
 /* ── Feed wrapper ───────────────────────────────────────────── */
@@ -65,7 +65,7 @@
   min-width: 0;
 }
 
-/* ── Title — Instrument Serif Regular ~22px ─────────────────── */
+/* ── Title — Fraunces Regular ~22px ─────────────────── */
 
 .log-card__title {
   font-family: var(--font-serif);

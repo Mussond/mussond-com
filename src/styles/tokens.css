@@ -80,9 +80,9 @@
    swap during loading stays CLS-quiet, then falls through to system and
    generic families. */
 @theme {
-  --font-sans:  'Geist Sans',         'Geist Sans Fallback',         system-ui, sans-serif;
-  --font-serif: 'Instrument Serif',   'Instrument Serif Fallback',   Georgia, serif;
-  --font-mono:  'Geist Mono',         'Geist Mono Fallback',         ui-monospace, SFMono-Regular, monospace;
+  --font-sans:  'Source Sans 3',     'Source Sans 3 Fallback',      system-ui, sans-serif;
+  --font-serif: 'Fraunces',           'Fraunces Fallback',           Georgia, serif;
+  --font-mono:  'Source Sans 3',     'Source Sans 3 Fallback',      system-ui, sans-serif;
 
   /* Scale — existing values preserved; xs / sm / 3xl added for the new
      sidebar mono labels, tag/caption rows, and the serif hero statement
@@ -94,7 +94,7 @@
   --text-lg:    1.3125rem; /* 21px — leading paragraph, drawer body */
   --text-xl:    2.1875rem; /* 35px — h2 */
   --text-2xl:   3.0625rem; /* 49px — h1 */
-  --text-3xl:   4rem;      /* 64px — Instrument Serif italic hero statement */
+  --text-3xl:   4rem;      /* 64px — Fraunces italic hero statement */
 }
 
 :root {

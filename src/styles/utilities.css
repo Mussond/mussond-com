@@ -9,7 +9,11 @@
 }
 
 .page-content {
-  padding-block: 4rem;
+  padding-block: 6rem 4rem;   /* was: 4rem (both sides) */
+}
+
+.page-content:has(.back-link) {
+  padding-block-start: 2.5rem;   /* 2.5rem + ~1.5rem backlink + 2rem margin ≈ 6rem */
 }
 
 .page-intro {
