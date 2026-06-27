@@ -29,7 +29,7 @@
 <rect width="1104" height="0.5" transform="translate(0 52)" fill="black" fill-opacity="0.2"/>
 <rect width="1104" height="0.5" transform="translate(0 52.5)" fill="black" fill-opacity="0.1"/>
 </g>
-<rect x="0.5" y="0.5" width="1103" height="767" stroke="#90908C"/>
+<rect x="0.5" y="0.5" width="1103" height="767"/>
 </g>
 <defs>
 <filter id="filter0_b_730_13973" x="-48" y="-48" width="1200" height="148" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
