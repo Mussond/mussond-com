@@ -1,5 +1,5 @@
 ---
-title: "The Four Accessibility principles (simplified))"
+title: "The Four Accessibility principles (simplified)"
 description: "Accessibility principles starter version used to frame initial accessibility conversations"
 tags: ["Accessibility", "POUR", "Principles"]
 date: 2022-09-14
