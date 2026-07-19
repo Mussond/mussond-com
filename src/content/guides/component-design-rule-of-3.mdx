@@ -1,6 +1,6 @@
 ---
 title: "Component design: the Rule of 3"
-description: "A cheap stress test that surfaces translation, zoom and future use-case fragility before a component ships."
+description: "A simple stress test to spot issues with translation, zoom, and future use cases before you ship a component."
 tags: ["Design Systems", "Component library", "Internationalisation", "Accessibility"]
 date: 2026-05-17
 ---
@@ -78,31 +78,31 @@ export const ControlGroup = ({ legend, name, options, liveLabel }) => (
 
 ## The problem
 
-When a component is first built, the team rarely sees every use case it will eventually have to cover. One feature triggers the need, the deadline is short, and translation, browser zoom and the next team's requirements are all "later" problems.
+When a component is first built, the design system team cannot see every situation it will need to handle. Usually, one feature starts the work. Deadlines are short, so translation, browser zoom, and future needs are often left for later.
 
-When later arrives. The component might need an extra action, a menu, DOM changes, a longer label or more images. The additions can be a breaking change to the code API or Figma composition. Every consuming team then has to react; in effect, the cost lands outside the team that took the shortcut.
+When 'later' finally comes, the component might need a new action, a menu, code changes, a longer label, or more images. These changes can break the code or the Figma design. Other teams must fix these problems, even if they did not cause them.
 
 ## The Rule of 3
 
-The Rule of 3 is a cheap exercise that surfaces those breakages before the component ships. Triple three things:
+The Rule of 3 is a quick exercise that helps you find these problems before you ship a component. Triple three things:
 
-1. **Three times the copy** — replace every text layer with capital W's — three per original character, plus two. W is the widest Latin glyph, so the result models the worst case for translation, text scaling and unexpectedly long labels.
-2. **Three times the functions** — triple every action, button and link. Decide how the component absorbs the overflow.
-3. **Three times the content** — triple every content slot (image, tag, paragraph, icon). Decide what wraps, what caps, and what gets a "view more".
+1. **Three times the copy:** Replace every text layer with capital W's—three for each original character, plus two more. W is the widest letter. This helps test for long translations, larger text, and long labels.
+2. **Three times the functions:** Add three times more actions, buttons, and links. This is to decide how the component will handle these extra items and ensure it will be accessible for reflow size increases ([WCAG 1.4.10](https://www.w3.org/WAI/WCAG21/Understanding/reflow.html)).
+3. **Three times the content:** Make three times more of every content type, like images, tags, paragraphs, and icons. Decide what should wrap to a new line, what should have a limit, and what should show a "view more" option.
 
 What you get when you've done it:
 
-- Responsiveness across viewport sizes, devices and browser zoom
-- Headroom for translation, where copy lengths vary
-- Flexibility for additional use cases, supporting more functions and controls over time
+- It works across different screen sizes and devices, and with browser zoom.
+- It has space for translations, where text can be longer or shorter.
+- Flexibility for additional use cases, with more functions and controls over time
 
-The rest of this guide runs the rule through two real components from this site, end-to-end.
+The rest of this guide walks through the Rule of 3 using two real components from this site, step by step, starting with `CaseStudyCard` and then `DisplayControls`.
 
 ---
 
 ## Worked example A — `CaseStudyCard`
 
-`CaseStudyCard` is the card used on the homepage and case-studies index. It has `featured` and `secondary` variants, a cover plate or image, title, description, tag list, year, and an optional stats row.
+`CaseStudyCard` is the card you see on the homepage and the case studies index. It comes in `featured` and `secondary` versions and includes a cover plate or image, title, description, tag list, year, and an optional stats row.
 
 <div class="component-showcase rule-of-3-showcase">
   <p class="component-showcase__caption"><strong>Baseline</strong> — featured variant, English copy</p>
@@ -161,7 +161,7 @@ Step 5 — drop the W-strings back into the same component:
   </CaseStudyGrid>
 </div>
 
-The decisions surface immediately. Does the title clamp at two lines with an ellipsis, or does the card grow vertically? The tag list wraps onto multiple rows — does it cap at a max row count and show `+N more`? The description pushes the cover plate out of vertical rhythm — is that acceptable, or does the description need a clamp?
+You'll see the decisions right away. Does the title stop at two lines with an ellipsis, or does the card get taller? The tag list might wrap onto more rows — should it have a maximum and show `+N more`? If the description pushes the cover plate out of alignment, is that okay, or should it be limited?
 
 ### Rule 2 — Three times the functions
 
@@ -171,7 +171,7 @@ The steps:
 2. Triple the count.
 3. Decide how the component handles the overflow.
 
-The card is currently a single `<a>` wrapping the whole block.
+The card currently uses a single `<a>` to wrap the whole block.
 
 | Step | Action | Working |
 |------|--------|---------|
@@ -179,7 +179,7 @@ The card is currently a single `<a>` wrapping the whole block.
 | 2. Triple | — | 3 actions |
 | 3. Redesign | "Open", "Save", "Share" | Adding a button inside `<a>` creates a nested interactive — invalid HTML and broken keyboard/AT semantics |
 
-Step 3 forces a structural decision in calm conditions rather than under deadline pressure: the card is either a link, *or* it hosts inline actions — not both. A title-as-link with an action row below is the usual answer.
+Step 3 helps you make a structural decision before you're under deadline pressure. The card can either be a link or have inline actions, but not both. Usually, the title is a link, and there's an action row below.
 
 ### Rule 3 — Three times the content
 
@@ -187,7 +187,7 @@ The steps:
 
 1. Count every content slot — images, tags, paragraphs, icons, stats, repeating children.
 2. Triple each count.
-3. Redesign with wrap rules, caps, or "view more" affordances. Some slots should triple gracefully; others should be capped.
+3. Redesign using wrap rules, limits, or "view more" options. Some slots can easily handle tripling, but others should have a cap.
 
 <div class="component-showcase rule-of-3-showcase">
   <p class="component-showcase__caption"><strong>Step 1.</strong> Baseline — featured variant with one cover, one description, two tags, four stats</p>
@@ -254,7 +254,7 @@ Step 3 — push the multiplied content back into the same component:
   </CaseStudyGrid>
 </div>
 
-The image slot proves the point about caps: a second hero would hurt scannability, so the output is a contract — *one image, that's it* — not a redesign. The tag list and stats grid each need an explicit overflow strategy. The tripled description breaks vertical rhythm.
+The image slot shows why limits matter: adding a second main image would make the card harder to scan, so the rule is simple — one image only. The tag list and stats grid each need a clear overflow plan. Tripling the description breaks the vertical rhythm.
 
 ---
 
@@ -269,7 +269,7 @@ The image slot proves the point about caps: a second hero would hurt scannabilit
 
 ### Rule 1 — Three times the copy
 
-The component's options are hardcoded, so the demos below render the same markup with tripled labels rather than mutating the component itself. The CSS is unchanged — the layout breakage is real.
+The component's options are hardcoded, so the demos below use the same markup with tripled labels rather than changing the component itself. The CSS stays the same, so any layout problems you see are real.
 
 | Step | Layer | Working |
 |------|-------|---------|
@@ -304,11 +304,11 @@ Step 5 — push the W-strings into the markup:
   </div>
 </div>
 
-The questions surface before you touch the code. Does the chip row scroll, wrap, or push overflow into a "More" menu? Does the live-region line clip, wrap, or sit inline next to the legend rather than beneath it?
+You'll notice the questions before you even touch the code. Does the chip row scroll, wrap, or move extra items into a "More" menu? Does the live-region line get cut off, wrap, or sit next to the legend instead of below it? Define the overflow decision for each part.
 
 ### Rule 2 — Three times the functions
 
-Each option in a segmented group is one action. Contrast has 4, Colour mode has 3 — 7 actions in total.
+Each option in a segmented group is one action. Contrast has 4; Colour mode has 3 — 7 actions in total.
 
 | Step | Group | Working |
 |------|-------|---------|
@@ -339,7 +339,7 @@ Step 3 — render the same markup with tripled option counts and watch the segme
   </div>
 </div>
 
-The decision: should the threshold be per-variant (`panel` collapses earlier than `drawer`), or a single rule the component enforces? Tripling forces an explicit answer up front, so when someone wants to add a fifth contrast mode the component already knows what to do.
+Now you have to decide: should the limit be different for each variant, or should there be one rule for the whole component? Tripling makes you answer this early, so if someone wants to add a fifth contrast mode, the component is ready.
 
 ### Rule 3 — Three times the content
 
@@ -404,13 +404,13 @@ Step 3 — render the same markup with six fieldsets:
   </div>
 </div>
 
-In `drawer` the column simply gets longer — manageable with a scroll region or section headings. In `panel` (horizontal) six fieldsets is unworkable, so the redesign is structural: cap the panel and link out to a fuller settings surface.
+In the `drawer`, the column just gets longer, which you can handle with a scroll area or section headings. In the `panel`, six fieldsets don't fit, so you need a structural change: limit the panel and link to a more complete settings page.
 
 ---
 
 ## When to set limits
 
-Not every slot should triple gracefully. Some have a usability ceiling — a card with five hero images scans worse than a card with one. The output of the content rule is sometimes a *cap*: an explicit "this slot accepts at most N" rule, written into the component's documentation. A cap is a valid result, not a failure of the exercise.
+Not every slot can handle tripling well. Some have a usability limit — a card with five main images is harder to scan than one with just one. Sometimes, the result of the content rule is a limit: a clear "this slot accepts at most N" rule in the component's documentation. Set the overflow decision as a cap when needed. Setting a cap is a valid outcome, not a failure.
 
 ## What you get
 
@@ -420,12 +420,10 @@ A component designed with the Rule of 3 supports:
 - Multiple languages, where copy lengths vary
 - Flexibility for additional use cases, supporting more functions and controls over time
 
-On the first system I introduced this to, component lifespans between breaking revisions grew noticeably, and consuming teams stopped waiting on translated copy to find layout issues. The cost is one afternoon per component up-front. The payoff is months of avoided refactors and a system that holds its shape as teams add use cases.
+When I first used this approach, components lasted much longer before needing major changes, and teams no longer had to wait for translated copy to spot layout problems. It takes about an afternoon per component up front, but saves months of refactoring and keeps the system stable as teams add new use cases.
 
 ## Get the skill
 
-The Rule of 3 is also packaged as a Claude skill that runs the exercise live in Figma. It checks the connection, walks you through which variants to test, then builds three Sections in the file (Copy, Functions, Content) populated with stressed instances. The skill writes nothing outside those three Sections, so cleanup is one selection and a delete.
+The Rule of 3 is also available as a Claude skill that runs the exercise live in Figma. It checks the connection, guides you through which variants to test, and creates three sections in the file (Copy, Functions, Content) filled with stressed examples.
 
-**[Download `rule-of-3.zip`](/downloads/rule-of-3.zip)**
-
-To install: unzip into your local Claude skills directory (e.g. `~/.claude/skills/`). Open Figma, connect the `figma-console-local` plugin, and ask Claude to *"run rule of 3 on this component"*.
+**[Get the skill on GitHub](https://github.com/Mussond/skills/tree/main/rule-of-3)**
