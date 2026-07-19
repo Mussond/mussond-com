@@ -61,6 +61,41 @@ html.dark .sidebar__monogram { color: var(--color-action-bg); }
   padding: 0.5rem;
 }
 
+/* Hamburger → X. Icon alone isn't the state signal — aria-expanded
+   and aria-label already carry that for assistive tech — but sighted
+   users get nothing today besides the body panel appearing below, so
+   the glyph itself needs to flip too. Origin is each line's own
+   midpoint in the 24x24 viewBox, set explicitly in px: `center`
+   keyword resolves against the shared viewBox by default, and
+   transform-box: fill-box (the per-element fix) is unreliable here
+   because a horizontal <line> has a zero-height geometry bbox. */
+.sidebar__menu-icon-line--top {
+  transform-origin: 12px 6px;
+}
+
+.sidebar__menu-icon-line--bottom {
+  transform-origin: 12px 18px;
+}
+
+.sidebar__menu-toggle[aria-expanded="true"] .sidebar__menu-icon-line--top {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.sidebar__menu-toggle[aria-expanded="true"] .sidebar__menu-icon-line--middle {
+  opacity: 0;
+}
+
+.sidebar__menu-toggle[aria-expanded="true"] .sidebar__menu-icon-line--bottom {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sidebar__menu-icon-line {
+    transition: transform var(--hover-grow-duration) var(--hover-grow-easing),
+                opacity var(--hover-grow-duration) var(--hover-grow-easing);
+  }
+}
+
 /* ============================================
    IDENTITY VARIANTS
    Shared name + tagline markup in two slots. CSS owns which
