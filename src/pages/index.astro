@@ -8,7 +8,6 @@ import LogCard from '../components/LogCard.astro';
 import LogCardFeed from '../components/LogCardFeed.astro';
 import Hero from '../components/Hero.astro';
 import HeroStats from '../components/HeroStats.astro';
-import DisplaySettings from '../components/DisplaySettings.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import { getCollection } from 'astro:content';
 
@@ -44,8 +43,6 @@ const sortedLogs = logs
   <main id="main-content">
 
     <Hero />
-
-    <DisplaySettings />
 
     <HeroStats />
 

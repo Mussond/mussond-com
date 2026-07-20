@@ -37,7 +37,7 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
 
     <PageIntro>
       <p>A reference of the components used on this site, mostly built during phase 6 QA. Each entry links to its source on GitHub.</p>
-      <p>Page-chrome components (Sidebar, Footer, SkipLink, ThemeDrawer, DisplaySettings) are linked only — they're already rendered as part of this page.</p>
+      <p>Page-chrome components (Sidebar, Footer, SkipLink) are linked only — they're already rendered as part of this page.</p>
     </PageIntro>
 
     <h2 id="backlink-heading">BackLink</h2>
@@ -107,18 +107,12 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
 
     <h2 id="display-controls-heading">DisplayControls</h2>
     <p class="component-meta">
-      Two segmented radio groups (Contrast + Colour mode) shared between the homepage panel and the theme drawer.
+      Segmented radio groups (Theme + Contrast + Flourish) rendered in the footer on every page. See the <a href="/#footer">footer</a>.
       <a href={`${repo}/DisplayControls.astro`}>View source on GitHub →</a>
     </p>
     <div class="component-showcase">
-      <DisplayControls variant="panel" idPrefix="components-page" />
+      <DisplayControls variant="footer" idPrefix="components-page" />
     </div>
-
-    <h2 id="display-settings-heading">DisplaySettings</h2>
-    <p class="component-meta">
-      Inline display-settings panel rendered on the homepage after the hero. Wraps DisplayControls with eyebrow + Hide/Show button. Visible on the <a href="/">homepage</a>.
-      <a href={`${repo}/DisplaySettings.astro`}>View source on GitHub →</a>
-    </p>
 
     <h2 id="ethos-list-heading">EthosList</h2>
     <p class="component-meta">
@@ -330,41 +324,6 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
       <TagList tags={['Accessibility', 'Design systems', 'Tokens']} size="xs" />
     </div>
 
-    <h2 id="theme-drawer-heading">ThemeDrawer</h2>
-    <p class="component-meta">
-      Modal dialog with full theme + contrast controls. Open via the theme toggle in the sidebar.
-      <a href={`${repo}/ThemeDrawer.astro`}>View source on GitHub →</a>
-    </p>
-
-    <h2 id="radio-group-heading">Radio group <span class="component-tag component-tag--experiment">Experiment</span></h2>
-        <TagList tags={['Experiment']} />
-
-    <p class="component-meta">
-      Native radio inputs with custom indicator styling. Used in the ThemeDrawer for theme and contrast selection. Rendered with <code>accent-color</code> for system-painted state.
-    </p>
-    <div class="component-showcase">
-      <fieldset class="theme-drawer__group">
-        <legend class="theme-drawer__legend">Contrast</legend>
-        <label class="theme-drawer__option">
-          <input type="radio" name="showcase-contrast" value="low" checked />
-          <span class="theme-drawer__option-label">Low</span>
-        </label>
-        <label class="theme-drawer__option">
-          <input type="radio" name="showcase-contrast" value="high" />
-          <span class="theme-drawer__option-label">High</span>
-        </label>
-        <label class="theme-drawer__option">
-          <input type="radio" name="showcase-contrast" value="decorative" />
-          <span class="theme-drawer__option-label">Decorative</span>
-          <span class="theme-drawer__warn">may fail WCAG AA</span>
-        </label>
-        <label class="theme-drawer__option">
-          <input type="radio" name="showcase-contrast" value="system" />
-          <span class="theme-drawer__option-label">System</span>
-        </label>
-      </fieldset>
-    </div>
-
     <!-- ============================================================
          BUTTON ICON TIMING — permanent test space
          Compares shipped icon-forward behaviour against a faster
@@ -417,6 +376,11 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
 
     <h2 id="legacy-heading">Legacy</h2>
     <p>Components that have been superseded but remain in the repo for reference.</p>
+
+    <h3 id="theme-drawer-heading">ThemeDrawer &amp; DisplaySettings</h3>
+    <p class="component-meta">
+      Removed in sprint 7.2 — theme/contrast/flourish controls now live in one <a href="#display-controls-heading">DisplayControls</a> instance in the footer on every page. Files deleted from the repo.
+    </p>
 
     <h3 id="card-heading">Card</h3>
     <p class="component-meta">

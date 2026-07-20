@@ -2,7 +2,7 @@
 // Hero — homepage opener. Eyebrow row pairs role with the keyboard
 // shortcut hint (platform-detected glyph). Stance follows v2: italic
 // serif, single line break, "usability amplifier" emphasised in amber.
-// Stats live in HeroStats.astro — DisplaySettings sits between them.
+// Stats live in HeroStats.astro, directly after this section.
 ---
 
 <section class="hero container" aria-label="Introduction">
@@ -11,7 +11,7 @@
       Principal designer · a11y &amp; design systems
     </p>
     <p class="hero__shortcut-hint text-eyebrow">
-      Press <kbd class="hero__kbd" data-kbd-glyph>⌥ + T</kbd> to toggle display settings
+      Press <kbd class="hero__kbd" data-kbd-glyph>⌥ + T</kbd> to jump to display settings
     </p>
   </div>
 
@@ -34,9 +34,7 @@
 <style>
   .hero {
     /* padding-block-start matches sidebar padding-block-start (2rem)
-       so the eyebrow row top aligns with the sidebar monogram top.
-       Bottom padding tightened — display-settings has its own
-       margin-block, so 4rem here doubled up. */
+       so the eyebrow row top aligns with the sidebar monogram top. */
     padding-block: 2rem 1.5rem;
     display: flex;
     flex-direction: column;

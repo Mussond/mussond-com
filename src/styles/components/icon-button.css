@@ -1,7 +1,6 @@
 /* ============================================
    ICON BUTTON
-   Circular outlined control for socials and the theme-drawer
-   opener. Pill focus ring with offset — matches Button
+   Circular outlined control for socials. Pill focus ring with offset — matches Button
    treatment exactly. In high-contrast the button reshapes into
    a visible text link with a sweep-in underline; icons alone
    stop carrying meaning at high contrast.
@@ -78,10 +77,8 @@ html.dark  .icon-button__theme-icon--moon { display: block; }
 
 /* ============================================
    HIGH CONTRAST — icon-button becomes a text link
-   Button element keeps its semantics (the theme-drawer JS
-   looks up aria-controls="theme-drawer" on a <button>); only
-   the visual form changes. Label replaces icon. Sweep-in
-   underline replaces the static underline.
+   Only the visual form changes; element semantics are untouched.
+   Label replaces icon. Sweep-in underline replaces the static underline.
    ============================================ */
 
 [data-contrast="high"] .icon-button {
