@@ -178,7 +178,7 @@
 }
 
 .cs-card--secondary .cs-card__title {
-  font-size: var(--text-lg);
+  font-size: var(--text-md);
 }
 
 .cs-card:hover .cs-card__title,

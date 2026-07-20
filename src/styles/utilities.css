@@ -30,7 +30,7 @@
 
 /* Leading text */
 .text-leading {
-  font-size: var(--text-lg);
+  font-size: var(--text-md);
   line-height: 1.619;
   letter-spacing: 0.15px;
 }
