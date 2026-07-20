@@ -79,26 +79,6 @@ body > .site-footer {
    FONTS
    ============================================ */
 
-/* ─── Fraunces ──────────────────────────────────────────────────────────────
-   Display serif for hero statement and editorial breakpoints. Latin subset
-   only (Google Fonts). Variable font (100–900); italic is the above-fold
-   face (hero). */
-@font-face {
-  font-family: 'Fraunces';
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url('/fonts/fraunces/Fraunces-Variable.woff2') format('woff2-variations');
-}
-
-@font-face {
-  font-family: 'Fraunces';
-  font-style: italic;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url('/fonts/fraunces/Fraunces-Variable-Italic.woff2') format('woff2-variations');
-}
-
 /* ─── Source Sans 3 (variable) ────────────────────────────────────────────
    Body + UI sans. One variable file covers weights 200–900. */
 @font-face {
@@ -118,15 +98,6 @@ body > .site-footer {
    Values below are first-pass approximations. Sprint 4 commit 2 (Lighthouse
    / CLS pass) measures real-world CLS and tunes these numbers. */
 @font-face {
-  font-family: 'Fraunces Fallback';
-  src: local('Georgia'), local('Times New Roman');
-  size-adjust: 107%;
-  ascent-override: 87%;
-  descent-override: 26%;
-  line-gap-override: 0%;
-}
-
-@font-face {
   font-family: 'Source Sans 3 Fallback';
   src: local('Arial');
   size-adjust: 100%;
@@ -140,13 +111,9 @@ body > .site-footer {
    TYPOGRAPHY
    ============================================ */
 
-/* Headings — Fraunces per plan §Typography.
-   "Italic-forward" means italic is the editorial register for
-   display moments (e.g. the hero stance); regular-weight serif
-   carries standard headings. Tighter line-height than body so the
-   display face sits comfortably. */
+/* Headings — Source Sans 3. Fraunces retired phase 7 (decision locked);
+   tighter line-height than body so display sizes sit comfortably. */
 h1, h2, h3, h4 {
-  font-family: var(--font-serif);
   line-height: 1.15;
   color: var(--color-text-primary);
 }

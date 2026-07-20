@@ -74,27 +74,25 @@
    ============================================ */
 
 /* Type tokens — Tailwind v4 @theme. Generates utilities (font-sans,
-   font-serif, font-mono, text-xs … text-3xl) and exposes each value as
+   font-mono, text-xs … text-3xl) and exposes each value as
    a CSS custom property for direct var() use. Each font stack pairs the
    web font with its size-adjust fallback (defined in base.css) so metric
    swap during loading stays CLS-quiet, then falls through to system and
    generic families. */
 @theme {
   --font-sans:  'Source Sans 3',     'Source Sans 3 Fallback',      system-ui, sans-serif;
-  --font-serif: 'Fraunces',           'Fraunces Fallback',           Georgia, serif;
   --font-mono:  'Source Sans 3',     'Source Sans 3 Fallback',      system-ui, sans-serif;
 
-  /* Scale — existing values preserved; xs / sm / 3xl added for the new
-     sidebar mono labels, tag/caption rows, and the serif hero statement
-     that lands in commit 5. */
+  /* Scale — phase 7 redesign type scale (7.1.1). --text-lg retired:
+     its 21px leading-paragraph role is absorbed by --text-md now that
+     --text-md is the 22px lead/card-title size. */
   --text-xs:    0.75rem;   /* 12px — STATUS label, eyebrow mono, meta */
-  --text-sm:    0.875rem;  /* 14px — tag, caption */
-  --text-md:    1.5625rem; /* 25px — heading/md (h3-scale serif) */
-  --text-base:  1rem;      /* 16px — body small / UI */
-  --text-lg:    1.3125rem; /* 21px — leading paragraph, drawer body */
-  --text-xl:    2.1875rem; /* 35px — h2 */
-  --text-2xl:   3.0625rem; /* 49px — h1 */
-  --text-3xl:   4rem;      /* 64px — Fraunces italic hero statement */
+  --text-sm:    0.875rem;  /* 14px — meta/eyebrow */
+  --text-base:  1.125rem;  /* 18px — body/UI */
+  --text-md:    1.375rem;  /* 22px — lead/card titles */
+  --text-xl:    2rem;      /* 32px — h2/stat values */
+  --text-2xl:   2.75rem;   /* 44px — case-study h1 */
+  --text-3xl:   3.375rem;  /* 54px — home h1 */
 }
 
 :root {
@@ -133,8 +131,28 @@
   --radius-pill: 999px;
   --radius-focus: 0;
 
+  /* Leaf radii (phase 7) — asymmetric corners, alternating diagonal.
+     Each pair has a base and a -flip counterpart (diagonal reversed)
+     for the hover/focus radius-flip interaction (5c). Surface-specific:
+     nav pills, cards (two sizes for alternating sibling cards), and
+     the 64/96px logo tiles. */
+  --radius-leaf-nav:            20px 8px 20px 8px;
+  --radius-leaf-nav-flip:        8px 20px 8px 20px;
+  --radius-leaf-card:           24px 10px 24px 10px;
+  --radius-leaf-card-flip:      10px 24px 10px 24px;
+  --radius-leaf-card-alt:       28px 14px 28px 14px;
+  --radius-leaf-card-alt-flip:  14px 28px 14px 28px;
+  --radius-leaf-logo:           36px 14px 36px 14px;
+  --radius-leaf-logo-flip:      14px 36px 14px 36px;
+
   /* Motion */
   --transition-base: all 0.3s cubic-bezier(0.8, 0.04, 0.4, 1);
+
+  /* Leaf motion — springy overshoot for the radius-flip interaction
+     (5c: surface hover/focus). Distinct from --transition-base's ease,
+     which stays on non-shape transitions (colour, opacity). */
+  --motion-leaf-easing:   cubic-bezier(0.34, 1.4, 0.4, 1);
+  --motion-leaf-duration: 250ms;
 
   /* Hover grow — Hover.css 'grow' pattern, scaled per surface.
      Card:   1.02 (subtle — feed cards in a list, big surface)
@@ -183,8 +201,9 @@
 [data-contrast="low"] {
   --color-text-primary:    var(--sand-12);
   --color-text-secondary:  var(--sand-11);
-  --color-bg-base:         var(--amber-1);
+  --color-bg-base:         var(--sand-1);   /* was amber-1 — board light bg #fcfbf9-adjacent (7.1.4) */
   --color-bg-card:         var(--sand-2);
+  --color-bg-footer:       var(--sand-2);   /* footer "cream surface" — one step off page bg, mirrors the dark footer/surface separation */
   --color-border-subtle:   var(--sand-6);
   --color-border-base:     var(--sand-7);
   --color-action-bg:       var(--amber-9);
@@ -225,6 +244,15 @@
   /* Dark mode selected fill — matches Figma color/bg-selected dark mode override.
      Light mode: pale amber-4 (#ffec77). Dark mode: saturated amber-9 (#ffc53d). */
   --color-bg-selected:   var(--amber-9);
+  /* Footer pinned one step below surface (sand-1, not the literal-nearest
+     sand-2) to preserve the boards' page/surface/footer separation —
+     7.1.5 review checkpoint. */
+  --color-bg-footer:     var(--sand-1);
+  /* Dark remap (7.1.5) — nearest Radix step per board hex.
+     --color-bg-card stays var(--sand-2) (inherited, no override needed):
+     sand-2 dark (#191918) already matches the board surface (#1e1d18). */
+  --color-bg-base:       var(--sand-4);   /* page — board #2a2823, sand-4 #2a2a28 */
+  --color-border-base:   var(--sand-6);   /* border — board #3a3830, sand-6 #3b3a37 */
 }
 
 /* High contrast overrides — darker borders, secondary text merges with primary.

@@ -1,7 +1,7 @@
 /* ============================================
    LOG CARD — feed
    Horizontal flow: body / meta.
-   Title in Fraunces Regular ~22px per Figma v2.
+   Title in Source Sans 3 Regular ~22px.
    ============================================ */
 
 /* ── Feed wrapper ───────────────────────────────────────────── */
@@ -65,10 +65,10 @@
   min-width: 0;
 }
 
-/* ── Title — Fraunces Regular ~22px ─────────────────── */
+/* ── Title — Source Sans 3 Regular ~22px ─────────────────── */
 
 .log-card__title {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-weight: 400;
   font-size: 1.375rem;
   line-height: 1.2;

@@ -15,10 +15,10 @@
    Realignment is a future sprint, not this one.
    ============================================ */
 
-/* ── Headings (Fraunces, regular) ─────────────── */
+/* ── Headings (Source Sans 3, regular) ─────────────── */
 
 .text-heading-xl {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-weight: 400;
   font-style: normal;
   font-size: var(--text-2xl);     /* 49px — heading/xl */
@@ -27,7 +27,7 @@
 }
 
 .text-heading-lg {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-weight: 400;
   font-style: normal;
   font-size: var(--text-xl);      /* 35px — heading/lg */
@@ -36,7 +36,7 @@
 }
 
 .text-heading-md {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-weight: 400;
   font-style: normal;
   font-size: var(--text-md);      /* 25px — heading/md */
@@ -44,10 +44,10 @@
   letter-spacing: 0;
 }
 
-/* ── Quotes / display (Fraunces, italic) ─────── */
+/* ── Quotes / display (Source Sans 3, italic) ─────── */
 
 .text-quote-xl {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-weight: 400;
   font-style: italic;
   font-size: var(--text-3xl);     /* 64px — quote/xl */
@@ -56,7 +56,7 @@
 }
 
 .text-quote-md {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-weight: 400;
   font-style: italic;
   font-size: 1.625rem;            /* 26px — quote/md (one-off, no scale token) */
