@@ -131,8 +131,28 @@
   --radius-pill: 999px;
   --radius-focus: 0;
 
+  /* Leaf radii (phase 7) — asymmetric corners, alternating diagonal.
+     Each pair has a base and a -flip counterpart (diagonal reversed)
+     for the hover/focus radius-flip interaction (5c). Surface-specific:
+     nav pills, cards (two sizes for alternating sibling cards), and
+     the 64/96px logo tiles. */
+  --radius-leaf-nav:            20px 8px 20px 8px;
+  --radius-leaf-nav-flip:        8px 20px 8px 20px;
+  --radius-leaf-card:           24px 10px 24px 10px;
+  --radius-leaf-card-flip:      10px 24px 10px 24px;
+  --radius-leaf-card-alt:       28px 14px 28px 14px;
+  --radius-leaf-card-alt-flip:  14px 28px 14px 28px;
+  --radius-leaf-logo:           36px 14px 36px 14px;
+  --radius-leaf-logo-flip:      14px 36px 14px 36px;
+
   /* Motion */
   --transition-base: all 0.3s cubic-bezier(0.8, 0.04, 0.4, 1);
+
+  /* Leaf motion — springy overshoot for the radius-flip interaction
+     (5c: surface hover/focus). Distinct from --transition-base's ease,
+     which stays on non-shape transitions (colour, opacity). */
+  --motion-leaf-easing:   cubic-bezier(0.34, 1.4, 0.4, 1);
+  --motion-leaf-duration: 250ms;
 
   /* Hover grow — Hover.css 'grow' pattern, scaled per surface.
      Card:   1.02 (subtle — feed cards in a list, big surface)
