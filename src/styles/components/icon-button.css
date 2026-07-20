@@ -50,8 +50,8 @@
   text-decoration: none;
 }
 
-/* Decorative — softer border at rest */
-[data-contrast="decorative"] .icon-button {
+/* Full flourish — softer border at rest */
+[data-flourish="full"]:not([data-contrast="high"]) .icon-button {
   border-color: var(--color-border-base);
 }
 
@@ -62,7 +62,7 @@
 html.light .icon-button__theme-icon--sun { display: block; }
 html.dark  .icon-button__theme-icon--moon { display: block; }
 
-/* Label — visually hidden in low / decorative; revealed in
+/* Label — visually hidden by default; revealed in
    high-contrast below. */
 .icon-button__label {
   position: absolute;

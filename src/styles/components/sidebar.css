@@ -313,13 +313,13 @@ html.dark .sidebar__monogram { color: var(--color-action-bg); }
 }
 
 /* ============================================
-   DECORATIVE — soften the current-page fill
-   Low-contrast mode uses a solid dark fill. Decorative
+   FULL FLOURISH — soften the current-page fill
+   Low-contrast mode uses a solid dark fill. Full flourish
    replaces that with an amber wash and restores dark text,
    so the current row feels warmer and less graphic.
    ============================================ */
 
-[data-contrast="decorative"] .sidebar__nav-link[aria-current="page"] {
+[data-flourish="full"]:not([data-contrast="high"]) .sidebar__nav-link[aria-current="page"] {
   background: var(--color-bg-hover-active);
   color: var(--color-text-primary);
 }
@@ -355,14 +355,6 @@ html.dark .sidebar__monogram { color: var(--color-action-bg); }
    dark. */
 html.light[data-contrast="high"] .sidebar__nav-link[aria-current="page"] {
   border-color: var(--color-text-primary);
-}
-
-/* Light decorative — decorative softens --color-text-primary to sand-11
-   page-wide, which makes the nav labels look washed out over the warm
-   wash. Force full-strength sand-12 on nav text in light only; dark
-   decorative keeps the softened tone. */
-html.light[data-contrast="decorative"] .sidebar__nav-link {
-  color: var(--sand-12);
 }
 
 /* ============================================

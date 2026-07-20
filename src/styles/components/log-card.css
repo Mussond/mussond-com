@@ -144,13 +144,6 @@
   outline-color: var(--color-focus-ring);
 }
 
-/* ── Decorative — no underline ──────────────────────────────── */
-
-[data-contrast="decorative"] .log-card:hover .log-card__title,
-[data-contrast="decorative"] .log-card:focus-visible .log-card__title {
-  text-decoration: none;
-}
-
 /* ── Motion guard ───────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: no-preference) {
