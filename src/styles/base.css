@@ -183,6 +183,11 @@ a:focus-visible {
    as if none of it existed, while native form controls (incl. the
    footer's own display controls, so the user can switch back out)
    stay rendered and operable via UA styles.
+   ::before/::after are listed explicitly — the plain `*` selector
+   doesn't match generated pseudo-elements, and this codebase uses them
+   for several decorative backgrounds (e.g. the case-study cover bloom)
+   that would otherwise keep rendering, unclipped, once their ancestor's
+   own positioning/overflow has reverted.
    The !important + universal-selector combination wins the cascade
    regardless of source order against every other rule in this codebase
    (none of which uses !important). Pure CSS, no JS: the attribute is
@@ -190,7 +195,9 @@ a:focus-visible {
    stylesheet-loading race and no flash of styled content.
    ============================================ */
 html[data-flourish="raw"],
-html[data-flourish="raw"] * {
+html[data-flourish="raw"] *,
+html[data-flourish="raw"] *::before,
+html[data-flourish="raw"] *::after {
   all: revert !important;
 }
 
