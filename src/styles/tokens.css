@@ -248,6 +248,11 @@
      sand-2) to preserve the boards' page/surface/footer separation —
      7.1.5 review checkpoint. */
   --color-bg-footer:     var(--sand-1);
+  /* Dark remap (7.1.5) — nearest Radix step per board hex.
+     --color-bg-card stays var(--sand-2) (inherited, no override needed):
+     sand-2 dark (#191918) already matches the board surface (#1e1d18). */
+  --color-bg-base:       var(--sand-4);   /* page — board #2a2823, sand-4 #2a2a28 */
+  --color-border-base:   var(--sand-6);   /* border — board #3a3830, sand-6 #3b3a37 */
 }
 
 /* High contrast overrides — darker borders, secondary text merges with primary.
