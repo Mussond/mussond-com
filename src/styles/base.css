@@ -177,12 +177,37 @@ a:focus-visible {
 }
 
 /* ============================================
+   RAW FLOURISH
+   data-flourish="raw" reverts every property on every element to its
+   user-agent default — the whole authored stylesheet stops applying,
+   as if none of it existed, while native form controls (incl. the
+   footer's own display controls, so the user can switch back out)
+   stay rendered and operable via UA styles.
+   ::before/::after are listed explicitly — the plain `*` selector
+   doesn't match generated pseudo-elements, and this codebase uses them
+   for several decorative backgrounds (e.g. the case-study cover bloom)
+   that would otherwise keep rendering, unclipped, once their ancestor's
+   own positioning/overflow has reverted.
+   The !important + universal-selector combination wins the cascade
+   regardless of source order against every other rule in this codebase
+   (none of which uses !important). Pure CSS, no JS: the attribute is
+   set synchronously pre-paint by the no-flash script, so there's no
+   stylesheet-loading race and no flash of styled content.
+   ============================================ */
+html[data-flourish="raw"],
+html[data-flourish="raw"] *,
+html[data-flourish="raw"] *::before,
+html[data-flourish="raw"] *::after {
+  all: revert !important;
+}
+
+/* ============================================
    FORCED COLOURS
    Windows High Contrast and equivalent OS modes paint the UI using
    system colours. Strip decorative effects; don't override colours —
-   let the OS win. The theme/contrast drawer (sprint 3.7) still
-   renders, but its settings have no visual effect — system colours
-   paint through regardless.
+   let the OS win. The footer's display controls still render, but
+   their settings have no visual effect — system colours paint through
+   regardless.
    ============================================ */
 
 @media (forced-colors: active) {

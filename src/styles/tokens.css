@@ -216,10 +216,10 @@
   --color-action-text:     var(--amber-contrast);
   --color-focus-ring:      var(--sand-12);
 
-  /* Background gradient — suppressed in low. The pre-redesign wash
+  /* Background gradient — suppressed by default. The pre-redesign wash
      read as a 2021 SaaS template (per redesign-audit.md §Gradient
-     washes). Low now ships bare; decorative reintroduces a stronger
-     version as its distinguishing warm-tint signal. */
+     washes). Baseline ships bare; the flourish layer (below) reintroduces
+     it under data-flourish="full". */
   --gradient-brand: none;
 
   /* Added sprint 1 — Figma Theme collection alignment */
@@ -255,6 +255,21 @@
   --color-border-base:   var(--sand-6);   /* border — board #3a3830, sand-6 #3b3a37 */
 }
 
+/* Flourish layer — purely decorative wash, independent of contrast/theme.
+   Renders under data-flourish="full"; suppressed entirely by "reduced"
+   (quiet baseline, pairs with prefers-reduced-motion) and "raw" (stylesheet
+   disabled). The :not() guard means high contrast never gets the wash even
+   if full flourish is selected alongside it — a11y always wins over
+   decoration, whatever the flourish setting. */
+[data-flourish="full"]:not([data-contrast="high"]) {
+  --gradient-brand: linear-gradient(
+    146.49deg,
+    var(--amber-a5) 4.17%,
+    var(--amber-a3) 14.06%,
+    transparent 28.36%
+  );
+}
+
 /* High contrast overrides — darker borders, secondary text merges with primary.
    Body text already at sand-12 and focus ring/action border unchanged — both
    already at the ceiling. Card bg stays at sand-1: the sand-12 border carries
@@ -263,18 +278,10 @@
   --color-text-secondary:  var(--sand-12);   /* 11 → 12: merge with primary */
   --color-border-subtle:   var(--sand-8);    /* 6 → 8 */
   --color-border-base:  var(--sand-12);   /* 7 → 12 */
-  --gradient-brand:        none;            /* suppress decorative wash for max clarity */
+  --gradient-brand:        none;            /* suppress flourish wash for max clarity */
   --color-action-text:   var(--sand-12);    /* high collapses warm text to sand-12 */
   --color-border-card:   var(--sand-12);    /* high collapses warm border to sand-12 */
   --color-eyebrow-dash:  var(--amber-12);   /* high: warm-dark for firmer contrast */
-}
-
-/* Dark + decorative — re-pin warm-text token to a dark value, since the
-   shared decorative override sets --color-action-text to amber-11, which
-   in dark mode resolves to bright amber and disappears against the
-   amber-9 selected fill. Same pattern as the dark+high fix above. */
-.dark[data-contrast="decorative"] {
-  --color-action-text: var(--sand-1);   /* dark text on amber-9 in dark/decorative */
 }
 
 /* Dark + high — re-pin warm-text token to a dark value, since the
@@ -285,42 +292,17 @@
   --color-action-text:   var(--amber-a8);    /* dark text on amber-9 in dark/high */
 }
 
-/* Decorative: lower-contrast opt-in mode. Some token pairs will fail WCAG AA
-   by design. Softer text, lighter borders, more visible warm tint. Users opt
-   in via the drawer (sprint 3.7); the drawer carries a warning that this mode
-   may fail AA. Never the default. */
-[data-contrast="decorative"] {
-  --color-text-primary:    var(--sand-11);   /* 12 → 11: softer body text */
-  --color-text-secondary:  var(--sand-10);   /* 11 → 10 */
-  --color-border-base:  var(--sand-6);    /* 7 → 6 */
-  --color-border-subtle:   var(--sand-4);    /* 6 → 4 */
-  --color-action-text:   var(--amber-11);   /* decorative: softer warm text */
-  --color-border-card:   var(--amber-3);    /* decorative: lighter warm border */
-
-  /* Warm wash returns — and is stronger than the old low-mode value
-     so decorative visibly owns the warm-tint identity. Stops bumped
-     from a3 → a2 to a5 → a3 to carry real presence in the corner
-     without dominating the page. */
-  --gradient-brand: linear-gradient(
-    146.49deg,
-    var(--amber-a5) 4.17%,
-    var(--amber-a3) 14.06%,
-    transparent 28.36%
-  );
-}
-
 /* ============================================
    CASE STUDY COVER TOKENS
    Per-slug token pairs consumed by <CaseStudyCard>.
-   6 modes × 3 studies × 2 values (bg/fg) = 36 tokens.
+   4 modes (light-low/high, dark-low/high) × 3 studies × 2 values (bg/fg) = 24 tokens.
 
    Light-low anchors live in :root below (under the semantic
    token block). Dark-low overrides live in .dark. High
    (both themes) collapses all three to text-primary/bg-base
    via semantic tokens — brand falls away, hierarchy remains.
-   Decorative: same hex values as low (no token change);
-   the radial bloom (cs-card__block::before) is always-on — present in
-   low and decorative, suppressed in high contrast only.
+   Flourish doesn't touch these tokens; the radial bloom
+   (cs-card__block::before) is always-on, suppressed in high contrast only.
    ============================================ */
 
 :root,

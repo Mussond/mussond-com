@@ -1,13 +1,13 @@
-// display-controls — shared theme/contrast control logic plus
-// auto-wiring for the inline DisplaySettings panel (homepage),
-// the ThemeDrawer dialog (every page), and the global Option/Alt+T
-// keyboard shortcut.
+// display-controls — shared theme/contrast/flourish control logic plus
+// auto-wiring for the footer DisplayControls instance and the global
+// Option/Alt+T keyboard shortcut (moves focus to it).
 //
 // Side-effect import this from Layout.astro:
 //   <script>import '../scripts/display-controls';</script>
 
 type ThemeChoice = 'light' | 'dark' | 'system';
-type ContrastChoice = 'low' | 'high' | 'decorative' | 'system';
+type ContrastChoice = 'low' | 'high' | 'system';
+type FlourishChoice = 'full' | 'reduced' | 'raw';
 
 const html = document.documentElement;
 const instances: HTMLElement[] = [];
@@ -20,16 +20,29 @@ function getStoredTheme(): ThemeChoice {
 
 function getStoredContrast(): ContrastChoice {
   const stored = localStorage.getItem('contrast');
-  return (stored === 'low' || stored === 'high' || stored === 'decorative') ? stored : 'system';
+  return (stored === 'low' || stored === 'high') ? stored : 'system';
+}
+
+// Flourish has no "system" radio choice (only full/reduced/raw). With
+// nothing stored yet, the initial default follows prefers-reduced-motion
+// so users who've already asked for less motion land on the quiet option.
+function resolveDefaultFlourish(): FlourishChoice {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'reduced' : 'full';
+}
+
+function getStoredFlourish(): FlourishChoice {
+  const stored = localStorage.getItem('flourish');
+  return (stored === 'full' || stored === 'reduced' || stored === 'raw')
+    ? stored
+    : resolveDefaultFlourish();
 }
 
 function getEffectiveTheme(): 'light' | 'dark' {
   return html.classList.contains('dark') ? 'dark' : 'light';
 }
 
-function getEffectiveContrast(): 'low' | 'high' | 'decorative' {
-  const c = html.getAttribute('data-contrast');
-  return (c === 'high' || c === 'decorative') ? c : 'low';
+function getEffectiveContrast(): 'low' | 'high' {
+  return html.getAttribute('data-contrast') === 'high' ? 'high' : 'low';
 }
 
 function resolveSystemTheme(): 'light' | 'dark' {
@@ -60,9 +73,15 @@ function applyContrast(value: ContrastChoice) {
   }
 }
 
+function applyFlourish(value: FlourishChoice) {
+  localStorage.setItem('flourish', value);
+  html.setAttribute('data-flourish', value);
+}
+
 function syncInstance(root: HTMLElement) {
   const theme = getStoredTheme();
   const contrast = getStoredContrast();
+  const flourish = getStoredFlourish();
 
   root.querySelectorAll<HTMLInputElement>('[data-control="theme"]').forEach((r) => {
     r.checked = r.value === theme;
@@ -70,9 +89,13 @@ function syncInstance(root: HTMLElement) {
   root.querySelectorAll<HTMLInputElement>('[data-control="contrast"]').forEach((r) => {
     r.checked = r.value === contrast;
   });
+  root.querySelectorAll<HTMLInputElement>('[data-control="flourish"]').forEach((r) => {
+    r.checked = r.value === flourish;
+  });
 
   const themeLive = root.querySelector('[data-theme-live]');
   const contrastLive = root.querySelector('[data-contrast-live]');
+  const flourishLive = root.querySelector('[data-flourish-live]');
   if (themeLive) {
     themeLive.textContent = theme === 'system'
       ? `system (${getEffectiveTheme()})`
@@ -83,18 +106,13 @@ function syncInstance(root: HTMLElement) {
       ? `system (${getEffectiveContrast()})`
       : contrast;
   }
+  if (flourishLive) {
+    flourishLive.textContent = flourish;
+  }
 }
 
 function syncAll() {
   instances.forEach(syncInstance);
-
-  const navButton = document.querySelector('[aria-controls="theme-drawer"]') as HTMLButtonElement | null;
-  if (navButton) {
-    navButton.setAttribute(
-      'aria-label',
-      `Theme and contrast settings, currently ${getEffectiveTheme()} and ${getEffectiveContrast()} contrast`
-    );
-  }
 }
 
 function initDisplayControls(root: HTMLElement) {
@@ -112,6 +130,14 @@ function initDisplayControls(root: HTMLElement) {
     radio.addEventListener('change', () => {
       if (!radio.checked) return;
       applyContrast(radio.value as ContrastChoice);
+      syncAll();
+    });
+  });
+
+  root.querySelectorAll<HTMLInputElement>('[data-control="flourish"]').forEach((radio) => {
+    radio.addEventListener('change', () => {
+      if (!radio.checked) return;
+      applyFlourish(radio.value as FlourishChoice);
       syncAll();
     });
   });
@@ -139,89 +165,16 @@ function initSystemListeners() {
 }
 
 // ============================================
-// Auto-wire on DOM ready — panel + drawer + shortcut
+// Auto-wire on DOM ready — footer instance + shortcut
 // ============================================
 
-function wirePanel() {
-  const panel = document.getElementById('display-settings');
-  if (!panel) return;
-
-  const showRow = document.getElementById('display-settings-show-row');
-  const showButton = document.getElementById('display-settings-show') as HTMLButtonElement | null;
-  const hideButton = document.getElementById('display-settings-hide') as HTMLButtonElement | null;
-
-  const controls = panel.querySelector('.display-controls') as HTMLElement | null;
-  if (controls) initDisplayControls(controls);
-
-  hideButton?.addEventListener('click', () => {
-    panel.hidden = true;
-    if (showRow) showRow.hidden = false;
-    showButton?.focus();
-  });
-
-  showButton?.addEventListener('click', () => {
-    panel.hidden = false;
-    if (showRow) showRow.hidden = true;
-    const firstChip = panel.querySelector<HTMLInputElement>('[data-control="contrast"]:checked')
-      ?? panel.querySelector<HTMLInputElement>('[data-control="contrast"]');
-    firstChip?.focus();
-  });
+function getFooterControls(): HTMLElement | null {
+  return document.querySelector('.site-footer .display-controls');
 }
 
-function wireDrawer() {
-  const drawer = document.getElementById('theme-drawer') as HTMLDialogElement | null;
-  const navButton = document.querySelector('[aria-controls="theme-drawer"]') as HTMLButtonElement | null;
-  if (!drawer || !navButton) return;
-
-  const closeButton = drawer.querySelector('[data-theme-drawer-close]') as HTMLButtonElement | null;
-  const controls = drawer.querySelector('.display-controls') as HTMLElement | null;
-  if (controls) initDisplayControls(controls);
-
-  navButton.addEventListener('click', () => {
-    drawer.showModal();
-    const checkedTheme = drawer.querySelector<HTMLInputElement>('[data-control="theme"]:checked');
-    checkedTheme?.focus();
-  });
-
-  closeButton?.addEventListener('click', () => drawer.close());
-
-  // Backdrop click — only closes on clicks outside the dialog rect.
-  // Bubbled clicks from children (incl. arrow-key radio synthetic clicks
-  // with clientX/Y = 0) are filtered out.
-  drawer.addEventListener('click', (event) => {
-    if (event.target !== drawer) return;
-    const rect = drawer.getBoundingClientRect();
-    const inside =
-      event.clientX >= rect.left && event.clientX <= rect.right &&
-      event.clientY >= rect.top && event.clientY <= rect.bottom;
-    if (!inside) drawer.close();
-  });
-
-  // Focus trap — wrap Tab/Shift-Tab between close → checked theme → checked contrast
-  drawer.addEventListener('keydown', (event) => {
-    if (event.key !== 'Tab') return;
-
-    const checkedTheme =
-      drawer.querySelector<HTMLInputElement>('[data-control="theme"]:checked') ??
-      drawer.querySelector<HTMLInputElement>('[data-control="theme"]');
-    const checkedContrast =
-      drawer.querySelector<HTMLInputElement>('[data-control="contrast"]:checked') ??
-      drawer.querySelector<HTMLInputElement>('[data-control="contrast"]');
-
-    const stops = [closeButton, checkedTheme, checkedContrast].filter(Boolean) as HTMLElement[];
-    if (stops.length === 0) return;
-
-    const first = stops[0];
-    const last = stops[stops.length - 1];
-
-    if (event.shiftKey && document.activeElement === first) {
-      event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault();
-      first.focus();
-    }
-  });
+function wireFooter() {
+  const footer = getFooterControls();
+  if (footer) initDisplayControls(footer);
 }
 
 function wireKeyboardShortcut() {
@@ -249,43 +202,19 @@ function wireKeyboardShortcut() {
     if (!isShortcut) return;
     event.preventDefault();
 
-    const shortcutTarget = document.body.dataset.shortcutTarget;
+    const footer = getFooterControls();
+    if (!footer) return;
 
-    if (shortcutTarget === 'panel') {
-      const panel = document.getElementById('display-settings') as HTMLElement | null;
-      const showRow = document.getElementById('display-settings-show-row');
-      const showButton = document.getElementById('display-settings-show') as HTMLButtonElement | null;
-      if (!panel) return;
+    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+    footer.scrollIntoView({ block: 'center', behavior });
 
-      if (panel.hidden) {
-        panel.hidden = false;
-        if (showRow) showRow.hidden = true;
-        const firstChip = panel.querySelector<HTMLInputElement>('[data-control="contrast"]:checked')
-          ?? panel.querySelector<HTMLInputElement>('[data-control="contrast"]');
-        firstChip?.focus();
-      } else {
-        panel.hidden = true;
-        if (showRow) showRow.hidden = false;
-        showButton?.focus();
-      }
-      return;
-    }
-
-    const drawer = document.getElementById('theme-drawer') as HTMLDialogElement | null;
-    if (!drawer) return;
-    if (drawer.open) {
-      drawer.close();
-    } else {
-      drawer.showModal();
-      const checkedTheme = drawer.querySelector<HTMLInputElement>('[data-control="theme"]:checked');
-      checkedTheme?.focus();
-    }
+    const checkedTheme = footer.querySelector<HTMLInputElement>('[data-control="theme"]:checked');
+    checkedTheme?.focus();
   });
 }
 
 function autoWire() {
-  wirePanel();
-  wireDrawer();
+  wireFooter();
   wireKeyboardShortcut();
   initSystemListeners();
 }

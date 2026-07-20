@@ -1,6 +1,7 @@
 ---
 import { Linkedin } from 'lucide-astro';
 import Monogram from './Monogram.astro';
+import DisplayControls from './DisplayControls.astro';
 
 const columns = [
   {
@@ -24,8 +25,12 @@ const columns = [
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="site-footer">
+<footer class="site-footer" id="footer">
   <div class="container footer">
+    <div class="footer__settings">
+      <DisplayControls variant="footer" idPrefix="footer" />
+    </div>
+
     <a href="/" class="footer__monogram" aria-label="Dave Musson — home">
       <Monogram class="footer__monogram-mark" size={40} />
     </a>

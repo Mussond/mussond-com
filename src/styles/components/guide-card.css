@@ -153,13 +153,6 @@
   outline-color: var(--color-focus-ring);
 }
 
-/* ── Decorative — no underline ──────────────────────────────── */
-
-[data-contrast="decorative"] .guide-card:hover .guide-card__title,
-[data-contrast="decorative"] .guide-card:focus-visible .guide-card__title {
-  text-decoration: none;
-}
-
 /* ── Motion guard ───────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: no-preference) {

@@ -105,7 +105,7 @@
    SECONDARY VARIANT
    Transparent base; amber-a3 sweep on hover.
    Border matches primary (sand-12) in low + high;
-   stays soft in decorative.
+   stays soft under full flourish.
    ============================================ */
 
 .btn--secondary {
@@ -123,8 +123,8 @@
   border-color: var(--color-action-border);
 }
 
-/* Decorative: restore softer border */
-[data-contrast="decorative"] .btn--secondary {
+/* Full flourish: restore softer border */
+[data-flourish="full"]:not([data-contrast="high"]) .btn--secondary {
   border-color: var(--color-border-base);
 }
 
@@ -203,7 +203,7 @@
   padding: calc(0.375rem - 1px) calc(0.875rem - 1px);
 }
 
-[data-contrast="decorative"] .btn--utility {
+[data-flourish="full"]:not([data-contrast="high"]) .btn--utility {
   border-color: var(--color-border-base);
 }
 

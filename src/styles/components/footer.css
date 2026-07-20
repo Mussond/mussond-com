@@ -3,7 +3,7 @@
    Three columns (Work / About / Connect) with a leading monogram
    and a trailing meta block (strapline + copyright). Surface matches
    the page — no inverted fill. Border treatment mirrors the sidebar:
-   soft 1px subtle rule in low/decorative contrast, 2px default rule
+   soft 1px subtle rule in low contrast, 2px default rule
    in high contrast for a firmer edge.
    ============================================ */
 
@@ -21,10 +21,21 @@
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-areas:
+    "settings settings"
     "monogram nav"
     "meta meta";
   gap: 2.5rem 3rem;
   align-items: start;
+}
+
+.footer__settings {
+  grid-area: settings;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+[data-contrast="high"] .footer__settings {
+  border-bottom-color: var(--color-border-base);
 }
 
 .footer__monogram {

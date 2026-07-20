@@ -4,7 +4,6 @@ import Sidebar from '../components/Sidebar.astro';
 import Identity from '../components/Identity.astro';
 import Footer from '../components/Footer.astro';
 import SkipLink from '../components/SkipLink.astro';
-import ThemeDrawer from '../components/ThemeDrawer.astro';
 
 interface Props {
   title: string;
@@ -20,7 +19,6 @@ const {
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://mussond.com');
 const isHomepage = Astro.url.pathname === '/';
-const shortcutTarget = isHomepage ? 'panel' : 'drawer';
 ---
 
 <!doctype html>
@@ -31,12 +29,16 @@ const shortcutTarget = isHomepage ? 'panel' : 'drawer';
       (function() {
         var t = localStorage.getItem('theme');
         var c = localStorage.getItem('contrast');
+        var f = localStorage.getItem('flourish');
         var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         var systemHigh = window.matchMedia('(prefers-contrast: more)').matches;
+        var systemReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         var theme = (t === 'light' || t === 'dark') ? t : (systemDark ? 'dark' : 'light');
-        var contrast = (c === 'low' || c === 'high' || c === 'decorative') ? c : (systemHigh ? 'high' : 'low');
+        var contrast = (c === 'low' || c === 'high') ? c : (systemHigh ? 'high' : 'low');
+        var flourish = (f === 'full' || f === 'reduced' || f === 'raw') ? f : (systemReducedMotion ? 'reduced' : 'full');
         document.documentElement.className = theme;
         document.documentElement.setAttribute('data-contrast', contrast);
+        document.documentElement.setAttribute('data-flourish', flourish);
       })();
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -56,7 +58,7 @@ const shortcutTarget = isHomepage ? 'panel' : 'drawer';
     <link rel="preload" href="/fonts/source-sans-3/SourceSans3-Variable.woff2" as="font" type="font/woff2" crossorigin />
     <title>{title}</title>
   </head>
-  <body data-shortcut-target={shortcutTarget}>
+  <body>
     <SkipLink />
     <Sidebar />
     <header class="site-header">
@@ -66,7 +68,7 @@ const shortcutTarget = isHomepage ? 'panel' : 'drawer';
             Principal designer &middot; a11y &amp; design systems
           </p>
           <p class="site-header__hint text-eyebrow">
-            Press <kbd class="site-header__kbd" data-kbd-glyph>⌥ + T</kbd> to toggle display settings
+            Press <kbd class="site-header__kbd" data-kbd-glyph>⌥ + T</kbd> to jump to display settings
           </p>
         </div>
       )}
@@ -74,7 +76,6 @@ const shortcutTarget = isHomepage ? 'panel' : 'drawer';
     </header>
     <slot />
     <Footer />
-    <ThemeDrawer />
   </body>
 </html>
 
