@@ -21,10 +21,21 @@
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-areas:
+    "settings settings"
     "monogram nav"
     "meta meta";
   gap: 2.5rem 3rem;
   align-items: start;
+}
+
+.footer__settings {
+  grid-area: settings;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+[data-contrast="high"] .footer__settings {
+  border-bottom-color: var(--color-border-base);
 }
 
 .footer__monogram {

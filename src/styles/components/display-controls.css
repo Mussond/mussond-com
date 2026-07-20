@@ -162,6 +162,26 @@ html.dark .display-controls__chip:not(:has(input:checked)) {
 }
 
 /* ============================================
+   FOOTER VARIANT — three segmented groups in a row
+   Reuses the panel pill-chip skin; only the outer layout
+   changes so Theme / Contrast / Flourish sit side by side
+   in the footer settings row instead of stacked full-width.
+   Wraps naturally at narrow widths via flex-wrap.
+   ============================================ */
+
+.display-controls--footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-p8);
+}
+
+.display-controls--footer .display-controls__group {
+  flex: 1 1 auto;
+  min-width: 12rem;
+  margin: 0;
+}
+
+/* ============================================
    DRAWER VARIANT — stacked vertical rows
    Container becomes a bordered list; each chip
    is a full-width row with internal divider
