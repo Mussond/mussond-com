@@ -201,9 +201,9 @@
 [data-contrast="low"] {
   --color-text-primary:    var(--sand-12);
   --color-text-secondary:  var(--sand-11);
-  --color-bg-base:         var(--amber-1);
+  --color-bg-base:         var(--sand-1);   /* was amber-1 — board light bg #fcfbf9-adjacent (7.1.4) */
   --color-bg-card:         var(--sand-2);
-  --color-bg-footer:       var(--sand-1);   /* footer band — board light #fcfbf9-adjacent */
+  --color-bg-footer:       var(--sand-2);   /* footer "cream surface" — one step off page bg, mirrors the dark footer/surface separation */
   --color-border-subtle:   var(--sand-6);
   --color-border-base:     var(--sand-7);
   --color-action-bg:       var(--amber-9);
