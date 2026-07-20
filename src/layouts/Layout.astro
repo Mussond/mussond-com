@@ -31,12 +31,16 @@ const shortcutTarget = isHomepage ? 'panel' : 'drawer';
       (function() {
         var t = localStorage.getItem('theme');
         var c = localStorage.getItem('contrast');
+        var f = localStorage.getItem('flourish');
         var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         var systemHigh = window.matchMedia('(prefers-contrast: more)').matches;
+        var systemReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         var theme = (t === 'light' || t === 'dark') ? t : (systemDark ? 'dark' : 'light');
-        var contrast = (c === 'low' || c === 'high' || c === 'decorative') ? c : (systemHigh ? 'high' : 'low');
+        var contrast = (c === 'low' || c === 'high') ? c : (systemHigh ? 'high' : 'low');
+        var flourish = (f === 'full' || f === 'reduced' || f === 'raw') ? f : (systemReducedMotion ? 'reduced' : 'full');
         document.documentElement.className = theme;
         document.documentElement.setAttribute('data-contrast', contrast);
+        document.documentElement.setAttribute('data-flourish', flourish);
       })();
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -66,7 +70,7 @@ const shortcutTarget = isHomepage ? 'panel' : 'drawer';
             Principal designer &middot; a11y &amp; design systems
           </p>
           <p class="site-header__hint text-eyebrow">
-            Press <kbd class="site-header__kbd" data-kbd-glyph>⌥ + T</kbd> to toggle display settings
+            Press <kbd class="site-header__kbd" data-kbd-glyph>⌥ + T</kbd> to jump to display settings
           </p>
         </div>
       )}
