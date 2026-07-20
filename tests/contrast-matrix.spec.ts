@@ -17,11 +17,13 @@ const PAGES = [
   { slug: 'logs-list-of-accessibility-resources',          route: '/logs/list-of-accessibility-resources' },
 ] as const;
 
-const THEMES         = ['light', 'dark']                  as const;
-const CONTRAST_MODES = ['low', 'high', 'decorative']      as const;
+const THEMES         = ['light', 'dark']            as const;
+const CONTRAST_MODES = ['low', 'high']               as const;
+const FLOURISH_MODES = ['full', 'reduced', 'raw']    as const;
 
 type Theme    = (typeof THEMES)[number];
 type Contrast = (typeof CONTRAST_MODES)[number];
+type Flourish = (typeof FLOURISH_MODES)[number];
 
 // ─── Result shape ─────────────────────────────────────────────────────────────
 
@@ -50,13 +52,16 @@ interface StateResult {
   route: string;
   theme: Theme;
   contrast: Contrast;
+  flourish: Flourish;
   violationCount: number;
   violations: ViolationDetail[];
   totalNodes: number;
   /**
    * clean       — no violations
-   * expected    — violations in Decorative mode (by design; not a bug)
-   * unexpected  — violations in Low or High mode (needs follow-up)
+   * expected    — violations in Raw flourish (by design — the stylesheet
+   *               is disabled entirely, so axe scores the bare UA render;
+   *               not a bug)
+   * unexpected  — violations in Full or Reduced flourish (needs follow-up)
    */
   classification: 'clean' | 'expected' | 'unexpected';
   screenshotPath: string;
@@ -67,9 +72,9 @@ const allResults: StateResult[] = [];
 
 // ─── Suite ────────────────────────────────────────────────────────────────────
 
-test.describe('Contrast matrix — 54 states', () => {
+test.describe('Contrast matrix — 108 states', () => {
 
-  // Runs after all 54 tests complete, regardless of individual pass/fail
+  // Runs after all 108 tests complete, regardless of individual pass/fail
   test.afterAll(() => {
     const outDir  = 'test-results/contrast-matrix';
     const outPath = path.join(outDir, 'contrast-matrix.json');
@@ -84,21 +89,21 @@ test.describe('Contrast matrix — 54 states', () => {
     console.log('\n============================================');
     console.log('Contrast matrix — run summary');
     console.log('============================================');
-    console.log(`States tested:              ${allResults.length} of 54`);
+    console.log(`States tested:              ${allResults.length} of 108`);
     console.log(`Clean (no violations):      ${clean.length}`);
-    console.log(`Expected (Decorative mode): ${expected.length}`);
-    console.log(`Unexpected (Low / High):    ${unexpected.length}`);
+    console.log(`Expected (Raw flourish):    ${expected.length}`);
+    console.log(`Unexpected (Full/Reduced):  ${unexpected.length}`);
 
     if (unexpected.length > 0) {
       console.log('\n--- Unexpected violations — log as follow-up items ---');
       for (const r of unexpected) {
-        console.log(`\n  ${r.page} | ${r.theme} / ${r.contrast}`);
+        console.log(`\n  ${r.page} | ${r.theme} / ${r.contrast} / ${r.flourish}`);
         for (const v of r.violations) {
           console.log(`    [${v.impact ?? 'unknown'}] ${v.id} — ${v.description}`);
         }
       }
     } else {
-      console.log('\nNo unexpected violations. Low and High contrast states are clean.');
+      console.log('\nNo unexpected violations. Full and Reduced flourish states are clean.');
     }
 
     console.log(`\nFull results written to: ${outPath}`);
@@ -106,100 +111,105 @@ test.describe('Contrast matrix — 54 states', () => {
     console.log('============================================\n');
   });
 
-  // ─── Generate one test per state (9 pages × 2 themes × 3 modes = 54) ──────
+  // ─── Generate one test per state (9 pages × 2 themes × 2 contrasts × 3 flourishes = 108) ──
 
   for (const pageConfig of PAGES) {
     for (const theme of THEMES) {
       for (const contrast of CONTRAST_MODES) {
+        for (const flourish of FLOURISH_MODES) {
 
-        test(`${pageConfig.slug} | ${theme} / ${contrast}`, async ({ page }) => {
+          test(`${pageConfig.slug} | ${theme} / ${contrast} / ${flourish}`, async ({ page }) => {
 
-          // 1. Suppress body fadeIn animation (base.css) so screenshots
-          //    aren't washed out and axe doesn't sample mid-animation
-          await page.emulateMedia({ reducedMotion: 'reduce' });
+            // 1. Suppress body fadeIn animation (base.css) so screenshots
+            //    aren't washed out and axe doesn't sample mid-animation
+            await page.emulateMedia({ reducedMotion: 'reduce' });
 
-          // 2. Navigate
-          await page.goto(pageConfig.route);
+            // 2. Navigate
+            await page.goto(pageConfig.route);
 
-          // 3. Override theme + contrast attributes directly.
-          //    This bypasses whatever the inline <head> script resolved from
-          //    localStorage/OS preferences, giving us a known starting state.
-          await page.evaluate(
-            ({ t, c }) => {
-              document.documentElement.className = t;
-              document.documentElement.setAttribute('data-contrast', c);
-            },
-            { t: theme, c: contrast }
-          );
+            // 3. Override theme + contrast + flourish attributes directly.
+            //    This bypasses whatever the inline <head> script resolved from
+            //    localStorage/OS preferences, giving us a known starting state.
+            await page.evaluate(
+              ({ t, c, f }) => {
+                document.documentElement.className = t;
+                document.documentElement.setAttribute('data-contrast', c);
+                document.documentElement.setAttribute('data-flourish', f);
+              },
+              { t: theme, c: contrast, f: flourish }
+            );
 
-          // 4. Settle: wait for layout, fonts, and one rAF after the class change
-          await page.waitForLoadState('networkidle');
-          await page.evaluate(() => document.fonts.ready);
-          await page.evaluate(() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))));
+            // 4. Settle: wait for layout, fonts, and one rAF after the class change
+            await page.waitForLoadState('networkidle');
+            await page.evaluate(() => document.fonts.ready);
+            await page.evaluate(() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))));
 
-          // 5. Screenshot
-          const screenshotDir  = path.join('tests', 'screenshots', pageConfig.slug);
-          const screenshotPath = path.join(screenshotDir, `${theme}-${contrast}.png`);
-          fs.mkdirSync(screenshotDir, { recursive: true });
-          await page.screenshot({ path: screenshotPath, fullPage: true });
+            // 5. Screenshot
+            const screenshotDir  = path.join('tests', 'screenshots', pageConfig.slug);
+            const screenshotPath = path.join(screenshotDir, `${theme}-${contrast}-${flourish}.png`);
+            fs.mkdirSync(screenshotDir, { recursive: true });
+            await page.screenshot({ path: screenshotPath, fullPage: true });
 
-          // 6. Axe scan
-          await injectAxe(page);
-          const violations = await getViolations(page);
+            // 6. Axe scan
+            await injectAxe(page);
+            const violations = await getViolations(page);
 
-          // Capture full violation detail per node (selector, fg/bg, ratio, font)
-          const violationDetails: ViolationDetail[] = violations.map(v => ({
-            id:          v.id,
-            impact:      v.impact ?? null,
-            description: v.description,
-            helpUrl:     v.helpUrl,
-            nodeCount:   v.nodes.length,
-            nodes:       v.nodes.map(n => {
-              const data = (n.any[0]?.data ?? {}) as Record<string, unknown>;
-              return {
-                selector:              Array.isArray(n.target) ? n.target.join(' ') : String(n.target),
-                html:                  n.html.slice(0, 200),
-                fgColor:               data.fgColor               as string | undefined,
-                bgColor:               data.bgColor               as string | undefined,
-                contrastRatio:         data.contrastRatio         as number | undefined,
-                expectedContrastRatio: data.expectedContrastRatio as string | undefined,
-                fontSize:              data.fontSize              as string | undefined,
-                fontWeight:            data.fontWeight            as string | undefined,
-              };
-            }),
-          }));
+            // Capture full violation detail per node (selector, fg/bg, ratio, font)
+            const violationDetails: ViolationDetail[] = violations.map(v => ({
+              id:          v.id,
+              impact:      v.impact ?? null,
+              description: v.description,
+              helpUrl:     v.helpUrl,
+              nodeCount:   v.nodes.length,
+              nodes:       v.nodes.map(n => {
+                const data = (n.any[0]?.data ?? {}) as Record<string, unknown>;
+                return {
+                  selector:              Array.isArray(n.target) ? n.target.join(' ') : String(n.target),
+                  html:                  n.html.slice(0, 200),
+                  fgColor:               data.fgColor               as string | undefined,
+                  bgColor:               data.bgColor               as string | undefined,
+                  contrastRatio:         data.contrastRatio         as number | undefined,
+                  expectedContrastRatio: data.expectedContrastRatio as string | undefined,
+                  fontSize:              data.fontSize              as string | undefined,
+                  fontWeight:            data.fontWeight            as string | undefined,
+                };
+              }),
+            }));
 
-          const totalNodes = violationDetails.reduce((sum, v) => sum + v.nodeCount, 0);
+            const totalNodes = violationDetails.reduce((sum, v) => sum + v.nodeCount, 0);
 
-          // 7. Classify
-          const classification: StateResult['classification'] =
-            violations.length === 0   ? 'clean'
-            : contrast === 'decorative' ? 'expected'
-            :                             'unexpected';
+            // 7. Classify — Raw disables the stylesheet entirely, so its
+            //    axe result reflects the bare UA render, not this codebase.
+            const classification: StateResult['classification'] =
+              violations.length === 0 ? 'clean'
+              : flourish === 'raw'    ? 'expected'
+              :                         'unexpected';
 
-          allResults.push({
-            page:          pageConfig.slug,
-            route:         pageConfig.route,
-            theme,
-            contrast,
-            violationCount: violations.length,
-            violations:    violationDetails,
-            totalNodes,
-            classification,
-            screenshotPath,
+            allResults.push({
+              page:          pageConfig.slug,
+              route:         pageConfig.route,
+              theme,
+              contrast,
+              flourish,
+              violationCount: violations.length,
+              violations:    violationDetails,
+              totalNodes,
+              classification,
+              screenshotPath,
+            });
+
+            // 8. Fail the test for unexpected violations so they appear red
+            //    in Playwright UI. The afterAll summary still runs and the
+            //    JSON is still written — nothing is lost.
+            if (classification === 'unexpected') {
+              console.warn(
+                `  ⚠ Unexpected violations — ${pageConfig.slug} (${theme} / ${contrast} / ${flourish}): ` +
+                violations.map(v => v.id).join(', ')
+              );
+            }
           });
 
-          // 8. Fail the test for unexpected violations so they appear red
-          //    in Playwright UI. The afterAll summary still runs and the
-          //    JSON is still written — nothing is lost.
-          if (classification === 'unexpected') {
-            console.warn(
-              `  ⚠ Unexpected violations — ${pageConfig.slug} (${theme} / ${contrast}): ` +
-              violations.map(v => v.id).join(', ')
-            );
-          }
-        });
-
+        }
       }
     }
   }

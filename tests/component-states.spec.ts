@@ -5,8 +5,8 @@ import path from 'node:path';
 
 // ─── Matrix dimensions ───────────────────────────────────────────────────────
 
-const THEMES         = ['light', 'dark']             as const;
-const CONTRAST_MODES = ['low', 'high', 'decorative'] as const;
+const THEMES         = ['light', 'dark'] as const;
+const CONTRAST_MODES = ['low', 'high']   as const;
 
 type Theme    = (typeof THEMES)[number];
 type Contrast = (typeof CONTRAST_MODES)[number];
@@ -45,9 +45,8 @@ async function resetPage(page: import('@playwright/test').Page) {
 
 /**
  * Set a radio's `checked` flag without firing the change handler. Used for
- * DisplayControls + ThemeDrawer chips so we can paint the selected state
- * without the component re-applying theme/contrast and breaking the forced
- * matrix state.
+ * DisplayControls chips so we can paint the selected state without the
+ * component re-applying theme/contrast and breaking the forced matrix state.
  */
 async function setRadioChecked(
   page: import('@playwright/test').Page,
@@ -59,14 +58,6 @@ async function setRadioChecked(
     const target = document.querySelector<HTMLInputElement>(sel.replace(':checked-target', ''));
     if (target) target.checked = true;
   }, selector);
-}
-
-/** Open the ThemeDrawer dialog (it's a native <dialog> opened with showModal). */
-async function openThemeDrawer(page: import('@playwright/test').Page) {
-  await page.evaluate(() => {
-    const dialog = document.getElementById('theme-drawer') as HTMLDialogElement | null;
-    if (dialog && !dialog.open) dialog.showModal();
-  });
 }
 
 // ─── Scenarios ───────────────────────────────────────────────────────────────
@@ -380,11 +371,13 @@ const SCENARIOS: ComponentScenario[] = [
     ],
   },
 
-  // ── DisplayControls panel (homepage DisplaySettings) ───────────────────
-  // Each contrast chip selected in turn, then each theme chip. Selection is
-  // applied via .checked = true (no change event) so the matrix's forced
-  // theme/contrast state isn't overridden by the component's own handlers.
-  ...['low', 'high', 'decorative', 'system'].map((value): ComponentScenario => ({
+  // ── DisplayControls (footer) ────────────────────────────────────────────
+  // One instance now, rendered in the footer on every page. Each contrast
+  // chip selected in turn, then each theme chip, then each flourish chip.
+  // Selection is applied via .checked = true (no change event) so the
+  // matrix's forced theme/contrast state isn't overridden by the
+  // component's own handlers.
+  ...['low', 'high', 'system'].map((value): ComponentScenario => ({
     component: `DisplayControls — contrast-${value}`,
     route: '/',
     states: [
@@ -394,7 +387,7 @@ const SCENARIOS: ComponentScenario[] = [
         setup: async (page) => {
           await page.evaluate((v) => {
             const radios = document.querySelectorAll<HTMLInputElement>(
-              '.display-controls--panel input[data-control="contrast"]'
+              '.display-controls--footer input[data-control="contrast"]'
             );
             radios.forEach(r => { r.checked = r.value === v; });
           }, value);
@@ -412,7 +405,25 @@ const SCENARIOS: ComponentScenario[] = [
         setup: async (page) => {
           await page.evaluate((v) => {
             const radios = document.querySelectorAll<HTMLInputElement>(
-              '.display-controls--panel input[data-control="theme"]'
+              '.display-controls--footer input[data-control="theme"]'
+            );
+            radios.forEach(r => { r.checked = r.value === v; });
+          }, value);
+        },
+      },
+    ],
+  })),
+  ...['full', 'reduced', 'raw'].map((value): ComponentScenario => ({
+    component: `DisplayControls — flourish-${value}`,
+    route: '/',
+    states: [
+      {
+        state: 'selected',
+        label: `flourish-${value}-selected`,
+        setup: async (page) => {
+          await page.evaluate((v) => {
+            const radios = document.querySelectorAll<HTMLInputElement>(
+              '.display-controls--footer input[data-control="flourish"]'
             );
             radios.forEach(r => { r.checked = r.value === v; });
           }, value);
@@ -430,89 +441,9 @@ const SCENARIOS: ComponentScenario[] = [
         setup: async (page) => {
           await page.evaluate(() => {
             const radio = document.querySelector<HTMLInputElement>(
-              '.display-controls--panel input[data-control="contrast"]'
+              '.display-controls--footer input[data-control="contrast"]'
             );
             radio?.focus();
-          });
-        },
-      },
-    ],
-  },
-
-  // ── ThemeDrawer (open + each option selected) ──────────────────────────
-  // ThemeDrawer is a separate fixture in the sidebar — its DisplayControls
-  // share markup with the panel variant but use idPrefix="drawer". Wait,
-  // the live component uses theme-drawer__option (not display-controls--
-  // drawer); confirmed in src/components/ThemeDrawer.astro.
-  ...['light', 'dark', 'system'].map((value): ComponentScenario => ({
-    component: `ThemeDrawer — theme-${value}`,
-    route: '/',
-    states: [
-      {
-        state: 'selected',
-        label: `theme-${value}-selected`,
-        setup: async (page) => {
-          await openThemeDrawer(page);
-          await page.evaluate((v) => {
-            const radios = document.querySelectorAll<HTMLInputElement>(
-              '#theme-drawer input[name="theme"]'
-            );
-            radios.forEach(r => { r.checked = r.value === v; });
-          }, value);
-        },
-      },
-    ],
-  })),
-  ...['low', 'high', 'decorative', 'system'].map((value): ComponentScenario => ({
-    component: `ThemeDrawer — contrast-${value}`,
-    route: '/',
-    states: [
-      {
-        state: 'selected',
-        label: `contrast-${value}-selected`,
-        setup: async (page) => {
-          await openThemeDrawer(page);
-          await page.evaluate((v) => {
-            const radios = document.querySelectorAll<HTMLInputElement>(
-              '#theme-drawer input[name="contrast"]'
-            );
-            radios.forEach(r => { r.checked = r.value === v; });
-          }, value);
-        },
-      },
-    ],
-  })),
-  {
-    component: 'ThemeDrawer — option-focus',
-    route: '/',
-    states: [
-      {
-        state: 'focus',
-        label: 'option-focus-visible',
-        setup: async (page) => {
-          await openThemeDrawer(page);
-          await page.evaluate(() => {
-            const radio = document.querySelector<HTMLInputElement>(
-              '#theme-drawer input[name="theme"]'
-            );
-            radio?.focus();
-          });
-        },
-      },
-    ],
-  },
-  {
-    component: 'ThemeDrawer — close-button-focus',
-    route: '/',
-    states: [
-      {
-        state: 'focus',
-        label: 'close-focus-visible',
-        setup: async (page) => {
-          await openThemeDrawer(page);
-          await page.evaluate(() => {
-            const btn = document.querySelector<HTMLElement>('.theme-drawer__close');
-            btn?.focus();
           });
         },
       },
@@ -623,7 +554,7 @@ interface ScanResult {
   violationCount: number;
   totalNodes: number;
   violations: ViolationDetail[];
-  classification: 'clean' | 'expected' | 'unexpected';
+  classification: 'clean' | 'unexpected';
   screenshotPath?: string;
 }
 
@@ -641,7 +572,6 @@ test.describe('Component states — interactive a11y matrix', () => {
     fs.writeFileSync(outPath, JSON.stringify(allResults, null, 2), 'utf-8');
 
     const clean      = allResults.filter(r => r.classification === 'clean');
-    const expected   = allResults.filter(r => r.classification === 'expected');
     const unexpected = allResults.filter(r => r.classification === 'unexpected');
 
     console.log('\n============================================');
@@ -649,7 +579,6 @@ test.describe('Component states — interactive a11y matrix', () => {
     console.log('============================================');
     console.log(`States tested:              ${allResults.length}`);
     console.log(`Clean (no violations):      ${clean.length}`);
-    console.log(`Expected (Decorative mode): ${expected.length}`);
     console.log(`Unexpected (Low / High):    ${unexpected.length}`);
 
     if (unexpected.length > 0) {
@@ -764,12 +693,10 @@ test.describe('Component states — interactive a11y matrix', () => {
 
             const totalNodes = violationDetails.reduce((sum, v) => sum + v.nodeCount, 0);
 
-            // 9. Classify — same convention as contrast-matrix:
-            //    decorative violations are by-design, not bugs
+            // 9. Classify — this sweep only covers low/high contrast (no
+            //    flourish dimension), so any violation is unexpected.
             const classification: ScanResult['classification'] =
-              violations.length === 0     ? 'clean'
-              : contrast === 'decorative' ? 'expected'
-              :                             'unexpected';
+              violations.length === 0 ? 'clean' : 'unexpected';
 
             allResults.push({
               component:      scenario.component,
