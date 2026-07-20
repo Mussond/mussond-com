@@ -1,7 +1,7 @@
 /* ============================================
    GUIDE CARD — feed
    Single-column stacked feed: body / kind pill / meta.
-   Title in Fraunces Regular ~22px per Figma v2.
+   Title in Source Sans 3 Regular ~22px.
 
    Hover/focus: sand sweep + title underline. Same interaction
    pattern as case-study-card and log-card.
@@ -88,10 +88,10 @@
   min-width: 0;
 }
 
-/* ── Title — Fraunces Regular ~22px ─────────────────── */
+/* ── Title — Source Sans 3 Regular ~22px ─────────────────── */
 
 .guide-card__title {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-weight: 400;
   font-size: 1.375rem;
   line-height: 1.2;

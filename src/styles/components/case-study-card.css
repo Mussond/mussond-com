@@ -116,7 +116,7 @@
 }
 
 .cs-card__year {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-style: italic;
   font-weight: 400;
   font-size: 4rem;
@@ -233,7 +233,7 @@
 }
 
 .cs-card__stat-value {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-style: italic;
   font-weight: 400;
   font-size: var(--text-md);
