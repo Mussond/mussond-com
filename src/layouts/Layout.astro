@@ -1,7 +1,6 @@
 ---
 import '../styles/global.css';
-import Sidebar from '../components/Sidebar.astro';
-import Identity from '../components/Identity.astro';
+import SiteHeader from '../components/SiteHeader.astro';
 import Footer from '../components/Footer.astro';
 import SkipLink from '../components/SkipLink.astro';
 
@@ -18,7 +17,6 @@ const {
 } = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://mussond.com');
-const isHomepage = Astro.url.pathname === '/';
 ---
 
 <!doctype html>
@@ -60,20 +58,7 @@ const isHomepage = Astro.url.pathname === '/';
   </head>
   <body>
     <SkipLink />
-    <Sidebar />
-    <header class="site-header">
-      {isHomepage && (
-        <div class="site-header__eyebrow">
-          <p class="site-header__role text-eyebrow">
-            Principal designer &middot; a11y &amp; design systems
-          </p>
-          <p class="site-header__hint text-eyebrow">
-            Press <kbd class="site-header__kbd" data-kbd-glyph>⌥ + T</kbd> to jump to display settings
-          </p>
-        </div>
-      )}
-      <Identity variant="mobile" />
-    </header>
+    <SiteHeader />
     <slot />
     <Footer />
   </body>

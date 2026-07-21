@@ -1,90 +1,21 @@
 ---
-// Hero — homepage opener. Eyebrow row pairs role with the keyboard
-// shortcut hint (platform-detected glyph). Stance follows v2: italic
-// serif, single line break, "usability amplifier" emphasised in amber.
-// Stats live in HeroStats.astro, directly after this section.
+// Hero — homepage opener. Stance follows v2: italic serif, single
+// line break, "usability amplifier" emphasised in amber. The role
+// eyebrow + Alt+T hint live in SiteHeader now (rendered once, at
+// every breakpoint) rather than duplicated here. Stats live in
+// HeroStats.astro, directly after this section.
 ---
 
 <section class="hero container" aria-label="Introduction">
-  <div class="hero__eyebrow-row">
-    <p class="hero__role text-eyebrow">
-      Principal designer · a11y &amp; design systems
-    </p>
-    <p class="hero__shortcut-hint text-eyebrow">
-      Press <kbd class="hero__kbd" data-kbd-glyph>⌥ + T</kbd> to jump to display settings
-    </p>
-  </div>
-
-<p class="hero__stance">
+  <p class="hero__stance">
     Accessibility isn't a feature. <br />
     It's a <em class="hero__emphasis">usability amplifier</em>.
   </p>
-
-<script is:inline>
-  (function () {
-    var isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform);
-    if (!isMac) {
-      document.querySelectorAll('[data-kbd-glyph]').forEach(function (g) {
-        g.textContent = 'Alt + T';
-      });
-    }
-  })();
-</script>
+</section>
 
 <style>
   .hero {
-    /* padding-block-start matches sidebar padding-block-start (2rem)
-       so the eyebrow row top aligns with the sidebar monogram top. */
-    padding-block: 2rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    /* Match sidebar gap (2rem) between bar and identity, so the
-       hero stance lands at the same y-position as the sidebar h1. */
-    gap: 2rem;
-  }
-
-  .hero__eyebrow-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--space-p4);
-    flex-wrap: wrap;
-    /* Match sidebar monogram height (36px) so the row's vertical
-       centre aligns with the monogram's vertical centre. */
-    min-height: 36px;
-  }
-
-  .hero__role {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin: 0;
-    color: var(--color-text-primary);
-    max-width: none;
-  }
-
-  .hero__shortcut-hint {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin: 0;
-    color: var(--color-text-secondary);
-    max-width: none;
-  }
-
-  .hero__kbd {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.25rem 0.5rem;
-    border: var(--stroke-1) solid var(--color-border-base);
-    border-radius: var(--radius-r1);
-    background: var(--color-bg-card);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    font-weight: 400;
-    letter-spacing: 0.05em;
-    text-transform: none;
-    color: var(--color-text-primary);
+    padding-block: 1.5rem 1.5rem;
   }
 
   .hero__stance {
@@ -109,18 +40,6 @@
   @media (max-width: 800px) {
     .hero__stance {
       font-size: 2.5rem;
-    }
-  }
-
-  /* Once the sidebar collapses, the site-header (rendered by
-     Layout.astro) takes over the eyebrow row — role on left,
-     hint on right — matching the desktop hero layout but
-     positioned above the identity at the top of the page. Hide
-     the in-hero copy entirely at this breakpoint to avoid the
-     duplicate. */
-  @media (max-width: 1024px) {
-    .hero__eyebrow-row {
-      display: none;
     }
   }
 </style>
