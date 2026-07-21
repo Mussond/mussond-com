@@ -124,39 +124,31 @@ a {
 }
 
 /* Naked anchors — inline body links in prose, MDX content, content
-   meta. Two-layer underline: a permanent 1px rest line, plus a 2px
-   sweep that animates 0% → 100% width on hover/focus. Both layers sit
-   at the bottom of the box; the sweep paints over the rest line as it
-   grows. Classed anchors (cards, nav, footer, back-link, icon-button,
-   etc.) carry their own scoped sweep on inner spans and are excluded
-   here via :not([class]) so this rule can't double-paint them. */
+   meta. Inline-link model (board 5c "Inline link" row): a static
+   currentColor underline that thickens 1.5px → 3px on hover; focus
+   stays at rest thickness, outline alone carries the signal. Classed
+   anchors (cards, nav, footer, back-link, icon-button, etc.) carry
+   their own scoped underline treatment and are excluded here via
+   :not([class]) so this rule can't double-paint them. */
 a:not([class]) {
-  background-image:
-    linear-gradient(currentColor, currentColor),
-    linear-gradient(currentColor, currentColor);
-  background-repeat: no-repeat;
-  background-position: 0 100%, 0 100%;
-  background-size:
-    0% var(--hover-underline-thickness),
-    100% var(--hover-underline-thickness-rest);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
 }
 
-a:not([class]):hover,
-a:not([class]):focus-visible {
-  background-size:
-    100% var(--hover-underline-thickness),
-    100% var(--hover-underline-thickness-rest);
+a:not([class]):hover {
+  text-decoration-thickness: 3px;
 }
 
 a:focus-visible {
-  outline: 3px solid var(--color-text-primary);
+  outline: 3px solid var(--color-focus-ring);
   outline-offset: 3px;
   border-radius: 2px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   a:not([class]) {
-    transition: background-size var(--hover-underline-duration) var(--hover-underline-easing);
+    transition: text-decoration-thickness var(--hover-underline-duration) var(--hover-underline-easing);
   }
 }
 

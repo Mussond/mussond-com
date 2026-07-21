@@ -8,9 +8,8 @@
    Matches boards 4a/4b/5a/5b (read directly from the exported
    Redesign-choice.dc.html — the glass values, bar shape, and nav
    underline mechanics below are taken from that source, not
-   guessed). Colour/focus-ring recolouring to the amber interaction
-   system is sprint 7.4 scope — this component intentionally keeps
-   the sitewide ink/currentColor convention for now.
+   guessed). Underline/focus-ring colour recoloured to the amber
+   interaction system per board 5c (sprint 7.4).
    ============================================ */
 
 .site-header {
@@ -145,15 +144,16 @@ html.dark .site-header__bar {
    matches the board's background-position/size mechanic exactly. */
 .nav-link__label {
   display: inline-block;
-  background-image: linear-gradient(currentColor, currentColor);
+  background-image: linear-gradient(var(--color-link-underline), var(--color-link-underline));
   background-size: 0% 2px;
   background-position: 18px calc(100% - 6px);
   background-repeat: no-repeat;
   transition: background-size var(--hover-underline-duration) var(--hover-underline-easing);
 }
 
-.site-header__nav-link:not([aria-current="page"]):hover .nav-link__label,
-.site-header__nav-link:not([aria-current="page"]):focus-visible .nav-link__label {
+/* Focus doesn't grow the underline sweep (board 5c: focus column
+   keeps the rest-state 0% underline, outline carries the signal). */
+.site-header__nav-link:not([aria-current="page"]):hover .nav-link__label {
   background-size: calc(100% - 36px) 2px;
 }
 

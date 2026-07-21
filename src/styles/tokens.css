@@ -221,6 +221,8 @@
   --color-action-border:   var(--sand-12);
   --color-action-text:     var(--amber-contrast);
   --color-focus-ring:      var(--sand-12);
+  --color-link-underline:  var(--amber-11);   /* 5c interaction states — amber sweep on nav/footer/toggle links */
+  --color-border-hover:    var(--amber-11);   /* 5c: amber keyline on hover — buttons, cards, tags, toggles */
 
   /* Background gradient — suppressed by default. The pre-redesign wash
      read as a 2021 SaaS template (per redesign-audit.md §Gradient
@@ -246,6 +248,9 @@
   --color-action-text:   var(--amber-1);
   --color-action-border:   var(--sand-11);
   --color-accent-selected: var(--amber-9);
+  --color-focus-ring:      var(--amber-9);   /* 5c: dark focus outline is amber, not ink */
+  --color-link-underline:  var(--amber-9);
+  --color-border-hover:    var(--amber-9);
   --color-border-card:   var(--sand-6);    /* dark: step shifts 12→9 to read against sand-12 dark */
   /* Dark mode selected fill — matches Figma color/bg-selected dark mode override.
      Light mode: pale amber-4 (#ffec77). Dark mode: saturated amber-9 (#ffc53d). */
