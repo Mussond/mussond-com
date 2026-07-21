@@ -3,7 +3,9 @@
    Primary + secondary variants. Left-to-right background
    sweep on hover via ::before pseudo-element. Slot content
    wrapped in .btn__label / .btn__icon to sit above the sweep.
-   Pill focus ring with offset — matches icon-button treatment.
+   Leaf-shell radius flips on hover/focus per board 5c — buttons
+   are the one component the board actually flips shape on focus
+   (nav link / logo mark / card row don't; outline-only there).
    ============================================ */
 
 .btn {
@@ -13,8 +15,8 @@
   align-items: center;
   justify-content: center;
   padding: 0.5rem 1.5rem;
-  border: 1px solid var(--color-action-border);
-  border-radius: var(--radius-pill);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-leaf-shell);
   background: var(--color-action-bg);
   color: var(--color-action-text);
   font-family: var(--font-sans);
@@ -22,7 +24,8 @@
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
-  transition: transform var(--hover-grow-duration) var(--hover-grow-easing);
+  transition: border-radius var(--motion-leaf-duration) var(--motion-leaf-easing),
+              border-color var(--hover-grow-duration) var(--hover-grow-easing);
 }
 
 /* Sweep layer — amber-10 slides in from the left on hover.
@@ -75,30 +78,28 @@
   }
 }
 
-/* 2px border on hover — compensate padding to prevent layout shift */
+/* Keyline + shape flip on hover — amber border, radius flips to
+   its counter-leaf. Board 5c: border width and padding stay put,
+   only colour and radius change. */
 .btn:hover,
 .btn:active {
-  border-width: 2px;
-  padding: calc(0.5rem - 1px) calc(1.5rem - 1px);
+  border-color: var(--color-border-hover);
+  border-radius: var(--radius-leaf-shell-flip);
   text-decoration: none;
-}
-
-/* In high-contrast the border is already 2px at rest — no compensation */
-[data-contrast="high"] .btn:hover,
-[data-contrast="high"] .btn:active {
-  padding: 0.5rem 1.5rem;
 }
 
 .btn:focus-visible {
   text-decoration: none;
 }
 
-/* Focus ring — pill shape with offset. Matches .icon-button treatment.
-   border-radius overrides a:focus-visible { border-radius: 2px } in base.css */
+/* Focus — radius flips like hover, but border stays at rest colour
+   (transparent primary / ink secondary); outline alone carries the
+   signal. border-radius overrides a:focus-visible { border-radius: 2px }
+   in base.css. */
 .btn:focus-visible {
   outline: 3px solid var(--color-focus-ring);
   outline-offset: 2px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-leaf-shell-flip);
 }
 
 /* ============================================
@@ -120,6 +121,10 @@
 
 .btn--secondary:hover,
 .btn--secondary:active {
+  border-color: var(--color-border-hover);
+}
+
+.btn--secondary:focus-visible {
   border-color: var(--color-action-border);
 }
 
@@ -134,8 +139,12 @@
    distinguishes from secondary outline.
    ============================================ */
 
+/* Primary's rest-state border is transparent under low contrast (board
+   5c) — high contrast can't rely on colour alone to show the boundary,
+   so restore a visible border on both variants. */
 [data-contrast="high"] .btn {
   border-width: 2px;
+  border-color: var(--color-action-border);
 }
 
 [data-contrast="high"] .btn:focus-visible {
@@ -147,17 +156,18 @@
    ============================================ */
 
 @media (prefers-reduced-motion: no-preference) {
-  .btn:hover {
-    transform: scale(var(--hover-grow-scale));
-  }
-
   .btn:active {
     transform: scale(0.98);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  /* Sweep doesn't animate under reduced-motion */
+  /* Radius flip and sweep don't animate under reduced-motion;
+     colour change alone still carries the hover/focus signal. */
+  .btn {
+    transition: border-color var(--hover-grow-duration) var(--hover-grow-easing);
+  }
+
   .btn::before {
     transition: none;
   }
