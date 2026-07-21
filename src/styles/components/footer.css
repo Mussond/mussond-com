@@ -1,20 +1,24 @@
 /* ============================================
    SITE FOOTER
    Three columns (Work / About / Connect) with a leading monogram
-   and a trailing meta block (strapline + copyright). Surface matches
-   the page — no inverted fill. Border treatment mirrors the sidebar:
-   soft 1px subtle rule in low contrast, 2px default rule
-   in high contrast for a firmer edge.
+   and a trailing meta block (strapline + copyright + availability
+   note). Surface uses --color-bg-footer (cream-off-page-bg in
+   light, one step raised in dark — set in tokens.css). 3px amber
+   top border per board (7.3.2) — a structural chrome marker, not
+   part of the flourish decorative layer, so it stays in all
+   flourish modes; high contrast swaps it to the firmer keyline
+   colour used elsewhere in high contrast.
    ============================================ */
 
 .site-footer {
   margin-top: 6rem;
-  border-top: 1px solid var(--color-border-subtle);
+  border-top: 3px solid var(--color-action-bg);
+  background: var(--color-bg-footer);
   padding-block: 3rem;
 }
 
 [data-contrast="high"] .site-footer {
-  border-top: 2px solid var(--color-border-base);
+  border-top: 3px solid var(--color-border-base);
 }
 
 .footer {
@@ -147,6 +151,25 @@ html.dark .footer__monogram { color: var(--color-action-bg); }
   font-size: var(--text-sm);
   color: var(--color-text-secondary);
   max-width: unset;
+}
+
+.footer__status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.25rem 0 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  max-width: unset;
+}
+
+.footer__status-dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--color-eyebrow-dash);
+  flex-shrink: 0;
 }
 
 .footer__strapline a {
