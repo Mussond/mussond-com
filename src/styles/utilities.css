@@ -1,20 +1,37 @@
 /* ============================================
    LAYOUT
+
+   Board 4a/4b/5a/5b (7.9.3/7.9.4): a 1220px shell centred in the
+   viewport, holding a narrower content column that sits left-aligned
+   inside it (whitespace to the right) rather than centred. .site-shell
+   is the bare centred box (header/footer use it directly, each adding
+   their own padding-inline); .container adds the 900px cap + 96px
+   padding and offsets itself flush with the shell's left edge via
+   margin-left, without needing an extra wrapper element.
    ============================================ */
 
-/* Board 4a/4b/5a/5b (7.9.3) — the bare 1220px shell, centred in the
-   viewport. Header and footer inset themselves within it directly
-   (each adding their own padding-inline); full-bleed backgrounds
-   (page bg, wash, footer band) live outside it, on body/.site-footer. */
 .site-shell {
   max-width: 1220px;
   margin-inline: auto;
 }
 
 .container {
-  max-width: var(--content-width);
-  width: 90%;
-  margin-inline: auto;
+  max-width: 900px;
+  padding-inline: 96px;
+  margin-right: auto;
+  margin-left: max(0px, calc((100% - 1220px) / 2));
+}
+
+@media (max-width: 800px) {
+  .container {
+    padding-inline: 48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding-inline: 24px;
+  }
 }
 
 .page-content {

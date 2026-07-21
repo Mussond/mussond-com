@@ -135,9 +135,6 @@
   --space-p20:  5rem;     /*  80px */
   --space-p28:  7rem;     /* 112px */
 
-  /* Layout */
-  --content-width: 768px;
-
   /* Radius — two scales only.
      --radius-card  applies to card-like surfaces: cards, hero images,
                     input fields if/when added. 16px.
