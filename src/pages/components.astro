@@ -7,6 +7,7 @@ import Button from '../components/Button.astro';
 import Card from '../components/Card.astro';
 import CaseStudyCard from '../components/CaseStudyCard.astro';
 import CaseStudyGrid from '../components/CaseStudyGrid.astro';
+import DetailNav from '../components/DetailNav.astro';
 import DisplayControls from '../components/DisplayControls.astro';
 import EthosList from '../components/EthosList.astro';
 import GuideCard from '../components/GuideCard.astro';
@@ -125,9 +126,29 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
       </div>
     </div>
 
+    <h2 id="detail-nav-heading">DetailNav</h2>
+    <p class="component-meta">
+      Prev/next navigation at the bottom of case-study and guide detail pages. No design board — a system extension added in sprint 7.6 to close a known phase-6 finding. Renders whichever of prev/next it's given; a spacer keeps the "next" link right-aligned when there's no previous entry.
+      <a href={`${repo}/DetailNav.astro`}>View source on GitHub →</a>
+    </p>
+    <div class="component-showcase">
+      <DetailNav
+        prev={{ href: '#', title: 'Sample previous case study' }}
+        next={{ href: '#', title: 'Sample next case study' }}
+        navLabel="More case studies"
+      />
+    </div>
+
     <h2 id="display-controls-heading">DisplayControls</h2>
     <p class="component-meta">
-      Segmented radio groups (Theme + Contrast + Flourish) rendered in the footer on every page. See the <a href="/#footer">footer</a>.
+      Segmented radio groups rendered in the footer settings row on every page — the <code>variant="footer"</code> shape shown below. See the <a href="/#footer">footer</a>.
+    </p>
+    <ul class="component-meta__list">
+      <li><strong>Theme:</strong> System / Light / Dark</li>
+      <li><strong>Contrast:</strong> Low / High / System</li>
+      <li><strong>Flourish:</strong> Full / Reduced / Raw — whether the decorative layer (and, at Raw, the site stylesheet itself) renders</li>
+    </ul>
+    <p class="component-meta">
       <a href={`${repo}/DisplayControls.astro`}>View source on GitHub →</a>
     </p>
     <div class="component-showcase">
@@ -156,7 +177,7 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
 
     <h2 id="footer-heading">Footer</h2>
     <p class="component-meta">
-      Site-wide footer with secondary navigation, monogram link, strapline, and copyright. Visible at the bottom of every page.
+      Three bands: the settings row (<a href="#display-controls-heading">DisplayControls</a>, shown below), link columns (Work / About / Connect), and a meta bar with strapline, copyright, and availability note. Visible at the bottom of every page.
       <a href={`${repo}/Footer.astro`}>View source on GitHub →</a>
     </p>
 
@@ -281,7 +302,7 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
 
     <h2 id="site-header-heading">SiteHeader</h2>
     <p class="component-meta">
-      Floating glass-pill top header at all widths: leaf logo mark, pill nav with amber current-page dot, and the name/tagline identity block (h1 on the homepage, paragraph+link elsewhere). Visible at the top of every page.
+      Floating glass-pill top header at all widths: leaf logo mark, pill nav with amber current-page dot, and a menu toggle (with its own <code>id="site-nav"</code> and toggle script) for narrow viewports. Linked only, not embedded — it's already rendered at the top of this page, and a second live instance would collide with the real header's ids and toggle wiring.
       <a href={`${repo}/SiteHeader.astro`}>View source on GitHub →</a>
     </p>
 

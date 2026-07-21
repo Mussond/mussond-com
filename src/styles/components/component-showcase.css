@@ -40,6 +40,19 @@
   border-radius: 2px;
 }
 
+.component-meta__list {
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  max-width: 68ch;
+  margin: 0 0 var(--space-p8);
+  padding-left: 1.5rem;
+  list-style: disc;
+}
+
+.component-meta__list li {
+  margin-bottom: 0.3rem;
+}
+
 .component-showcase {
   margin-block: 0 var(--space-p8);
   padding: var(--space-p8);
