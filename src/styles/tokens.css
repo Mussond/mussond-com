@@ -304,12 +304,16 @@
    if full flourish is selected alongside it — a11y always wins over
    decoration, whatever the flourish setting. */
 [data-flourish="full"]:not([data-contrast="high"]) {
-  --gradient-brand: linear-gradient(
-    146.49deg,
-    var(--amber-a5) 4.17%,
-    var(--amber-a3) 14.06%,
-    transparent 28.36%
-  );
+  /* Board-exact radial wash (7.9.2) — quiet hero-corner glow, not the
+     saturated diagonal band the old linear gradient produced. Values
+     read directly from Redesign choice.dc.html boards 4a (light, 0.22
+     alpha) / 5a (dark, 0.10 alpha): radial-gradient(1100px 560px at
+     12% -12%, rgba(255,197,61,X), transparent 65%). */
+  --gradient-brand: radial-gradient(1100px 560px at 12% -12%, rgba(255, 197, 61, 0.22), transparent 65%);
+}
+
+.dark[data-flourish="full"]:not([data-contrast="high"]) {
+  --gradient-brand: radial-gradient(1100px 560px at 12% -12%, rgba(255, 197, 61, 0.10), transparent 65%);
 }
 
 /* High contrast overrides — darker borders, secondary text merges with primary.
