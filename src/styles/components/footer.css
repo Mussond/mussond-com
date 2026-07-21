@@ -203,6 +203,7 @@ html.dark .footer__monogram { color: var(--color-action-bg); }
   .footer {
     grid-template-columns: 1fr;
     grid-template-areas:
+      "settings"
       "monogram"
       "nav"
       "meta";

@@ -19,8 +19,18 @@ body {
   font-weight: 400;
   color: var(--color-text-primary);
   background-color: var(--color-bg-base);
+  /* Corner glow — sized to the viewport and painted once at the top,
+     not attachment:fixed. Body is far taller than the viewport on
+     most pages, and background-attachment:fixed's positioning area is
+     the viewport while its paint area is body's own (page-length) box;
+     that mismatch made the wash reappear part-way down long pages
+     instead of staying a quiet hero-corner accent (found in the 7.8
+     responsive pass). Explicit size + no-repeat keeps it contained and
+     lets it simply scroll away with the hero, as intended. */
   background-image: var(--gradient-brand);
-  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-size: 100vw 100vh;
   line-height: 1.6;
 
   /* Grid shell — single column at all widths (phase 7: the sidebar
