@@ -5,6 +5,8 @@ sprint: 1.5
 status: awaiting review
 ---
 
+> **Superseded (7.8.3, phase 7 closeout).** Written for an earlier, abandoned redesign attempt's sprint numbering (predates `phase7/sprint-*`) and never actioned — status has been stuck at "awaiting review" since. Kept for history only.
+
 # Sprint 1.5 — Style audit
 
 Scope: every `.astro` page file and every `.mdx` content file in `src/`. Audit covers both bare `style=` attributes and `<style>` blocks in page files that contain component-level concerns.
