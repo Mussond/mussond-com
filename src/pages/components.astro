@@ -63,7 +63,7 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
 
     <h2 id="case-study-card-heading">CaseStudyCard</h2>
     <p class="component-meta">
-      Case study card with featured and secondary variants. Supports per-slug cover blocks (brand-coloured) or a card image.
+      Case study card with featured, secondary, and row variants. Supports per-slug cover blocks (brand-coloured) or a card image. Row is the homepage-preview shape: 64px tile, title+meta, year — see the case-studies-row-list container below.
       <a href={`${repo}/CaseStudyCard.astro`}>View source on GitHub →</a>
     </p>
     <div class="component-showcase">
@@ -102,6 +102,27 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
           />
         </Fragment>
       </CaseStudyGrid>
+      <p class="component-showcase__caption">Row — homepage preview shape</p>
+      <div class="cs-card-row-list">
+        <CaseStudyCard
+          variant="row"
+          href="#"
+          title="Sample row case study"
+          tags={['Design tokens', 'Migration']}
+          year={2024}
+          cover={{ slug: 'checkoutcom', tag: 'CKO', label: 'INFINITY', meta: '2018–2020 · Design system' }}
+          headingLevel={3}
+        />
+        <CaseStudyCard
+          variant="row"
+          href="#"
+          title="Another sample row case study"
+          tags={['Accessibility']}
+          year={2022}
+          cover={{ slug: 'coursera', tag: 'COU', label: 'COURSERA', meta: '2020–2022 · Design system' }}
+          headingLevel={3}
+        />
+      </div>
     </div>
 
     <h2 id="display-controls-heading">DisplayControls</h2>
@@ -141,32 +162,27 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
 
     <h2 id="guide-card-heading">GuideCard</h2>
     <p class="component-meta">
-      Guide card with a primary tag badge by default. Optional <code>showTags</code> exposes the full tag list.
+      Row-card for guide listings: title + description, date · read time trailing. Same leaf-radius/keyline treatment as CaseStudyCard's row variant.
       <a href={`${repo}/GuideCard.astro`}>View source on GitHub →</a>
     </p>
     <div class="component-showcase">
-      <p class="component-showcase__caption">Default — primary tag as badge</p>
-      <GuideCard
-        href="#"
-        title="Sample guide title"
-        description="A short description that wraps onto two lines when there's more to say."
-        tags={['Accessibility', 'Forms']}
-        readTime={5}
-      />
-      <p class="component-showcase__caption">With showTags</p>
-      <GuideCard
-        href="#"
-        title="Sample guide title"
-        description="Same card, full tag list shown."
-        tags={['Accessibility', 'Forms', 'Patterns']}
-        readTime={5}
-        showTags
-      />
+      <ul class="guide-card-feed">
+        <li>
+          <GuideCard
+            href="#"
+            title="Sample guide title"
+            description="A short description that wraps onto two lines when there's more to say."
+            index={1}
+            readTime={5}
+            date={new Date('2026-05-01')}
+          />
+        </li>
+      </ul>
     </div>
 
     <h2 id="hero-heading">Hero</h2>
     <p class="component-meta">
-      Homepage stance line. Italic Source Sans 3 at large size.
+      Homepage opener: amber-tick eyebrow, 54px stance H1 (weight 650, flourish-gated amber highlighter), lead, and primary/secondary CTAs.
       <a href={`${repo}/Hero.astro`}>View source on GitHub →</a>
     </p>
     <div class="component-showcase">
@@ -191,17 +207,20 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
 
     <h2 id="log-card-heading">LogCard</h2>
     <p class="component-meta">
-      Log card with title, description, tags, and year.
+      Row-card for log listings: title + description, year trailing. Same leaf-radius/keyline treatment as GuideCard.
       <a href={`${repo}/LogCard.astro`}>View source on GitHub →</a>
     </p>
     <div class="component-showcase">
-      <LogCard
-        href="#"
-        title="Sample log entry"
-        description="Curated resources or notes — shorter form than guides."
-        tags={['Resources']}
-        year={2025}
-      />
+      <ul class="log-card-list">
+        <li>
+          <LogCard
+            href="#"
+            title="Sample log entry"
+            description="Curated resources or notes — shorter form than guides."
+            year={2025}
+          />
+        </li>
+      </ul>
     </div>
 
     <h2 id="monogram-heading">Monogram</h2>

@@ -16,6 +16,7 @@ const caseStudies = defineCollection({
     cover: z.object({
       slug: z.string(),
       brand: z.string().optional(),
+      tag: z.string().optional(),
       label: z.string(),
       meta: z.string(),
     }).optional(),
