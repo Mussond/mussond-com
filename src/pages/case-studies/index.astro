@@ -1,7 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import CaseStudyCard from '../../components/CaseStudyCard.astro';
-import CaseStudyGrid from '../../components/CaseStudyGrid.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import { getCollection } from 'astro:content';
 
@@ -21,22 +20,19 @@ const sorted = featuredStudy ? [featuredStudy, ...nonFeatured] : nonFeatured;
       <p>A selection of career case studies across design systems, accessibility, and DesignOps.</p>
     </PageIntro>
     {sorted.length > 0 && (
-      <CaseStudyGrid>
+      <div class="cs-card-row-list">
         {sorted.map((study) => (
           <CaseStudyCard
-            variant="featured"
+            variant="row"
             href={`/case-studies/${study.id}`}
             title={study.data.title}
-            description={study.data.description}
-            tags={study.data.tags}
+            tags={study.data.cardTags ?? study.data.tags}
             year={study.data.date.getFullYear()}
-            stats={study.data.stats}
             cover={study.data.cover}
-            image={study.data.cardImage || study.data.coverImage}
             headingLevel={2}
           />
         ))}
-      </CaseStudyGrid>
+      </div>
     )}
   </main>
 </Layout>
