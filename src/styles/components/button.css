@@ -14,14 +14,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 1.5rem;
+  padding: 0.8125rem 1.875rem; /* 13px 30px — board 5c/5a */
   border: 1.5px solid transparent;
   border-radius: var(--radius-leaf-shell);
   background: var(--color-action-bg);
   color: var(--color-action-text);
   font-family: var(--font-sans);
   font-size: var(--text-base);
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
   cursor: pointer;
   transition: border-radius var(--motion-leaf-duration) var(--motion-leaf-easing),
@@ -131,6 +131,13 @@
 /* Full flourish: restore softer border */
 [data-flourish="full"]:not([data-contrast="high"]) .btn--secondary {
   border-color: var(--color-border-base);
+}
+
+/* Dark secondary border — board 5c shows a light ink outline (#e5e0d4),
+   not the low-contrast warm-border token (#3a3830) the flourish softening
+   above resolves to; that read as near-invisible against the dark page bg. */
+.dark[data-flourish="full"]:not([data-contrast="high"]) .btn--secondary {
+  border-color: var(--warm-ink);
 }
 
 /* ============================================
