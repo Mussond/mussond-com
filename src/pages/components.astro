@@ -12,7 +12,6 @@ import EthosList from '../components/EthosList.astro';
 import GuideCard from '../components/GuideCard.astro';
 import Hero from '../components/Hero.astro';
 import IconButton from '../components/IconButton.astro';
-import Identity from '../components/Identity.astro';
 import LogCard from '../components/LogCard.astro';
 import Monogram from '../components/Monogram.astro';
 import PageIntroComponent from '../components/PageIntro.astro';
@@ -37,7 +36,7 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
 
     <PageIntro>
       <p>A reference of the components used on this site, mostly built during phase 6 QA. Each entry links to its source on GitHub.</p>
-      <p>Page-chrome components (Sidebar, Footer, SkipLink) are linked only — they're already rendered as part of this page.</p>
+      <p>Page-chrome components (SiteHeader, Footer, SkipLink) are linked only — they're already rendered as part of this page.</p>
     </PageIntro>
 
     <h2 id="backlink-heading">BackLink</h2>
@@ -190,15 +189,6 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
       </div>
     </div>
 
-    <h2 id="identity-heading">Identity</h2>
-    <p class="component-meta">
-      Name + tagline block. Renders as h1 on the homepage and as a paragraph + link elsewhere. Sidebar variant shown.
-      <a href={`${repo}/Identity.astro`}>View source on GitHub →</a>
-    </p>
-    <div class="component-showcase">
-      <Identity variant="sidebar" />
-    </div>
-
     <h2 id="log-card-heading">LogCard</h2>
     <p class="component-meta">
       Log card with title, description, tags, and year.
@@ -270,10 +260,10 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
       />
     </div>
 
-    <h2 id="sidebar-heading">Sidebar</h2>
+    <h2 id="site-header-heading">SiteHeader</h2>
     <p class="component-meta">
-      Left-column site chrome on desktop: monogram, nav, identity, theme toggle, LinkedIn. Visible as the left column of every page on desktop.
-      <a href={`${repo}/Sidebar.astro`}>View source on GitHub →</a>
+      Floating glass-pill top header at all widths: leaf logo mark, pill nav with amber current-page dot, and the name/tagline identity block (h1 on the homepage, paragraph+link elsewhere). Visible at the top of every page.
+      <a href={`${repo}/SiteHeader.astro`}>View source on GitHub →</a>
     </p>
 
     <h2 id="skip-link-heading">SkipLink</h2>
@@ -380,6 +370,11 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
     <h3 id="theme-drawer-heading">ThemeDrawer &amp; DisplaySettings</h3>
     <p class="component-meta">
       Removed in sprint 7.2 — theme/contrast/flourish controls now live in one <a href="#display-controls-heading">DisplayControls</a> instance in the footer on every page. Files deleted from the repo.
+    </p>
+
+    <h3 id="sidebar-heading">Sidebar &amp; Identity</h3>
+    <p class="component-meta">
+      Removed in sprint 7.3 — the 320px sidebar and its dual-rendered Identity block are replaced by <a href="#site-header-heading">SiteHeader</a>, a single floating pill header at all widths. Files deleted from the repo.
     </p>
 
     <h3 id="card-heading">Card</h3>

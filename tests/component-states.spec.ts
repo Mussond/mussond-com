@@ -79,9 +79,9 @@ const SCENARIOS: ComponentScenario[] = [
     ],
   },
 
-  // ── Sidebar nav links (current vs non-current) ─────────────────────────
+  // ── SiteHeader nav links (current vs non-current) ──────────────────────
   {
-    component: 'Sidebar nav',
+    component: 'SiteHeader nav',
     route: '/',
     states: [
       {
@@ -95,7 +95,7 @@ const SCENARIOS: ComponentScenario[] = [
         setup: async (page) => {
           await page.evaluate(() => {
             const link = document.querySelector<HTMLAnchorElement>(
-              '.sidebar__nav-link[aria-current="page"]'
+              '.site-header__nav-link[aria-current="page"]'
             );
             link?.focus();
           });
@@ -107,7 +107,7 @@ const SCENARIOS: ComponentScenario[] = [
         setup: async (page) => {
           await page.evaluate(() => {
             const link = document.querySelector<HTMLAnchorElement>(
-              '.sidebar__nav-link:not([aria-current="page"])'
+              '.site-header__nav-link:not([aria-current="page"])'
             );
             link?.focus();
           });
@@ -206,7 +206,7 @@ const SCENARIOS: ComponentScenario[] = [
     ],
   },
 
-  // ── Icon button (drawer trigger lives in sidebar) ──────────────────────
+  // ── Icon button (LinkedIn link lives in footer) ─────────────────────────
   {
     component: 'IconButton',
     route: '/',
