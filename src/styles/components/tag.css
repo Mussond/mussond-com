@@ -55,11 +55,13 @@
   letter-spacing: 0.5px;
   background-color: var(--sand-2);
   padding: 0.2em 0.75em;
+  border-radius: var(--radius-leaf-mark);
   border-color: var(--color-action-border);
   color: inherit;
   cursor: pointer;
-  transition: transform var(--hover-grow-duration) var(--hover-grow-easing),
-              background-color var(--hover-grow-duration) var(--hover-grow-easing);
+  transition: border-radius var(--motion-leaf-duration) var(--motion-leaf-easing),
+              background-color var(--hover-grow-duration) var(--hover-grow-easing),
+              border-color var(--hover-grow-duration) var(--hover-grow-easing);
 }
 
 /* Label — wrapper span. No underline treatment; the grow + bg
@@ -68,42 +70,37 @@
   display: inline-block;
 }
 
-/* Hover bg — amber wash (replaces former sweep) */
+/* Hover — amber wash + keyline + shape flip (board 5c "Display
+   toggle" chip mechanic; unselected only, matches the pressed/
+   selected state having no hover feedback below). */
 .tag--filter:not([aria-pressed="true"]):hover {
   background-color: var(--color-bg-hover);
-}
-
-/* 2px border on hover — compensate padding to prevent layout shift */
-.tag--filter:hover {
-  border-color: var(--color-action-bg);
+  border-color: var(--color-border-hover);
   border-width: 2px;
+  border-radius: var(--radius-leaf-mark-flip);
   padding: calc(0.2em - 1px) calc(0.75em - 1px);
 }
 
-/* Selected state — filled directly */
+/* Selected state — filled directly, no hover feedback (board 5c
+   "Display toggle (selected)": default/hover columns are identical). */
 .tag--filter[aria-pressed="true"] {
   background: var(--color-action-bg);
   border-color: var(--color-action-border);
   color: var(--color-action-text);
 }
 
-/* Suppress 2px shift on pressed hover */
-.tag--filter[aria-pressed="true"]:hover {
-  border-width: 1px;
-  padding: 0.2em 0.75em;
-}
-
-/* Focus ring — pill shape with offset.
+/* Focus ring — leaf shape with offset, no radius flip (board 5c:
+   toggle focus keeps rest-state shape; outline alone signals it).
    border-radius overrides a:focus-visible { border-radius: 2px } in base.css */
 .tag--filter:focus-visible {
   outline: 3px solid var(--color-focus-ring);
   outline-offset: 2px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-leaf-mark);
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .tag--filter:not([aria-pressed="true"]):hover {
-    transform: scale(var(--hover-grow-scale));
+  .tag--filter:not([aria-pressed="true"]):active {
+    transform: scale(0.99);
   }
 }
 

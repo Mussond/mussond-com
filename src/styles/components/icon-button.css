@@ -31,11 +31,14 @@
   height: 1.75rem;
 }
 
-/* Hover bg — amber-a3 wash (replaces former diagonal sweep) */
+/* Hover — amber-a3 wash + amber keyline (5c "surface" treatment).
+   Circular already, so there's no shape to flip here — the amber
+   border alone carries the signal, same as the board's other
+   round element (logo mark) on hover. */
 .icon-button:hover,
 .icon-button:active {
   background: var(--color-bg-hover);
-  border-color: var(--color-action-bg);
+  border-color: var(--color-border-hover);
   border-width: 2px;
   text-decoration: none;
 }
