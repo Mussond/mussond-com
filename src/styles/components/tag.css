@@ -43,13 +43,13 @@
 }
 
 /* Amber-wash pill — case-study header tags (board 4b/5b).
-   Sentence-case, body font, alternating leaf-mark radius per
+   Sentence-case, body font, alternating leaf-tag radius per
    sibling — same shape-alternation convention as row cards. */
 .tag--pill {
-  padding: 0.3125em 0.875em;
+  padding: 0.3125rem 0.875rem; /* 5px 14px — board 4b/5b */
   background-color: var(--color-bg-tag-accent);
   border: 0;
-  border-radius: var(--radius-leaf-mark);
+  border-radius: var(--radius-leaf-tag);
   font-family: var(--font-sans);
   font-size: var(--text-sm);
   font-weight: 600;
@@ -59,7 +59,7 @@
 }
 
 .tag--pill:nth-child(even) {
-  border-radius: var(--radius-leaf-mark-flip);
+  border-radius: var(--radius-leaf-tag-flip);
 }
 
 /* Interactive filter button — Guides page toggles.
@@ -111,7 +111,7 @@
 
 /* Focus ring — leaf shape with offset, no radius flip (board 5c:
    toggle focus keeps rest-state shape; outline alone signals it).
-   border-radius overrides a:focus-visible { border-radius: 2px } in base.css */
+   border-radius overrides a:focus-visible's leaf-link radius in base.css */
 .tag--filter:focus-visible {
   outline: 3px solid var(--color-focus-ring);
   outline-offset: 2px;
