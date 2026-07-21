@@ -1,86 +1,88 @@
 ---
-// HeroStats — 3-column profile stats band that sits between the
-// hero and the Case Studies preview on the homepage.
-// Rendered as <dl> for description-list semantics. Wide orgs column +
-// two numeric columns. Top border picks up the same hairline rhythm
-// as the .preview sections that follow.
+// HeroStats — board 4a: a bordered-top row directly under the hero's
+// CTAs, not a separate section. Two numeric columns (years, systems)
+// then a wide orgs column last, so the long org list wraps without
+// squeezing the numbers. Rendered as <dl> for description-list
+// semantics.
 ---
 
 <section class="hero-stats container" aria-label="Profile stats">
   <dl class="hero-stats__list">
-    <div class="hero-stats__item hero-stats__item--wide">
-      <dt class="hero-stats__label text-eyebrow">Orgs worked with</dt>
-      <dd class="hero-stats__value">Dojo, ustwo, LSEG, Checkout.com, Coursera, Aviva, LBG</dd>
-    </div>
     <div class="hero-stats__item">
-      <dt class="hero-stats__label text-eyebrow">Years practising</dt>
+      <dt class="hero-stats__label">Years practising</dt>
       <dd class="hero-stats__value hero-stats__value--numeric">16</dd>
     </div>
     <div class="hero-stats__item">
-      <dt class="hero-stats__label text-eyebrow">Design systems shipped</dt>
+      <dt class="hero-stats__label">Design systems shipped</dt>
       <dd class="hero-stats__value hero-stats__value--numeric">7</dd>
+    </div>
+    <div class="hero-stats__item hero-stats__item--wide">
+      <dt class="hero-stats__label">Orgs worked with</dt>
+      <dd class="hero-stats__value">Dojo, ustwo, LSEG, Checkout.com, Coursera, Aviva, LBG</dd>
     </div>
   </dl>
 </section>
 
 <style>
   .hero-stats {
-    padding-block: 3rem;
-    border-top: 1px solid color-mix(in srgb, var(--color-border-base) 20%, transparent);
+    padding-block: 2rem 0;
   }
 
-.hero-stats__list {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    grid-template-rows: auto auto;
-    column-gap: var(--space-p8);
-    row-gap: var(--space-p2);
+  .hero-stats__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-p14);
     margin: 0;
+    padding-top: var(--space-p8);
+    border-top: var(--stroke-1) solid var(--color-border-base);
   }
 
   .hero-stats__item {
-    display: grid;
-    grid-template-rows: subgrid;
-    grid-row: span 2;
+    display: flex;
+    flex-direction: column;
     margin: 0;
+  }
+
+  .hero-stats__item--wide {
+    min-width: 0;
+    flex: 1 1 auto;
   }
 
   .hero-stats__label {
+    order: 2;
+    margin: 0.25rem 0 0;
+    /* dt precedes dd in the DOM for correct dl semantics;
+       order flips the visual stack so the value reads on top,
+       matching board 4a. */
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: var(--color-text-secondary);
-    margin: 0;
     max-width: none;
   }
 
-  /* Default value — italic sans at heading/md scale (25px),
-     used by the wide orgs column */
   .hero-stats__value {
-    font-family: var(--font-sans);
-    font-style: italic;
-    font-weight: 400;
-    font-size: var(--text-md);
-    line-height: 1.2;
-    color: var(--color-text-primary);
+    order: 1;
     margin: 0;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: var(--text-md);
+    line-height: 1.4;
+    color: var(--color-text-primary);
     max-width: none;
   }
 
-  /* Numeric values get the heading/2xl serif scale for impact */
   .hero-stats__value--numeric {
-    font-size: var(--text-2xl);
-    line-height: 1;
+    font-weight: 650;
+    font-size: var(--text-xl);
+    line-height: 1.1;
   }
 
-@media (max-width: 800px) {
+  @media (max-width: 800px) {
     .hero-stats__list {
-      grid-template-columns: 1fr;
-      row-gap: var(--space-p14);
-    }
-
-    .hero-stats__item {
-      display: flex;
       flex-direction: column;
-      gap: var(--space-p3);
-      grid-row: auto;
+      gap: var(--space-p6);
     }
 
     .hero-stats__value--numeric {
