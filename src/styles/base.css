@@ -41,11 +41,11 @@ body {
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
 
-  /* Wide-viewport cap — centres the shell once the viewport
-     exceeds 1280px. Content container (768px) sits with breathing
-     room on each side. html background-color fills the margins. */
-  max-width: 1280px;
-  margin-inline: auto;
+  /* Full-bleed canvas (7.9.3) — no width cap here. Page background,
+     wash, and the footer band (site-footer has no max-width of its
+     own) all span the true viewport width. Header/content/footer each
+     inset themselves to the 1220px shell via .site-shell/.container —
+     see site-header.css, utilities.css, footer.css. */
 }
 
 body > main {
