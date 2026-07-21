@@ -19,18 +19,19 @@ body {
   font-weight: 400;
   color: var(--color-text-primary);
   background-color: var(--color-bg-base);
-  /* Corner glow — sized to the viewport and painted once at the top,
-     not attachment:fixed. Body is far taller than the viewport on
-     most pages, and background-attachment:fixed's positioning area is
-     the viewport while its paint area is body's own (page-length) box;
-     that mismatch made the wash reappear part-way down long pages
-     instead of staying a quiet hero-corner accent (found in the 7.8
-     responsive pass). Explicit size + no-repeat keeps it contained and
-     lets it simply scroll away with the hero, as intended. */
+  /* Corner glow — fixed 1100×560 box pinned top-left, not sized to the
+     viewport or the page. The gradient's own explicit ellipse dimensions
+     (radial-gradient(1100px 560px at ...)) already define the visible
+     glow; sizing the positioning area to those same dimensions keeps the
+     12%/-12% position anchored to a small hero-corner box regardless of
+     page length — avoids both the old attachment:fixed bug (wash
+     reappearing part-way down long pages, fixed in 7.8) and the
+     100vw/100vh stretch (which turned it into a full-viewport band,
+     flagged in the 7B board-fidelity audit). */
   background-image: var(--gradient-brand);
   background-repeat: no-repeat;
   background-position: top left;
-  background-size: 100vw 100vh;
+  background-size: 1100px 560px;
   line-height: 1.6;
 
   /* Grid shell — single column at all widths (phase 7: the sidebar
@@ -40,11 +41,11 @@ body {
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
 
-  /* Wide-viewport cap — centres the shell once the viewport
-     exceeds 1280px. Content container (768px) sits with breathing
-     room on each side. html background-color fills the margins. */
-  max-width: 1280px;
-  margin-inline: auto;
+  /* Full-bleed canvas (7.9.3) — no width cap here. Page background,
+     wash, and the footer band (site-footer has no max-width of its
+     own) all span the true viewport width. Header/content/footer each
+     inset themselves to the 1220px shell via .site-shell/.container —
+     see site-header.css, utilities.css, footer.css. */
 }
 
 body > main {
