@@ -94,7 +94,7 @@
 
 /* Focus — radius flips like hover, but border stays at rest colour
    (transparent primary / ink secondary); outline alone carries the
-   signal. border-radius overrides a:focus-visible { border-radius: 2px }
+   signal. border-radius overrides a:focus-visible's leaf-link radius
    in base.css. */
 .btn:focus-visible {
   outline: 3px solid var(--color-focus-ring);

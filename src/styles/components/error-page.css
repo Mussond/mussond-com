@@ -32,5 +32,5 @@
 .not-found-nav a:focus-visible {
   outline: 3px solid var(--color-focus-ring);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: var(--radius-leaf-link);
 }
