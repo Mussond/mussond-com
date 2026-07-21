@@ -4,12 +4,32 @@
   margin-bottom: 3rem;
 }
 
+.content-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin: 0 0 0.75rem;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-secondary);
+}
+
+.content-eyebrow::before {
+  content: "";
+  width: 1.5rem;
+  height: var(--stroke-2);
+  background: var(--color-eyebrow-dash);
+  flex-shrink: 0;
+}
+
 .content-header h1 {
   margin-bottom: 1rem;
 }
 
 .content-header .content-meta {
-  margin-top: 1rem;
+  margin-top: 0.75rem;
   font-size: 0.875rem;
   color: var(--color-text-secondary);
 }

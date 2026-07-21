@@ -13,6 +13,24 @@
 }
 
 .not-found-nav a {
+  display: inline-block;
   font-weight: 600;
-  color: var(--color-text-secondary);
+  color: var(--color-link-underline);
+  text-decoration: none;
+  background-image: linear-gradient(var(--color-link-underline), var(--color-link-underline));
+  background-size: 0% var(--hover-underline-thickness);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  padding-bottom: var(--hover-underline-offset);
+  transition: background-size var(--hover-underline-duration) var(--hover-underline-easing);
+}
+
+.not-found-nav a:hover {
+  background-size: 100% var(--hover-underline-thickness);
+}
+
+.not-found-nav a:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
