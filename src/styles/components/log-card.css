@@ -1,7 +1,8 @@
 /* ============================================
-   LOG CARD — feed
-   Horizontal flow: body / meta.
-   Title in Source Sans 3 Regular ~22px.
+   LOG CARD — row
+   Same treatment as GuideCard: bordered leaf-radius row, title
+   +description | year trailing, alternating leaf-card/leaf-card-flip,
+   amber keyline + radius-flip on hover/focus, active scale 0.99.
    ============================================ */
 
 /* ── Feed wrapper ───────────────────────────────────────────── */
@@ -9,18 +10,10 @@
 .log-card-list {
   display: flex;
   flex-direction: column;
+  gap: var(--space-p3);
   list-style: none;
   padding: 0;
   margin: 0;
-}
-
-.log-card-list > li {
-  display: flex;
-  border-block-end: 1px solid var(--color-border-base);
-}
-
-.log-card-list > li:last-child {
-  border-block-end: none;
 }
 
 /* ── Card shell ─────────────────────────────────────────────── */
@@ -29,31 +22,38 @@
   position: relative;
   display: grid;
   grid-template-columns: 1fr auto;
-  align-items: start;
-  gap: var(--space-p4);
+  align-items: center;
+  gap: var(--space-p6);
   width: 100%;
-  padding: var(--space-p4) var(--space-p2);
+  padding: var(--space-p4) var(--space-p6);
+  border: 1.5px solid var(--color-border-base);
+  border-radius: var(--radius-leaf-card);
+  background: var(--color-bg-card);
   text-decoration: none;
   color: inherit;
+  transition: border-radius var(--motion-leaf-duration) var(--motion-leaf-easing),
+              border-color var(--hover-grow-duration) var(--hover-grow-easing);
 }
 
-.log-card:hover{
+.log-card-list > li:nth-child(even) .log-card {
+  border-radius: var(--radius-leaf-card-flip);
+}
+
+.log-card:hover,
+.log-card:focus-visible {
   text-decoration: none;
-  border: 2px solid var(--color-border-card);
-  box-shadow: var(--shadow-card-hover);
+  border-color: var(--color-border-hover);
+  border-radius: var(--radius-leaf-card-flip);
+}
+
+.log-card-list > li:nth-child(even) .log-card:hover,
+.log-card-list > li:nth-child(even) .log-card:focus-visible {
+  border-radius: var(--radius-leaf-card);
 }
 
 .log-card:focus-visible {
   outline: 3px solid var(--color-focus-ring);
   outline-offset: 2px;
-  border-radius: var(--radius-r2);
-}
-
-/* ── Inner elements (above sweep layer) ─────────────────────── */
-
-.log-card__body,
-.log-card__meta {
-  position: relative;
 }
 
 /* ── Body ───────────────────────────────────────────────────── */
@@ -65,37 +65,17 @@
   min-width: 0;
 }
 
-/* ── Title — Source Sans 3 Regular ~22px ─────────────────── */
-
 .log-card__title {
   font-family: var(--font-sans);
-  font-weight: 400;
-  font-size: 1.375rem;
-  line-height: 1.2;
+  font-weight: 600;
+  font-size: var(--text-md);
+  line-height: 1.3;
   color: var(--color-text-primary);
   margin: 0;
-  text-decoration: none;
-
-  /* Sweep-in underline via linear-gradient (see tokens.css) */
-  display: inline-block;
-  width: fit-content;
-  background-image: linear-gradient(currentColor, currentColor);
-  background-size: 0% var(--hover-underline-thickness);
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  padding-bottom: var(--hover-underline-offset);
-  transition: background-size var(--hover-underline-duration) var(--hover-underline-easing);
 }
-
-.log-card:hover .log-card__title,
-.log-card:focus-visible .log-card__title {
-  background-size: 100% var(--hover-underline-thickness);
-}
-
-/* ── Description ────────────────────────────────────────────── */
 
 .log-card__description {
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
   color: var(--color-text-secondary);
   line-height: 1.5;
   margin: 0;
@@ -118,14 +98,10 @@
 /* ── Meta — year ────────────────────────────────────────────── */
 
 .log-card__meta {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  font-size: var(--text-sm);
+  letter-spacing: 0.06em;
   color: var(--color-text-secondary);
   white-space: nowrap;
-  align-self: start;
-  padding-block-start: 0.375rem;
 }
 
 /* ── High contrast ──────────────────────────────────────────── */
@@ -140,32 +116,33 @@
   text-decoration-thickness: 0.2em;
 }
 
+[data-contrast="high"] .log-card {
+  border-color: var(--color-border-base);
+}
+
+[data-contrast="high"] .log-card:hover,
 [data-contrast="high"] .log-card:focus-visible {
+  border-color: var(--color-focus-ring);
   outline-color: var(--color-focus-ring);
 }
 
 /* ── Motion guard ───────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: no-preference) {
-  .log-card {
-    transition: transform var(--hover-grow-duration) var(--hover-grow-easing),
-                box-shadow var(--hover-grow-duration) var(--hover-grow-easing);
-  }
-
-  .log-card:hover,
-  .log-card:focus-visible {
-    transform: scale(var(--hover-grow-scale-card));
-    box-shadow: var(--shadow-card-hover);
-    border-radius: var(--radius-r2);
+  .log-card:active {
+    transform: scale(0.99);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  /* No scale — broader shadow + sweep-in underline carry the lift */
   .log-card:hover,
   .log-card:focus-visible {
-    box-shadow: var(--shadow-card-hover-no-motion);
-    border-radius: var(--radius-r2);
+    border-radius: var(--radius-leaf-card);
+  }
+
+  .log-card-list > li:nth-child(even) .log-card:hover,
+  .log-card-list > li:nth-child(even) .log-card:focus-visible {
+    border-radius: var(--radius-leaf-card-flip);
   }
 }
 
@@ -179,7 +156,6 @@
   .log-card:hover,
   .log-card:focus-visible {
     transform: none;
-    box-shadow: none;
   }
 }
 
@@ -189,9 +165,5 @@
   .log-card {
     grid-template-columns: 1fr;
     row-gap: var(--space-p2);
-  }
-
-  .log-card__meta {
-    padding-block-start: 0;
   }
 }

@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import CaseStudyCard from '../components/CaseStudyCard.astro';
-import CaseStudyGrid from '../components/CaseStudyGrid.astro';
 import GuideCard from '../components/GuideCard.astro';
 import GuideCardFeed from '../components/GuideCardFeed.astro';
 import LogCard from '../components/LogCard.astro';
@@ -12,13 +11,10 @@ import SectionHeader from '../components/SectionHeader.astro';
 import { getCollection } from 'astro:content';
 
 const caseStudies = await getCollection('case-studies');
-const withCovers = caseStudies.filter((study) => study.data.coverImage !== undefined);
-const featuredStudy = withCovers.find((study) => study.data.featured);
-const secondaryStudies = withCovers
-  .filter((study) => !study.data.featured)
+const sortedCaseStudies = caseStudies
+  .filter((study) => study.data.cover !== undefined)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 2);
-const sortedCaseStudies = featuredStudy ? [featuredStudy, ...secondaryStudies] : secondaryStudies;
+  .slice(0, 3);
 
 const writing = await getCollection('guides');
 const sortedWriting = writing
@@ -54,37 +50,19 @@ const sortedLogs = logs
         viewAllHref="/case-studies"
       />
       {sortedCaseStudies.length > 0 && (
-        <CaseStudyGrid>
-          <CaseStudyCard
-            variant="featured"
-            href={`/case-studies/${sortedCaseStudies[0].id}`}
-            title={sortedCaseStudies[0].data.title}
-            description={sortedCaseStudies[0].data.description}
-            tags={sortedCaseStudies[0].data.cardTags ?? sortedCaseStudies[0].data.tags}
-            year={sortedCaseStudies[0].data.date.getFullYear()}
-            stats={sortedCaseStudies[0].data.stats}
-            cover={sortedCaseStudies[0].data.cover}
-            image={sortedCaseStudies[0].data.cardImage || sortedCaseStudies[0].data.coverImage}
-            headingLevel={3}
-          />
-          {sortedCaseStudies.length > 1 && (
-            <Fragment slot="secondary">
-              {sortedCaseStudies.slice(1).map((study) => (
-                <CaseStudyCard
-                  variant="secondary"
-                  href={`/case-studies/${study.id}`}
-                  title={study.data.title}
-                  description={study.data.description}
-                  tags={study.data.cardTags ?? study.data.tags}
-                  year={study.data.date.getFullYear()}
-                  cover={study.data.cover}
-                  image={study.data.cardImage || study.data.coverImage}
-                  headingLevel={3}
-                />
-              ))}
-            </Fragment>
-          )}
-        </CaseStudyGrid>
+        <div class="cs-card-row-list">
+          {sortedCaseStudies.map((study) => (
+            <CaseStudyCard
+              variant="row"
+              href={`/case-studies/${study.id}`}
+              title={study.data.title}
+              tags={study.data.cardTags ?? study.data.tags}
+              year={study.data.date.getFullYear()}
+              cover={study.data.cover}
+              headingLevel={3}
+            />
+          ))}
+        </div>
       )}
     </section>
 
@@ -102,7 +80,6 @@ const sortedLogs = logs
               href={`/guides/${article.id}`}
               title={article.data.title}
               description={article.data.description}
-              tags={article.data.tags}
               index={idx + 1}
               readTime={article.readTime}
               date={article.data.date}
