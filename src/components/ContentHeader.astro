@@ -1,7 +1,7 @@
 ---
 // Detail-page header block — used on guide and log detail pages.
-// Renders: h1 title, leading description, tag list, published/updated meta line.
-// CSS lives in styles/components/prose.css (.content-header, .content-meta).
+// Renders: eyebrow (published date), h1 title, leading description, tag list, updated meta line.
+// CSS lives in styles/components/prose.css (.content-header, .content-eyebrow, .content-meta).
 
 import TagList from './TagList.astro';
 
@@ -20,13 +20,9 @@ const updatedLabel = updatedAt?.toLocaleDateString('en-GB', { day: 'numeric', mo
 ---
 
 <div class="content-header">
+  <p class="content-eyebrow">Published {dateLabel}</p>
   <h1>{title}</h1>
   <p class="text-leading">{description}</p>
-  <TagList tags={tags} />
-  <p class="content-meta">
-    Published {dateLabel}
-    {updatedLabel && (
-      <> · Last updated {updatedLabel}</>
-    )}
-  </p>
+  <TagList tags={tags} size="pill" />
+  {updatedLabel && <p class="content-meta">Last updated {updatedLabel}</p>}
 </div>

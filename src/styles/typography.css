@@ -102,6 +102,29 @@
   text-transform: uppercase;
 }
 
+/* Page-header eyebrow with amber tick — same idiom as
+   .section-header__eyebrow / .case-study__eyebrow / .content-eyebrow,
+   for pages whose h1 has no card/detail chrome of its own. */
+.page-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin: 0 0 0.75rem;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-secondary);
+}
+
+.page-eyebrow::before {
+  content: "";
+  width: 1.5rem;
+  height: var(--stroke-2);
+  background: var(--color-eyebrow-dash);
+  flex-shrink: 0;
+}
+
 .text-label {
   font-family: var(--font-mono);
   font-weight: 400;

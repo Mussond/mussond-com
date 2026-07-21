@@ -7,6 +7,15 @@
   margin-bottom: 2rem;
 }
 
+.ethos-section__heading::before {
+  content: "";
+  display: block;
+  width: 1.5rem;
+  height: var(--stroke-2);
+  background: var(--color-eyebrow-dash);
+  margin-bottom: 0.75rem;
+}
+
 .ethos__list {
   list-style: none;
   padding: 0;
@@ -24,12 +33,23 @@
 }
 
 .ethos__item svg {
-  color: var(--color-text-secondary);
+  color: var(--color-indicator);
   flex-shrink: 0;
 }
 
 .ethos__item h3 {
   margin-top: 0.25rem;
+}
+
+.ethos__item h3::before {
+  content: "";
+  display: inline-block;
+  width: 1rem;
+  height: var(--stroke-2);
+  margin-right: 0.625rem;
+  margin-bottom: 0.2em;
+  background: var(--color-eyebrow-dash);
+  vertical-align: middle;
 }
 
 .ethos__item p {
