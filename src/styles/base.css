@@ -38,7 +38,11 @@ body {
      is gone, replaced by the floating SiteHeader in row 1). */
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr auto;
+  /* Row 1 is a fixed length, not auto — see --site-header-block-size
+     in tokens.css for why (site-header.css spans every row for its
+     sticky bar's containing block, and an auto track would collapse
+     under that span). */
+  grid-template-rows: var(--site-header-block-size) 1fr auto;
   min-height: 100vh;
 
   /* Full-bleed canvas (7.9.3) — no width cap here. Page background,
