@@ -1,77 +1,258 @@
 /* ============================================
-   SITE HEADER
-   Banner landmark (<header class="site-header">) rendered by
-   Layout.astro. Hidden on desktop — identity lives in the sidebar
-   instead. Shown on mobile/tablet (≤1024px) so the h1 + tagline
-   sit inside a proper banner landmark rather than the sidebar.
+   SITE HEADER — phase 7 chrome
+   Floating glass bar (logo+wordmark left, nav right) sticky at the
+   top of every page, spanning the same content column as the page
+   below it. Replaces the phase 6 sidebar at all widths — see
+   base.css for the single-column body grid this pairs with.
 
-   COUPLING NOTE: This file must be imported AFTER sidebar.css in
-   global.css. The show/hide logic is driven by the same 1024px
-   breakpoint as the sidebar collapse — splitting them into separate
-   files makes the dependency explicit but doesn't remove it. If the
-   sidebar breakpoint ever changes, update both files.
+   Matches boards 4a/4b/5a/5b (read directly from the exported
+   Redesign-choice.dc.html — the glass values, bar shape, and nav
+   underline mechanics below are taken from that source, not
+   guessed). Colour/focus-ring recolouring to the amber interaction
+   system is sprint 7.4 scope — this component intentionally keeps
+   the sitewide ink/currentColor convention for now.
    ============================================ */
 
-/* Desktop default — hidden; sidebar carries the identity. */
-.site-header { display: none; }
+.site-header {
+  grid-column: 1;
+  grid-row: 1;
+  padding-block: var(--space-p8) 0;
+}
 
-/* ── Tablet / mobile (≤1024px) ───────────────────────────────── */
+/* ── Glass bar ────────────────────────────────────────────────── */
 
-@media (max-width: 1024px) {
-  .site-header {
-    display: block;
-    grid-column: 1;
-    grid-row: 2;
-  }
+.site-header__bar {
+  position: sticky;
+  top: 1rem;
+  z-index: 100;
+  width: 90%;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-p6);
+  padding: 0.5rem 0.625rem 0.5rem 1.125rem;
+  border-radius: var(--radius-leaf-shell);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 8px 32px rgba(171, 100, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
 
-  /* Eyebrow row at the top of the homepage on tablet/mobile —
-     mirrors the hero eyebrow row's role-on-left, hint-on-right
-     layout that the desktop hero uses. Mobile drops the hint
-     (no comfortable way to send the chord on a phone), keeping
-     just the role line above the name+strapline. */
-  .site-header__eyebrow {
-    width: 90%;
-    max-width: var(--content-width);
-    margin: 0 auto;
-    padding-block: 2rem 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--space-p4);
-    flex-wrap: wrap;
-  }
+html.dark .site-header__bar {
+  background: rgba(24, 23, 19, 0.6);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
 
-  .site-header__role,
-  .site-header__hint {
-    margin: 0;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
+@supports not (backdrop-filter: blur(1px)) {
+  .site-header__bar { background: var(--color-bg-card); }
+  html.dark .site-header__bar { background: var(--color-bg-card); }
+}
 
-  .site-header__role { color: var(--color-text-primary); }
-  .site-header__hint { color: var(--color-text-secondary); }
+[data-contrast="high"] .site-header__bar {
+  background: var(--color-bg-base);
+  border-color: var(--color-border-base);
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
 
-  .site-header__kbd {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.25rem 0.5rem;
-    border: var(--stroke-1) solid var(--color-border-base);
-    border-radius: var(--radius-r1);
-    background: var(--color-bg-card);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    font-weight: 400;
-    letter-spacing: 0.05em;
-    color: var(--color-text-primary);
+/* ── Logo + wordmark ──────────────────────────────────────────── */
+
+.site-header__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  flex-shrink: 0;
+  color: var(--color-text-primary);
+  text-decoration: none;
+}
+
+.site-header__logo-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-leaf-mark);
+  background: var(--color-action-bg);
+  color: var(--color-action-text);
+  transition: border-radius var(--motion-leaf-duration) var(--motion-leaf-easing);
+}
+
+.site-header__logo:hover .site-header__logo-mark,
+.site-header__logo:focus-visible .site-header__logo-mark {
+  border-radius: var(--radius-leaf-mark-flip);
+}
+
+.site-header__logo:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: 3px;
+  border-radius: var(--radius-r2);
+}
+
+.site-header__logo-icon {
+  display: block;
+}
+
+.site-header__wordmark {
+  font-size: var(--text-base);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* ── Nav — plain pills (underline only) + current-page pill ──── */
+
+.site-header__nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.site-header__nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.125rem;
+  border-radius: var(--radius-leaf-nav);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  background: transparent;
+  white-space: nowrap;
+}
+
+.site-header__nav-link::before {
+  content: '';
+  display: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-eyebrow-dash);
+  flex-shrink: 0;
+}
+
+/* Underline sweep inset by the link's own horizontal padding (18px),
+   so it sits under the label rather than spanning the pill edges —
+   matches the board's background-position/size mechanic exactly. */
+.nav-link__label {
+  display: inline-block;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 2px;
+  background-position: 18px calc(100% - 6px);
+  background-repeat: no-repeat;
+  transition: background-size var(--hover-underline-duration) var(--hover-underline-easing);
+}
+
+.site-header__nav-link:not([aria-current="page"]):hover .nav-link__label,
+.site-header__nav-link:not([aria-current="page"]):focus-visible .nav-link__label {
+  background-size: calc(100% - 36px) 2px;
+}
+
+.site-header__nav-link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.site-header__nav-link[aria-current="page"] {
+  background: var(--color-accent-selected-inverse);
+  color: var(--color-bg-base);
+}
+
+.site-header__nav-link[aria-current="page"]::before {
+  display: inline-block;
+}
+
+[data-contrast="high"] .site-header__nav-link {
+  border: var(--stroke-1) solid transparent;
+}
+
+[data-contrast="high"] .site-header__nav-link[aria-current="page"] {
+  background: transparent;
+  color: var(--color-text-primary);
+  border-color: var(--color-action-bg);
+}
+
+html.light[data-contrast="high"] .site-header__nav-link[aria-current="page"] {
+  border-color: var(--color-text-primary);
+}
+
+/* ── Mobile menu toggle — hidden on desktop ───────────────────── */
+
+.site-header__menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  padding: 0.5rem;
+  flex-shrink: 0;
+}
+
+.site-header__menu-icon-line--top { transform-origin: 12px 6px; }
+.site-header__menu-icon-line--bottom { transform-origin: 12px 18px; }
+
+.site-header__menu-toggle[aria-expanded="true"] .site-header__menu-icon-line--top {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.site-header__menu-toggle[aria-expanded="true"] .site-header__menu-icon-line--middle {
+  opacity: 0;
+}
+
+.site-header__menu-toggle[aria-expanded="true"] .site-header__menu-icon-line--bottom {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .site-header__menu-icon-line {
+    transition: transform var(--hover-grow-duration) var(--hover-grow-easing),
+                opacity var(--hover-grow-duration) var(--hover-grow-easing);
   }
 }
 
-/* ── Phone (≤800px) ──────────────────────────────────────────── */
+@media (forced-colors: active) {
+  .site-header__logo:hover .site-header__logo-mark {
+    border-radius: var(--radius-leaf-mark);
+  }
+}
 
-/* Hide the keyboard-shortcut hint on phones — chord isn't
-   reachable from a touch device. Tablet keeps it (paired
-   keyboard is normal at that size). */
-@media (max-width: 800px) {
-  .site-header__hint { display: none; }
+/* ── Mobile — nav collapses into a panel under the bar ───────── */
+
+@media (max-width: 1024px) {
+  .site-header__menu-toggle { display: inline-flex; }
+
+  .site-header__nav {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    right: 0;
+    padding: 0.75rem;
+    border: var(--stroke-1) solid var(--color-border-subtle);
+    border-radius: var(--radius-r3);
+    background: var(--color-bg-card);
+  }
+
+  .site-header__nav.is-open { display: block; }
+
+  .site-header__bar { position: sticky; }
+
+  .site-header__nav-list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.25rem;
+  }
+
+  .site-header__nav-link {
+    width: 100%;
+  }
 }

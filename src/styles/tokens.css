@@ -134,16 +134,22 @@
   /* Leaf radii (phase 7) — asymmetric corners, alternating diagonal.
      Each pair has a base and a -flip counterpart (diagonal reversed)
      for the hover/focus radius-flip interaction (5c). Surface-specific:
-     nav pills, cards (two sizes for alternating sibling cards), and
-     the 64/96px logo tiles. */
+     nav pills, cards (two sizes for alternating sibling cards), the
+     38px header logo mark, the 64/96px case-study logo tiles, and
+     the header bar/button shell (shared shape per the 4a/5a boards —
+     buttons are restyled to it in sprint 7.4/7.5). */
   --radius-leaf-nav:            20px 8px 20px 8px;
   --radius-leaf-nav-flip:        8px 20px 8px 20px;
+  --radius-leaf-mark:           19px 9px 19px 9px;
+  --radius-leaf-mark-flip:       9px 19px 9px 19px;
   --radius-leaf-card:           24px 10px 24px 10px;
   --radius-leaf-card-flip:      10px 24px 10px 24px;
   --radius-leaf-card-alt:       28px 14px 28px 14px;
   --radius-leaf-card-alt-flip:  14px 28px 14px 28px;
   --radius-leaf-logo:           36px 14px 36px 14px;
   --radius-leaf-logo-flip:      14px 36px 14px 36px;
+  --radius-leaf-shell:          26px 12px 26px 12px;
+  --radius-leaf-shell-flip:     12px 26px 12px 26px;
 
   /* Motion */
   --transition-base: all 0.3s cubic-bezier(0.8, 0.04, 0.4, 1);
@@ -203,7 +209,7 @@
   --color-text-secondary:  var(--sand-11);
   --color-bg-base:         var(--sand-1);   /* was amber-1 — board light bg #fcfbf9-adjacent (7.1.4) */
   --color-bg-card:         var(--sand-2);
-  --color-bg-footer:       var(--sand-2);   /* footer "cream surface" — one step off page bg, mirrors the dark footer/surface separation */
+  --color-bg-footer:       #fbf3dc;         /* footer "cream surface" — literal board hex (Redesign choice.dc.html), warmer than any single sand/amber step; same precedent as the case-study cover tokens below */
   --color-border-subtle:   var(--sand-6);
   --color-border-base:     var(--sand-7);
   --color-action-bg:       var(--amber-9);

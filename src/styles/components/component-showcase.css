@@ -69,12 +69,6 @@
   margin-top: 0;
 }
 
-/* Identity is hidden via display:none for the off-breakpoint variant
-   in sidebar.css — force visible inside the frame. */
-.component-showcase .identity {
-  display: block;
-}
-
 /* Strip the Hero's outer padding inside the showcase frame. */
 .component-showcase .hero {
   padding-block: 0;

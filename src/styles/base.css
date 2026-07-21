@@ -23,45 +23,29 @@ body {
   background-attachment: fixed;
   line-height: 1.6;
 
-  /* Grid shell — sidebar in column 1 (full page height via
-     grid-row: 1/-1 in sidebar.css), main + footer stacked in
-     column 2. Collapses to single-column on mobile via the
-     <=1024px override in sidebar.css. */
+  /* Grid shell — single column at all widths (phase 7: the sidebar
+     is gone, replaced by the floating SiteHeader in row 1). */
   display: grid;
-  grid-template-columns: 320px 1fr;
-  grid-template-rows: 1fr auto;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
   min-height: 100vh;
 
   /* Wide-viewport cap — centres the shell once the viewport
-     exceeds 1280px. Sidebar stays 320px; main column gets up to
-     960px; content container (768px) sits with ~96px breathing
+     exceeds 1280px. Content container (768px) sits with breathing
      room on each side. html background-color fills the margins. */
   max-width: 1280px;
   margin-inline: auto;
 }
 
 body > main {
-  grid-column: 2;
-  grid-row: 1;
+  grid-column: 1;
+  grid-row: 2;
   min-width: 0;
 }
 
 body > .site-footer {
-  grid-column: 2;
-  grid-row: 2;
-}
-
-@media (max-width: 1024px) {
-  /* Rows: sidebar strip / identity (relocated to main column)
-     / main / footer. The extra row hosts the .identity--mobile
-     variant so the h1 + tagline sit at the top of the main
-     page content rather than the sidebar. */
-  body {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto 1fr auto;
-  }
-  body > main { grid-column: 1; grid-row: 3; }
-  body > .site-footer { grid-column: 1; grid-row: 4; }
+  grid-column: 1;
+  grid-row: 3;
 }
 
 @media (prefers-reduced-motion: no-preference) {

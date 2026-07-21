@@ -2,7 +2,12 @@
 // Hero — homepage opener. Eyebrow row pairs role with the keyboard
 // shortcut hint (platform-detected glyph). Stance follows v2: italic
 // serif, single line break, "usability amplifier" emphasised in amber.
-// Stats live in HeroStats.astro, directly after this section.
+// Per the 4a/5a boards, the eyebrow lives here (below SiteHeader),
+// not in the header itself — the header only ever carries the
+// logo + wordmark + nav. The stance line is the page's h1 (boards
+// mark it up as <h1>; SiteHeader's wordmark is plain text, not a
+// heading, per decision #4 — "Dave Musson" H1 is retired). Stats
+// live in HeroStats.astro, directly after this section.
 ---
 
 <section class="hero container" aria-label="Introduction">
@@ -15,10 +20,10 @@
     </p>
   </div>
 
-<p class="hero__stance">
+<h1 class="hero__stance">
     Accessibility isn't a feature. <br />
     It's a <em class="hero__emphasis">usability amplifier</em>.
-  </p>
+  </h1>
 
 <script is:inline>
   (function () {
@@ -33,13 +38,9 @@
 
 <style>
   .hero {
-    /* padding-block-start matches sidebar padding-block-start (2rem)
-       so the eyebrow row top aligns with the sidebar monogram top. */
-    padding-block: 2rem 1.5rem;
+    padding-block: 1.5rem 1.5rem;
     display: flex;
     flex-direction: column;
-    /* Match sidebar gap (2rem) between bar and identity, so the
-       hero stance lands at the same y-position as the sidebar h1. */
     gap: 2rem;
   }
 
@@ -49,9 +50,6 @@
     align-items: center;
     gap: var(--space-p4);
     flex-wrap: wrap;
-    /* Match sidebar monogram height (36px) so the row's vertical
-       centre aligns with the monogram's vertical centre. */
-    min-height: 36px;
   }
 
   .hero__role {
@@ -110,16 +108,8 @@
     .hero__stance {
       font-size: 2.5rem;
     }
-  }
 
-  /* Once the sidebar collapses, the site-header (rendered by
-     Layout.astro) takes over the eyebrow row — role on left,
-     hint on right — matching the desktop hero layout but
-     positioned above the identity at the top of the page. Hide
-     the in-hero copy entirely at this breakpoint to avoid the
-     duplicate. */
-  @media (max-width: 1024px) {
-    .hero__eyebrow-row {
+    .hero__shortcut-hint {
       display: none;
     }
   }
