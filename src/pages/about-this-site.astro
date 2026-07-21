@@ -5,6 +5,7 @@ import PageIntro from '../components/PageIntro.astro';
 
 <Layout title="About this site — Dave Musson" description="How mussond.com is built, and its accessibility statement.">
   <main id="main-content" class="container page-content">
+    <p class="page-eyebrow">About</p>
     <h1>About this site</h1>
 
     <PageIntro>
@@ -28,8 +29,18 @@ import PageIntro from '../components/PageIntro.astro';
         <li>Navigate all content using a keyboard alone</li>
         <li>Navigate using a screen reader</li>
         <li>Zoom in up to 400% without content breaking or losing information</li>
-        <li>Use the site in both light and dark mode</li>
+        <li>Switch between light, dark, or system theme</li>
+        <li>Switch between low and high contrast, or follow your system's contrast preference</li>
+        <li>Turn off the site's decorative visual layer, down to a plain unstyled page if you want it</li>
         <li>Use the site with motion reduced, respecting your OS preference</li>
+      </ul>
+
+      <h3>Display settings</h3>
+      <p>Display settings live in the footer of every page — press Alt+T to jump straight to them — and your choices persist between visits.</p>
+      <ul>
+        <li><strong>Theme:</strong> light, dark, or system (matches your OS setting).</li>
+        <li><strong>Contrast:</strong> low, high, or system (matches your OS contrast preference).</li>
+        <li><strong>Flourish:</strong> full (the decorative layer — page glow, headline highlight, hover animations), reduced (a plain, quiet version with the decorative layer and motion removed), or raw (the site's stylesheet is switched off entirely, so you see unstyled HTML; the display controls stay operable so you can switch back at any time).</li>
       </ul>
 
       <h3>Compliance status</h3>
@@ -50,7 +61,7 @@ import PageIntro from '../components/PageIntro.astro';
       </ul>
 
       <h3>Statement preparation</h3>
-      <p>This statement was prepared in April 2026. It will be reviewed whenever significant changes are made to the site.</p>
+      <p>This statement was prepared in April 2026 and last reviewed in July 2026, following the site's visual redesign and the move to the Theme/Contrast/Flourish display settings above. It will be reviewed whenever significant changes are made to the site.</p>
     </section>
 
   </main>
