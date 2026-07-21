@@ -1,0 +1,105 @@
+---
+// DisplayControlsV2 — board-exact (gap 10) inline display-settings row:
+// DISPLAY label + Theme/Contrast/Flourish groups, side by side. Selected
+// = ink pill + amber dot; unselected = borderless text with a growing
+// amber underline + radius flip on hover. No visible "Currently: …"
+// captions (board has none) — a visually-hidden aria-live line per
+// group keeps display-controls.ts's announcement contract working for
+// screen-reader users. Footer-only; the original DisplayControls
+// (variant="panel") stays untouched for the Rule of 3 guide's worked
+// exhibit (phase 7B decision 6) — this component shares that script's
+// data-control attributes and :has(:checked) sync logic, not its
+// markup or CSS.
+
+interface Props {
+  variant: 'footer';
+  idPrefix: string;
+}
+
+const { variant, idPrefix } = Astro.props;
+
+const themeOptions = [
+  { value: 'system', label: 'System' },
+  { value: 'light', label: 'Light' },
+  { value: 'dark', label: 'Dark' },
+];
+
+const contrastOptions = [
+  { value: 'low', label: 'Low' },
+  { value: 'high', label: 'High' },
+  { value: 'system', label: 'System' },
+];
+
+const flourishOptions = [
+  { value: 'full', label: 'Full' },
+  { value: 'reduced', label: 'Reduced' },
+  { value: 'raw', label: 'Raw' },
+];
+---
+
+<div class={`display-controls-v2 display-controls-v2--${variant}`} data-display-controls>
+  <p class="display-controls-v2__label">Display</p>
+
+  <fieldset class="display-controls-v2__group">
+    <legend class="display-controls-v2__legend">Theme</legend>
+    <div class="display-controls-v2__options">
+      {themeOptions.map((option) => (
+        <label class="display-controls-v2__chip">
+          <input
+            type="radio"
+            name={`${idPrefix}-theme`}
+            data-control="theme"
+            value={option.value}
+            class="visually-hidden"
+          />
+          <span class="display-controls-v2__chip-label">{option.label}</span>
+        </label>
+      ))}
+    </div>
+    <p class="visually-hidden" aria-live="polite" aria-atomic="true">
+      Theme: <span data-theme-live>system</span>
+    </p>
+  </fieldset>
+
+  <fieldset class="display-controls-v2__group">
+    <legend class="display-controls-v2__legend">Contrast</legend>
+    <div class="display-controls-v2__options">
+      {contrastOptions.map((option) => (
+        <label class="display-controls-v2__chip">
+          <input
+            type="radio"
+            name={`${idPrefix}-contrast`}
+            data-control="contrast"
+            value={option.value}
+            class="visually-hidden"
+          />
+          <span class="display-controls-v2__chip-label">{option.label}</span>
+        </label>
+      ))}
+    </div>
+    <p class="visually-hidden" aria-live="polite" aria-atomic="true">
+      Contrast: <span data-contrast-live>low</span>
+    </p>
+  </fieldset>
+
+  <fieldset class="display-controls-v2__group">
+    <legend class="display-controls-v2__legend">Flourish</legend>
+    <div class="display-controls-v2__options">
+      {flourishOptions.map((option) => (
+        <label class="display-controls-v2__chip">
+          <input
+            type="radio"
+            name={`${idPrefix}-flourish`}
+            data-control="flourish"
+            value={option.value}
+            class="visually-hidden"
+          />
+          <span class="display-controls-v2__chip-label">{option.label}</span>
+        </label>
+      ))}
+    </div>
+    <p class="visually-hidden" aria-live="polite" aria-atomic="true">
+      Flourish: <span data-flourish-live>full</span>
+    </p>
+  </fieldset>
+</div>

@@ -188,6 +188,8 @@
   --radius-leaf-link:           12px 5px 12px 5px;  /* text-link focus shape (board 5c) — back-link, footer link, inline/naked link, global default. Static — focus doesn't flip like hover/nav/card. */
   --radius-leaf-tag:            14px 7px 14px 7px;  /* case-study header tag pill (board 4b/5b), alternating per sibling */
   --radius-leaf-tag-flip:        7px 14px 7px 14px;
+  --radius-leaf-chip:           16px 7px 16px 7px;  /* DisplayControlsV2 footer settings chip (board 4a/5a/4b/5b) */
+  --radius-leaf-chip-flip:       7px 16px 7px 16px;
 
   /* Motion */
   --transition-base: all 0.3s cubic-bezier(0.8, 0.04, 0.4, 1);
@@ -283,6 +285,9 @@
   --color-bg-tag-accent:   rgba(255, 197, 61, 0.25);  /* amber-wash tag pill — case-study header (board 4b/5b), literal board value, same in both themes */
   --color-indicator:       var(--amber-12);  /* radio/checkbox indicator ring */
   --color-bg-segment:      rgba(255, 255, 255, 0.8);  /* translucent segment bar — light */
+  --color-footer-divider:  rgba(33, 32, 28, 0.25);  /* footer settings-row/meta divider (board 4a/4b/5b), literal ink-alpha */
+  --color-chip-selected-bg:   var(--color-text-primary);  /* DisplayControlsV2 selected pill (board 4a/5a) — follows ink per theme */
+  --color-chip-selected-text: var(--sand-1);  /* board #fdfdfc — light selected-pill text */
 }
 
 /* Amber-9 is always bright — action text must stay dark in both themes.
@@ -308,6 +313,8 @@
   --color-bg-card:       var(--warm-card);       /* surface/card — board #1e1d18 */
   --color-bg-stat:       var(--warm-card);       /* stat tile — board 5b uses the same #1e1d18 as card surface */
   --color-border-base:   var(--warm-border);     /* border — board #3a3830 */
+  --color-footer-divider:  rgba(255, 255, 255, 0.18);  /* footer settings-row/meta divider (board 5a) — lighter alpha on dark surface */
+  --color-chip-selected-text: #1c1b17;  /* board 5a — near-black text on pale selected pill, distinct one-off from the page/footer dark surfaces */
 }
 
 /* Flourish layer — purely decorative wash, independent of contrast/theme.
@@ -336,6 +343,7 @@
 [data-contrast="high"] {
   --color-text-secondary:  var(--sand-12);   /* 11 → 12: merge with primary */
   --color-border-subtle:   var(--sand-8);    /* 6 → 8 */
+  --color-footer-divider:  var(--color-border-base);  /* translucent ink/white alpha isn't firm enough at high contrast */
   --color-border-base:  var(--sand-12);   /* 7 → 12 */
   --gradient-brand:        none;            /* suppress flourish wash for max clarity */
   --color-action-text:   var(--sand-12);    /* high collapses warm text to sand-12 */

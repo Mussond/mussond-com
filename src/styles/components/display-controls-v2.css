@@ -1,0 +1,116 @@
+/* ============================================
+   DISPLAY CONTROLS V2
+   Board-exact (gap 10, boards 4a/4b/5a/5b) inline settings row: a
+   DISPLAY label followed by Theme/Contrast/Flourish groups side by
+   side. Selected chip = ink pill + amber dot; unselected chip is
+   borderless plain text with a growing amber underline + radius flip
+   on hover. No visible captions — DisplayControlsV2.astro carries a
+   visually-hidden aria-live line per group instead, so the shared
+   display-controls.ts announcement contract still works for screen-
+   reader users. Footer-only — the original DisplayControls (panel
+   variant) is untouched, still used by the Rule of 3 guide.
+   ============================================ */
+
+.display-controls-v2 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.display-controls-v2--footer {
+  padding: 22px 0;
+  border-bottom: 1.5px solid var(--color-footer-divider);
+}
+
+.display-controls-v2__label {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.display-controls-v2__group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.display-controls-v2__legend {
+  padding: 0;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.display-controls-v2__options {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* Unselected chip: borderless text, growing amber underline sitting
+   under the label (14px inset each side, matching the 14px horizontal
+   padding), radius flips on hover — same leaf mechanic as nav/cards. */
+.display-controls-v2__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: var(--radius-leaf-chip);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: inherit;
+  cursor: pointer;
+  background-image: linear-gradient(var(--color-link-underline), var(--color-link-underline));
+  background-size: 0% 2px;
+  background-position: 14px calc(100% - 4px);
+  background-repeat: no-repeat;
+  transition: background-size var(--hover-underline-duration) var(--hover-underline-easing),
+              border-radius 250ms var(--motion-leaf-easing);
+}
+
+.display-controls-v2__chip:hover {
+  background-size: calc(100% - 28px) 2px;
+  border-radius: var(--radius-leaf-chip-flip);
+}
+
+/* Selected chip: solid ink pill, no underline mechanic, amber dot
+   before the label. Hover doesn't flip the radius — the board only
+   animates the unselected (switchable) chips. */
+.display-controls-v2__chip:has(input:checked) {
+  background-color: var(--color-chip-selected-bg);
+  background-image: none;
+  color: var(--color-chip-selected-text);
+}
+
+.display-controls-v2__chip:has(input:checked):hover {
+  border-radius: var(--radius-leaf-chip);
+}
+
+.display-controls-v2__chip:has(input:checked)::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--color-eyebrow-dash);
+}
+
+.display-controls-v2__chip:has(input:focus-visible) {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+  border-radius: var(--radius-leaf-chip);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .display-controls-v2__chip {
+    transition: none;
+  }
+}
