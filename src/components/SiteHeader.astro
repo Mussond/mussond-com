@@ -1,11 +1,11 @@
 ---
 // SiteHeader — floating glass-pill top header (phase 7 chrome).
-// Replaces the phase 6 sidebar at all widths. Carries the site
-// identity (name/tagline — same a11y contract the old Identity
-// component had: h1 on the homepage, paragraph+link elsewhere,
-// single instance so there's no duplicate-h1/display:none trick
-// needed any more) plus the primary nav pill and the mobile
-// menu toggle.
+// Replaces the phase 6 sidebar at all widths. Per boards 4a/4b/5a/5b,
+// this bar carries only the logo mark + "Dave Musson" wordmark (plain
+// text, not a heading — the page h1 lives in Hero's stance line on
+// the homepage, or in each page's own content elsewhere) and the
+// primary nav pill. The eyebrow/role text stays in Hero.astro, below
+// this bar, matching the boards — it is not duplicated here.
 import Monogram from './Monogram.astro';
 
 const navLinks = [
@@ -17,7 +17,6 @@ const navLinks = [
 ];
 
 const currentPath = Astro.url.pathname;
-const isHomepage = currentPath === '/';
 
 // Match exact path, or sub-paths under a section (with trailing slash to
 // avoid /about incorrectly matching /about-this-site).
@@ -34,6 +33,7 @@ function isCurrent(href: string): boolean {
       <span class="site-header__logo-mark">
         <Monogram class="site-header__logo-icon" size={22} />
       </span>
+      <span class="site-header__wordmark">Dave Musson</span>
     </a>
 
     <nav id="site-nav" class="site-header__nav" aria-label="Main">
@@ -64,26 +64,6 @@ function isCurrent(href: string): boolean {
       </svg>
     </button>
   </div>
-
-  {isHomepage && (
-    <div class="site-header__eyebrow">
-      <p class="site-header__role text-eyebrow">
-        Principal designer &middot; a11y &amp; design systems
-      </p>
-      <p class="site-header__hint text-eyebrow">
-        Press <kbd class="site-header__kbd" data-kbd-glyph>⌥ + T</kbd> to jump to display settings
-      </p>
-    </div>
-  )}
-
-  <div class="site-header__identity">
-    {isHomepage ? (
-      <h1 class="site-header__name text-heading-lg">Dave Musson</h1>
-    ) : (
-      <p class="site-header__name text-heading-lg"><a href="/">Dave Musson</a></p>
-    )}
-    <p class="site-header__tagline text-body">Design systems and accessibility specialist. 16 years helping product teams build things that work regardless of how you access them.</p>
-  </div>
 </header>
 
 <script>
@@ -109,15 +89,4 @@ function isCurrent(href: string): boolean {
     updateMenuLabel(false);
     toggle?.focus();
   });
-</script>
-
-<script is:inline>
-  (function () {
-    var isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform);
-    if (!isMac) {
-      document.querySelectorAll('[data-kbd-glyph]').forEach(function (g) {
-        g.textContent = 'Alt + T';
-      });
-    }
-  })();
 </script>
