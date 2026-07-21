@@ -53,8 +53,12 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
+  /* Board 4a/5a dims this to opacity:0.75 over full ink — against this
+     component's dedicated footer surface that lands at ~3.25:1, failing
+     AA (axe caught it in the 7.11 sweep). --color-text-secondary gives
+     the same "dimmed" reading at ~5.45:1 (light) / well clear (dark)
+     without the opacity. */
   color: var(--color-text-secondary);
-  opacity: 0.75;
 }
 
 .footer__list {
