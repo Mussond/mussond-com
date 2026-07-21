@@ -161,15 +161,19 @@
   --motion-leaf-duration: 250ms;
 
   /* Hover grow — Hover.css 'grow' pattern, scaled per surface.
-     Card:   1.02 (subtle — feed cards in a list, big surface)
-     Pill:   1.08 (buttons, tags, sidebar nav links)
+     Sprint 7.4 replaced the plain pill scale (buttons, tags, cards)
+     with the leaf keyline + radius-flip treatment above; the
+     unsuffixed --hover-grow-scale it used is retired. Remaining
+     uses are components the boards don't cover yet (guide/log-card
+     feed rows, the footer settings chip, icon-button) — untouched
+     pending their own board-grounded pass.
+     Card:   1.02 (guide/log-card feed rows, pre-7.6 row-card rebuild)
      Icon:   1.10 (icon-only buttons, no layout consequences)
-     Chip:   1.20 (segmented control unchecked chips — isolated
+     Chip:   1.20 (footer settings segmented chips — isolated
                    surface inside a bordered container, needs a
                    bigger pop to read against the cream + 2px
                    border + drop-shadow hover treatment) */
   --hover-grow-scale-card: 1.02;
-  --hover-grow-scale:      1.08;
   --hover-grow-scale-icon: 1.10;
   --hover-grow-scale-chip: 1.20;
   --hover-grow-duration:   200ms;
