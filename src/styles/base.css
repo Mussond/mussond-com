@@ -158,7 +158,7 @@ a:not([class]):hover {
 a:focus-visible {
   outline: 3px solid var(--color-focus-ring);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: var(--radius-leaf-link);
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -44,7 +44,7 @@
 }
 
 /* Focus ring — pill shape with offset. Matches .btn treatment.
-   border-radius overrides a:focus-visible { border-radius: 2px } in base.css */
+   border-radius overrides a:focus-visible's leaf-link radius in base.css */
 .icon-button:focus-visible {
   outline: 3px solid var(--color-focus-ring);
   outline-offset: 2px;

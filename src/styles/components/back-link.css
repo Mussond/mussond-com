@@ -5,7 +5,8 @@
 .back-link {
   display: inline-block;
   margin-bottom: 2rem;
-  font-weight: 600;
+  font-size: var(--text-sm); /* 14px — board 4b */
+  font-weight: 700;
   color: var(--color-link-underline);
   text-decoration: none;
   background-image: linear-gradient(var(--color-link-underline), var(--color-link-underline));
@@ -25,5 +26,5 @@
 .back-link:focus-visible {
   outline: 3px solid var(--color-focus-ring);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: var(--radius-leaf-link);
 }
