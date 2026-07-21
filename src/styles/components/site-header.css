@@ -14,7 +14,21 @@
 
 .site-header {
   grid-column: 1;
-  grid-row: 1;
+  /* Spans every row, not just its own. A sticky descendant's containing
+     block is this element's own box — if site-header only occupied row 1
+     (sized to its ~95px of padding+bar), the bar could only stay "stuck"
+     for that same ~95px before scrolling away with it. Spanning to the
+     grid's end lets site-header stretch (default grid item align-self)
+     to the page's full height, giving the bar room to stay stuck for the
+     whole scroll. It stays invisible outside the bar itself, so
+     main/footer render over it unaffected.
+     Row 1 has to be an explicit length for this to work — see
+     --site-header-block-size (tokens.css) and base.css's
+     grid-template-rows: an `auto` row 1 would collapse to 0 once
+     site-header (its only occupant) spans out of it, since a
+     multi-row-spanning item is excluded from an auto track's own
+     content-based sizing pass. */
+  grid-row: 1 / -1;
   padding-block: var(--space-p8) 0;
   /* Shell (7.9.3): 1220px centred, 64px side padding — board 4a/5a
      `padding: 28px 64px 0`. The glass bar below fills this inset area

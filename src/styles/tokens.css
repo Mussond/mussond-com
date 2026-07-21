@@ -135,6 +135,19 @@
   --space-p20:  5rem;     /*  80px */
   --space-p28:  7rem;     /* 112px */
 
+  /* Layout */
+
+  /* SiteHeader's rendered block size (padding-block-start + the glass
+     bar's own content height). body's grid-template-rows (base.css)
+     uses this as an explicit, non-auto row 1 size so that site-header
+     can span every row (site-header.css) — giving its sticky bar a
+     full-page containing block to stay stuck in — without that span
+     collapsing row 1's size to 0 (a spanning grid item is excluded
+     from an `auto` track's own content-based sizing pass). Rounded up
+     from the bar's measured 94.8px; keep in sync with the bar's actual
+     rendered height if its content ever changes. */
+  --site-header-block-size: 5.9375rem; /* 95px */
+
   /* Radius — two scales only.
      --radius-card  applies to card-like surfaces: cards, hero images,
                     input fields if/when added. 16px.
