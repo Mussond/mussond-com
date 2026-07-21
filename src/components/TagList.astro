@@ -1,12 +1,12 @@
 ---
 interface Props {
   tags: string[];
-  size?: 'default' | 'xs';
+  size?: 'default' | 'xs' | 'pill';
 }
 
 const { tags, size = 'default' } = Astro.props;
 const wrapClass = size === 'xs' ? 'card__tags card__tags--xs' : 'card__tags';
-const tagClass = size === 'xs' ? 'tag tag--xs' : 'tag';
+const tagClass = size === 'xs' ? 'tag tag--xs' : size === 'pill' ? 'tag tag--pill' : 'tag';
 ---
 
 {tags.length > 0 && (

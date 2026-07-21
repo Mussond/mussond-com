@@ -1,37 +1,124 @@
 /* ============================================
    CASE STUDY LAYOUT
-   Detail-page chrome: header, hero image, and prose overrides that
-   widen the content column and soften the editorial rhythm against
-   the default prose rules used on guide and log detail pages.
+   Detail-page chrome: logo tile + eyebrow header, stat tiles,
+   hero image, and prose overrides that widen the content column
+   against the default prose rules used on guide and log detail
+   pages. Board 4b (light) / 5b (dark).
    ============================================ */
 
 .case-study__header {
   margin-bottom: 3rem;
 }
 
+.case-study__intro {
+  display: grid;
+  gap: 1.75rem;
+  align-items: start;
+}
+
+.case-study__intro--cover {
+  grid-template-columns: 96px 1fr;
+}
+
+.case-study__tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  border-radius: var(--radius-leaf-logo);
+  background: var(--card-bg);
+  color: var(--card-fg);
+  font-size: var(--text-base);
+  font-weight: 700;
+}
+
+.case-study__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin: 0 0 0.75rem;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-secondary);
+}
+
+.case-study__eyebrow::before {
+  content: "";
+  width: 1.5rem;
+  height: var(--stroke-2);
+  background: var(--color-eyebrow-dash);
+  flex-shrink: 0;
+}
+
 .case-study__header h1 {
-  margin-bottom: 1rem;
+  margin: 0;
+  font-size: var(--text-2xl);   /* 44px — case-study h1 (7.1 scale) */
+  font-weight: 650;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 .case-study__lede {
-  margin-bottom: 0;
-}
-
-.case-study__header .card__tags {
-  margin-top: 1.5rem;
-}
-
-.case-study__meta {
-  margin-top: 1rem;
-  font-size: 0.875rem;
+  margin: 1rem 0 0;
   color: var(--color-text-secondary);
+  max-width: 52ch;
+}
+
+.case-study__intro-body .card__tags {
+  margin-top: 1.25rem;
+}
+
+.case-study__updated {
+  margin: 1rem 0 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+/* ── Stat tiles — DOM order dt (label) then dd (value);
+   column-reverse flips the visual order so value renders above
+   label, matching the .cs-card__stat convention. ────────────── */
+
+.case-study__stats {
+  display: flex;
+  gap: var(--space-p3);
+  flex-wrap: wrap;
+  margin: 3rem 0 0;
+}
+
+.case-study__stat {
+  flex: 1;
+  min-width: 8rem;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.25rem;
+  padding: 1.375rem 1.75rem;
+  background: var(--color-bg-tag);
+  border-radius: var(--radius-r3);
+}
+
+.case-study__stat-label {
+  margin: 0;
+  font-size: var(--text-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.case-study__stat-value {
+  margin: 0;
+  font-size: var(--text-xl);
+  font-weight: 650;
+  line-height: 1.1;
 }
 
 .case-study__hero {
   width: 100%;
-  border-radius: var(--radius-card);
+  border-radius: var(--radius-leaf-hero);
   border: 1px solid var(--color-border-base);
-  margin-bottom: 3rem;
+  margin: 3rem 0;
 }
 
 /* Wider column + more generous vertical rhythm for case studies. */
@@ -41,4 +128,46 @@
 
 .case-study .prose h2 {
   margin-top: 3.5rem;
+  margin-bottom: 1rem;
+  font-size: var(--text-xl);   /* 32px — h2/stat values (7.1 scale) */
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.case-study .prose h2::before {
+  content: "";
+  display: block;
+  width: 1.5rem;
+  height: var(--stroke-2);
+  background: var(--color-eyebrow-dash);
+  margin-bottom: 0.75rem;
+}
+
+.case-study .prose a {
+  color: var(--color-text-primary);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  transition: text-decoration-thickness var(--hover-grow-duration) var(--hover-grow-easing);
+}
+
+.case-study .prose a:hover {
+  text-decoration-thickness: 3px;
+}
+
+@media (max-width: 640px) {
+  .case-study__intro--cover {
+    grid-template-columns: 1fr;
+  }
+
+  .case-study__tile {
+    width: 64px;
+    height: 64px;
+    font-size: var(--text-sm);
+  }
+
+  .case-study__stats {
+    flex-direction: column;
+  }
 }

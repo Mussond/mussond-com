@@ -2,6 +2,20 @@
 import Layout from '../layouts/Layout.astro';
 import BackLink from './BackLink.astro';
 import TagList from './TagList.astro';
+import DetailNav from './DetailNav.astro';
+
+interface Stat {
+  label: string;
+  value: string;
+}
+
+interface Cover {
+  slug: string;
+  brand?: string;
+  tag?: string;
+  label: string;
+  meta: string;
+}
 
 interface StudyData {
   title: string;
@@ -10,25 +24,43 @@ interface StudyData {
   date: Date;
   updatedAt?: Date;
   coverImage?: string;
+  cover?: Cover;
+  stats?: Stat[];
+}
+
+interface NavItem {
+  href: string;
+  title: string;
 }
 
 interface Props {
   study: { id: string; data: StudyData };
   backHref?: string;
   backLabel?: string;
+  prev?: NavItem;
+  next?: NavItem;
 }
 
 const {
   study,
   backHref = '/case-studies',
   backLabel = 'Case studies',
+  prev,
+  next,
 } = Astro.props;
 
+const { cover, stats } = study.data;
+const publishedYear = study.data.date.getFullYear();
+const eyebrow = cover?.brand ? `${cover.brand} · Published ${publishedYear}` : `Published ${publishedYear}`;
 const updatedLabel = study.data.updatedAt?.toLocaleDateString('en-GB', {
   day: 'numeric',
   month: 'long',
   year: 'numeric',
 });
+const coverStyle = cover
+  ? `--card-bg: var(--cover-${cover.slug}-bg); --card-fg: var(--cover-${cover.slug}-fg)`
+  : undefined;
+const tileLabel = cover?.tag ?? cover?.brand?.slice(0, 3).toUpperCase();
 ---
 
 <Layout title={`${study.data.title} — Dave Musson`} description={study.data.description}>
@@ -37,15 +69,29 @@ const updatedLabel = study.data.updatedAt?.toLocaleDateString('en-GB', {
     <BackLink href={backHref} label={backLabel} />
 
     <header class="case-study__header">
-      <h1>{study.data.title}</h1>
-      <p class="text-leading case-study__lede">{study.data.description}</p>
-      <TagList tags={study.data.tags} />
-      <p class="case-study__meta">
-        Published {study.data.date.getFullYear()}
-        {updatedLabel && (
-          <> · Last updated {updatedLabel}</>
+      <div class:list={['case-study__intro', { 'case-study__intro--cover': cover }]}>
+        {cover && (
+          <span class="case-study__tile" style={coverStyle} aria-hidden="true">{tileLabel}</span>
         )}
-      </p>
+        <div class="case-study__intro-body">
+          <p class="case-study__eyebrow">{eyebrow}</p>
+          <h1>{study.data.title}</h1>
+          <p class="text-leading case-study__lede">{study.data.description}</p>
+          <TagList tags={study.data.tags} size="pill" />
+          {updatedLabel && <p class="case-study__updated">Last updated {updatedLabel}</p>}
+        </div>
+      </div>
+
+      {stats && stats.length > 0 && (
+        <dl class="case-study__stats">
+          {stats.map((stat) => (
+            <div class="case-study__stat">
+              <dt class="case-study__stat-label">{stat.label}</dt>
+              <dd class="case-study__stat-value">{stat.value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
     </header>
 
     {study.data.coverImage && (
@@ -61,6 +107,8 @@ const updatedLabel = study.data.updatedAt?.toLocaleDateString('en-GB', {
     <div class="case-study__body prose">
       <slot />
     </div>
+
+    <DetailNav prev={prev} next={next} navLabel="More case studies" />
 
   </main>
 </Layout>

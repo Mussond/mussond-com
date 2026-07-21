@@ -1,0 +1,87 @@
+/* ============================================
+   DETAIL NAV
+   Prev/next navigation — case-study and guide detail pages.
+   No board reference; leaf-radius bordered cards, alternating
+   orientation left/right, same interaction language as row cards.
+   ============================================ */
+
+.detail-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-border-base);
+}
+
+.detail-nav__link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  padding: 1.25rem 1.5rem;
+  border: 1.5px solid var(--color-border-base);
+  border-radius: var(--radius-leaf-card);
+  text-decoration: none;
+  color: inherit;
+  transition: border-radius var(--motion-leaf-duration) var(--motion-leaf-easing),
+              border-color var(--hover-grow-duration) var(--hover-grow-easing);
+}
+
+.detail-nav__link--next {
+  grid-column: 2;
+  align-items: flex-end;
+  text-align: right;
+  border-radius: var(--radius-leaf-card-flip);
+}
+
+.detail-nav__link:hover,
+.detail-nav__link:focus-visible {
+  border-color: var(--color-border-hover);
+  text-decoration: none;
+}
+
+.detail-nav__link--prev:hover,
+.detail-nav__link--prev:focus-visible {
+  border-radius: var(--radius-leaf-card-flip);
+}
+
+.detail-nav__link--next:hover,
+.detail-nav__link--next:focus-visible {
+  border-radius: var(--radius-leaf-card);
+}
+
+.detail-nav__link:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.detail-nav__kicker {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.detail-nav__title {
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .detail-nav__link:active {
+    transform: scale(0.99);
+  }
+}
+
+@media (max-width: 640px) {
+  .detail-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-nav__link--next {
+    grid-column: 1;
+    align-items: flex-start;
+    text-align: left;
+  }
+}

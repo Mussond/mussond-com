@@ -2,21 +2,40 @@
 import Layout from '../../layouts/Layout.astro';
 import BackLink from '../../components/BackLink.astro';
 import ContentHeader from '../../components/ContentHeader.astro';
+import DetailNav from '../../components/DetailNav.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
   const articles = await getCollection('guides');
-  return articles.map((article) => ({
-    params: { id: article.id },
-    props: { article },
-  }));
+  const sorted = [...articles].sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+  return articles.map((article) => {
+    const idx = sorted.findIndex((a) => a.id === article.id);
+    const prevArticle = idx > 0 ? sorted[idx - 1] : undefined;
+    const nextArticle = idx < sorted.length - 1 ? sorted[idx + 1] : undefined;
+    return {
+      params: { id: article.id },
+      props: {
+        article,
+        prev: prevArticle ? { href: `/guides/${prevArticle.id}`, title: prevArticle.data.title } : undefined,
+        next: nextArticle ? { href: `/guides/${nextArticle.id}`, title: nextArticle.data.title } : undefined,
+      },
+    };
+  });
+}
+
+interface NavItem {
+  href: string;
+  title: string;
 }
 
 interface Props {
   article: Awaited<ReturnType<typeof getCollection<'guides'>>>[number];
+  prev?: NavItem;
+  next?: NavItem;
 }
 
-const { article } = Astro.props;
+const { article, prev, next } = Astro.props;
 const { Content } = await render(article);
 ---
 
@@ -36,6 +55,8 @@ const { Content } = await render(article);
     <div class="prose">
       <Content />
     </div>
+
+    <DetailNav prev={prev} next={next} navLabel="More guides" />
 
   </main>
 </Layout>

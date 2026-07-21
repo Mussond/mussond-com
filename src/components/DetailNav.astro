@@ -1,0 +1,36 @@
+---
+// Prev/next navigation for case-study and guide detail pages.
+// No board reference — system extension (known phase-6 finding).
+// Callers compute prev/next by sorting their collection and passing
+// the adjacent entries in; this component only renders what it's given.
+
+interface NavItem {
+  href: string;
+  title: string;
+}
+
+interface Props {
+  prev?: NavItem;
+  next?: NavItem;
+  navLabel: string;
+}
+
+const { prev, next, navLabel } = Astro.props;
+---
+
+{(prev || next) && (
+  <nav class="detail-nav" aria-label={navLabel}>
+    {prev ? (
+      <a href={prev.href} class="detail-nav__link detail-nav__link--prev">
+        <span class="detail-nav__kicker">← Previous</span>
+        <span class="detail-nav__title">{prev.title}</span>
+      </a>
+    ) : <span class="detail-nav__spacer" aria-hidden="true"></span>}
+    {next && (
+      <a href={next.href} class="detail-nav__link detail-nav__link--next">
+        <span class="detail-nav__kicker">Next →</span>
+        <span class="detail-nav__title">{next.title}</span>
+      </a>
+    )}
+  </nav>
+)}

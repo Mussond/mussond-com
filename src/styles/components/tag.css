@@ -42,6 +42,26 @@
   opacity: 0.6;
 }
 
+/* Amber-wash pill — case-study header tags (board 4b/5b).
+   Sentence-case, body font, alternating leaf-mark radius per
+   sibling — same shape-alternation convention as row cards. */
+.tag--pill {
+  padding: 0.3125em 0.875em;
+  background-color: var(--color-bg-tag-accent);
+  border: 0;
+  border-radius: var(--radius-leaf-mark);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--color-text-primary);
+}
+
+.tag--pill:nth-child(even) {
+  border-radius: var(--radius-leaf-mark-flip);
+}
+
 /* Interactive filter button — Guides page toggles.
    Restores body-font appearance on top of the .tag mono base.
    Strong border on hover; sweep-in underline on the label.
@@ -141,4 +161,11 @@
   outline: 2px solid var(--color-action-border);
   outline-offset: -2px;
   border-color: var(--color-accent-selected);
+}
+
+/* Pale amber wash reads too close to the page background in high
+   contrast — swap to a defined keyline so the pill boundary holds. */
+[data-contrast="high"] .tag--pill {
+  background-color: transparent;
+  border: 1.5px solid var(--color-border-base);
 }

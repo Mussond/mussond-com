@@ -4,20 +4,43 @@ import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
   const caseStudies = await getCollection('case-studies');
-  return caseStudies.map((study) => ({
-    params: { id: study.id },
-    props: { study },
-  }));
+  // Reading order matches the case-studies index: only entries with a
+  // cover image are "primary" studies (excludes sub-pages like the
+  // Aviva approach-and-learnings deep dive), sorted newest first.
+  const sorted = caseStudies
+    .filter((study) => study.data.coverImage !== undefined)
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+  return caseStudies.map((study) => {
+    const idx = sorted.findIndex((s) => s.id === study.id);
+    const prevStudy = idx > 0 ? sorted[idx - 1] : undefined;
+    const nextStudy = idx > -1 && idx < sorted.length - 1 ? sorted[idx + 1] : undefined;
+    return {
+      params: { id: study.id },
+      props: {
+        study,
+        prev: prevStudy ? { href: `/case-studies/${prevStudy.id}`, title: prevStudy.data.title } : undefined,
+        next: nextStudy ? { href: `/case-studies/${nextStudy.id}`, title: nextStudy.data.title } : undefined,
+      },
+    };
+  });
+}
+
+interface NavItem {
+  href: string;
+  title: string;
 }
 
 interface Props {
   study: Awaited<ReturnType<typeof getCollection<'case-studies'>>>[number];
+  prev?: NavItem;
+  next?: NavItem;
 }
 
-const { study } = Astro.props;
+const { study, prev, next } = Astro.props;
 const { Content } = await render(study);
 ---
 
-<CaseStudyLayout study={study}>
+<CaseStudyLayout study={study} prev={prev} next={next}>
   <Content />
 </CaseStudyLayout>
