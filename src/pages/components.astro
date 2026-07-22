@@ -9,6 +9,7 @@ import CaseStudyCard from '../components/CaseStudyCard.astro';
 import CaseStudyGrid from '../components/CaseStudyGrid.astro';
 import DetailNav from '../components/DetailNav.astro';
 import DisplayControls from '../components/DisplayControls.astro';
+import DisplayControlsV2 from '../components/DisplayControlsV2.astro';
 import EthosList from '../components/EthosList.astro';
 import GuideCard from '../components/GuideCard.astro';
 import Hero from '../components/Hero.astro';
@@ -139,9 +140,9 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
       />
     </div>
 
-    <h2 id="display-controls-heading">DisplayControls</h2>
+    <h2 id="display-controls-heading">DisplayControls <span class="component-tag component-tag--legacy">Legacy</span></h2>
     <p class="component-meta">
-      Segmented radio groups rendered in the footer settings row on every page — the <code>variant="footer"</code> shape shown below. See the <a href="/#footer">footer</a>.
+      Segmented radio groups (bordered chips, stacked legends, "Currently: …" captions) — the phase-6 panel design. Superseded in the site footer by <a href="#display-controls-v2-heading">DisplayControlsV2</a>, but still live as a worked exhibit in the <a href="/guides/component-design-rule-of-3/">Rule of 3 guide</a> (<code>variant="panel"</code>, shown below), so this component and its CSS stay in the repo unchanged.
     </p>
     <ul class="component-meta__list">
       <li><strong>Theme:</strong> System / Light / Dark</li>
@@ -152,7 +153,16 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
       <a href={`${repo}/DisplayControls.astro`}>View source on GitHub →</a>
     </p>
     <div class="component-showcase">
-      <DisplayControls variant="footer" idPrefix="components-page" />
+      <DisplayControls variant="panel" idPrefix="components-page-v1" />
+    </div>
+
+    <h2 id="display-controls-v2-heading">DisplayControlsV2</h2>
+    <p class="component-meta">
+      Board-exact (gap 10) inline display-settings row: DISPLAY label + Theme/Contrast/Flourish groups side by side. Selected = ink pill + amber dot; unselected = borderless text with a growing amber underline + radius flip on hover. No visible "Currently: …" captions — a visually-hidden <code>aria-live</code> line per group keeps the change-announcement contract for screen-reader users. Rendered in the footer settings row on every page — see the <a href="/#footer">footer</a>.
+      <a href={`${repo}/DisplayControlsV2.astro`}>View source on GitHub →</a>
+    </p>
+    <div class="component-showcase">
+      <DisplayControlsV2 variant="footer" idPrefix="components-page-v2" />
     </div>
 
     <h2 id="ethos-list-heading">EthosList</h2>
