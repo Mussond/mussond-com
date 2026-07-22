@@ -79,7 +79,6 @@ const sortedLogs = logs
             <GuideCard
               href={`/guides/${article.id}`}
               title={article.data.title}
-              description={article.data.description}
               index={idx + 1}
               readTime={article.readTime}
               date={article.data.date}
@@ -102,7 +101,6 @@ const sortedLogs = logs
             <LogCard
               href={log.href}
               title={log.data.title}
-              description={log.data.description}
               year={log.year}
               external={!!log.data.externalUrl}
             />

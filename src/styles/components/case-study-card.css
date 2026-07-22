@@ -308,8 +308,12 @@
   grid-template-columns: 64px 1fr auto;
   align-items: center;
   gap: var(--space-p6);
-  padding: var(--space-p4) var(--space-p6);
+  padding: 20px var(--space-p6);
   border-radius: var(--radius-leaf-card-alt);
+  /* Row's neutral card border (board 4a) differs from the amber-tinted
+     --color-border-card used by the featured/secondary cover variants —
+     override locally rather than touching the shared token. */
+  border-color: var(--color-border-base);
 }
 
 .cs-card-row-list > .cs-card--row:nth-child(even) {
