@@ -47,7 +47,6 @@ const sortedLogs = logs
         eyebrow="Selected Work"
         heading="Case studies"
         headingId="cs-heading"
-        viewAllHref="/case-studies"
       />
       {sortedCaseStudies.length > 0 && (
         <div class="cs-card-row-list">
@@ -71,7 +70,6 @@ const sortedLogs = logs
         eyebrow="Long-form writing"
         heading="Guides"
         headingId="guides-heading"
-        viewAllHref="/guides"
       />
       <GuideCardFeed>
         {sortedWriting.map((article, idx) => (
@@ -93,7 +91,6 @@ const sortedLogs = logs
         eyebrow="Curated resources"
         heading="Logs"
         headingId="logs-heading"
-        viewAllHref="/logs"
       />
       <LogCardFeed>
         {sortedLogs.map((log) => (
