@@ -169,7 +169,7 @@ function initSystemListeners() {
 // ============================================
 
 function getFooterControls(): HTMLElement | null {
-  return document.querySelector('.site-footer .display-controls');
+  return document.querySelector('.site-footer [data-display-controls]');
 }
 
 function wireFooter() {

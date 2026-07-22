@@ -371,14 +371,16 @@ const SCENARIOS: ComponentScenario[] = [
     ],
   },
 
-  // ── DisplayControls (footer) ────────────────────────────────────────────
-  // One instance now, rendered in the footer on every page. Each contrast
+  // ── DisplayControlsV2 (footer) ──────────────────────────────────────────
+  // One instance now, rendered in the footer on every page (7.11 — the
+  // board-exact inline row replaces the old panel/drawer component there;
+  // the original stays live only in the Rule of 3 guide). Each contrast
   // chip selected in turn, then each theme chip, then each flourish chip.
   // Selection is applied via .checked = true (no change event) so the
   // matrix's forced theme/contrast state isn't overridden by the
   // component's own handlers.
   ...['low', 'high', 'system'].map((value): ComponentScenario => ({
-    component: `DisplayControls — contrast-${value}`,
+    component: `DisplayControlsV2 — contrast-${value}`,
     route: '/',
     states: [
       {
@@ -387,7 +389,7 @@ const SCENARIOS: ComponentScenario[] = [
         setup: async (page) => {
           await page.evaluate((v) => {
             const radios = document.querySelectorAll<HTMLInputElement>(
-              '.display-controls--footer input[data-control="contrast"]'
+              '.display-controls-v2--footer input[data-control="contrast"]'
             );
             radios.forEach(r => { r.checked = r.value === v; });
           }, value);
@@ -396,7 +398,7 @@ const SCENARIOS: ComponentScenario[] = [
     ],
   })),
   ...['system', 'light', 'dark'].map((value): ComponentScenario => ({
-    component: `DisplayControls — theme-${value}`,
+    component: `DisplayControlsV2 — theme-${value}`,
     route: '/',
     states: [
       {
@@ -405,7 +407,7 @@ const SCENARIOS: ComponentScenario[] = [
         setup: async (page) => {
           await page.evaluate((v) => {
             const radios = document.querySelectorAll<HTMLInputElement>(
-              '.display-controls--footer input[data-control="theme"]'
+              '.display-controls-v2--footer input[data-control="theme"]'
             );
             radios.forEach(r => { r.checked = r.value === v; });
           }, value);
@@ -414,7 +416,7 @@ const SCENARIOS: ComponentScenario[] = [
     ],
   })),
   ...['full', 'reduced', 'raw'].map((value): ComponentScenario => ({
-    component: `DisplayControls — flourish-${value}`,
+    component: `DisplayControlsV2 — flourish-${value}`,
     route: '/',
     states: [
       {
@@ -423,7 +425,7 @@ const SCENARIOS: ComponentScenario[] = [
         setup: async (page) => {
           await page.evaluate((v) => {
             const radios = document.querySelectorAll<HTMLInputElement>(
-              '.display-controls--footer input[data-control="flourish"]'
+              '.display-controls-v2--footer input[data-control="flourish"]'
             );
             radios.forEach(r => { r.checked = r.value === v; });
           }, value);
@@ -432,7 +434,7 @@ const SCENARIOS: ComponentScenario[] = [
     ],
   })),
   {
-    component: 'DisplayControls — chip-focus',
+    component: 'DisplayControlsV2 — chip-focus',
     route: '/',
     states: [
       {
@@ -441,7 +443,7 @@ const SCENARIOS: ComponentScenario[] = [
         setup: async (page) => {
           await page.evaluate(() => {
             const radio = document.querySelector<HTMLInputElement>(
-              '.display-controls--footer input[data-control="contrast"]'
+              '.display-controls-v2--footer input[data-control="contrast"]'
             );
             radio?.focus();
           });
