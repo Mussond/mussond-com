@@ -10,6 +10,15 @@
 // exhibit (phase 7B decision 6) — this component shares that script's
 // data-control attributes and :has(:checked) sync logic, not its
 // markup or CSS.
+//
+// Each group's visible label is a plain <span>, not the <legend>
+// itself — <legend> always renders as a special block-level box at
+// its fieldset's top edge, regardless of the fieldset's own display
+// value (confirmed: neither display:flex nor display:grid on
+// .display-controls-v2__group overrides it). Rather than fight that,
+// the <legend> stays for native group semantics but is visually
+// hidden; the aria-hidden span carries the same text and lays out
+// as an ordinary flex item beside .display-controls-v2__options.
 
 interface Props {
   variant: 'footer';
@@ -41,7 +50,8 @@ const flourishOptions = [
   <p class="display-controls-v2__label">Display</p>
 
   <fieldset class="display-controls-v2__group">
-    <legend class="display-controls-v2__legend">Theme</legend>
+    <legend class="visually-hidden">Theme</legend>
+    <span class="display-controls-v2__legend" aria-hidden="true">Theme</span>
     <div class="display-controls-v2__options">
       {themeOptions.map((option) => (
         <label class="display-controls-v2__chip">
@@ -62,7 +72,8 @@ const flourishOptions = [
   </fieldset>
 
   <fieldset class="display-controls-v2__group">
-    <legend class="display-controls-v2__legend">Contrast</legend>
+    <legend class="visually-hidden">Contrast</legend>
+    <span class="display-controls-v2__legend" aria-hidden="true">Contrast</span>
     <div class="display-controls-v2__options">
       {contrastOptions.map((option) => (
         <label class="display-controls-v2__chip">
@@ -83,7 +94,8 @@ const flourishOptions = [
   </fieldset>
 
   <fieldset class="display-controls-v2__group">
-    <legend class="display-controls-v2__legend">Flourish</legend>
+    <legend class="visually-hidden">Flourish</legend>
+    <span class="display-controls-v2__legend" aria-hidden="true">Flourish</span>
     <div class="display-controls-v2__options">
       {flourishOptions.map((option) => (
         <label class="display-controls-v2__chip">
