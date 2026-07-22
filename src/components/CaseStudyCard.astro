@@ -47,6 +47,7 @@ const hasCover = Boolean(cover);
 const slug = cover?.slug ?? '';
 const isFeatured = variant === 'featured';
 const isRow = variant === 'row';
+const rowTitle = isRow && cover?.brand ? `${cover.brand} — ${title}` : title;
 const showStats = isFeatured && stats !== undefined && stats.length > 0;
 // Featured shows year in the plate; secondary prepends year to its tag list
 const metaTags = !isFeatured && !isRow && year !== undefined ? [String(year), ...tags] : tags;
@@ -57,7 +58,7 @@ const coverStyle = hasCover ? `--card-bg: var(--cover-${slug}-bg); --card-fg: va
   <a href={href} class="cs-card cs-card--row" style={coverStyle}>
     <span class="cs-card__row-tile" aria-hidden="true">{cover?.tag ?? cover?.brand?.slice(0, 3).toUpperCase()}</span>
     <span class="cs-card__row-body">
-      <Heading class="cs-card__row-title">{title}</Heading>
+      <Heading class="cs-card__row-title">{rowTitle}</Heading>
       {tags.length > 0 && <span class="cs-card__row-meta">{tags.join(' · ')}</span>}
     </span>
     {year && <span class="cs-card__row-year">{year} →</span>}

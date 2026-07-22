@@ -1,7 +1,8 @@
 /* ============================================
    SECTION HEADER
-   Eyebrow label (Source Sans 3, uppercase) + Source Sans 3 heading
-   + optional "View all" CTA using <Button variant="secondary">.
+   Eyebrow label (Source Sans 3, uppercase) + Source Sans 3 heading.
+   Board 4a home preview sections carry no "View all" CTA — nav +
+   card rows carry navigation instead (decision 2).
 
    Eyebrow dash treatment mirrors the nav amber dot:
    — amber in low, all flourish settings (action-bg)
@@ -12,16 +13,9 @@
 
 .section-header {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.section-header__left {
-  display: flex;
   flex-direction: column;
   gap: 0.375rem;
+  margin-bottom: 2rem;
 }
 
 .section-header__eyebrow {
@@ -51,11 +45,4 @@
   font-size: var(--text-xl);
   font-weight: 650;
   letter-spacing: -0.01em;
-}
-
-@media (max-width: 640px) {
-  .section-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
 }

@@ -281,22 +281,14 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
 
     <h2 id="section-header-heading">SectionHeader</h2>
     <p class="component-meta">
-      Eyebrow + heading + optional 'View all' link. Used to introduce homepage preview sections.
+      Eyebrow + heading. Used to introduce homepage preview sections; nav and card rows carry navigation, so there's no 'View all' link (board 4a).
       <a href={`${repo}/SectionHeader.astro`}>View source on GitHub →</a>
     </p>
     <div class="component-showcase">
-      <p class="component-showcase__caption">With 'View all' link</p>
       <SectionHeader
         eyebrow="Selected work"
         heading="Case studies"
-        headingId="showcase-section-header-with"
-        viewAllHref="#"
-      />
-      <p class="component-showcase__caption">Without 'View all' link</p>
-      <SectionHeader
-        eyebrow="Recent"
-        heading="Logs"
-        headingId="showcase-section-header-without"
+        headingId="showcase-section-header"
       />
     </div>
 

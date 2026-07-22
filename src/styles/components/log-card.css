@@ -25,7 +25,7 @@
   align-items: center;
   gap: var(--space-p6);
   width: 100%;
-  padding: var(--space-p4) var(--space-p6);
+  padding: 18px var(--space-p6);
   border: 1.5px solid var(--color-border-base);
   border-radius: var(--radius-leaf-card);
   background: var(--color-bg-card);
