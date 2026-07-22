@@ -174,9 +174,10 @@ html.dark .site-header__bar {
 
 /* Underline sweep inset by the link's own horizontal padding (18px),
    so it sits under the label rather than spanning the pill edges —
-   matches the board's background-position/size mechanic exactly. */
-.nav-link__label {
-  display: inline-block;
+   matches the board's background-position/size mechanic exactly.
+   Lives on the pill itself (not the inner label span) so the 100%/calc
+   math resolves against the pill's full padded width. */
+.site-header__nav-link {
   background-image: linear-gradient(var(--color-link-underline), var(--color-link-underline));
   background-size: 0% 2px;
   background-position: 18px calc(100% - 6px);
@@ -186,7 +187,7 @@ html.dark .site-header__bar {
 
 /* Focus doesn't grow the underline sweep (board 5c: focus column
    keeps the rest-state 0% underline, outline carries the signal). */
-.site-header__nav-link:not([aria-current="page"]):hover .nav-link__label {
+.site-header__nav-link:not([aria-current="page"]):hover {
   background-size: calc(100% - 36px) 2px;
 }
 
