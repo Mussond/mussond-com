@@ -9,6 +9,7 @@ import CaseStudyCard from '../components/CaseStudyCard.astro';
 import CaseStudyGrid from '../components/CaseStudyGrid.astro';
 import DetailNav from '../components/DetailNav.astro';
 import DisplayControls from '../components/DisplayControls.astro';
+import DisplayControlsV2 from '../components/DisplayControlsV2.astro';
 import EthosList from '../components/EthosList.astro';
 import GuideCard from '../components/GuideCard.astro';
 import Hero from '../components/Hero.astro';
@@ -64,11 +65,11 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
 
     <h2 id="case-study-card-heading">CaseStudyCard</h2>
     <p class="component-meta">
-      Case study card with featured, secondary, and row variants. Supports per-slug cover blocks (brand-coloured) or a card image. Row is the homepage-preview shape: 64px tile, title+meta, year — see the case-studies-row-list container below.
+      Case study card with featured, secondary, and row variants. Supports per-slug cover blocks (brand-coloured) or a card image. Row is the homepage-preview shape: 64px tile, client-prefixed title+meta, year — see the case-studies-row-list container below. Featured and secondary are the case-studies index shape, and are also embedded live as worked exhibits in the <a href="/guides/component-design-rule-of-3/">Rule of 3 guide</a> — kept in their current shape (phase 7B decision 6).
       <a href={`${repo}/CaseStudyCard.astro`}>View source on GitHub →</a>
     </p>
     <div class="component-showcase">
-      <p class="component-showcase__caption">Featured + secondary, with cover blocks</p>
+      <p class="component-showcase__caption">Featured + secondary, with cover blocks <span class="component-tag component-tag--legacy">Legacy-but-live · Rule of 3 exhibit</span></p>
       <CaseStudyGrid>
         <CaseStudyCard
           variant="featured"
@@ -139,9 +140,9 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
       />
     </div>
 
-    <h2 id="display-controls-heading">DisplayControls</h2>
+    <h2 id="display-controls-heading">DisplayControls <span class="component-tag component-tag--legacy">Legacy</span></h2>
     <p class="component-meta">
-      Segmented radio groups rendered in the footer settings row on every page — the <code>variant="footer"</code> shape shown below. See the <a href="/#footer">footer</a>.
+      Segmented radio groups (bordered chips, stacked legends, "Currently: …" captions) — the phase-6 panel design. Superseded in the site footer by <a href="#display-controls-v2-heading">DisplayControlsV2</a>, but still live as a worked exhibit in the <a href="/guides/component-design-rule-of-3/">Rule of 3 guide</a> (<code>variant="panel"</code>, shown below), so this component and its CSS stay in the repo unchanged.
     </p>
     <ul class="component-meta__list">
       <li><strong>Theme:</strong> System / Light / Dark</li>
@@ -152,7 +153,16 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
       <a href={`${repo}/DisplayControls.astro`}>View source on GitHub →</a>
     </p>
     <div class="component-showcase">
-      <DisplayControls variant="footer" idPrefix="components-page" />
+      <DisplayControls variant="panel" idPrefix="components-page-v1" />
+    </div>
+
+    <h2 id="display-controls-v2-heading">DisplayControlsV2</h2>
+    <p class="component-meta">
+      Board-exact (gap 10) inline display-settings row: DISPLAY label + Theme/Contrast/Flourish groups side by side. Selected = ink pill + amber dot; unselected = borderless text with a growing amber underline + radius flip on hover. No visible "Currently: …" captions — a visually-hidden <code>aria-live</code> line per group keeps the change-announcement contract for screen-reader users. Rendered in the footer settings row on every page — see the <a href="/#footer">footer</a>.
+      <a href={`${repo}/DisplayControlsV2.astro`}>View source on GitHub →</a>
+    </p>
+    <div class="component-showcase">
+      <DisplayControlsV2 variant="footer" idPrefix="components-page-v2" />
     </div>
 
     <h2 id="ethos-list-heading">EthosList</h2>
@@ -177,7 +187,7 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
 
     <h2 id="footer-heading">Footer</h2>
     <p class="component-meta">
-      Three bands: the settings row (<a href="#display-controls-heading">DisplayControls</a>, shown below), link columns (Work / About / Connect), and a meta bar with strapline, copyright, and availability note. Visible at the bottom of every page.
+      Three bands: the settings row (<a href="#display-controls-v2-heading">DisplayControlsV2</a>, shown below), link columns (Work / About / Connect), and a meta bar with strapline, copyright, and availability note. Visible at the bottom of every page.
       <a href={`${repo}/Footer.astro`}>View source on GitHub →</a>
     </p>
 
@@ -246,7 +256,7 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
 
     <h2 id="monogram-heading">Monogram</h2>
     <p class="component-meta">
-      DM monogram SVG. Sizable via the <code>size</code> prop. <code>currentColor</code> fill so it inherits theme colour.
+      DM monogram SVG. Sizable via the <code>size</code> prop. <code>currentColor</code> fill so it inherits theme colour. Active in two places: SiteHeader's logo mark, and Footer's link-columns band (right-hand dead space, phase 7B decision 3).
       <a href={`${repo}/Monogram.astro`}>View source on GitHub →</a>
     </p>
     <div class="component-showcase">
@@ -306,7 +316,7 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
 
     <h2 id="stat-block-heading">StatBlock</h2>
     <p class="component-meta">
-      Heading + description-list of stats. Used in case studies for outcomes.
+      Heading + description-list of stats. Still earns its place — used live in the Aviva and Coursera case studies for outcome stats.
       <a href={`${repo}/StatBlock.astro`}>View source on GitHub →</a>
     </p>
     <div class="component-showcase">
@@ -401,7 +411,7 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
 
     <h3 id="theme-drawer-heading">ThemeDrawer &amp; DisplaySettings</h3>
     <p class="component-meta">
-      Removed in sprint 7.2 — theme/contrast/flourish controls now live in one <a href="#display-controls-heading">DisplayControls</a> instance in the footer on every page. Files deleted from the repo.
+      Removed in sprint 7.2 — theme/contrast/flourish controls now live in one <a href="#display-controls-v2-heading">DisplayControlsV2</a> instance in the footer on every page. Files deleted from the repo.
     </p>
 
     <h3 id="sidebar-heading">Sidebar &amp; Identity</h3>
@@ -428,6 +438,7 @@ const repo = 'https://github.com/Mussond/mussond-com/blob/main/src/components';
     <p class="component-meta">
       Components used as page wrappers rather than embedded surfaces:
       <a href={`${repo}/CaseStudyLayout.astro`}>CaseStudyLayout</a> wraps every case study page with header, lede, tags, hero image, and prose body.
+      <a href={`${repo}/CaseStudyGrid.astro`}>CaseStudyGrid</a> owns the featured/secondary grid layout around CaseStudyCard (shown above) and is also used directly in the <a href="/guides/component-design-rule-of-3/">Rule of 3 guide</a>'s MDX content — not shown standalone here since it has no visual form of its own.
     </p>
 
   </main>

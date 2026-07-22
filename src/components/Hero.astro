@@ -1,7 +1,8 @@
 ---
 // Hero — homepage opener. Board 4a: eyebrow (amber tick) → 54px
-// stance H1 (weight 650, amber highlighter on the closing phrase) →
-// 22px lead → primary/secondary CTAs. Per the 4a/5a boards, the
+// stance H1 (weight 650, amber-text emphasis on the closing phrase —
+// decision 5, not the board's inset highlighter) → 22px lead →
+// primary/secondary CTAs. Per the 4a/5a boards, the
 // eyebrow lives here (below SiteHeader), not in the header itself —
 // the header only ever carries the logo + wordmark + nav. The stance
 // line is the page's h1 (boards mark it up as <h1>; SiteHeader's
@@ -122,24 +123,15 @@ import Button from './Button.astro';
     text-wrap: pretty;
   }
 
-  /* Baseline signal: amber text, works in every mode incl. raw
-     (native colour, no shadow needed). Full flourish (below)
-     swaps to the board's inset highlighter instead. */
+  /* Amber text is the only emphasis treatment, in every flourish state
+     (phase 7B decision 5 — the board's inset-highlighter alternative
+     was reviewed live 2026-07-22 and Dave chose to keep this instead). */
   .hero__emphasis {
     color: var(--amber-11);
   }
 
   html.dark .hero__emphasis {
     color: var(--amber-9);
-  }
-
-  [data-flourish="full"]:not([data-contrast="high"]) .hero__emphasis {
-    color: inherit;
-    box-shadow: inset 0 -0.45em 0 var(--amber-9);
-  }
-
-  .dark[data-flourish="full"]:not([data-contrast="high"]) .hero__emphasis {
-    box-shadow: inset 0 -0.45em 0 color-mix(in srgb, var(--amber-9) 35%, transparent);
   }
 
   .hero__lead {
