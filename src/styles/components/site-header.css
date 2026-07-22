@@ -260,7 +260,13 @@ html.light[data-contrast="high"] .site-header__nav-link[aria-current="page"] {
 
 /* ── Mobile — nav collapses into a panel under the bar ───────── */
 
-@media (max-width: 1024px) {
+/* 900px, not the old 1024px: measured the bar's actual content need
+   (logo+wordmark ~151px, nav-list ~488px, bar's own padding ~28px,
+   flex gap ~24px = ~691px) against available bar width (viewport -
+   128px of header inset) — full nav fits down to ~820px. 900px keeps
+   ~80px of breathing room above that hard minimum without collapsing
+   ~150px of viewport early like 1024px did. */
+@media (max-width: 900px) {
   .site-header__menu-toggle { display: inline-flex; }
 
   .site-header__nav {
