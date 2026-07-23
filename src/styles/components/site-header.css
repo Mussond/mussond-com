@@ -91,6 +91,13 @@ html.dark .site-header__bar {
   -webkit-backdrop-filter: none;
 }
 
+/* html.dark .site-header__bar above (0,2,1) outranks the rule above
+   (0,2,0) — without this, the translucent dark glass bg wins over the
+   solid high-contrast one and the bar stays glass in dark + high. */
+html.dark[data-contrast="high"] .site-header__bar {
+  background: var(--color-bg-base);
+}
+
 /* ── Logo + wordmark ──────────────────────────────────────────── */
 
 .site-header__logo {
@@ -224,8 +231,22 @@ html.dark .site-header__bar {
   border-color: var(--color-action-bg);
 }
 
+/* Light + high: keep the solid dark-sand fill low contrast already
+   uses (--color-accent-selected-inverse / --color-bg-base pairing)
+   rather than the transparent-plus-outline treatment above — that
+   pairing is already shipped and contrast-verified at low contrast. */
 html.light[data-contrast="high"] .site-header__nav-link[aria-current="page"] {
+  background: var(--color-accent-selected-inverse);
+  color: var(--color-bg-base);
   border-color: var(--color-text-primary);
+}
+
+/* Restoring the dark-sand fill above puts the dot back on a dark
+   surface, same problem the .dark rule above solves — high contrast's
+   --color-eyebrow-dash is a dark brown tuned for light backgrounds,
+   so it fails here too. Same currentColor fix. */
+html.light[data-contrast="high"] .site-header__nav-link[aria-current="page"]::before {
+  background: currentColor;
 }
 
 /* ── Mobile menu toggle — hidden on desktop ───────────────────── */

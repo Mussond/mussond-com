@@ -111,6 +111,14 @@
   background: currentColor;
 }
 
+/* Light + high contrast: --color-eyebrow-dash becomes a dark brown
+   (tuned for light backgrounds) but the selected pill's bg is dark
+   sand at every contrast level — same dot-on-dark problem as dark
+   mode above, same currentColor fix. */
+[data-contrast="high"] .display-controls-v2__chip:has(input:checked)::before {
+  background: currentColor;
+}
+
 .display-controls-v2__chip:has(input:focus-visible) {
   outline: 3px solid var(--color-focus-ring);
   outline-offset: 2px;
