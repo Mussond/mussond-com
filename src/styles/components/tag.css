@@ -63,9 +63,10 @@
 }
 
 /* Interactive filter button — Guides page toggles.
-   Restores body-font appearance on top of the .tag mono base.
-   Strong border on hover; sweep-in underline on the label.
-   Pressed state fills directly. */
+   Board 5c "Display toggle" chip: borderless text at rest, growing
+   amber underline + radius flip on hover — same leaf-chip mechanic
+   as the footer DisplayControlsV2 (shares its radius/underline
+   tokens, board-exact 14px inset). Pressed state fills directly. */
 .tag--filter {
   position: relative;
   font-family: inherit;
@@ -73,49 +74,49 @@
   font-weight: 600;
   text-transform: none;
   letter-spacing: 0.5px;
-  background-color: var(--sand-2);
-  padding: 0.2em 0.75em;
-  border-radius: var(--radius-leaf-mark);
-  border-color: var(--color-action-border);
+  background-color: transparent;
+  background-image: linear-gradient(var(--color-link-underline), var(--color-link-underline));
+  background-size: 0% 2px;
+  background-position: 14px calc(100% - 4px);
+  background-repeat: no-repeat;
+  padding: 6px 14px;
+  border: 0;
+  border-radius: var(--radius-leaf-chip);
   color: inherit;
   cursor: pointer;
   transition: border-radius var(--motion-leaf-duration) var(--motion-leaf-easing),
-              background-color var(--hover-grow-duration) var(--hover-grow-easing),
-              border-color var(--hover-grow-duration) var(--hover-grow-easing);
+              background-size var(--hover-underline-duration) var(--hover-underline-easing);
 }
 
-/* Label — wrapper span. No underline treatment; the grow + bg
-   colour shift carry the hover signal alone. */
+/* Label — wrapper span, no styling of its own; the underline lives
+   on the button so its width tracks the full padded box. */
 .tag__label {
   display: inline-block;
 }
 
-/* Hover — amber wash + keyline + shape flip (board 5c "Display
+/* Hover — amber underline grows in + shape flip (board 5c "Display
    toggle" chip mechanic; unselected only, matches the pressed/
    selected state having no hover feedback below). */
 .tag--filter:not([aria-pressed="true"]):hover {
-  background-color: var(--color-bg-hover);
-  border-color: var(--color-border-hover);
-  border-width: 2px;
-  border-radius: var(--radius-leaf-mark-flip);
-  padding: calc(0.2em - 1px) calc(0.75em - 1px);
+  background-size: calc(100% - 28px) 2px;
+  border-radius: var(--radius-leaf-chip-flip);
 }
 
 /* Selected state — filled directly, no hover feedback (board 5c
    "Display toggle (selected)": default/hover columns are identical). */
 .tag--filter[aria-pressed="true"] {
-  background: var(--color-action-bg);
-  border-color: var(--color-action-border);
+  background-color: var(--color-action-bg);
+  background-image: none;
   color: var(--color-action-text);
 }
 
-/* Focus ring — leaf shape with offset, no radius flip (board 5c:
-   toggle focus keeps rest-state shape; outline alone signals it).
+/* Focus ring — leaf-chip shape, no flip (board 5c: toggle focus
+   keeps rest-state shape; outline alone signals it).
    border-radius overrides a:focus-visible's leaf-link radius in base.css */
 .tag--filter:focus-visible {
   outline: 3px solid var(--color-focus-ring);
   outline-offset: 2px;
-  border-radius: var(--radius-leaf-mark);
+  border-radius: var(--radius-leaf-chip);
 }
 
 @media (prefers-reduced-motion: no-preference) {
