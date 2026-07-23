@@ -204,6 +204,15 @@ html.dark .site-header__bar {
   display: inline-block;
 }
 
+/* Dark mode: the pill background inverts to a pale cream, so the
+   default amber-9 dot (tuned for light-on-dark eyebrow use) drops to
+   ~1.4:1 against it — fails WCAG 1.4.11. Inherit the pill's own text
+   color instead, which is already guaranteed legible against its own
+   background. Light mode keeps the amber dot untouched. */
+.dark .site-header__nav-link[aria-current="page"]::before {
+  background: currentColor;
+}
+
 [data-contrast="high"] .site-header__nav-link {
   border: var(--stroke-1) solid transparent;
 }

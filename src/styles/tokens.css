@@ -313,6 +313,7 @@
   --color-bg-card:       var(--warm-card);       /* surface/card — board #1e1d18 */
   --color-bg-stat:       var(--warm-card);       /* stat tile — board 5b uses the same #1e1d18 as card surface */
   --color-border-base:   var(--warm-border);     /* border — board #3a3830 */
+  --color-accent-selected-inverse: var(--warm-ink);  /* current-page nav surface — was sand-12 dark (#eeeeec), too bright; matches footer chip's cream (#e5e0d4) */
   --color-footer-divider:  rgba(255, 255, 255, 0.18);  /* footer settings-row/meta divider (board 5a) — lighter alpha on dark surface */
   --color-chip-selected-text: #1c1b17;  /* board 5a — near-black text on pale selected pill, distinct one-off from the page/footer dark surfaces */
 }
