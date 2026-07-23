@@ -7,9 +7,9 @@
   margin-bottom: 2rem;
   font-size: var(--text-sm); /* 14px — board 4b */
   font-weight: 700;
-  color: var(--color-link-underline);
+  color: var(--color-text-primary);
   text-decoration: none;
-  background-image: linear-gradient(var(--color-link-underline), var(--color-link-underline));
+  background-image: linear-gradient(var(--color-text-primary), var(--color-text-primary));
   background-size: 0% var(--hover-underline-thickness);
   background-position: 0 100%;
   background-repeat: no-repeat;
