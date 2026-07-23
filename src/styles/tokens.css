@@ -355,9 +355,12 @@
 /* Dark + high — re-pin warm-text token to a dark value, since the
    shared high override above sets --color-action-text to sand-12,
    which inverts to near-white in dark and breaks contrast on the
-   bright amber action background. */
+   bright amber action background. amber-a8 (a translucent amber)
+   was tried first but blends into the amber-9 fill it sits on,
+   collapsing to ~1:1 contrast — amber-1 is solid and matches the
+   near-black text the button already uses at low contrast. */
 .dark[data-contrast="high"] {
-  --color-action-text:   var(--amber-a8);    /* dark text on amber-9 in dark/high */
+  --color-action-text:   var(--amber-1);    /* solid dark text on amber-9 in dark/high */
 }
 
 /* ============================================
