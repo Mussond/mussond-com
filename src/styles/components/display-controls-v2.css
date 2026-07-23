@@ -103,6 +103,14 @@
   background: var(--color-eyebrow-dash);
 }
 
+/* Dark mode: the selected pill's background is a pale cream, so the
+   default amber-9 dot drops to ~1.2:1 against it — fails WCAG 1.4.11.
+   Inherit the pill's own text color instead, already tuned for
+   contrast against this exact background. Light mode is untouched. */
+.dark .display-controls-v2__chip:has(input:checked)::before {
+  background: currentColor;
+}
+
 .display-controls-v2__chip:has(input:focus-visible) {
   outline: 3px solid var(--color-focus-ring);
   outline-offset: 2px;
